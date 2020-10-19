@@ -1,38 +1,73 @@
 package com.example.ss7g7.stars;
 
+import java.time.*;
+
 public class Index {
 	private int indexNum;
 	private int numVacancy;
-	private String[] vacancy;
+	private String[] seatVacancy;
 	private String tutVenue;
 	private String tutDateTime;
 	private String labVenue;
 	private String labDateTime;
-	private String lecVenue;
-	private String lecDateTime;
 	private boolean indexFull;
-	
+	//TODO: waitlist for students
+	//TODO: indexFull 
+	//TODO: Venue for lab, tut
+	//TODO: Day and Time for lab, tut
 	
 	public Index(int index_Num, int num_Vacancy) {
 		this.indexNum=index_Num;
 		this.numVacancy=num_Vacancy;
-		vacancy = new String[numVacancy];
+		seatVacancy = new String[numVacancy];
 		
+		//initialize all to vacant
 		for(int i =0;i<numVacancy;i++) {
-			this.vacancy[i]="no student";
+			this.seatVacancy[i]="vacant";
 		}
 	}
 	
+	// TODO: Waitlist of students
+	// TODO: if index full set boolean true
+	public void assignStudent(String matricNo) {
+		for(int i =0;i<numVacancy;i++) {
+			if(seatVacancy[i].contains(matricNo)) {
+				System.out.println(matricNo+ " has registered before.");
+				return;
+			}else if(seatVacancy[i]== "vacant"){
+				seatVacancy[i]=matricNo;
+				
+				return;
+			}
+		}
+		System.out.println("Index Full!");
+	}
+	
+	public void unassignStudent(String matricNo) {
+		// TODO: if indexFull boolean was true, change to false
+		for(int i =0;i<numVacancy;i++) {
+			if(seatVacancy[i].contains(matricNo)) {
+				seatVacancy[i] = "vacant";
+				return;
+			}
+		}
+		System.out.println(matricNo+ " was not found.");
+	}
 	public int showNumOfVacancies() {
 		int numOfVacant=0;
 		
 		for(int i =0;i<numVacancy;i++) {
-			if(vacancy[i]=="no student") {
+			if(seatVacancy[i]=="vacant") {
 				numOfVacant++;
 			}
 		}
-		
 		return numOfVacant;
+	}
+	
+	public void showAllSeats() {
+		for(int i =0;i<numVacancy;i++) {
+			System.out.println(i+1 + ": "+seatVacancy[i]);
+		}
 	}
 
 	public int getIndexNum() {
@@ -75,22 +110,7 @@ public class Index {
 		this.labDateTime = labDateTime;
 	}
 
-	public String getLecVenue() {
-		return lecVenue;
-	}
 
-	public void setLecVenue(String lecVenue) {
-		this.lecVenue = lecVenue;
-	}
-
-	public String getLecDateTime() {
-		return lecDateTime;
-	}
-
-	public void setLecDateTime(String lecDateTime) {
-		this.lecDateTime = lecDateTime;
-	}
-	
 	
 
 }

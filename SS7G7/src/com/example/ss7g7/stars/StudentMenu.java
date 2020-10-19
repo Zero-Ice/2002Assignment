@@ -12,6 +12,42 @@ public class StudentMenu {
 	}
 	
 	public void run() {
+		
+		
+		//////////////////////    test for shah Pls do not remove
+		Course cz2007 = new Course("cz2007","DB","SCSE");
+		cz2007.addIndex(1011, 20);
+		cz2007.addIndex(1012, 30);
+		cz2007.addIndex(1013, 15);
+
+		Course cz2006 = new Course("cz2006","SE","SCSE");
+		cz2006.addIndex(2011, 10);
+		cz2006.addIndex(2012, 30);
+		cz2006.addIndex(2013, 12);
+
+		Course cz2005 = new Course("cz2005","OS","SCSE");
+		cz2005.addIndex(3011, 5);
+		cz2005.addIndex(3012, 20);
+		cz2005.addIndex(3013, 4);
+		
+		System.out.println("\n");
+		cz2005.showfullCourseDetails();
+		cz2006.showfullCourseDetails();
+		cz2007.showfullCourseDetails();
+		System.out.println("\n");
+
+		
+		cz2005.assignStudent(3013, "U1921464C");
+		cz2005.assignStudent(3013, "U1451201A");
+		cz2005.assignStudent(3013, "U1945464C");
+		cz2005.assignStudent(3013, "U1921201G");
+		cz2005.assignStudent(3012, "U1921201G");
+		System.out.println("\n");
+		cz2005.showfullCourseDetails();
+		
+		
+		/////////////////////////////////////
+		
 		boolean run = true;
 		int choice;
 		
