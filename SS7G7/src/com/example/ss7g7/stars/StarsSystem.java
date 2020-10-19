@@ -92,7 +92,6 @@ public class StarsSystem {
 	private void runStudentMenu() {
 		// TODO: Get Student Info based on currentUser
 		
-//		Student student = db.getStudent(currentUser.getUsername());
 		Student student = db.getDebugStudent();
 		
 		if(student == null) {
