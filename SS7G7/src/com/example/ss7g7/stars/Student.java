@@ -40,7 +40,7 @@ public class Student {
 		return true;
 	}
 	
-	public boolean removeCourse(int indexNo) {
+	public boolean dropCourse(int indexNo) {
 		return indexes.remove(Integer.valueOf(indexNo));
 	}
 	

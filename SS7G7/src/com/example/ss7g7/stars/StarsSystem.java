@@ -98,7 +98,7 @@ public class StarsSystem {
 			// throw exception. User exists but student does not exist in db
 		}
 		
-		StudentMenu studentMenu = new StudentMenu(student);
+		StudentMenu studentMenu = new StudentMenu(db, student);
 		
 		studentMenu.run();
 		

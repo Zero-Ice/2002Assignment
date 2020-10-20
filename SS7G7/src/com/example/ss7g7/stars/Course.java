@@ -66,7 +66,7 @@ public class Course {
 	}
 	
 	
-	public boolean getIndex(int index) {
+	public boolean containsIndexNo(int index) {
 		int sizeOfIndex= indexes.size();
 		
 		for(int i = 0; i<sizeOfIndex;i++) {
@@ -76,6 +76,16 @@ public class Course {
 		}
 		
 		return false;
+	}
+	
+	public Index getIndex(int indexNo) {
+		for(int i = 0; i < indexes.size(); i++) {
+			if(indexes.get(i).getIndexNum() == indexNo) {
+				return indexes.get(i);
+			}
+		}
+		
+		return null;
 	}
 	
 	public void showAllIndexDetails() {
