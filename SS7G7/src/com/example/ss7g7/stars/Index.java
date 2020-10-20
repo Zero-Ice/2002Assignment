@@ -53,6 +53,15 @@ public class Index {
 		}
 		System.out.println(matricNo+ " was not found.");
 	}
+	
+	@Override
+	public String toString() {
+		// Example
+		// Class Type, Group, Day, Time, Venue, Remark
+		return "Index" + Integer.toString(indexNum);
+	}
+	
+	
 	public int showNumOfVacancies() {
 		int numOfVacant=0;
 		
