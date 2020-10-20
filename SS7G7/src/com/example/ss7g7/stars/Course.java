@@ -66,17 +66,16 @@ public class Course {
 	}
 	
 	
-	public void getIndex(int index) {
+	public boolean getIndex(int index) {
 		int sizeOfIndex= indexes.size();
 		
 		for(int i = 0; i<sizeOfIndex;i++) {
 			if(indexes.get(i).getIndexNum()==index) {
-				return ;
+				return true;
 			}
 		}
-
-		System.out.println("Index "+index+" was not found in "+ courseCode);
 		
+		return false;
 	}
 	
 	public void showAllIndexDetails() {

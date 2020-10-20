@@ -53,4 +53,12 @@ public class StarsDB {
 		c.addIndex(123456, 30);
 		courses.add(c);
 	}
+	
+	public Course getCourse(int indexNo) {
+		for(int i = 0; i < courses.size(); i++) {
+			if(courses.get(i).getIndex(indexNo)) return courses.get(i);
+		}
+		
+		return null;
+	}
 }
