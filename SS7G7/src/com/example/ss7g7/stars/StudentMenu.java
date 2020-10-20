@@ -1,5 +1,6 @@
 package com.example.ss7g7.stars;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentMenu {
@@ -64,27 +65,24 @@ public class StudentMenu {
 
 			switch (choice) {
 			case 1:
-				System.out.println(student);
-				break;
-			case 2:
 				addCourse();
 				break;
-			case 3:
+			case 2:
 				dropCourse();
 				break;
-			case 4:
+			case 3:
 				printCoursesRegistered();
 				break;
-			case 5:
+			case 4:
 				checkVacanciesAvailable();
 				break;
-			case 6:
+			case 5:
 				changeIndex();
 				break;
-			case 7:
+			case 6:
 				swapIndex();
 				break;
-			case 8:
+			case 7:
 				System.out.println("See you again");
 				run = false;
 				break;
@@ -96,16 +94,36 @@ public class StudentMenu {
 		System.out.print("Enter an index number of the course: ");
 		int indexToAdd = Integer.valueOf(scanner.nextLine());
 
-		if (student.containsCourse(indexToAdd)) {
-			System.out.println("Cannot add course with index " + indexToAdd + " as it is already registered");
-			return;
+		// Check if course is already registered.
+		// E.g CZ2002 has 10195 and 10196. If already registered 10195, do not allow 10196 to be added
+		ArrayList<Course> registeredCourses = new ArrayList<Course>();
+		ArrayList<Integer> registeredCoursesIndex = student.getCourseIndexes();
+		for(int i = 0; i < registeredCoursesIndex.size(); i++) {
+			Course c = db.getCourse(registeredCoursesIndex.get(i));
+			if(c != null) {
+				registeredCourses.add(c);
+			}
 		}
 
 		Course c = db.getCourse(indexToAdd);
-		if(c == null) {
+		if(c != null) {
+			boolean courseIsRegistered = false;
+			for(Course rc : registeredCourses) {
+				if(rc.getCourseCode() == c.getCourseCode()) {
+					courseIsRegistered = true;
+					break;
+				}
+			}
+			
+			if(courseIsRegistered) {
+				System.out.println("Course " + c.getCourseCode() + " is already registered. Try dropping or changing index first");
+				return;
+			}
+		}
+		else {
 			System.out.println("Cannot find course with index no " + indexToAdd);
 			return;
-		}
+		} 
 
 		// Summary
 		// Index Number, Course Code
@@ -132,7 +150,6 @@ public class StudentMenu {
 				System.out.println("Invalid option");
 			}
 		}
-
 	}
 
 	private void dropCourse() {
@@ -175,17 +192,49 @@ public class StudentMenu {
 			}
 		}
 	}
+	
+	private void printCourse(int indexNo) {
+		Course c = db.getCourse(indexNo);
+		if(c != null) {
+			System.out.println("Index Number " + indexNo + " Course " + c.getCourseCode() + "\n"
+					+ "Course Type REGISTERED + Status REGISTERED");
+		} else {
+			System.out.println("Cannot find course with index no " + indexNo);
+		}
+	}
 
 	private void printCoursesRegistered() {
-		System.out.println(student.printCourses());
+		ArrayList<Integer> registeredCourses = student.getCourseIndexes();
+		
+		Integer indexNo = -1;
+		Course c = null;
+		for(int i = 0; i < registeredCourses.size(); i++) {
+			indexNo = registeredCourses.get(i);
+			c = db.getCourse(indexNo);
+			
+			String s = ""; 
+			if(c != null) {
+				s += c.getCourseCode() + " " + indexNo + " REGISTERED";
+			} else {
+				s += "Cannot find course in database with index number " + indexNo;
+			}
+			
+			System.out.println(s);
+		}
 	}
 
 	private void checkVacanciesAvailable() {
-		System.out.print("Enter course code: ");
-		String courseCode = scanner.nextLine();
+		System.out.print("Enter index number: ");
+		int indexNo = Integer.valueOf(scanner.nextLine());
 
-		// TODO: For each index in course code, print it.
-
+		Course c = db.getCourse(indexNo);
+		if(c != null) {
+			Index index = c.getIndex(indexNo);
+			// CLass type, Group, Day, Time, Venue, Remark
+			System.out.println("Class type, Group, Day, Time, Venue, Remark");
+		} else {
+			System.out.println("Cannot find course with index no " + indexNo);
+		}
 	}
 
 	private void changeIndex() {
@@ -202,9 +251,38 @@ public class StudentMenu {
 		int indexTo = Integer.valueOf(scanner.nextLine());
 
 		// TODO: Check indexFrom and indexTo belongs to the same course code.
+		Course fromCourse = db.getCourse(indexFrom);
+		Course toCourse = db.getCourse(indexTo);
+		
+		if(fromCourse != null && toCourse != null) {
+			Index fromIndex = fromCourse.getIndex(indexFrom);
+			Index toIndex = toCourse.getIndex(indexTo);
+			
+			boolean run = true;
+			while(run) {
+				System.out.println(fromIndex);
+				System.out.println(toIndex);
+				System.out.println("(1) Confirm to Change Index");
+				System.out.println("(2) Main Menu");
+				
+				int choice = Integer.valueOf(scanner.nextLine());
 
-		// TODO: Remove this temp print
-		System.out.println("Change Index End");
+				if (choice == 1) {
+					fromIndex.unassignStudent(student.getMatricNo());
+					toIndex.assignStudent(student.getMatricNo());
+					System.out.println("Successfully changed index");
+					run = false;
+				} else if (choice == 2) {
+					run = false;
+					System.out.println("Returning to main menu");
+				} else {
+					System.out.println("Invalid option");
+				}
+			}
+			
+		} else {
+			System.out.println("Indexes are not from the same course");
+		}
 	}
 
 	private void swapIndex() {

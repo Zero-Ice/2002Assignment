@@ -51,15 +51,18 @@ public class Student {
 	}
 	
 	public String printCourses() {
-		String s = "Registered mods: [";
+		String s = "";
 		for(int i = 0; i < indexes.size(); i++) {
 			s += Integer.toString(indexes.get(i));
 			if(i == indexes.size() - 1) break;
 			
 			s += ", ";
 		}
-		s += "]";
 		return s;
+	}
+	
+	public ArrayList<Integer> getCourseIndexes() {
+		return indexes;
 	}
 	
 	@Override

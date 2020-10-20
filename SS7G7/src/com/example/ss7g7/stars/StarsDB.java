@@ -42,7 +42,6 @@ public class StarsDB {
 	
 	public Student getDebugStudent() {
 		Student s = new Student("Dum dum", "U1969420", "DD69", "A", "Antartica");
-		s.addCourse(123456);
 		return s;
 	}
 	
@@ -51,6 +50,11 @@ public class StarsDB {
 	public void createDebugCourses() {
 		Course c = new Course("CZ2002", "OODP", "SCSE");
 		c.addIndex(123456, 30);
+		c.addIndex(696969, 30);
+		courses.add(c);
+		
+		c = new Course("CZ2005", "OS", "SCSE");
+		c.addIndex(200005, 30);
 		courses.add(c);
 	}
 	
