@@ -39,7 +39,7 @@ public class StarsDB {
 	
 	public Student getDebugStudent() {
 		Student s = new Student("Dum dum", "U1969420", "DD69", "A", "Antartica");
-		s.AddMod(123456);
+		s.addCourse(123456);
 		return s;
 	}
 	

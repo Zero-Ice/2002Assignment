@@ -19,38 +19,38 @@ public class Student {
 		indexes = new ArrayList<Integer>();
 	}
 	
-	public void SetMods(ArrayList<Integer> indexes) {
+	public void setCourses(ArrayList<Integer> indexes) {
 		this.indexes.clear();
 		this.indexes = indexes;
 	}
 	
-	public void SetMods(int[] indexes) {
+	public void setCourses(int[] indexes) {
 		this.indexes.clear();
 		for(int i : indexes) {
 			this.indexes.add(i);
 		}
 	}
 	
-	public boolean AddMod(int modIndex) {
+	public boolean addCourse(int indexNo) {
 		// TODO: Check if a mod has already been added. 
 		// E.g cannot have 2 indexes that belong to the same mod
 		
-		indexes.add(modIndex);
+		indexes.add(indexNo);
 		
 		return true;
 	}
 	
-	public boolean RemoveMod(int modIndex) {
-		return indexes.remove(Integer.valueOf(modIndex));
+	public boolean removeCourse(int indexNo) {
+		return indexes.remove(Integer.valueOf(indexNo));
 	}
 	
-	public boolean ContainsMod(int modIndex) {
-		if(indexes.contains(modIndex)) return true;
+	public boolean containsCourse(int indexNo) {
+		if(indexes.contains(indexNo)) return true;
 		
 		return false;
 	}
 	
-	public String printMods() {
+	public String printCourses() {
 		String s = "Registered mods: [";
 		for(int i = 0; i < indexes.size(); i++) {
 			s += Integer.toString(indexes.get(i));
@@ -69,7 +69,7 @@ public class Student {
 				+ "Username: " + username + "\n"
 				+ "Gender: " + gender + "\n"
 				+ "Nationality: " + nationality + "\n"
-				+ printMods();
+				+ printCourses();
 		return s;
 	}
 	
