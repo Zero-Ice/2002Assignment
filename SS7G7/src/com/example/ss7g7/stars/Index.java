@@ -1,15 +1,15 @@
 package com.example.ss7g7.stars;
-
-import java.time.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Index {
 	private int indexNum;
 	private int numVacancy;
 	private String[] seatVacancy;
 	private String tutVenue;
-	private String tutDateTime;
+	private Date tutDateTime;
 	private String labVenue;
-	private String labDateTime;
+	private Date labDateTime;
 	private boolean indexFull;
 	//TODO: waitlist for students
 	//TODO: indexFull 
@@ -20,6 +20,9 @@ public class Index {
 		this.indexNum=index_Num;
 		this.numVacancy=num_Vacancy;
 		seatVacancy = new String[numVacancy];
+		this.tutDateTime = new Date();
+		this.labDateTime = new Date();
+		
 		
 		//initialize all to vacant
 		for(int i =0;i<numVacancy;i++) {
@@ -27,17 +30,28 @@ public class Index {
 		}
 	}
 	
+	public String getStudent(String matricNo) {
+		for(int i =0;i<numVacancy;i++) {
+			if(seatVacancy[i].contains(matricNo)) {
+				return seatVacancy[i];
+			}
+		}
+		return null;
+	}
+	
 	// TODO: Waitlist of students
 	// TODO: if index full set boolean true
 	public void assignStudent(String matricNo) {
-		for(int i =0;i<numVacancy;i++) {
-			if(seatVacancy[i].contains(matricNo)) {
-				System.out.println(matricNo+ " has registered before.");
-				return;
-			}else if(seatVacancy[i]== "vacant"){
-				seatVacancy[i]=matricNo;
-				
-				return;
+		if(getStudent(matricNo)==matricNo) {
+			System.out.println(matricNo+ " has registered before.");
+			return;
+		}else{
+			for(int i =0;i<numVacancy;i++) {
+				if(seatVacancy[i]=="vacant") {
+					seatVacancy[i]=matricNo;
+//					System.out.println(matricNo + " assigned to " + indexNum);
+					return;
+				}
 			}
 		}
 		System.out.println("Index Full!");
@@ -45,10 +59,12 @@ public class Index {
 	
 	public void unassignStudent(String matricNo) {
 		// TODO: if indexFull boolean was true, change to false
-		for(int i =0;i<numVacancy;i++) {
-			if(seatVacancy[i].contains(matricNo)) {
-				seatVacancy[i] = "vacant";
-				return;
+		if(getStudent(matricNo)== matricNo) {
+			for(int i =0;i<numVacancy;i++) {
+				if(seatVacancy[i]==matricNo) {
+					seatVacancy[i]="vacant";
+					return;
+				}
 			}
 		}
 		System.out.println(matricNo+ " was not found.");
@@ -95,12 +111,15 @@ public class Index {
 		this.tutVenue = tutVenue;
 	}
 
-	public String getTutDateTime() {
-		return tutDateTime;
+	public void getTutDateTime() {
+		SimpleDateFormat formatter = new SimpleDateFormat("E hh:mm a");
+		System.out.println(formatter.format(tutDateTime));
 	}
 
-	public void setTutDateTime(String tutDateTime) {
-		this.tutDateTime = tutDateTime;
+	public void setTutDateTime(int hours, int minutes) {
+		tutDateTime.setDate(21);
+		tutDateTime.setHours(hours);
+		tutDateTime.setMinutes(minutes);
 	}
 
 	public String getLabVenue() {
@@ -111,12 +130,15 @@ public class Index {
 		this.labVenue = labVenue;
 	}
 
-	public String getLabDateTime() {
-		return labDateTime;
+	public void getLabDateTime() {
+		SimpleDateFormat formatter = new SimpleDateFormat("E hh:mm a");
+		System.out.println(formatter.format(labDateTime));
 	}
 
-	public void setLabDateTime(String labDateTime) {
-		this.labDateTime = labDateTime;
+	public void setLabDateTime(int hours, int minutes) {
+		labDateTime.setDate(21);
+		labDateTime.setHours(hours);
+		labDateTime.setMinutes(minutes);
 	}
 
 

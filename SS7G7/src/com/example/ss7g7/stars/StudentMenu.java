@@ -27,24 +27,35 @@ public class StudentMenu {
 		cz2006.addIndex(2012, 30);
 		cz2006.addIndex(2013, 12);
 
+
 		Course cz2005 = new Course("cz2005", "OS", "SCSE");
 		cz2005.addIndex(3011, 5);
 		cz2005.addIndex(3012, 20);
 		cz2005.addIndex(3013, 4);
 
+
 		System.out.println("\n");
 		cz2005.showfullCourseDetails();
 		cz2006.showfullCourseDetails();
 		cz2007.showfullCourseDetails();
-		System.out.println("\n");
+
 
 		cz2005.assignStudent(3013, "U1921464C");
 		cz2005.assignStudent(3013, "U1451201A");
-		cz2005.assignStudent(3013, "U1945464C");
+		cz2005.assignStudent(3013, "U1945445D");
 		cz2005.assignStudent(3013, "U1921201G");
+		System.out.println("\n");
+		cz2005.showSeats(3013);
+		
 		cz2005.assignStudent(3012, "U1921201G");
 		System.out.println("\n");
+		cz2005.showSeats(3012);
+		System.out.println("\n");
 		cz2005.showfullCourseDetails();
+		
+		
+		cz2005.setLecDateTime(13, 20);
+		cz2005.getLecDateTime();
 
 		/////////////////////////////////////
 
