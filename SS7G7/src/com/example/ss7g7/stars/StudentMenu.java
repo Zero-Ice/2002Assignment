@@ -69,10 +69,10 @@ public class StudentMenu {
 				System.out.println(student);
 				break;
 			case 2:
-				addMod();
+				addCourse();
 				break;
 			case 3:
-				dropMod();
+				dropCourse();
 				break;
 			case 4:
 				printCoursesRegistered();
@@ -94,75 +94,77 @@ public class StudentMenu {
 		}
 	}
 	
-	private void addMod() {
-		System.out.print("Enter an index: ");
-		int modIndexToAdd = Integer.valueOf(scanner.nextLine());
+	private void addCourse() {
+		System.out.print("Enter an index number of the course: ");
+		int indexToAdd = Integer.valueOf(scanner.nextLine());
 		
-		boolean studContainMod = false;
+		boolean studContainsCourse = false;
 		boolean result = false;
-		if(student.ContainsMod(modIndexToAdd)) {
-			studContainMod = true;
+		if(student.containsCourse(indexToAdd)) {
+			studContainsCourse = true;
 		} else {
-			result = student.AddMod(modIndexToAdd);
+			result = student.addCourse(indexToAdd);
 		}
 		
+		// TODO: Print summary of course to add. 
+		
 		if(result) {
-			System.out.println("Successfully added mod with index " + modIndexToAdd);
+			System.out.println("Successfully added course with index " + indexToAdd);
 		} else {
-			if(studContainMod) {
-				System.out.println("Cannot add mod with index " + modIndexToAdd + " as it is already registered");
+			if(studContainsCourse) {
+				System.out.println("Cannot add course with index " + indexToAdd + " as it is already registered");
 			} else {
-				System.out.println("Failed to add mod with index " + modIndexToAdd);
+				System.out.println("Failed to add course with index " + indexToAdd);
 			}
 		}
 		
 		// TODO: Update course vacancy
 	}
 	
-	private void dropMod() {
-		System.out.println(student.printMods());
-		System.out.println("Enter the index to drop: ");
+	private void dropCourse() {
+		System.out.println(student.printCourses());
+		System.out.println("Enter the course index to drop: ");
 		
-		int modIndexToRemove = Integer.valueOf(scanner.nextLine());
+		int indexToRemove = Integer.valueOf(scanner.nextLine());
 		
 		boolean result = false;
-		boolean studContainMod = true;
-		if(!student.ContainsMod(modIndexToRemove)) {
-			studContainMod = false;
+		boolean studContainsCourse = true;
+		if(!student.containsCourse(indexToRemove)) {
+			studContainsCourse = false;
 		} else {
-			result = student.RemoveMod(modIndexToRemove);
+			result = student.removeCourse(indexToRemove);
 		}
 		
 		if(result) {
-			System.out.println("Successfully removed mod " + modIndexToRemove);
+			System.out.println("Successfully removed course " + indexToRemove);
 		} else {
-			if(studContainMod) {
-				System.out.println("Failed to remove " + modIndexToRemove);
+			if(studContainsCourse) {
+				System.out.println("Failed to course " + indexToRemove);
 			} else {
-				System.out.println("Cannot find mod with index " + modIndexToRemove + " in registered mods");
+				System.out.println("Cannot find course with index " + indexToRemove + " in registered course");
 			}
 		}
 	}
 	
 	private void printCoursesRegistered() {
-		System.out.println(student.printMods());
+		System.out.println(student.printCourses());
 	}
 	
 	private void checkVacanciesAvailable() {
-		System.out.print("Enter module code: ");
-		String modCode = scanner.nextLine();
+		System.out.print("Enter course code: ");
+		String courseCode = scanner.nextLine();
 		
-		// TODO: For each index in mod code, print it.
+		// TODO: For each index in course code, print it.
 		
 	}
 	
 	private void changeIndex() {
-		System.out.println(student.printMods());
+		System.out.println(student.printCourses());
 		System.out.print("Enter the index that you want to change from: ");
 		int indexFrom = Integer.valueOf(scanner.nextLine());
 		
-		if(!student.ContainsMod(indexFrom)) {
-			System.out.println("Index " + indexFrom + " is not found in your registered mods");
+		if(!student.containsCourse(indexFrom)) {
+			System.out.println("Index " + indexFrom + " is not found in your registered courses");
 			return;
 		}
 		
@@ -176,7 +178,7 @@ public class StudentMenu {
 	}
 	
 	private void swapIndex() {
-		// TODO: Check if same module. If same module, swap index (Remove + Add for both)
+		// TODO: Check if both index belong to the same course. If same course, swap index (Remove + Add for both)
 		
 	}
 }
