@@ -8,7 +8,7 @@ public class Student {
 	private String username;
 	private String gender;
 	private String nationality;
-	private ArrayList<Integer> indexes;
+	private ArrayList<RegisteredCourse> courses;
 
 	public Student(String name, String matricNo, String username, String gender, String nationality) {
 		this.name = name;
@@ -16,53 +16,68 @@ public class Student {
 		this.username = username;
 		this.gender = gender;
 		this.nationality = nationality;
-		indexes = new ArrayList<Integer>();
+		courses = new ArrayList<RegisteredCourse>();
 	}
 	
-	public void setCourses(ArrayList<Integer> indexes) {
-		this.indexes.clear();
-		this.indexes = indexes;
+	public void setCourses(ArrayList<RegisteredCourse> indexes) {
+		this.courses.clear();
+		this.courses = indexes;
 	}
 	
-	public void setCourses(int[] indexes) {
-		this.indexes.clear();
-		for(int i : indexes) {
-			this.indexes.add(i);
-		}
-	}
-	
-	public boolean addCourse(int indexNo) {
+	public boolean addCourse(String courseCode, int indexNo) {
 		// TODO: Check if a mod has already been added. 
 		// E.g cannot have 2 indexes that belong to the same mod
 		
-		indexes.add(indexNo);
+		courses.add(new RegisteredCourse(courseCode, indexNo));
 		
 		return true;
 	}
 	
 	public boolean dropCourse(int indexNo) {
-		return indexes.remove(Integer.valueOf(indexNo));
+		for(int i = 0; i < courses.size(); i++) {
+			if(courses.get(i).getIndexNo() == indexNo) {
+				courses.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean containsCourse(int indexNo) {
-		if(indexes.contains(indexNo)) return true;
+		for(RegisteredCourse rc : courses) {
+			if(rc.getIndexNo() == indexNo) return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean containsCoure(String courseCode) {
+		for(RegisteredCourse rc : courses) {
+			if(rc.getCourseCode() == courseCode) return true;
+		}
 		
 		return false;
 	}
 	
 	public String printCourses() {
 		String s = "";
-		for(int i = 0; i < indexes.size(); i++) {
-			s += Integer.toString(indexes.get(i));
-			if(i == indexes.size() - 1) break;
+		
+		if(courses.size() == 0) {
+			s += "No courses registered";
+			return s;
+		}
+		
+		for(int i = 0; i < courses.size(); i++) {
+			s += courses.get(i).getCourseCode() + " " + courses.get(i).getIndexNo();
+			if(i == courses.size() - 1) break;
 			
 			s += ", ";
 		}
 		return s;
 	}
 	
-	public ArrayList<Integer> getCourseIndexes() {
-		return indexes;
+	public ArrayList<RegisteredCourse> getCourses() {
+		return courses;
 	}
 	
 	@Override

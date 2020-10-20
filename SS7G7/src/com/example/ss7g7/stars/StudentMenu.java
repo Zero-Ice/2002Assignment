@@ -96,27 +96,13 @@ public class StudentMenu {
 
 		// Check if course is already registered.
 		// E.g CZ2002 has 10195 and 10196. If already registered 10195, do not allow 10196 to be added
-		ArrayList<Course> registeredCourses = new ArrayList<Course>();
-		ArrayList<Integer> registeredCoursesIndex = student.getCourseIndexes();
-		for(int i = 0; i < registeredCoursesIndex.size(); i++) {
-			Course c = db.getCourse(registeredCoursesIndex.get(i));
-			if(c != null) {
-				registeredCourses.add(c);
-			}
-		}
-
-		Course c = db.getCourse(indexToAdd);
-		if(c != null) {
-			boolean courseIsRegistered = false;
-			for(Course rc : registeredCourses) {
-				if(rc.getCourseCode() == c.getCourseCode()) {
-					courseIsRegistered = true;
-					break;
-				}
-			}
+		
+		Course courseToAdd = db.getCourse(indexToAdd);
+		if(courseToAdd != null) {
+			boolean alreadyRegistered = student.containsCoure(courseToAdd.getCourseCode());
 			
-			if(courseIsRegistered) {
-				System.out.println("Course " + c.getCourseCode() + " is already registered. Try dropping or changing index first");
+			if(alreadyRegistered) {
+				System.out.println("Course " + courseToAdd.getCourseCode() + " is already registered. Try dropping or changing index first");
 				return;
 			}
 		}
@@ -128,7 +114,7 @@ public class StudentMenu {
 		// Summary
 		// Index Number, Course Code
 		// Class Type, Group, Day, Time, Venue, Remark
-		System.out.println("Index Number " + indexToAdd + " Course " + c.getCourseCode());
+		System.out.println("Index Number " + indexToAdd + " Course " + courseToAdd.getCourseCode());
 		System.out.println("<Details>");
 
 		boolean run = true;
@@ -138,8 +124,8 @@ public class StudentMenu {
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				boolean result = student.addCourse(indexToAdd);
-				Index index = c.getIndex(indexToAdd);
+				boolean result = student.addCourse(courseToAdd.getCourseCode(), indexToAdd);
+				Index index = courseToAdd.getIndex(indexToAdd);
 				index.assignStudent(student.getMatricNo());
 				System.out.println("Successfully added index " + indexToAdd);
 				run = false;
@@ -204,23 +190,7 @@ public class StudentMenu {
 	}
 
 	private void printCoursesRegistered() {
-		ArrayList<Integer> registeredCourses = student.getCourseIndexes();
-		
-		Integer indexNo = -1;
-		Course c = null;
-		for(int i = 0; i < registeredCourses.size(); i++) {
-			indexNo = registeredCourses.get(i);
-			c = db.getCourse(indexNo);
-			
-			String s = ""; 
-			if(c != null) {
-				s += c.getCourseCode() + " " + indexNo + " REGISTERED";
-			} else {
-				s += "Cannot find course in database with index number " + indexNo;
-			}
-			
-			System.out.println(s);
-		}
+		System.out.println(student.printCourses());
 	}
 
 	private void checkVacanciesAvailable() {
