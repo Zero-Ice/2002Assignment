@@ -7,11 +7,13 @@ public class StarsDB {
 	private String courseDataFilePath;
 	
 	private ArrayList<Student> students;
+	private ArrayList<Course> courses;
 	
 	public StarsDB(String studentDataFilePath, String courseDataFilePath) {
 		this.studentDataFilePath = studentDataFilePath;
 		this.courseDataFilePath = courseDataFilePath;
-		students = new ArrayList<>();
+		students = new ArrayList<Student>();
+		courses = new ArrayList<Course>();
 	}
 	
 	/*
@@ -20,6 +22,7 @@ public class StarsDB {
 	public boolean init() {
 		// TODO: File I/O
 		
+		createDebugCourses();
 		
 		return true;
 	}
@@ -39,9 +42,27 @@ public class StarsDB {
 	
 	public Student getDebugStudent() {
 		Student s = new Student("Dum dum", "U1969420", "DD69", "A", "Antartica");
-		s.addCourse(123456);
 		return s;
 	}
 	
 	// TODO: courses
+	
+	public void createDebugCourses() {
+		Course c = new Course("CZ2002", "OODP", "SCSE");
+		c.addIndex(123456, 30);
+		c.addIndex(696969, 30);
+		courses.add(c);
+		
+		c = new Course("CZ2005", "OS", "SCSE");
+		c.addIndex(200005, 30);
+		courses.add(c);
+	}
+	
+	public Course getCourse(int indexNo) {
+		for(int i = 0; i < courses.size(); i++) {
+			if(courses.get(i).containsIndexNo(indexNo)) return courses.get(i);
+		}
+		
+		return null;
+	}
 }
