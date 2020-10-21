@@ -24,4 +24,21 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
+	
+
+	void setUser(String username) {
+		this.username = username;
+	}
+	
+	void setPass(String password) {
+		this.password = password;
+	}
+	
+	String getUser() {
+		return username;
+	}
+	
+	String getPass() {
+		return password;
+	}
 }
