@@ -7,6 +7,7 @@ import java.util.Calendar;
 public class Student {
 
 	private String username;
+	private String password;
 	private String firstName;
 	private String lastName;
 	private String matricNo;
@@ -20,9 +21,10 @@ public class Student {
 
 
 
-	public Student(String username, String firstName, String lastName, String matricNo, String gender, String nationality,int mobileNo, String email, Calendar accessStart, Calendar accessEnd) {
+	public Student(String username, String password, String firstName, String lastName, String matricNo, String gender, String nationality,int mobileNo, String email, Calendar accessStart, Calendar accessEnd) {
 		
 		this.username = username;
+		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.matricNo = matricNo;
@@ -115,6 +117,15 @@ public class Student {
 	public void getUserName(String username) {
 		this.username = username;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void getPassword(String password) {
+		this.password = password;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
