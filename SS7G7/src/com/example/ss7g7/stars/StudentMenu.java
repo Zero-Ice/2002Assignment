@@ -56,7 +56,11 @@ public class StudentMenu {
 		System.out.println("\nlec Details");
 		cz2005.setLecDetails(5, 12, 30, 14, 30, "LT19");
 		cz2005.getLecDetails();
-
+		
+		System.out.println("\nlab Details");
+		cz2005.setLabDetails(3013, 1, 10, 30, 12, 30, "SPL");
+		cz2005.getLabDetails(3013);
+		
 		/////////////////////////////////////
 
 		boolean run = true;
