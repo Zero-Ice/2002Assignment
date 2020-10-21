@@ -16,6 +16,8 @@ public class Course {
 	//TODO: courseAvailability set
 	//TODO: Venue for lec 
 	//TODO: Day and Time for lec 
+	//TODO: Add au for course
+	//TODO: Check clash
 	
 	public Course(String course_Code, String course_Name, String school_Name) {
 		this.courseCode=course_Code;
