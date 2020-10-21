@@ -74,9 +74,6 @@ public class Course {
 	public void checkClash(String matricNo) {
 		int sizeOfIndex= indexes.size();
 		
-		boolean check1;
-		boolean check2;
-		
 		
 		for(int i = 0; i<sizeOfIndex;i++) {
 			indexes.get(i);
