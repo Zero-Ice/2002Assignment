@@ -17,18 +17,18 @@ public class StudentMenu {
 	public void run() {
 
 		////////////////////// test for shah Pls do not remove
-		Course cz2007 = new Course("cz2007", "DB", "SCSE");
+		Course cz2007 = new Course("cz2007", "DB", "SCSE",3);
 		cz2007.addIndex(1011, 20);
 		cz2007.addIndex(1012, 30);
 		cz2007.addIndex(1013, 15);
 
-		Course cz2006 = new Course("cz2006", "SE", "SCSE");
+		Course cz2006 = new Course("cz2006", "SE", "SCSE",3);
 		cz2006.addIndex(2011, 10);
 		cz2006.addIndex(2012, 30);
 		cz2006.addIndex(2013, 12);
 
 
-		Course cz2005 = new Course("cz2005", "OS", "SCSE");
+		Course cz2005 = new Course("cz2005", "OS", "SCSE",3);
 		cz2005.addIndex(3011, 5);
 		cz2005.addIndex(3012, 20);
 		cz2005.addIndex(3013, 4);
@@ -53,8 +53,9 @@ public class StudentMenu {
 		System.out.println("\n");
 		cz2005.showfullCourseDetails();
 		
-		
-		cz2005.getLecDateTime();
+		System.out.println("\nlec Details");
+		cz2005.setLecDetails(5, 12, 30, 14, 30, "LT19");
+		cz2005.getLecDetails();
 
 		/////////////////////////////////////
 
