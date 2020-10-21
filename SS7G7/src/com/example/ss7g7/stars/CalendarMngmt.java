@@ -1,4 +1,4 @@
-package hihi;
+package com.example.ss7g7.stars;
 
 import java.text.*;
 import java.util.*;
