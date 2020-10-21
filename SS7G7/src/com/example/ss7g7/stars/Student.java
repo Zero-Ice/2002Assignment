@@ -1,114 +1,38 @@
-package com.example.ss7g7.stars;
+package hihi;
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
 
 
-public class Student {
-
+public class Student{
+	
 	private String username;
 	private String password;
-	private String firstName;
+	private String firstName; 
 	private String lastName;
 	private String matricNo;
 	private String gender;
-	private String nationality;
+	private String nationality; 
 	private int mobileNo;
 	private String email;
 	private Calendar accessStart;
 	private Calendar accessEnd;
-	private ArrayList<RegisteredCourse> courses;
-
-
-
-	public Student(String username, String password, String firstName, String lastName, String matricNo, String gender, String nationality,int mobileNo, String email, Calendar accessStart, Calendar accessEnd) {
-		
+	
+	public Student (String username, String password,String firstName, String lastName, String matricNo, String gender,
+					String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
+	{
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.matricNo = matricNo;
-		this.gender = gender;
+		this.matricNo	= matricNo;
+		this.gender	= gender;
 		this.nationality = nationality;
 		this.mobileNo = mobileNo;
 		this.email = email;
 		this.accessStart = accessStart;
 		this.accessEnd = accessEnd;
-		courses = new ArrayList<RegisteredCourse>();
 	}
-	
-	public void setCourses(ArrayList<RegisteredCourse> indexes) {
-		this.courses.clear();
-		this.courses = indexes;
-	}
-	
-	public boolean addCourse(String courseCode, int indexNo) {
-		// TODO: Check if a mod has already been added. 
-		// E.g cannot have 2 indexes that belong to the same mod
-		
-		courses.add(new RegisteredCourse(courseCode, indexNo));
-		
-		return true;
-	}
-	
-	public boolean dropCourse(int indexNo) {
-		for(int i = 0; i < courses.size(); i++) {
-			if(courses.get(i).getIndexNo() == indexNo) {
-				courses.remove(i);
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean containsCourse(int indexNo) {
-		for(RegisteredCourse rc : courses) {
-			if(rc.getIndexNo() == indexNo) return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean containsCoure(String courseCode) {
-		for(RegisteredCourse rc : courses) {
-			if(rc.getCourseCode() == courseCode) return true;
-		}
-		
-		return false;
-	}
-	
-	public String printCourses() {
-		String s = "";
-		
-		if(courses.size() == 0) {
-			s += "No courses registered";
-			return s;
-		}
-		
-		for(int i = 0; i < courses.size(); i++) {
-			s += courses.get(i).getCourseCode() + " " + courses.get(i).getIndexNo();
-			if(i == courses.size() - 1) break;
-			
-			s += ", ";
-		}
-		return s;
-	}
-	
-	public ArrayList<RegisteredCourse> getCourses() {
-		return courses;
-	}
-	
-	@Override
-	public String toString() {
-		String s = "Name: " + name + "\n"
-				+ "Matriculation Number: " + matricNo + "\n"
-				+ "Username: " + username + "\n"
-				+ "Gender: " + gender + "\n"
-				+ "Nationality: " + nationality + "\n"
-				+ printCourses();
-		return s;
-	}
-	
 
 	public String getUserName() {
 		return username;
@@ -197,5 +121,4 @@ public class Student {
 	public void setAccessEnd(Calendar accessEnd) {
 		this.accessEnd = accessEnd;
 	}
-
 }
