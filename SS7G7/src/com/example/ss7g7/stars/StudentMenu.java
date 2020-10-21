@@ -47,7 +47,8 @@ public class StudentMenu {
 		System.out.println("\n");
 		cz2005.showSeats(3013);
 		
-		cz2005.assignStudent(3012, "U1921201G");
+		cz2005.assignStudent(3011, "U1921201G");
+		cz2006.assignStudent(2011, "U1921201G");
 		System.out.println("\n");
 		cz2005.showSeats(3012);
 		System.out.println("\n");
