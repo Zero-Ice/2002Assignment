@@ -39,14 +39,15 @@ public class StarsSystem {
 		while (run) {
 			System.out.println("Welcome to the Stars System");
 			
-			currentUser = runLogin();
 			
 			// @ K, use this to test the user returned by runLogin()
 //			User.UserType currentUserType = currentUser.getUserType();
 			
 			// Temp variable for debugging purposes. 
 			// @Kah Hui change it to ADMIN to test your menu
-			User.UserType currentUserType = User.UserType.STUDENT;
+			User.UserType currentUserType;
+			
+			currentUserType = login.Login();
 			
 			switch (currentUserType) {
 			// Terminate stars
@@ -71,15 +72,15 @@ public class StarsSystem {
 	 * Returns the User who has logged in. 
 	 * If User.userType is NIL, it indicates the program to terminate. see run()
 	 */
-	private User runLogin() {
-		// Handled by K
-
-		// Note: 1 Requirement is that Password should not be displayed on console when
-		// entering it
-
-		// TODO Change this temp return
-		return null;
-	}
+//	private User.UserType runLogin() {
+//		// Handled by K
+//		
+//		// Note: 1 Requirement is that Password should not be displayed on console when
+//		// entering it
+//		currentUser = login.Login();
+//		// TODO Change this temp return
+//		return null;
+//	}
 
 	/*
 	 * Function to handle logout Called by runStudentMenu and runAdminMenu
