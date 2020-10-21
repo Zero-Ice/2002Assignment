@@ -40,9 +40,17 @@ public class Course {
 		return null;
 	}
 	
-	public void showSeats(int index) {
+	public void showSeatsForIndex(int index) {
 		System.out.println("Index "+index);
 		getIndex(index).showAllSeats();
+	}
+	
+	public void showAllSeatsForCourse() {
+		System.out.println(getCourseCode()+" "+ getCourseName());
+		for(int i = 0; i < indexes.size(); i++) {
+			System.out.println("Index "+indexes.get(i).getIndexNum());
+			indexes.get(i).showAllSeats();;
+		}
 	}
 	
 	public void showfullCourseDetails() {
@@ -52,15 +60,14 @@ public class Course {
 	}
 	
 	
+	//TODO: verify need of this function
 	public boolean containsIndexNo(int index) {
 		int sizeOfIndex= indexes.size();
-		
 		for(int i = 0; i<sizeOfIndex;i++) {
 			if(indexes.get(i).getIndexNum()==index) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	

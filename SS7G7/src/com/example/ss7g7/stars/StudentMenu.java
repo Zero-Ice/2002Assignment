@@ -45,12 +45,12 @@ public class StudentMenu {
 		cz2005.assignStudent(3013, "U1945445D");
 		cz2005.assignStudent(3013, "U1921201G");
 		System.out.println("\n");
-		cz2005.showSeats(3013);
+		cz2005.showSeatsForIndex(3013);
 		
 		cz2005.assignStudent(3011, "U1921201G");
 		cz2006.assignStudent(2011, "U1921201G");
 		System.out.println("\n");
-		cz2005.showSeats(3012);
+		cz2005.showSeatsForIndex(3012);
 		System.out.println("\n");
 		cz2005.showfullCourseDetails();
 		
@@ -61,6 +61,9 @@ public class StudentMenu {
 		System.out.println("\nlab Details");
 		cz2005.setLabDetails(3013, 1, 10, 30, 12, 30, "SPL");
 		cz2005.getLabDetails(3013);
+		
+		System.out.println("\nall seat for course");
+		cz2005.showAllSeatsForCourse();
 		
 		/////////////////////////////////////
 

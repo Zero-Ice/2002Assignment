@@ -17,7 +17,6 @@ public class Index {
 	private Date labEndTime;
 	private boolean indexFull;
 	//TODO: waitlist for students
-	//TODO: indexFull 
 	
 	public Index(int index_Num, int num_Vacancy) {
 		this.indexNum=index_Num;
@@ -55,7 +54,6 @@ public class Index {
 		
 	}
 	// TODO: Waitlist of students
-	// TODO: if index full set boolean true
 	public void assignStudent(String matricNo) {
 		if(getStudent(matricNo)==matricNo) {
 			System.out.println(matricNo+ " has registered before.");
@@ -74,7 +72,6 @@ public class Index {
 	}
 	
 	public void unassignStudent(String matricNo) {
-		// TODO: if indexFull boolean was true, change to false
 		if(getStudent(matricNo)== matricNo) {
 			for(int i =0;i<numVacancy;i++) {
 				if(seatVacancy[i]==matricNo) {
@@ -112,6 +109,7 @@ public class Index {
 		for(int i =0;i<numVacancy;i++) {
 			System.out.println(i+1 + ": "+seatVacancy[i]);
 		}
+		System.out.println();
 	}
 
 	public int getIndexNum() {
