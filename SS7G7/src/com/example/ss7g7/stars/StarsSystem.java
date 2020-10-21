@@ -45,9 +45,11 @@ public class StarsSystem {
 			
 			// Temp variable for debugging purposes. 
 			// @Kah Hui change it to ADMIN to test your menu
-			User.UserType currentUserType;
 			
-			currentUserType = login.Login();
+			User.UserType currentUserType;
+//			currentUserType = login.Login();
+			
+			currentUserType = User.UserType.STUDENT;
 			
 			switch (currentUserType) {
 			// Terminate stars

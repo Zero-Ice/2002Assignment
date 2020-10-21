@@ -7,10 +7,15 @@ public class Index {
 	private int numVacancy;
 	private String[] seatVacancy;
 	private String tutVenue;
-	private Date tutDateTime;
 	private String labVenue;
-	private Date labDateTime;
+	private String tutDay;
+	private String labDay;
+	private Date tutStartTime;
+	private Date tutEndTime;
+	private Date labStartTime;
+	private Date labEndTime;
 	private boolean indexFull;
+	
 	//TODO: waitlist for students
 	//TODO: indexFull 
 	//TODO: Venue for lab, tut
@@ -20,8 +25,10 @@ public class Index {
 		this.indexNum=index_Num;
 		this.numVacancy=num_Vacancy;
 		seatVacancy = new String[numVacancy];
-		this.tutDateTime = new Date();
-		this.labDateTime = new Date();
+		this.tutStartTime = new Date();
+		this.tutEndTime = new Date();
+		this.labStartTime = new Date();
+		this.labEndTime = new Date();
 		
 		
 		//initialize all to vacant
@@ -107,38 +114,73 @@ public class Index {
 		return tutVenue;
 	}
 
-	public void setTutVenue(String tutVenue) {
+	public void updateIndexTutVenue(String tutVenue) {
 		this.tutVenue = tutVenue;
 	}
 
-	public void getTutDateTime() {
-		SimpleDateFormat formatter = new SimpleDateFormat("E hh:mm a");
-		System.out.println(formatter.format(tutDateTime));
+	public void getIndexTutDetails() {
+		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
+		String tutStart = formatter.format(tutStartTime);
+		String tutEnd =formatter.format(tutEndTime);
+		
+		String time = "Time: "+ tutStart + " - " + tutEnd;
+		String venue =  "Venue: " + getTutVenue();
+		
+		String tutDetails = "Day: " + tutDay + "\n" + time + "\n" + venue;
+		
+		System.out.println(tutDetails);
 	}
 
-	public void setTutDateTime(int hours, int minutes) {
-		tutDateTime.setDate(21);
-		tutDateTime.setHours(hours);
-		tutDateTime.setMinutes(minutes);
+	public void setIndexTutDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,String tutVenue) {
+		tutStartTime.setHours(startHours);
+		tutStartTime.setMinutes(startMinutes);
+		tutEndTime.setHours(endHours);
+		tutEndTime.setMinutes(startMinutes);
+		tutDay = setDay(intDay);
+		updateIndexTutVenue(tutVenue);
 	}
 
 	public String getLabVenue() {
 		return labVenue;
 	}
 
-	public void setLabVenue(String labVenue) {
+	public void updateIndexLabVenue(String labVenue) {
 		this.labVenue = labVenue;
 	}
 
-	public void getLabDateTime() {
-		SimpleDateFormat formatter = new SimpleDateFormat("E hh:mm a");
-		System.out.println(formatter.format(labDateTime));
+	public void getIndexLabDetails() {
+		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
+		String labStart = formatter.format(labStartTime);
+		String labEnd =formatter.format(labEndTime);
+		
+		String time = "Time: "+ labStart + " - " + labEnd;
+		String venue =  "Venue: " + getLabVenue();
+		
+		String labDetails = "Day: " + labDay + "\n" + time + "\n" + venue;
+		
+		System.out.println(labDetails);
 	}
 
-	public void setLabDateTime(int hours, int minutes) {
-		labDateTime.setDate(21);
-		labDateTime.setHours(hours);
-		labDateTime.setMinutes(minutes);
+	public void setIndexLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,String labVenue) {
+		labStartTime.setHours(startHours);
+		labStartTime.setMinutes(startMinutes);
+		labEndTime.setHours(endHours);
+		labEndTime.setMinutes(startMinutes);
+		labDay = setDay(intDay);
+		updateIndexLabVenue(labVenue);
+	}
+	
+	
+	private String setDay(int intDay) {
+		switch(intDay) {
+		case 1: return "Monday";
+		case 2: return "Tuesday";
+		case 3: return "Wednesday";
+		case 4: return "Thursday";
+		case 5: return "Friday";
+		}
+		
+		return null;
 	}
 
 
