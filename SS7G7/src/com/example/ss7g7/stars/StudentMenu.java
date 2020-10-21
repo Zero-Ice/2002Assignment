@@ -54,7 +54,6 @@ public class StudentMenu {
 		cz2005.showfullCourseDetails();
 		
 		
-		//cz2005.setLecDateTime(13, 20);
 		cz2005.getLecDateTime();
 
 		/////////////////////////////////////
