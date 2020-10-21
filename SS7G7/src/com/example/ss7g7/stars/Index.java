@@ -6,6 +6,7 @@ public class Index {
 	private int indexNum;
 	private int numVacancy;
 	private String[] seatVacancy;
+	private String[] studentWaitlist;
 	private String tutVenue;
 	private String labVenue;
 	private String tutDay;
@@ -15,11 +16,7 @@ public class Index {
 	private Date labStartTime;
 	private Date labEndTime;
 	private boolean indexFull;
-	
 	//TODO: waitlist for students
-	//TODO: indexFull 
-	//TODO: Venue for lab, tut
-	//TODO: Day and Time for lab, tut
 	
 	public Index(int index_Num, int num_Vacancy) {
 		this.indexNum=index_Num;
@@ -29,7 +26,7 @@ public class Index {
 		this.tutEndTime = new Date();
 		this.labStartTime = new Date();
 		this.labEndTime = new Date();
-		
+		this.indexFull=false;
 		
 		//initialize all to vacant
 		for(int i =0;i<numVacancy;i++) {
@@ -37,6 +34,8 @@ public class Index {
 		}
 	}
 	
+	
+	//do i need this?
 	public String getStudent(String matricNo) {
 		for(int i =0;i<numVacancy;i++) {
 			if(seatVacancy[i].contains(matricNo)) {
@@ -46,8 +45,15 @@ public class Index {
 		return null;
 	}
 	
+	public boolean indexSeatClash(String matricNo) {
+		if(getStudent(matricNo)==matricNo) {
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 	// TODO: Waitlist of students
-	// TODO: if index full set boolean true
 	public void assignStudent(String matricNo) {
 		if(getStudent(matricNo)==matricNo) {
 			System.out.println(matricNo+ " has registered before.");
@@ -56,20 +62,23 @@ public class Index {
 			for(int i =0;i<numVacancy;i++) {
 				if(seatVacancy[i]=="vacant") {
 					seatVacancy[i]=matricNo;
-//					System.out.println(matricNo + " assigned to " + indexNum);
 					return;
 				}
 			}
 		}
+		
+		indexFull=true;
 		System.out.println("Index Full!");
 	}
 	
 	public void unassignStudent(String matricNo) {
-		// TODO: if indexFull boolean was true, change to false
 		if(getStudent(matricNo)== matricNo) {
 			for(int i =0;i<numVacancy;i++) {
 				if(seatVacancy[i]==matricNo) {
 					seatVacancy[i]="vacant";
+					if(indexFull==true) {
+						indexFull=false;
+					}
 					return;
 				}
 			}
@@ -100,6 +109,7 @@ public class Index {
 		for(int i =0;i<numVacancy;i++) {
 			System.out.println(i+1 + ": "+seatVacancy[i]);
 		}
+		System.out.println();
 	}
 
 	public int getIndexNum() {

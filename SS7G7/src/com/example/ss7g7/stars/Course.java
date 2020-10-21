@@ -14,12 +14,8 @@ public class Course {
 	private Date lecStartTime;
 	private Date lecEndTime;
 	private String lecDay;
-	
 	private ArrayList<Index> indexes; // array of indexes
 	private boolean courseAvailability;
-	//TODO: Venue for lec 
-	//TODO: Day and Time for lec 
-	//TODO: Check clash
 	
 	public Course(String course_Code, String course_Name, String school_Name, int au) {
 		this.courseCode=course_Code;
@@ -44,9 +40,17 @@ public class Course {
 		return null;
 	}
 	
-	public void showSeats(int index) {
+	public void showSeatsForIndex(int index) {
 		System.out.println("Index "+index);
 		getIndex(index).showAllSeats();
+	}
+	
+	public void showAllSeatsForCourse() {
+		System.out.println(getCourseCode()+" "+ getCourseName());
+		for(int i = 0; i < indexes.size(); i++) {
+			System.out.println("Index "+indexes.get(i).getIndexNum());
+			indexes.get(i).showAllSeats();;
+		}
 	}
 	
 	public void showfullCourseDetails() {
@@ -56,15 +60,14 @@ public class Course {
 	}
 	
 	
+	//TODO: verify need of this function
 	public boolean containsIndexNo(int index) {
 		int sizeOfIndex= indexes.size();
-		
 		for(int i = 0; i<sizeOfIndex;i++) {
 			if(indexes.get(i).getIndexNum()==index) {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -75,16 +78,25 @@ public class Course {
 		}
 	}
 	
-	public void checkClash(String matricNo) {
+	// check for clash between indexes
+	public boolean checkClash(String matricNo) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
-			indexes.get(i);
+			if(indexes.get(i).indexSeatClash(matricNo)==true) {
+				return true;
+			}
 		}
+		return false;
 	}
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
 	public void assignStudent(int index, String matricNo) {
-		getIndex(index).assignStudent(matricNo);
+		if(checkClash(matricNo)==true) {
+			System.out.println(matricNo + " has registered before in another index");
+		}else {
+			getIndex(index).assignStudent(matricNo);
+			System.out.println(matricNo + " assigned to " + getCourseCode()+", index "+getIndex(index).getIndexNum());
+		}
 	}
 	
 	public void unassignStudent(int index, String matricNo) {
