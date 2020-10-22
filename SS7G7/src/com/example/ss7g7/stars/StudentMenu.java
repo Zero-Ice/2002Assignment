@@ -34,37 +34,37 @@ public class StudentMenu {
 		cz2005.addIndex(3013, 4);
 
 
-		System.out.println("\n");
-		cz2005.showfullCourseDetails();
-		cz2006.showfullCourseDetails();
-		cz2007.showfullCourseDetails();
-
-
+//		System.out.println("\n");
+//		cz2005.showfullCourseDetails();
+//		cz2006.showfullCourseDetails();
+//		cz2007.showfullCourseDetails();
+//
+//
 		cz2005.assignStudent(3013, "U1921464C");
 		cz2005.assignStudent(3013, "U1451201A");
 		cz2005.assignStudent(3013, "U1945445D");
 		cz2005.assignStudent(3013, "U1921201G");
-		System.out.println("\n");
-		cz2005.showSeatsForIndex(3013);
-		
-		cz2005.assignStudent(3011, "U1921201G");
-		cz2006.assignStudent(2011, "U1921201G");
-		System.out.println("\n");
-		cz2005.showSeatsForIndex(3012);
-		System.out.println("\n");
-		cz2005.showfullCourseDetails();
-		
-		System.out.println("\nlec Details");
-		cz2005.setLecDetails(5, 12, 30, 14, 30, "LT19");
-		cz2005.getLecDetails();
-		
-		System.out.println("\nlab Details");
-		cz2005.setLabDetails(3013, 1, 10, 30, 12, 30, "SPL");
-		cz2005.getLabDetails(3013);
-		
-		System.out.println("\nall seat for course");
+//		cz2005.assignStudent(3013, "U1921245E");
+//		cz2005.unassignStudent(3012, "U1921201G");
+//		System.out.println("\n");
+//		cz2005.showSeatsForIndex(3013);
+//		
+//		System.out.println("\n");
+//		cz2005.showSeatsForIndex(3012);
+//		System.out.println("\n");
+//		cz2005.showfullCourseDetails();
+//		
+//		System.out.println("\nlec Details");
+//		cz2005.setLecDetails(5, 12, 30, 14, 30, "LT19");
+//		cz2005.getLecDetails();
+//		
+//		System.out.println("\nlab Details");
+//		cz2005.setLabDetails(3013, 1, 10, 30, 12, 30, "SPL");
+//		cz2005.getLabDetails(3013);
+//		
+//		System.out.println("\nall seat for course");
 		cz2005.showAllSeatsForCourse();
-		
+//		
 		/////////////////////////////////////
 
 		boolean run = true;

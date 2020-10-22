@@ -1,12 +1,13 @@
 package com.example.ss7g7.stars;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class Index {
 	private int indexNum;
 	private int numVacancy;
-	private String[] seatVacancy;
-	private String[] studentWaitlist;
+	private ArrayList<String> seatVacancy;
+	private ArrayList<String>  studentWaitlist;
 	private String tutVenue;
 	private String labVenue;
 	private String tutDay;
@@ -21,47 +22,39 @@ public class Index {
 	public Index(int index_Num, int num_Vacancy) {
 		this.indexNum=index_Num;
 		this.numVacancy=num_Vacancy;
-		seatVacancy = new String[numVacancy];
 		this.tutStartTime = new Date();
 		this.tutEndTime = new Date();
 		this.labStartTime = new Date();
 		this.labEndTime = new Date();
 		this.indexFull=false;
+		this.seatVacancy = new ArrayList<String>();
+		this.studentWaitlist = new ArrayList<String>();
 		
 		//initialize all to vacant
 		for(int i =0;i<numVacancy;i++) {
-			this.seatVacancy[i]="vacant";
+			this.seatVacancy.add("vacant");
 		}
 	}
 	
-	
-	//do i need this?
-	public String getStudent(String matricNo) {
-		for(int i =0;i<numVacancy;i++) {
-			if(seatVacancy[i].contains(matricNo)) {
-				return seatVacancy[i];
-			}
-		}
-		return null;
-	}
 	
 	public boolean indexSeatClash(String matricNo) {
-		if(getStudent(matricNo)==matricNo) {
+		if(seatVacancy.contains(matricNo)) {
 			return true;
 		}else{
 			return false;
 		}
-		
 	}
+	
 	// TODO: Waitlist of students
 	public void assignStudent(String matricNo) {
-		if(getStudent(matricNo)==matricNo) {
+		if(seatVacancy.contains(matricNo)) {
 			System.out.println(matricNo+ " has registered before.");
 			return;
 		}else{
 			for(int i =0;i<numVacancy;i++) {
-				if(seatVacancy[i]=="vacant") {
-					seatVacancy[i]=matricNo;
+				if(seatVacancy.get(i).contains("vacant")) {
+					seatVacancy.set(i, matricNo);
+					System.out.println(matricNo+ " assigned to index " +indexNum);
 					return;
 				}
 			}
@@ -72,18 +65,16 @@ public class Index {
 	}
 	
 	public void unassignStudent(String matricNo) {
-		if(getStudent(matricNo)== matricNo) {
+		if(seatVacancy.contains(matricNo)) {
 			for(int i =0;i<numVacancy;i++) {
-				if(seatVacancy[i]==matricNo) {
-					seatVacancy[i]="vacant";
-					if(indexFull==true) {
-						indexFull=false;
-					}
+				if(seatVacancy.get(i).contains(matricNo)) {
+					seatVacancy.set(i, "vacant");
+					System.out.println(matricNo+ " unassigned from index " +indexNum);
 					return;
 				}
 			}
 		}
-		System.out.println(matricNo+ " was not found.");
+		System.out.println(matricNo+ " was not found in index "+ indexNum);
 	}
 	
 	@Override
@@ -98,7 +89,7 @@ public class Index {
 		int numOfVacant=0;
 		
 		for(int i =0;i<numVacancy;i++) {
-			if(seatVacancy[i]=="vacant") {
+			if(seatVacancy.get(i).contains("vacant")) {
 				numOfVacant++;
 			}
 		}
@@ -107,7 +98,7 @@ public class Index {
 	
 	public void showAllSeats() {
 		for(int i =0;i<numVacancy;i++) {
-			System.out.println(i+1 + ": "+seatVacancy[i]);
+			System.out.println(i+1 + ": "+seatVacancy.get(i));
 		}
 		System.out.println();
 	}

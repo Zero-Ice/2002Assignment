@@ -82,9 +82,9 @@ public class Course {
 	public boolean checkClash(String matricNo) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
-			if(indexes.get(i).indexSeatClash(matricNo)==true) {
-				return true;
-			}
+//			if(indexes.get(i).indexSeatClash(matricNo)==true) {
+//				return true;
+//			}
 		}
 		return false;
 	}
@@ -95,12 +95,17 @@ public class Course {
 			System.out.println(matricNo + " has registered before in another index");
 		}else {
 			getIndex(index).assignStudent(matricNo);
-			System.out.println(matricNo + " assigned to " + getCourseCode()+", index "+getIndex(index).getIndexNum());
 		}
 	}
 	
 	public void unassignStudent(int index, String matricNo) {
-		getIndex(index).unassignStudent(matricNo);
+//		if(checkClash(matricNo)==true) {
+			getIndex(index).unassignStudent(matricNo);
+//			System.out.println(matricNo+ " unassigned from "+ getCourseCode()+", index "+index);
+//		}else {
+//			System.out.println(matricNo + " has not registered before");
+//		}
+		
 	}
 	
 ///////////////////////                    ADMIN indexes              ////////////////////////////
