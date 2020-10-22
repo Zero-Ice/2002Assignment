@@ -73,7 +73,8 @@ public class AdminCourseUI {
 
 	private static void addNewCourse() {
 		//hi
-
+		//hihihihihi
+		//bye
 	}
 
 
