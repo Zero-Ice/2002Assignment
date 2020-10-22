@@ -10,6 +10,8 @@ public class Course {
 	private String courseName;
 	private String schooName;
 	private String lecVenue;
+	private String lecRemark;
+	private String lecGroup;
 	private int AU;
 	private Date lecStartTime;
 	private Date lecEndTime;
@@ -36,16 +38,10 @@ public class Course {
 				return indexes.get(i);
 			}
 		}
-		
 		return null;
 	}
 	
-	public void showSeatsForIndex(int index) {
-		System.out.println("Index "+index);
-		getIndex(index).showAllSeats();
-	}
-	
-	public void showAllSeatsForCourse() {
+	public void showAllSeatVacancyForCourse() {
 		System.out.println(getCourseCode()+" "+ getCourseName());
 		for(int i = 0; i < indexes.size(); i++) {
 			System.out.println("Index "+indexes.get(i).getIndexNum());
@@ -78,13 +74,13 @@ public class Course {
 		}
 	}
 	
-	// check for clash between indexes
+	// check if student has registered between indexes
 	public boolean checkClash(String matricNo) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
-//			if(indexes.get(i).indexSeatClash(matricNo)==true) {
-//				return true;
-//			}
+			if(indexes.get(i).indexSeatClash(matricNo)==true) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -99,14 +95,13 @@ public class Course {
 	}
 	
 	public void unassignStudent(int index, String matricNo) {
-//		if(checkClash(matricNo)==true) {
+		if(checkClash(matricNo)==true) {
 			getIndex(index).unassignStudent(matricNo);
-//			System.out.println(matricNo+ " unassigned from "+ getCourseCode()+", index "+index);
-//		}else {
-//			System.out.println(matricNo + " has not registered before");
-//		}
-		
+		}else {
+			System.out.println(matricNo + " has not registered before");
+		}
 	}
+	
 	
 ///////////////////////                    ADMIN indexes              ////////////////////////////
 	public void addIndex(int index, int vacancy) {
@@ -144,16 +139,6 @@ public class Course {
 	
 ///////////////////////                    ADMIN lec/tut/lab venue              ////////////////////////////
 	
-	public void updateTutVenue(int index, String tutVenue) {
-		getIndex(index).updateIndexTutVenue(tutVenue);
-		System.out.println("Tutorial veneue "+tutVenue+" was successfully added to index "+ getIndex(index).getIndexNum());
-	}
-	
-	public void updateLabVenue(int index, String labVenue) {
-		getIndex(index).updateIndexLabVenue(labVenue);
-		System.out.println("Lab veneue "+labVenue+" was successfully added to index "+ getIndex(index).getIndexNum());
-	}
-	
 	public void updateLecVenue(String lecVenue) {
 		this.lecVenue = lecVenue;
 	}
@@ -161,22 +146,17 @@ public class Course {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 ///////////////////////                    SET lec/tut/lab dateTime              ////////////////////////////	
-	
-	public void setTutDetails(int index,int intDay, int startHours, int startMinutes,int endHours, int endMinutes,String tutVenue) {
-		getIndex(index).setIndexTutDetails(intDay, startHours, startMinutes, endHours, endMinutes, tutVenue);
-	}
-	
-	public void setLabDetails(int index,int intDay, int startHours, int startMinutes,int endHours, int endMinutes,String labVenue) {
-		getIndex(index).setIndexLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, labVenue);
-	}
-	
-	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,String lecVenue) {
+		
+	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
+			String lecVenue,String lecRemarks, String lecGroup) {
 		lecStartTime.setHours(startHours);
 		lecStartTime.setMinutes(startMinutes);
 		lecEndTime.setHours(endHours);
 		lecEndTime.setMinutes(startMinutes);
 		lecDay = setDay(intDay);
 		updateLecVenue(lecVenue);
+		updateLecGroup(lecGroup);
+		updateLecRemark(lecRemarks);
 	}
 	
 	private String setDay(int intDay) {
@@ -241,25 +221,15 @@ public class Course {
 	public boolean getCourseAvailability() {
 		return courseAvailability;
 	}
-
-	
-	public void getTutDetails(int index) {
-		getIndex(index).getIndexTutDetails();
-	}
-	
-	public void getLabDetails(int index) {
-		getIndex(index).getIndexLabDetails();
-	}
 	
 	public void getLecDetails() {
 		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
 		String lecStart = formatter.format(lecStartTime);
 		String lecEnd =formatter.format(lecEndTime);
 		
-		String time = "Time: "+ lecStart + " - " + lecEnd;
-		String venue =  "Venue: " + getLecVenue();
-		
-		String lecDetails = "Day: " + lecDay + "\n" + time + "\n" + venue;
+		String time = lecStart + " - " + lecEnd;
+
+		String lecDetails = "Lec "+ "\t"+ lecGroup + "\t" + lecDay + "\t" + time + "\t" + lecVenue+ "\t"+ lecRemark;
 		
 		System.out.println(lecDetails);
 	}
@@ -270,6 +240,22 @@ public class Course {
 
 	public String getLecDay() {
 		return lecDay;
+	}
+
+	public String getLecRemark() {
+		return lecRemark;
+	}
+
+	public void updateLecRemark(String lecRemark) {
+		this.lecRemark = lecRemark;
+	}
+
+	public String getLecGroup() {
+		return lecGroup;
+	}
+
+	public void updateLecGroup(String lecGroup) {
+		this.lecGroup = lecGroup;
 	}
 	
 	

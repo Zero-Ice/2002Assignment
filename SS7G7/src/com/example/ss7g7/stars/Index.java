@@ -7,11 +7,17 @@ public class Index {
 	private int indexNum;
 	private int numVacancy;
 	private ArrayList<String> seatVacancy;
-	private ArrayList<String>  studentWaitlist;
+	private ArrayList<String> studentWaitlist;
 	private String tutVenue;
-	private String labVenue;
+	private String tutGroup;
+	private String tutRemark;
 	private String tutDay;
+	private String labVenue;
 	private String labDay;
+	private String labGroup;
+	
+	
+	private String labRemark;
 	private Date tutStartTime;
 	private Date tutEndTime;
 	private Date labStartTime;
@@ -97,11 +103,13 @@ public class Index {
 	}
 	
 	public void showAllSeats() {
+		System.out.println(indexNum);
 		for(int i =0;i<numVacancy;i++) {
 			System.out.println(i+1 + ": "+seatVacancy.get(i));
 		}
 		System.out.println();
 	}
+	
 
 	public int getIndexNum() {
 		return indexNum;
@@ -115,60 +123,68 @@ public class Index {
 		return tutVenue;
 	}
 
-	public void updateIndexTutVenue(String tutVenue) {
+	public void updateTutVenue(String tutVenue) {
 		this.tutVenue = tutVenue;
 	}
 
-	public void getIndexTutDetails() {
+	
+	//return string
+	public void getTutDetails() {
 		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
 		String tutStart = formatter.format(tutStartTime);
 		String tutEnd =formatter.format(tutEndTime);
 		
-		String time = "Time: "+ tutStart + " - " + tutEnd;
-		String venue =  "Venue: " + getTutVenue();
+		String time = tutStart + " - " + tutEnd;
 		
-		String tutDetails = "Day: " + tutDay + "\n" + time + "\n" + venue;
+		String tutDetails = "Tut "+ "\t"+ tutGroup + "\t" + tutDay + "\t" + time + "\t" + tutVenue+ "\t"+ tutRemark;
 		
 		System.out.println(tutDetails);
 	}
 
-	public void setIndexTutDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,String tutVenue) {
+	
+	public void setTutDetails(int intDay, int startHours, int startMinutes,int endHours,
+			int endMinutes,String tutVenue, String tutRemarks, String tutGroup) {
 		tutStartTime.setHours(startHours);
 		tutStartTime.setMinutes(startMinutes);
 		tutEndTime.setHours(endHours);
 		tutEndTime.setMinutes(startMinutes);
 		tutDay = setDay(intDay);
-		updateIndexTutVenue(tutVenue);
+		updateTutVenue(tutVenue);
+		updateTutRemark(tutRemarks);
+		updateTutGroup(tutGroup);
 	}
 
 	public String getLabVenue() {
 		return labVenue;
 	}
 
-	public void updateIndexLabVenue(String labVenue) {
+	public void updateLabVenue(String labVenue) {
 		this.labVenue = labVenue;
 	}
 
-	public void getIndexLabDetails() {
+	
+	//return string
+	public void getLabDetails() {
 		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
 		String labStart = formatter.format(labStartTime);
 		String labEnd =formatter.format(labEndTime);
 		
-		String time = "Time: "+ labStart + " - " + labEnd;
-		String venue =  "Venue: " + getLabVenue();
-		
-		String labDetails = "Day: " + labDay + "\n" + time + "\n" + venue;
+		String time = labStart + " - " + labEnd;
+		String labDetails = "Lab \t" + labGroup+ "\t" +labDay + "\t" + time + "\t" + labVenue+ "\t" +labRemark;
 		
 		System.out.println(labDetails);
 	}
 
-	public void setIndexLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,String labVenue) {
+	public void setLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
+			String labVenue,String labRemarks, String labGroup) {
 		labStartTime.setHours(startHours);
 		labStartTime.setMinutes(startMinutes);
 		labEndTime.setHours(endHours);
 		labEndTime.setMinutes(startMinutes);
 		labDay = setDay(intDay);
-		updateIndexLabVenue(labVenue);
+		updateLabVenue(labVenue);
+		updateLabRemark(labRemarks);
+		updateLabGroup(labGroup);
 	}
 	
 	
@@ -184,6 +200,45 @@ public class Index {
 		return null;
 	}
 
+
+	public String getTutRemark() {
+		return tutRemark;
+	}
+
+
+	public void updateTutRemark(String tutRemark) {
+		this.tutRemark = tutRemark;
+	}
+
+
+	public String getTutGroup() {
+		return tutGroup;
+	}
+
+
+	public void updateTutGroup(String tutGroup) {
+		this.tutGroup = tutGroup;
+	}
+	
+	
+	public String getLabGroup() {
+		return labGroup;
+	}
+
+
+	public void updateLabGroup(String labGroup) {
+		this.labGroup = labGroup;
+	}
+
+
+	public String getLabRemark() {
+		return labRemark;
+	}
+
+
+	public void updateLabRemark(String labRemark) {
+		this.labRemark = labRemark;
+	}
 
 	
 
