@@ -47,9 +47,9 @@ public class StarsSystem {
 			// @Kah Hui change it to ADMIN to test your menu
 			
 			User.UserType currentUserType;
-//			currentUserType = login.Login();
+			currentUserType = login.Login();
 			
-			currentUserType = User.UserType.STUDENT;
+			//currentUserType = ;
 			
 			switch (currentUserType) {
 			// Terminate stars

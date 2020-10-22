@@ -128,7 +128,7 @@ public class Login {
 	 	String key = hmap.get(this.user.getUser());
 	 	String privilege = "denied";
 	 	
-	 	System.out.println(this.user.getUser()+" "+this.user.getPass()+" "+key);
+	 	//System.out.println(this.user.getUser()+" "+this.user.getPass()+" "+key);
 	 	if (key != null) {
 	 		
 	 		if (this.user.getPass().toString().equals(key)) {
