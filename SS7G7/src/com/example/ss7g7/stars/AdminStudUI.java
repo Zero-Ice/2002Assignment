@@ -181,10 +181,6 @@ public class AdminStudUI {
 		System.out.println("Student with matriculation number of " + matricNo + " has been removed.");
 	}
 
-
-
-
-	
 	public static void printStudentList(){
 		boolean flag = false;
 		System.out.println();
