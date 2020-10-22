@@ -7,7 +7,7 @@ import java.util.*;
 
 public class AdminStudUI {
 	
-	static ArrayList<Student> studentList = Database.studentList;
+	static List<Student> studentList;
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
@@ -92,9 +92,8 @@ public class AdminStudUI {
 	private static void addStudent() {
 		
 		String username = "";
-		String password = "";
 		String matricNo = "";
-		String firstName = "";
+		String name = "";
 		String lastName = "";
 		String nationality ="";
 		String email = "";
@@ -111,9 +110,6 @@ public class AdminStudUI {
 			username = sc.nextLine();
 			check = !(StudMngmt.isExistingUsername(username));
 		} while (check);
-
-		System.out.print("Enter student's default password ");
-		password = sc.nextLine();
 		
 		System.out.print("Enter student's first name: ");
 		firstName = sc.nextLine();
@@ -143,7 +139,7 @@ public class AdminStudUI {
         Calendar accessStart = CalendarMngmt.getValidDateTime("access start");
         Calendar accessEnd = CalendarMngmt.getValidDateTime("access end");
        
-        StudMngmt.addStudent(username, password, firstName, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
+        StudMngmt.addStudent(username, name,lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
 
         					
        
@@ -197,8 +193,8 @@ public class AdminStudUI {
 		}
 		
 		for (Student s: studentList){
-			System.out.print(s.matricNo() + "         \t");
-			System.out.print(s.getFirstName() + " " + s.getLastName());
+			System.out.print(s.getMatricNo() + "         \t");
+			System.out.print(s.getName() + " " + s.getLastName());
 			System.out.println();
 			
 			flag = true;

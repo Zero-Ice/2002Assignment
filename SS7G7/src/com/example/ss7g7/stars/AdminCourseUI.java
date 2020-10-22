@@ -5,7 +5,7 @@ import java.util.*;
 
 public class AdminCourseUI {
 
-	static List<Course> course = Database.courseList;
+	static List<Course> course;
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
