@@ -71,7 +71,7 @@ public class StudentMenu {
 		int choice;
 
 		while (run) {
-			System.out.println("Welcome " + student.getName() + " " + student.getUsername());
+			System.out.println("Welcome " + student.getName() + " " + student.getUserName());
 			System.out.println("Enter your choice");
 			System.out.println("(1) Add Course");
 			System.out.println("(2) Drop Course");

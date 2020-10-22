@@ -112,7 +112,7 @@ public class AdminStudUI {
 		} while (check);
 		
 		System.out.print("Enter student's first name: ");
-		firstName = sc.nextLine();
+		name = sc.nextLine();
 		System.out.print("Enter student's last name: ");
 		lastName = sc.nextLine();
 		

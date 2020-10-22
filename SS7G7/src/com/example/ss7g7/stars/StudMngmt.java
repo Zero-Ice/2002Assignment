@@ -49,7 +49,7 @@ public class StudMngmt {
 	
 	// add new student to studentlist in database
 	public static void addStudent(String username,String name, String lastName,
-			String matNum, String gender, String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
+			String matricNo, String gender, String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
 	
 	{
         Student newStud = new Student(username, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
