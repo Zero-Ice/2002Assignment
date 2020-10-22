@@ -122,7 +122,7 @@ public class Student{
 	}
 
 	public void setName(String name) {
-		this.firstName = firstName;
+		this.name = name;
 	}
 
 	public String getLastName() {
