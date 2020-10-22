@@ -1,6 +1,8 @@
 package com.example.ss7g7.stars;
 
 import java.util.*;
+
+
 import java.io.Console;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -11,22 +13,31 @@ public class Login {
 	
 	private User user = new User();
 	private StringBuilder passClear = new StringBuilder();
-	private String passCipher; 
+	private String passCipher;  
 
 	User.UserType Login() {
 		
 		List [] credentials = new List [2];
 		List<String> username = new ArrayList<String>();
         List<String> pass = new ArrayList<String>();
+        List<Boolean> admin = new ArrayList<Boolean>();
         HashMap<String, String> hmap = new HashMap<String, String>();
         String auth = new String();
+       
+        
         
 		//--------------- Get user credentials --------------------//
 		CSVReader read = new CSVReader();
-		read.readFile();
-		credentials = read.readFile();
-		username = credentials[0];
-		pass = credentials[1];
+		
+		if (read.readFile()!=null) {
+			credentials = read.readFile();
+			username = credentials[0];
+			pass = credentials[1];
+			admin = credentials[2];
+		}else {
+			System.out.println("Error reading file");
+		}		
+		
 		
 		for (int i=0; i< username.size(); i++) {
 			hmap.put(username.get(i), pass.get(i));
@@ -117,6 +128,7 @@ public class Login {
 	 	String key = hmap.get(this.user.getUser());
 	 	String privilege = "denied";
 	 	
+	 	System.out.println(this.user.getUser()+" "+this.user.getPass()+" "+key);
 	 	if (key != null) {
 	 		
 	 		if (this.user.getPass().toString().equals(key)) {
