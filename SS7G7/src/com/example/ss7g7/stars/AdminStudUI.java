@@ -7,7 +7,8 @@ import java.util.*;
 
 public class AdminStudUI {
 	
-	static List<Student> studentList;
+	static List<Student> studentList; //= StarsDB.getAllStudents(); calling from starsDB directly.
+	static List<Course> courseList;// = StarsDB.getAllCourse(); calling from starsDB directly.
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
@@ -92,6 +93,7 @@ public class AdminStudUI {
 	private static void addStudent() {
 		
 		String username = "";
+		String passWord = "";
 		String matricNo = "";
 		String name = "";
 		String lastName = "";
@@ -110,6 +112,9 @@ public class AdminStudUI {
 			username = sc.nextLine();
 			check = !(StudMngmt.isExistingUsername(username));
 		} while (check);
+		
+		System.out.print("Enter student's default password: ");
+		passWord = sc.nextLine();
 		
 		System.out.print("Enter student's first name: ");
 		name = sc.nextLine();
@@ -140,7 +145,6 @@ public class AdminStudUI {
         Calendar accessEnd = CalendarMngmt.getValidDateTime("access end");
        
         StudMngmt.addStudent(username, name,lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
-
         					
        
         
@@ -209,7 +213,23 @@ public class AdminStudUI {
 	}
 	
 	private static void printStudListByCourse() {
-		// TODO Auto-generated method stub
+		boolean flag = false;
+		System.out.println();
+		System.out.println("Course Name\t");
+		System.out.println("---------------------------------------------------");
+		
+		if(courseList.size() <= 0){
+			System.out.println("\nNo record is found!\n");
+			return;
+		}
+		
+		for (Course c: courseList){
+			System.out.print(c.getCourseName() + "         \t");
+			System.out.println();
+			
+			flag = true;
+		}
+		if (!flag) System.out.println("\nNo record is found!");
 		
 	}
 

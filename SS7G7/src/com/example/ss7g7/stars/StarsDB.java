@@ -32,6 +32,10 @@ public class StarsDB {
 		return students;
 	}
 	
+	public ArrayList<Course> getAllCourse() {
+		return courses;
+	}
+	
 	public Student getStudent(String userName) {
 		for(int i = 0; i < students.size(); i++) {
 			if(userName == students.get(i).getUserName()) {
