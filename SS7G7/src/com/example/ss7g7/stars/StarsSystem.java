@@ -10,7 +10,7 @@ public class StarsSystem {
 		// TODO: Finalize txt file name and location
 		db = new StarsDB("studentInfo.txt", "courseInfo.txt");
 		
-		login = new Login();
+		login = new Login(db);
 		currentUser = null;
 	}
 
@@ -47,7 +47,7 @@ public class StarsSystem {
 			// @Kah Hui change it to ADMIN to test your menu
 			
 			User.UserType currentUserType;
-			currentUserType = login.Login();
+			currentUserType = login.login();
 			
 			//currentUserType = ;
 			
@@ -77,9 +77,10 @@ public class StarsSystem {
 //	private User.UserType runLogin() {
 //		// Handled by K
 //		
+//		
 //		// Note: 1 Requirement is that Password should not be displayed on console when
 //		// entering it
-//		currentUser = login.Login();
+//		currentUser = 
 //		// TODO Change this temp return
 //		return null;
 //	}

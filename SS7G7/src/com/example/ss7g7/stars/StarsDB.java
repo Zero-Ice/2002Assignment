@@ -2,6 +2,8 @@ package com.example.ss7g7.stars;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class StarsDB {
 	private String studentDataFilePath;
@@ -9,6 +11,7 @@ public class StarsDB {
 	
 	private ArrayList<Student> students;
 	private ArrayList<Course> courses;
+	
 	
 	public StarsDB(String studentDataFilePath, String courseDataFilePath) {
 		this.studentDataFilePath = studentDataFilePath;
@@ -72,5 +75,36 @@ public class StarsDB {
 		}
 		
 		return null;
+	}
+	
+	public HashMap<String, String> getDBLoginCred () {
+		
+		List [] credentials = new List [3];
+		List<String> username = new ArrayList<String>();
+        List<String> pass = new ArrayList<String>();
+        List<Boolean> admin = new ArrayList<Boolean>();
+        HashMap<String, String> hmap = new HashMap<String, String>();
+       
+        
+		CSVReader run = new CSVReader();
+		
+		if (run.readFile()!=null) {
+			credentials = run.readFile();
+			username = credentials[0];
+			pass = credentials[1];
+			admin = credentials[2];
+			
+		}else {
+			System.out.println("Error reading file");
+		}		
+		
+		
+		for (int i=0; i< username.size(); i++) {
+			hmap.put(username.get(i), pass.get(i));
+		}
+		
+	
+		return hmap;
+				
 	}
 }
