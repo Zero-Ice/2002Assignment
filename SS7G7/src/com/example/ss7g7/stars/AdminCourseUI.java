@@ -1,11 +1,9 @@
 package com.example.ss7g7.stars;
 import java.util.*;
 
-
-
 public class AdminCourseUI {
 
-	static List<Course> course;
+	static List<Course> course; //= StarsDB.getAllCourse(); make it static?
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
@@ -72,32 +70,119 @@ public class AdminCourseUI {
 
 
 	private static void addNewCourse() {
-		//hi
-		//hihihihihi
-		//bye
+		
+		String courseCode;
+		String courseName;
+		String schooName;
+		int AU;
+		boolean check;
+		
+		System.out.println("Press any key to continue");
+		sc.nextLine();
+		sc.nextLine();
+		do {
+			System.out.print("Enter the course's name: ");
+			courseCode = sc.nextLine();
+			check = !(AdminCourseMngmt.isExistingCourseCode(courseCode));
+		} while (check);
+		
+		System.out.print("Enter course's name: ");
+		courseName = sc.nextLine();
+		
+		System.out.print("Enter what school the course is under(i.e SCSE): ");
+		schooName = sc.nextLine();
+		
+        while(true){
+        	try{
+        		System.out.print("Enter the number of AUs: "); 
+        		AU = sc.nextInt();
+        		sc.nextLine();
+        		break;
+        	} catch (Exception e){
+        		sc.nextLine();
+        		System.out.println("Invalid input! Academic Unit must be a number!");
+        	}
+        }
+        
+        AdminCourseMngmt.addCourse(courseCode.toUpperCase(), courseName.toUpperCase(),schooName.toUpperCase(), AU);
+
+       
+	    System.out.println();
+		System.out.println("The Course has been added.");
+		
+		
+		
+		
+		
+
 	}
 
 
 	private static void removeACourse() {
-		// TODO Auto-generated method stub
+		
+		//Course.showfullCourseDetails(); make this static
+		System.out.print("Enter the course's code:"); 
+		String courseCode = sc.nextLine();
+		AdminCourseMngmt.removeCourse(courseCode.toUpperCase());
 		
 	}
 
 
 	private static void updateCourseIndex() {
-		// TODO Auto-generated method stub
+		
+		
+		//Course.showAllIndexDetails(); make it static
+		int indexNum =0;
+		int NindexNum = 0;
+		int check=0;
+		System.out.print("Enter the Index Number:"); 
+		indexNum = sc.nextInt();
+		//check = Course.getIndex(indexNum); make it static 
+		System.out.print("Enter the New Index Number:"); 
+		NindexNum = sc.nextInt();
+		//Course.updateIndex(check,NindexNum); make it static 
+		//Course.showAllIndexDetails(); make it static
+
 		
 	}
 
 
 	private static void addNewIndex() {
-		// TODO Auto-generated method stub
 		
-	}
+		 int indexNum =0;
+		 int vacancy = 0;
+		 String courseCode;
+		 
+		 while(true) {
+		System.out.print("Enter the course's code:"); 
+		courseCode = sc.nextLine();
+		if (AdminCourseMngmt.isExistingCourseCode(courseCode))
+		{System.out.print("Course Name found."); 
+		sc.nextLine();
+		break;
+		}
+		else {
+		System.out.println("Course code doesnt not exist.");}
+		 }
+		 
+		Course tempC = AdminCourseMngmt.getCourseByCode(courseCode);
+		System.out.print("Enter the course's Index Number:"); 
+		indexNum = sc.nextInt();
+		System.out.print("Enter the course's maximum vacancy slots:"); 
+		vacancy = sc.nextInt();
+		tempC.addIndex(indexNum, vacancy);
+		
+		//Course.showAllIndexDetails(); make it static
+		}
 
 
 	private static void removeAIndex() {
-		// TODO Auto-generated method stub
+		
+		//Course.showAllIndexDetails(); make it static
+		System.out.print("Enter the course's Index Number:"); 
+		int indexN = sc.nextInt();
+		//Course.removeIndex(indexN); make it static
+		
 		
 	}
 
@@ -115,7 +200,7 @@ public class AdminCourseUI {
 
 
 	private static void CheckIndexSlots() {
-		// TODO Auto-generated method stub
+		//Course.showAllIndexDetails(); make it static
 		
 	}
 
