@@ -41,8 +41,6 @@ public class AdminCourseMngmt {
 		Course newCourse 		= new Course(courseCode, courseName,SchooName, aU);
 		courseList.add(newCourse);
 		System.out.println();
-		//CourseMgr.printCourseList();
-		System.out.println();
 		
 	}
 
