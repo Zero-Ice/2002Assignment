@@ -8,8 +8,7 @@ import java.util.Calendar;
 public class Student{
 	
 	private String username;
-	private String password;
-	private String firstName; 
+	private String name; 
 	private String lastName;
 	private String matricNo;
 	private String gender;
@@ -21,12 +20,11 @@ public class Student{
 	private ArrayList<RegisteredCourse> courses;
 	
 	
-	public Student (String username, String password,String firstName, String lastName, String matricNo, String gender,
+	public Student (String username,String name, String lastName, String matricNo, String gender,
 					String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
 	{
 		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
+		this.name = name;
 		this.lastName = lastName;
 		this.matricNo	= matricNo;
 		this.gender	= gender;
@@ -118,19 +116,12 @@ public class Student{
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+
+	public String getName() {
+		return name;
 	}
 
-	public void getPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
+	public void setName(String name) {
 		this.firstName = firstName;
 	}
 
@@ -142,11 +133,11 @@ public class Student{
 		this.lastName = lastName;
 	}
 
-	public String matricNo() {
+	public String getMatricNo() {
 		return matricNo;
 	}
 
-	public void matricNo(String matricNo) {
+	public void setMatricNo(String matricNo) {
 		this.matricNo = matricNo;
 	}
 

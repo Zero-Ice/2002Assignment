@@ -33,7 +33,7 @@ public class StarsDB {
 	
 	public Student getStudent(String userName) {
 		for(int i = 0; i < students.size(); i++) {
-			if(userName == students.get(i).getUsername()) {
+			if(userName == students.get(i).getUserName()) {
 				return students.get(i);
 			}
 		}
@@ -41,7 +41,10 @@ public class StarsDB {
 	}
 	
 	public Student getDebugStudent() {
-		Student s = new Student("Dum dum", "U1969420", "DD69", "A", "Antartica");
+		//purpose of accessStart/End is for student to only enter the stars planner at certain time periodd
+		Calendar newDate1 = Calendar.getInstance(); //create a date to accessStart 
+		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
+		Student s = new Student("Dum123","Dum dum", " Tan", "U1969420", "M", "Antartica, ", 96549119, "dimdim@hotmai.com",newDate1, newDate2);
 		return s;
 	}
 	
