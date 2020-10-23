@@ -63,7 +63,7 @@ public class StarsSystem {
 				runStudentMenu();
 				break;
 			case ADMIN:
-				AdminUI.printAdminUI();
+				AdminUI.printAdminUI(db);
 				break;
 			default:
 				break;
