@@ -3,12 +3,17 @@ import java.util.*;
 
 public class AdminCourseUI {
 
-	static List<Course> course; //= StarsDB.getAllCourse(); make it static
+	static List<Course> courseList;
+	static List<Student> studentList;
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	
-	public static void printAdminStudUI() {
+	public static void printAdminCourseUI(StarsDB db) {
+		
+		studentList = db.getAllStudents(); 
+		courseList =  db.getAllCourse(); 
+		
 		int choice;
 		Logout:
 		while(true){ //Print selection menu
@@ -28,7 +33,7 @@ public class AdminCourseUI {
 			choice = sc.nextInt();
 			try{
 				switch (choice) {
-					case 1: //Go to Edit Student Access UI Function
+					case 1: 
 						addNewCourse();
 						break;
 					case 2: 
@@ -197,11 +202,14 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated tutorial venue:"); 
 							tutVenue = sc.nextLine();
 							
-							((Course) course).getIndex(indexNum).updateTutVenue(tutVenue);
+							//courseList.getIndex(indexNum).updateTutVenue(tutVenue);
 							
 							break;
 						case 4: 
 							//update index lab venue 
+							
+							System.out.print("Enter the Course Number:"); 
+							courseName = sc.nextLine();
 							
 							System.out.print("Enter the Index Number:"); 
 							indexNum = sc.nextInt();
@@ -209,8 +217,8 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated lab venue:"); 
 							labVenue = sc.nextLine();
 							
-							((Course) course).getIndex(indexNum).updateLabVenue(labVenue);
-							break Logout;
+							//courseList.getCourseName(courseName).getIndex(indexNum).updateLabVenue(labVenue);
+							break;
 						case 5: 
 							//update index lecture venue 
 							
@@ -220,7 +228,8 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated lab venue:"); 
 							lecVenue = sc.nextLine();
 							
-							((Course) course).updateLecVenue(lecVenue);
+							//courseList.updateLecVenue(lecVenue);
+							
 							break Logout;
 						case 6: // Log out
 							System.out.println("Logged out successfully");
@@ -290,8 +299,7 @@ public class AdminCourseUI {
 		tutVenue = sc.nextLine();
 						
 		//create new tutorial lesson
-		((Course) course).getIndex(indexNum).setTutDetails(intDay,startHours,startMinutes,endHours, 
-								endMinutes,tutVenue,"",""); 
+		//courseList.getIndex(indexNum).setTutDetails(intDay,startHours,startMinutes,endHours, endMinutes,tutVenue,"",""); 
 		
 		//create new lab lesson
 		System.out.print("Enter the lab day:"); 
@@ -307,8 +315,7 @@ public class AdminCourseUI {
 		System.out.print("Enter the lab venue:"); 
 		labVenue = sc.nextLine();
 						
-		((Course) course).getIndex(indexNum).setLabDetails(intDay,startHours,startMinutes,endHours, 
-								endMinutes,labVenue,"","");
+		//courseList.getIndex(indexNum).setLabDetails(intDay,startHours,startMinutes,endHours, endMinutes,labVenue,"","");
 				
 
 		//create new lecture lesson
@@ -326,8 +333,7 @@ public class AdminCourseUI {
 		System.out.print("Enter the lecture venue:"); 
 		lecVenue = sc.nextLine();
 						
-		((Course) course).setLecDetails(intDay,startHours,startMinutes,endHours,endMinutes,
-								lecVenue,"","");
+		//courseList.setLecDetails(intDay,startHours,startMinutes,endHours,endMinutes,lecVenue,"","");
 
 		//Course.showAllIndexDetails(); make it static
 		}
@@ -370,12 +376,12 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
 		
-		if(course.size() <= 0){
+		if(courseList.size() <= 0){
 			System.out.println("\nNo record is found!\n");
 			return;
 		}
 		
-		for (Course s: course){
+		for (Course s: courseList){
 			System.out.print(s.getCourseName() + "         \t");
 			//System.out.print(s.getIndexNum() + " " + s.getLastName());
 			//System.out.println();

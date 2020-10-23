@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class AdminCourseMngmt {
-	static List<Course> courseList; //= StarsDB.getAllStudents(); calling from starsDB directly.
+	static List<Course> courseList;// = StarsDB.getAllStudents(); calling from starsDB directly.
 	
 
 	public static boolean isExistingCourseCode(String courseCode) {

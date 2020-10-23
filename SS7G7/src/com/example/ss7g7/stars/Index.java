@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Index {
 	private int indexNum;
 	private int numVacancy;
-	private ArrayList<String> seatVacancy;
+	private ArrayList<String> seatVacancy; 
 	private ArrayList<String> studentWaitlist;
 	private String tutVenue;
 	private String tutGroup;
@@ -264,6 +264,9 @@ public class Index {
 	public void updateLabRemark(String labRemark) {
 		this.labRemark = labRemark;
 	}
+	
+	public ArrayList<String> getVacancyList()
+	{return seatVacancy;}
 
 	
 

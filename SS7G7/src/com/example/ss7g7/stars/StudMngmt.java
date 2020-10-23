@@ -1,13 +1,18 @@
 package com.example.ss7g7.stars;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
 //This class is used by AdminStudUI to check against the database.
 
+
 public class StudMngmt {
-	static List<Student> studentList; // student Arraylist from database
+	
+
+	static StarsDB db;
+	static ArrayList<Student> studentList ;//= db.getAllStudents();
+	
 	
 	//find a student via their matriculation number 
 	public static Student getStudentByMatric(String matricNo){ 
