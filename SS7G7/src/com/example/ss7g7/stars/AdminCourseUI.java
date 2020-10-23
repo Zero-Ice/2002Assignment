@@ -197,7 +197,7 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated tutorial venue:"); 
 							tutVenue = sc.nextLine();
 							
-							((Course) course).updateTutVenue(indexNum,tutVenue);
+							((Course) course).getIndex(indexNum).updateTutVenue(tutVenue);
 							
 							break;
 						case 4: 
@@ -209,7 +209,7 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated lab venue:"); 
 							labVenue = sc.nextLine();
 							
-							((Course) course).updateTutVenue(indexNum,labVenue);
+							((Course) course).getIndex(indexNum).updateLabVenue(labVenue);
 							break Logout;
 						case 5: 
 							//update index lecture venue 
@@ -290,8 +290,8 @@ public class AdminCourseUI {
 		tutVenue = sc.nextLine();
 						
 		//create new tutorial lesson
-		((Course) course).setTutDetails(indexNum,intDay,startHours,startMinutes,endHours, 
-								endMinutes,tutVenue); 
+		((Course) course).getIndex(indexNum).setTutDetails(intDay,startHours,startMinutes,endHours, 
+								endMinutes,tutVenue,"",""); 
 		
 		//create new lab lesson
 		System.out.print("Enter the lab day:"); 
@@ -307,8 +307,8 @@ public class AdminCourseUI {
 		System.out.print("Enter the lab venue:"); 
 		labVenue = sc.nextLine();
 						
-		((Course) course).setLabDetails(indexNum,intDay,startHours,startMinutes,endHours, 
-								endMinutes,labVenue);
+		((Course) course).getIndex(indexNum).setLabDetails(intDay,startHours,startMinutes,endHours, 
+								endMinutes,labVenue,"","");
 				
 
 		//create new lecture lesson
@@ -327,7 +327,7 @@ public class AdminCourseUI {
 		lecVenue = sc.nextLine();
 						
 		((Course) course).setLecDetails(intDay,startHours,startMinutes,endHours,endMinutes,
-								lecVenue);
+								lecVenue,"","");
 
 		//Course.showAllIndexDetails(); make it static
 		}
