@@ -5,16 +5,21 @@ import java.util.*;
 
 
 
+
 public class AdminStudUI {
 	
-	static List<Student> studentList; //= StarsDB.getAllStudents(); calling from starsDB directly.
-	static List<Course> courseList;// = StarsDB.getAllCourse(); calling from starsDB directly.
+	static List<Course> courseList;
+	static List<Student> studentList;
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	
-	public static void printAdminStudUI() {
+	public static void printAdminStudUI(StarsDB db) {
+
 		
+		List<Student> studentList = db.getAllStudents();
+		List<Course> courseList = db.getAllCourse();
+		 
 		int choice;
 		Logout:
 		while(true){ //Print selection menu
@@ -150,7 +155,7 @@ public class AdminStudUI {
         
 	    System.out.println();
 		System.out.println("The Student has been added.");
-		//CourseMgr.printStudentList();
+		printStudentList();
 
 		
 	}
