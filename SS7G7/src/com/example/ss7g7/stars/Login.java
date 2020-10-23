@@ -17,7 +17,7 @@ public class Login {
 	private StarsDB db;
 
 	Login(StarsDB db) {
-		this.db = db;
+		this.db = db; 
 	}
 	
 	User.UserType login(){
@@ -39,7 +39,12 @@ public class Login {
 		
 		return User.UserType.NIL;
 	}
-	void getLoginCred () {
+	
+	User getCurrentUser () {
+		return this.user;
+	}
+	
+	User getLoginCred () {
 		
 		String username;
 		//char [] pass;
@@ -65,7 +70,7 @@ public class Login {
 		this.user.setUser(username);
 		this.user.setPass(passCipher);
 		
-		
+		return this.user;
 		
 	}
 	
@@ -119,6 +124,7 @@ public class Login {
 		
 	}
 	
+
 	
 	
 }

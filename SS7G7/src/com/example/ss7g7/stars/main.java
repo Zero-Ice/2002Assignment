@@ -8,6 +8,7 @@ public class main {
 		
 		if(!successfulInit) {
 			// TODO: Throw error
+			System.out.println("Stars failed to initialize");
 		}
 		
 		stars.run();

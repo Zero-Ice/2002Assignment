@@ -1,11 +1,12 @@
 package com.example.ss7g7.stars;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Course {
+public class Course implements Serializable{
 	private String courseCode;
 	private String courseName;
 	private String schooName;
@@ -117,6 +118,8 @@ public class Course {
 		}else {
 			System.out.println("Index "+index+" already exists in "+ courseCode + "!");
 		}
+		
+		
 		
 	}
 	

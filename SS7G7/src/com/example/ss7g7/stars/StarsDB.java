@@ -11,7 +11,7 @@ public class StarsDB {
 	
 	private ArrayList<Student> students;
 	private ArrayList<Course> courses;
-	
+	private FileIO file = new FileIO();
 	
 	public StarsDB(String studentDataFilePath, String courseDataFilePath) {
 		this.studentDataFilePath = studentDataFilePath;
@@ -26,6 +26,16 @@ public class StarsDB {
 	public boolean init() {
 		// TODO: File I/O
 		
+		this.students = file.getStudentRecords(studentDataFilePath);
+		
+		if (this.students.isEmpty()) {
+			System.out.print("Get failed");
+		}
+		else {
+			for (Student s: this.students) {
+				System.out.println(s.getName()+" "+s.getUserName());
+			}
+		}
 		createDebugCourses();
 		
 		return true;
@@ -38,6 +48,34 @@ public class StarsDB {
 	public ArrayList<Course> getAllCourse() {
 		return courses;
 	}
+
+	public HashMap<String, String> getDBLoginCred () {
+		
+		List [] credentials = new List [3];
+		List<String> username = new ArrayList<String>();
+        List<String> pass = new ArrayList<String>();
+        List<Boolean> admin = new ArrayList<Boolean>();
+        HashMap<String, String> hmap = new HashMap<String, String>();
+       
+		
+		if (file.getLoginCredentials()!=null) {
+			credentials = file.getLoginCredentials();
+			username = credentials[0];
+			pass = credentials[1];
+			admin = credentials[2];
+			
+		}else {
+			System.out.println("Error reading file");
+		}		
+		
+		
+		for (int i=0; i< username.size(); i++) {
+			hmap.put(username.get(i), pass.get(i));
+		}
+		
+		return hmap;
+				
+	}
 	
 	public Student getStudent(String userName) {
 		for(int i = 0; i < students.size(); i++) {
@@ -48,12 +86,43 @@ public class StarsDB {
 		return null;
 	}
 	
-	public Student getDebugStudent() {
-		//purpose of accessStart/End is for student to only enter the stars planner at certain time periodd
+	public Student getDebugStudent(User currentUser) {
+		
+		
+		for (Student s: this.students) {
+			if (s.getUserName().equals(currentUser.getUser())) {
+				return s;
+			}
+		}
+		
+		if (this.students.isEmpty()) {
+			System.out.println("Student file is empty\n Populating file...");
+			createDummyStudents();
+		}
+		
+		
+		//System.out.println("User not found");
+		return null;
+	}
+	
+	public void setStudentRecord (Student s) {
+			
+	}
+	
+	public void createDummyStudents() {
+		
+		//purpose of accessStart/End is for student to only enter the stars planner at certain time period
 		Calendar newDate1 = Calendar.getInstance(); //create a date to accessStart 
-		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
-		Student s = new Student("Dum123","Dum dum", " Tan", "U1969420", "M", "Antartica, ", 96549119, "dimdim@hotmai.com",newDate1, newDate2);
-		return s;
+		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd				
+				
+		
+		Student x = new Student("student1","Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "dimdim@hotmai.com",newDate1, newDate2);
+		file.setStudentRecord(studentDataFilePath, x);
+		Student y = new Student("student2","Laura", " Tan", "U1969420", "F", "Spain", 96549119, "dimdim@hotmai.com",newDate1, newDate2);
+		file.setStudentRecord(studentDataFilePath, y);
+		
+		this.students = file.getStudentRecords(studentDataFilePath);
+
 	}
 	
 	// TODO: courses
@@ -77,34 +146,8 @@ public class StarsDB {
 		return null;
 	}
 	
-	public HashMap<String, String> getDBLoginCred () {
+	public void setCourseRecord () {
 		
-		List [] credentials = new List [3];
-		List<String> username = new ArrayList<String>();
-        List<String> pass = new ArrayList<String>();
-        List<Boolean> admin = new ArrayList<Boolean>();
-        HashMap<String, String> hmap = new HashMap<String, String>();
-       
-        
-		CSVReader run = new CSVReader();
-		
-		if (run.readFile()!=null) {
-			credentials = run.readFile();
-			username = credentials[0];
-			pass = credentials[1];
-			admin = credentials[2];
-			
-		}else {
-			System.out.println("Error reading file");
-		}		
-		
-		
-		for (int i=0; i< username.size(); i++) {
-			hmap.put(username.get(i), pass.get(i));
-		}
-		
-	
-		return hmap;
-				
 	}
+	
 }

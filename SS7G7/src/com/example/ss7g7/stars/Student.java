@@ -1,11 +1,12 @@
 package com.example.ss7g7.stars;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class Student{
+public class Student implements Serializable{
 	
 	private String username;
 	private String name; 

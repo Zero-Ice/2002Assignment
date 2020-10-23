@@ -8,7 +8,7 @@ public class StarsSystem {
 	public StarsSystem() {
 		// Temp file location for student and course.
 		// TODO: Finalize txt file name and location
-		db = new StarsDB("studentInfo.txt", "courseInfo.txt");
+		db = new StarsDB("../SS7G7/lib/studentInfo.ser", "../SS7G7/lib/courseInfo.ser");
 		
 		login = new Login(db);
 		currentUser = null;
@@ -48,6 +48,8 @@ public class StarsSystem {
 			
 			User.UserType currentUserType;
 			currentUserType = login.login();
+					//User.UserType.ADMIN;
+			
 			
 			//currentUserType = ;
 			
@@ -74,16 +76,16 @@ public class StarsSystem {
 	 * Returns the User who has logged in. 
 	 * If User.userType is NIL, it indicates the program to terminate. see run()
 	 */
-//	private User.UserType runLogin() {
-//		// Handled by K
-//		
-//		
-//		// Note: 1 Requirement is that Password should not be displayed on console when
-//		// entering it
-//		currentUser = 
-//		// TODO Change this temp return
-//		return null;
-//	}
+	private User getUser() {
+		// Handled by K
+		// Note: 1 Requirement is that Password should not be displayed on console when
+		// entering it
+		
+		this.currentUser = login.getCurrentUser();
+		
+		// TODO Change this temp return
+		return this.currentUser;
+	}
 
 	/*
 	 * Function to handle logout Called by runStudentMenu and runAdminMenu
@@ -96,10 +98,13 @@ public class StarsSystem {
 	private void runStudentMenu() {
 		// TODO: Get Student Info based on currentUser
 		
-		Student student = db.getDebugStudent();
+		Student student = db.getDebugStudent(getUser());
 		
 		if(student == null) {
 			// throw exception. User exists but student does not exist in db
+			System.out.println("User not found in database");
+			return;
+			
 		}
 		
 		StudentMenu studentMenu = new StudentMenu(db, student);
