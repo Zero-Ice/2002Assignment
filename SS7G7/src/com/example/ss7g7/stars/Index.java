@@ -65,22 +65,47 @@ public class Index {
 				}
 			}
 		}
-		
 		indexFull=true;
 		System.out.println("Index Full!");
+		addStudentToWaitlist(matricNo);
+		
+	}
+	
+	public void addStudentToWaitlist(String matricNo) {
+		if(studentWaitlist.contains(matricNo)) {
+
+		}else {
+			studentWaitlist.add(matricNo);
+		}
 	}
 	
 	public void unassignStudent(String matricNo) {
 		if(seatVacancy.contains(matricNo)) {
 			for(int i =0;i<numVacancy;i++) {
 				if(seatVacancy.get(i).contains(matricNo)) {
-					seatVacancy.set(i, "vacant");
-					System.out.println(matricNo+ " unassigned from index " +indexNum);
+					if(indexFull==false) {
+						seatVacancy.set(i, "vacant");
+						System.out.println(matricNo+ " unassigned from index " +indexNum);
+					}else {
+						seatVacancy.set(i, studentWaitlist.get(0));
+						studentWaitlist.remove(0);
+					}
 					return;
 				}
 			}
 		}
 		System.out.println(matricNo+ " was not found in index "+ indexNum);
+	}
+	
+	
+	public void showStudentWaitlist() {
+		if(studentWaitlist.size()==0) {
+			System.out.println("no studet");
+		}else {
+			for(int i=0;i<studentWaitlist.size();i++) {
+				System.out.println(studentWaitlist.get(i));
+			}
+		}
 	}
 	
 	@Override

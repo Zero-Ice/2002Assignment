@@ -88,10 +88,15 @@ public class Course implements Serializable{
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
 	public void assignStudent(int index, String matricNo) {
-		if(checkClash(matricNo)==true) {
-			System.out.println(matricNo + " has registered before in another index");
+		if(containsIndexNo(index)==true)
+		{
+			if(checkClash(matricNo)==true) {
+				System.out.println(matricNo + " has registered before in "+courseCode);
+			}else {
+				getIndex(index).assignStudent(matricNo);
+			}
 		}else {
-			getIndex(index).assignStudent(matricNo);
+			System.out.println("index has not been registered before");
 		}
 	}
 	
