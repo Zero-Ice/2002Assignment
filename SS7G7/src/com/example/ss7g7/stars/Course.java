@@ -76,7 +76,7 @@ public class Course implements Serializable{
 	}
 	
 	// check if student has registered between indexes
-	public boolean checkClash(String matricNo) {
+	public boolean checkIndexClash(String matricNo) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
 			if(indexes.get(i).indexSeatClash(matricNo)==true) {
@@ -92,7 +92,7 @@ public class Course implements Serializable{
 		
 		if(containsIndexNo(index)==true)
 		{
-			if(checkClash(matricNo)==true) {
+			if(checkIndexClash(matricNo)==true) {
 				System.out.println(matricNo + " has registered before in "+courseCode);
 			}else {
 				getIndex(index).assignStudent(student);
@@ -105,7 +105,7 @@ public class Course implements Serializable{
 	public void unassignStudent(int index, Student student) {
 		String matricNo = student.getMatricNo();
 		
-		if(checkClash(matricNo)==true) {
+		if(checkIndexClash(matricNo)==true) {
 			getIndex(index).unassignStudent(student);
 		}else {
 			System.out.println(matricNo + " has not registered before");
