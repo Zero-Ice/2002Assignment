@@ -3,6 +3,8 @@ package com.example.ss7g7.stars;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.example.ss7g7.stars.User.UserType;
+
 public class StudentMenu {
 	private Student student;
 	Scanner scanner;
@@ -260,6 +262,81 @@ public class StudentMenu {
 	private void swapIndex() {
 		// TODO: Check if both index belong to the same course. If same course, swap
 		// index (Remove + Add for both)
+		
+		// Step1: Ask index to swap
+		System.out.println(student.printCourses());
+		System.out.print("Enter the index that you want to swap: ");
+		int indexFrom = Integer.valueOf(scanner.nextLine());
+		
+		// Step2: Login for student 2. Check is successful and is student
+		Login login = new Login(db);
+		Login.LOGIN_RESULT loginResult = login.login();
+		
+		if(loginResult != loginResult.SUCCESSFUL_LOGIN) {
+			System.out.println("Unsuccessful login");
+			return;
+		}
+		
+		User otherUser = login.getCurrentUser();
+		if(otherUser == null || otherUser.getUserType() != UserType.STUDENT) {
+			System.out.println("User is null or is not student");
+			return;
+		}
+		
+		Student otherStudent = db.getStudent(otherUser.getUsername());
+		if(otherStudent == null) {
+			System.out.println("Cannot find student in database");
+			return;
+		}
+		
+		// Step3: Ask for other user index to swap
+		System.out.print("Swap with peer index number: ");
+		int indexTo = Integer.valueOf(scanner.nextLine());
+		
+		// Step4: Check indexes are from the same course
+		Course fromCourse = db.getCourse(indexFrom);
+		Course toCourse = db.getCourse(indexTo);
 
+		if (fromCourse == null || toCourse == null || fromCourse.getCourseCode() != toCourse.getCourseCode()) {
+			System.out.println("Indexes are not from the same course");
+			return;
+		}
+
+		Index fromIndex = fromCourse.getIndex(indexFrom);
+		Index toIndex = toCourse.getIndex(indexTo);
+		
+		if(fromIndex == null || toIndex == null) {
+			System.out.println("Index is not found in the database");
+			return;
+		}
+		
+		// Step5: Check if new index has a clash.
+		
+		// Step6: Print details and double confirm.
+		boolean run = true;
+		while (run) {
+			System.out.println(fromIndex);
+			System.out.println(toIndex);
+			System.out.println("(1) Confirm to Change Index");
+			System.out.println("(2) Main Menu");
+
+			int choice = Integer.valueOf(scanner.nextLine());
+
+			if (choice == 1) {
+				fromIndex.unassignStudent(student.getMatricNo());
+				toIndex.unassignStudent(otherStudent.getMatricNo());
+				
+				fromIndex.assignStudent(otherStudent.getMatricNo());
+				toIndex.assignStudent(student.getMatricNo());
+				
+				System.out.println(student.getMatricNo() + "-Index Number " + fromIndex.getIndexNum() + " has been successfully swopped with " + otherStudent.getMatricNo() + "-Index Number " + toIndex.getIndexNum());
+				run = false;
+			} else if (choice == 2) {
+				run = false;
+				System.out.println("Returning to main menu");
+			} else {
+				System.out.println("Invalid option");
+			}
+		}
 	}
 }
