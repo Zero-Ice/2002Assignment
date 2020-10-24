@@ -107,7 +107,7 @@ public class StarsSystem {
 	private void runStudentMenu() {
 		// TODO: Get Student Info based on currentUser
 		
-		Student student = db.getDebugStudent(getUser());
+		Student student = db.getStudent("student1");
 		
 		if(student == null) {
 			// throw exception. User exists but student does not exist in db

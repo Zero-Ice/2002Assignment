@@ -84,7 +84,7 @@ public class StarsDB {
 
 	public Student getStudent(String userName) {
 		for (int i = 0; i < students.size(); i++) {
-			if (userName == students.get(i).getUserName()) {
+			if (userName.equals(students.get(i).getUserName())) {
 				return students.get(i);
 			}
 		}
