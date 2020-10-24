@@ -8,7 +8,7 @@ public class StarsSystem {
 	public StarsSystem() {
 		// Temp file location for student and course.
 		// TODO: Finalize txt file name and location
-		db = new StarsDB("../SS7G7/lib/studentInfo.ser", "../SS7G7/lib/courseInfo.ser");
+		db = StarsDB.getInstance();
 		
 		login = new Login(db);
 		currentUser = null;
@@ -19,7 +19,7 @@ public class StarsSystem {
 	 * 
 	 */
 	public boolean init() {
-		boolean successful = db.init();
+		boolean successful = db.init("../SS7G7/lib/studentInfo.ser", "../SS7G7/lib/courseInfo.ser");
 		
 		return successful;
 	}
@@ -39,19 +39,28 @@ public class StarsSystem {
 		while (run) {
 			System.out.println("Welcome to the Stars System");
 			
-			
-			// @ K, use this to test the user returned by runLogin()
+			//// Comment this block to remove login
+//			User currentUser = null;
+//			
+//			Login.LOGIN_RESULT loginResult = login.login();
+//			switch(loginResult) {
+//			case SUCCESSFUL_LOGIN:
+//				currentUser = login.getCurrentUser();
+//				break;
+//			default:
+//				break;
+//			}
+//			
+//			if(currentUser == null) continue;
+//			
 //			User.UserType currentUserType = currentUser.getUserType();
-			
-			// Temp variable for debugging purposes. 
-			// @Kah Hui change it to ADMIN to test your menu
-			
-			User.UserType currentUserType;
-			currentUserType = login.login();
-					//User.UserType.ADMIN;
+			//// End comment block to remove login
 			
 			
-			//currentUserType = ;
+			User.UserType currentUserType = User.UserType.STUDENT;
+			
+			
+			// TODO: Based on the user, create a new student/admin object. Create here or inside Student/Admin UI
 			
 			switch (currentUserType) {
 			// Terminate stars
@@ -98,7 +107,7 @@ public class StarsSystem {
 	private void runStudentMenu() {
 		// TODO: Get Student Info based on currentUser
 		
-		Student student = db.getDebugStudent(getUser());
+		Student student = db.getStudent("student1");
 		
 		if(student == null) {
 			// throw exception. User exists but student does not exist in db
