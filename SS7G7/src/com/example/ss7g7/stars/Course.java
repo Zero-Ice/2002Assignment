@@ -87,22 +87,26 @@ public class Course implements Serializable{
 	}
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
-	public void assignStudent(int index, String matricNo) {
+	public void assignStudent(int index, Student student) {
+		String matricNo = student.getMatricNo();
+		
 		if(containsIndexNo(index)==true)
 		{
 			if(checkClash(matricNo)==true) {
 				System.out.println(matricNo + " has registered before in "+courseCode);
 			}else {
-				getIndex(index).assignStudent(matricNo);
+				getIndex(index).assignStudent(student);
 			}
 		}else {
 			System.out.println("index has not been registered before");
 		}
 	}
 	
-	public void unassignStudent(int index, String matricNo) {
+	public void unassignStudent(int index, Student student) {
+		String matricNo = student.getMatricNo();
+		
 		if(checkClash(matricNo)==true) {
-			getIndex(index).unassignStudent(matricNo);
+			getIndex(index).unassignStudent(student);
 		}else {
 			System.out.println(matricNo + " has not registered before");
 		}
@@ -113,7 +117,7 @@ public class Course implements Serializable{
 	public void addIndex(int index, int vacancy) {
 
 		if(getIndex(index)==null) {
-			indexes.add(new Index(index,vacancy));
+			indexes.add(new Index(index, courseCode, vacancy));
 			System.out.println("Index "+index+" was successfully added to "+ courseCode);
 		}else {
 			System.out.println("Index "+index+" already exists in "+ courseCode + "!");
