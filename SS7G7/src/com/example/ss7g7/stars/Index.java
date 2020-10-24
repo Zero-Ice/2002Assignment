@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Index {
 	private int indexNum;
+	private String courseCode;
 	private int numVacancy;
 	private ArrayList<String> seatVacancy; 
 	private ArrayList<String> studentWaitlist;
@@ -25,8 +26,9 @@ public class Index {
 	private boolean indexFull;
 	//TODO: waitlist for students
 	
-	public Index(int index_Num, int num_Vacancy) {
+	public Index(int index_Num, String courseCode, int num_Vacancy) {
 		this.indexNum=index_Num;
+		this.courseCode = courseCode;
 		this.numVacancy=num_Vacancy;
 		this.tutStartTime = new Date();
 		this.tutEndTime = new Date();
@@ -52,7 +54,9 @@ public class Index {
 	}
 	
 	// TODO: Waitlist of students
-	public void assignStudent(String matricNo) {
+	public void assignStudent(Student student) {
+		String matricNo = student.getMatricNo();
+		
 		if(seatVacancy.contains(matricNo)) {
 			System.out.println(matricNo+ " has registered before.");
 			return;
@@ -60,6 +64,7 @@ public class Index {
 			for(int i =0;i<numVacancy;i++) {
 				if(seatVacancy.get(i).contains("vacant")) {
 					seatVacancy.set(i, matricNo);
+					student.addCourse(this.courseCode, this.indexNum);
 					System.out.println(matricNo+ " assigned to index " +indexNum);
 					return;
 				}
@@ -79,12 +84,15 @@ public class Index {
 		}
 	}
 	
-	public void unassignStudent(String matricNo) {
+	public void unassignStudent(Student student) {
+		String matricNo = student.getMatricNo();
+		
 		if(seatVacancy.contains(matricNo)) {
 			for(int i =0;i<numVacancy;i++) {
 				if(seatVacancy.get(i).contains(matricNo)) {
 					if(indexFull==false) {
 						seatVacancy.set(i, "vacant");
+						student.dropCourse(this.indexNum);
 						System.out.println(matricNo+ " unassigned from index " +indexNum);
 					}else {
 						seatVacancy.set(i, studentWaitlist.get(0));

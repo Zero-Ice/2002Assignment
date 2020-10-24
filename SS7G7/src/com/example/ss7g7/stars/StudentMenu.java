@@ -100,9 +100,8 @@ public class StudentMenu {
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				boolean result = student.addCourse(courseToAdd.getCourseCode(), indexToAdd);
 				Index index = courseToAdd.getIndex(indexToAdd);
-				index.assignStudent(student.getMatricNo());
+				index.assignStudent(student);
 				System.out.println("Successfully added index " + indexToAdd);
 				run = false;
 			} else if (choice == 2) {
@@ -140,14 +139,13 @@ public class StudentMenu {
 
 		boolean run = true;
 		while (run) {
-			System.out.println("(1) Confirm to Drop Course");
+//			System.out.println("(1) Confirm to Drop Course");
 			System.out.println("(2) Main Menu");
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				boolean result = student.dropCourse(indexToDrop);
 				Index index = c.getIndex(indexToDrop);
-				index.unassignStudent(student.getMatricNo());
+				index.unassignStudent(student);
 				System.out.println("Successfully dropped index " + indexToDrop);
 				run = false;
 			} else if (choice == 2) {
@@ -245,8 +243,8 @@ public class StudentMenu {
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				fromIndex.unassignStudent(student.getMatricNo());
-				toIndex.assignStudent(student.getMatricNo());
+				fromIndex.unassignStudent(student);
+				toIndex.assignStudent(student);
 				System.out.println("Successfully changed index");
 				run = false;
 			} else if (choice == 2) {
@@ -267,6 +265,8 @@ public class StudentMenu {
 		System.out.println(student.printCourses());
 		System.out.print("Enter the index that you want to swap: ");
 		int indexFrom = Integer.valueOf(scanner.nextLine());
+		
+		// TODO: Check if student contains the course he/she wants to swap from
 		
 		// Step2: Login for student 2. Check is successful and is student
 		Login login = new Login(db);
@@ -292,6 +292,8 @@ public class StudentMenu {
 		// Step3: Ask for other user index to swap
 		System.out.print("Swap with peer index number: ");
 		int indexTo = Integer.valueOf(scanner.nextLine());
+
+		// TODO: Check if other student contains the course he/she wants to swap from
 		
 		// Step4: Check indexes are from the same course
 		Course fromCourse = db.getCourse(indexFrom);
@@ -323,11 +325,11 @@ public class StudentMenu {
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				fromIndex.unassignStudent(student.getMatricNo());
-				toIndex.unassignStudent(otherStudent.getMatricNo());
+				fromIndex.unassignStudent(student);
+				toIndex.unassignStudent(otherStudent);
 				
-				fromIndex.assignStudent(otherStudent.getMatricNo());
-				toIndex.assignStudent(student.getMatricNo());
+				fromIndex.assignStudent(otherStudent);
+				toIndex.assignStudent(student);
 				
 				System.out.println(student.getMatricNo() + "-Index Number " + fromIndex.getIndexNum() + " has been successfully swopped with " + otherStudent.getMatricNo() + "-Index Number " + toIndex.getIndexNum());
 				run = false;
