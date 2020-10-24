@@ -71,7 +71,7 @@ public class Student implements Serializable{
 	
 	public boolean containsCoure(String courseCode) {
 		for(RegisteredCourse rc : courses) {
-			if(rc.getCourseCode() == courseCode) return true;
+			if(rc.getCourseCode().equals(courseCode)) return true;
 		}
 		
 		return false;
