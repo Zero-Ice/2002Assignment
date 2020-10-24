@@ -15,7 +15,6 @@ public class StudentMenu {
 	}
 
 	public void run() {
-		
 
 		boolean run = true;
 		int choice;
@@ -63,22 +62,28 @@ public class StudentMenu {
 		System.out.print("Enter an index number of the course: ");
 		int indexToAdd = Integer.valueOf(scanner.nextLine());
 
-		// Check if course is already registered.
-		// E.g CZ2002 has 10195 and 10196. If already registered 10195, do not allow 10196 to be added
-		
+		// Step 1: Check if course is already registered.
+		// E.g CZ2002 has 10195 and 10196. If already registered 10195, do not allow
+		// 10196 to be added
+
 		Course courseToAdd = db.getCourse(indexToAdd);
-		if(courseToAdd != null) {
+		if (courseToAdd != null) {
 			boolean alreadyRegistered = student.containsCoure(courseToAdd.getCourseCode());
-			
-			if(alreadyRegistered) {
-				System.out.println("Course " + courseToAdd.getCourseCode() + " is already registered. Try dropping or changing index first");
+
+			if (alreadyRegistered) {
+				System.out.println("Course " + courseToAdd.getCourseCode()
+						+ " is already registered. Try dropping or changing index first");
 				return;
 			}
-		}
-		else {
+		} else {
 			System.out.println("Cannot find course with index no " + indexToAdd);
 			return;
-		} 
+		}
+
+		// Step2: Check if will clash with other courses
+		// TODO: Check clash
+
+		// Step3: If step 1 and 2 pass, confirm to add the new course.
 
 		// Summary
 		// Index Number, Course Code
@@ -111,16 +116,20 @@ public class StudentMenu {
 		System.out.print("Enter an index number of the course to drop: ");
 		int indexToDrop = Integer.valueOf(scanner.nextLine());
 
+		// Step1: Check if student contains that index
 		if (!student.containsCourse(indexToDrop)) {
 			System.out.println("Cannot drop course with index " + indexToDrop + " as it is not registered");
 			return;
 		}
 
+		// Step2: Double check that the course exists in the db
 		Course c = db.getCourse(indexToDrop);
-		if(c == null) {
+		if (c == null) {
 			System.out.println("Cannot find course with index no " + indexToDrop);
 			return;
 		}
+
+		// Step3: If step 1 and 2 passes, double confirm to drop.
 
 		// Summary
 		// Index Number, Course Code
@@ -147,10 +156,11 @@ public class StudentMenu {
 			}
 		}
 	}
-	
+
+	// Print the details of a Course with index
 	private void printCourse(int indexNo) {
 		Course c = db.getCourse(indexNo);
-		if(c != null) {
+		if (c != null) {
 			System.out.println("Index Number " + indexNo + " Course " + c.getCourseCode() + "\n"
 					+ "Course Type REGISTERED + Status REGISTERED");
 		} else {
@@ -158,70 +168,93 @@ public class StudentMenu {
 		}
 	}
 
+	// Print the details of the courses registered by the student
 	private void printCoursesRegistered() {
 		System.out.println(student.printCourses());
 	}
 
+	// Prints the details of the vacancy based on user input
 	private void checkVacanciesAvailable() {
 		System.out.print("Enter index number: ");
 		int indexNo = Integer.valueOf(scanner.nextLine());
 
+		// Step 1: Check if index entered belongs to a course
 		Course c = db.getCourse(indexNo);
-		if(c != null) {
+		if (c != null) {
 			Index index = c.getIndex(indexNo);
-			// CLass type, Group, Day, Time, Venue, Remark
-			System.out.println("Class type, Group, Day, Time, Venue, Remark");
+
+			// Double check index is not null
+			if (index != null) {
+
+				// Class type, Group, Day, Time, Venue, Remark
+				System.out.println("Class type, Group, Day, Time, Venue, Remark");
+				System.out.println("Vacancy " + index.showNumOfVacancies());
+			} else {
+				System.out.println("Index " + indexNo + "does not exist in the course");
+			}
 		} else {
 			System.out.println("Cannot find course with index no " + indexNo);
 		}
 	}
 
+	// Changes the index within a course.
 	private void changeIndex() {
 		System.out.println(student.printCourses());
 		System.out.print("Enter the index that you want to change from: ");
 		int indexFrom = Integer.valueOf(scanner.nextLine());
 
+		// Step1: Make sure student contains the index he/she wants to change from
 		if (!student.containsCourse(indexFrom)) {
 			System.out.println("Index " + indexFrom + " is not found in your registered courses");
 			return;
 		}
 
+		// Step2: Ask for the student to change
 		System.out.print("Enter index you want to change to: ");
 		int indexTo = Integer.valueOf(scanner.nextLine());
 
-		// TODO: Check indexFrom and indexTo belongs to the same course code.
+		// Step3: Double check that the index from and to belongs to the same course
 		Course fromCourse = db.getCourse(indexFrom);
 		Course toCourse = db.getCourse(indexTo);
-		
-		if(fromCourse != null && toCourse != null) {
-			Index fromIndex = fromCourse.getIndex(indexFrom);
-			Index toIndex = toCourse.getIndex(indexTo);
-			
-			boolean run = true;
-			while(run) {
-				System.out.println(fromIndex);
-				System.out.println(toIndex);
-				System.out.println("(1) Confirm to Change Index");
-				System.out.println("(2) Main Menu");
-				
-				int choice = Integer.valueOf(scanner.nextLine());
 
-				if (choice == 1) {
-					fromIndex.unassignStudent(student.getMatricNo());
-					toIndex.assignStudent(student.getMatricNo());
-					System.out.println("Successfully changed index");
-					run = false;
-				} else if (choice == 2) {
-					run = false;
-					System.out.println("Returning to main menu");
-				} else {
-					System.out.println("Invalid option");
-				}
-			}
-			
-		} else {
+		if (fromCourse == null || toCourse == null || fromCourse.getCourseCode() != toCourse.getCourseCode()) {
 			System.out.println("Indexes are not from the same course");
+			return;
 		}
+
+		Index fromIndex = fromCourse.getIndex(indexFrom);
+		Index toIndex = toCourse.getIndex(indexTo);
+		
+		if(fromIndex == null || toIndex == null) {
+			System.out.println("Index is not found in the database");
+			return;
+		}
+		
+		// Step4: Check if new index has a clash.
+
+		// Step5: Double confirm
+		boolean run = true;
+		while (run) {
+			System.out.println(fromIndex);
+			System.out.println(toIndex);
+			System.out.println("(1) Confirm to Change Index");
+			System.out.println("(2) Main Menu");
+
+			int choice = Integer.valueOf(scanner.nextLine());
+
+			if (choice == 1) {
+				fromIndex.unassignStudent(student.getMatricNo());
+				toIndex.assignStudent(student.getMatricNo());
+				System.out.println("Successfully changed index");
+				run = false;
+			} else if (choice == 2) {
+				run = false;
+				System.out.println("Returning to main menu");
+			} else {
+				System.out.println("Invalid option");
+			}
+		}
+
 	}
 
 	private void swapIndex() {
