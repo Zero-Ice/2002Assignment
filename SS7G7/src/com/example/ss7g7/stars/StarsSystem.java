@@ -39,19 +39,28 @@ public class StarsSystem {
 		while (run) {
 			System.out.println("Welcome to the Stars System");
 			
-			
-			// @ K, use this to test the user returned by runLogin()
+			//// Comment this block to remove login
+//			User currentUser = null;
+//			
+//			Login.LOGIN_RESULT loginResult = login.login();
+//			switch(loginResult) {
+//			case SUCCESSFUL_LOGIN:
+//				currentUser = login.getCurrentUser();
+//				break;
+//			default:
+//				break;
+//			}
+//			
+//			if(currentUser == null) continue;
+//			
 //			User.UserType currentUserType = currentUser.getUserType();
-			
-			// Temp variable for debugging purposes. 
-			// @Kah Hui change it to ADMIN to test your menu
-			
-			User.UserType currentUserType;
-			currentUserType = login.login();
-					//User.UserType.ADMIN;
+			//// End comment block to remove login
 			
 			
-			//currentUserType = ;
+			User.UserType currentUserType = User.UserType.STUDENT;
+			
+			
+			// TODO: Based on the user, create a new student/admin object. Create here or inside Student/Admin UI
 			
 			switch (currentUserType) {
 			// Terminate stars

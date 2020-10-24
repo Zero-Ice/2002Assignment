@@ -11,6 +11,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class Login {
 	
+	public enum LOGIN_RESULT {
+		NIL_LOGIN_RESULT,
+		SUCCESSFUL_LOGIN,
+		UNSUCCESSFUL_LOGIN,
+		MAX_LOGIN_RESULT
+	}
 	private User user = new User();
 	private StringBuilder passClear = new StringBuilder();
 	private String passCipher;  
@@ -20,7 +26,7 @@ public class Login {
 		this.db = db; 
 	}
 	
-	User.UserType login(){
+	LOGIN_RESULT login(){
 		String auth = new String();
         HashMap<String, String> hmap = db.getDBLoginCred();
        
@@ -31,13 +37,14 @@ public class Login {
 		auth = authUser(hmap);
 		if (auth == "denied") {
 			System.out.println("Invalid credentials");
+			return LOGIN_RESULT.UNSUCCESSFUL_LOGIN;
 		}
 		else if (auth == "student") {
 			System.out.println("Welcome");
-			return User.UserType.STUDENT;
+			return LOGIN_RESULT.SUCCESSFUL_LOGIN;
 		}
 		
-		return User.UserType.NIL;
+		return LOGIN_RESULT.SUCCESSFUL_LOGIN;
 	}
 	
 	User getCurrentUser () {
