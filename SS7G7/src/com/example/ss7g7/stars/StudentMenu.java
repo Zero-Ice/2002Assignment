@@ -219,7 +219,7 @@ public class StudentMenu {
 		Course fromCourse = db.getCourse(indexFrom);
 		Course toCourse = db.getCourse(indexTo);
 
-		if (fromCourse == null || toCourse == null || fromCourse.getCourseCode() != toCourse.getCourseCode()) {
+		if (fromCourse == null || toCourse == null || !fromCourse.getCourseCode().equals(toCourse.getCourseCode())) {
 			System.out.println("Indexes are not from the same course");
 			return;
 		}
@@ -297,7 +297,7 @@ public class StudentMenu {
 		Course fromCourse = db.getCourse(indexFrom);
 		Course toCourse = db.getCourse(indexTo);
 
-		if (fromCourse == null || toCourse == null || fromCourse.getCourseCode() != toCourse.getCourseCode()) {
+		if (fromCourse == null || toCourse == null || !fromCourse.getCourseCode().equals(toCourse.getCourseCode())) {
 			System.out.println("Indexes are not from the same course");
 			return;
 		}
