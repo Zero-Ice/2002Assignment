@@ -19,6 +19,7 @@ public class Course implements Serializable{
 	private String lecDay;
 	private ArrayList<Index> indexes; // array of indexes
 	private boolean courseAvailability;
+
 	
 	public Course(String course_Code, String course_Name, String school_Name, int au) {
 		this.courseCode=course_Code;
@@ -30,6 +31,7 @@ public class Course implements Serializable{
 		this.lecEndTime= new Date();
 		this.lecVenue ="";
 		this.courseAvailability =true;
+		
 	}
 	
 	///getter-- use  inputted index to get index object (to access everything in specified index)
@@ -39,25 +41,11 @@ public class Course implements Serializable{
 				return indexes.get(i);
 			}
 		}
+		//need change i think
 		return null;
 	}
 	
-	public void showAllSeatVacancyForCourse() {
-		System.out.println(getCourseCode()+" "+ getCourseName());
-		for(int i = 0; i < indexes.size(); i++) {
-			System.out.println("Index "+indexes.get(i).getIndexNum());
-			indexes.get(i).showAllSeats();;
-		}
-	}
-	
-	public void showfullCourseDetails() {
-		String op = getCourseCode() +" "+getCourseName()+" "+getSchooName();
-		System.out.println(op);	
-		showAllIndexDetails();
-	}
-	
-	
-	//TODO: verify need of this function
+
 	public boolean containsIndexNo(int index) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
@@ -68,12 +56,27 @@ public class Course implements Serializable{
 		return false;
 	}
 	
-	public void showAllIndexDetails() {
-		int sizeOfIndex= indexes.size();
-		for(int i = 0; i<sizeOfIndex;i++) {
-			System.out.println("Index: "+indexes.get(i).getIndexNum() + " Vacancies: " + indexes.get(i).showNumOfVacancies());
+
+	
+	public void printStudentListByCourse() {
+		System.out.println(getCourseCode()+" "+ getCourseName());
+		for(int i = 0; i < indexes.size(); i++) {
+			System.out.println("Index "+indexes.get(i).getIndexNum());
+			indexes.get(i).printStudentListByIndex();
 		}
 	}
+	
+//	public void showfullCourseDetails() {
+//		String op = getCourseCode() +" "+getCourseName()+" "+getSchooName();
+//		System.out.println(op);	
+//		showAllIndexDetails();
+//	}
+//	public void showAllIndexDetails() {
+//		int sizeOfIndex= indexes.size();
+//		for(int i = 0; i<sizeOfIndex;i++) {
+//			System.out.println("Index: "+indexes.get(i).getIndexNum() + " Vacancies: " + indexes.get(i).showNumOfVacancies());
+//		}
+//	}
 	
 	// check if student has registered between indexes
 	public boolean checkIndexClash(String matricNo) {
@@ -84,6 +87,11 @@ public class Course implements Serializable{
 			}
 		}
 		return false;
+	}
+	
+	//TODO: Check lec Clash
+	public void checkLecClash(Student student) {
+
 	}
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
@@ -122,8 +130,6 @@ public class Course implements Serializable{
 		}else {
 			System.out.println("Index "+index+" already exists in "+ courseCode + "!");
 		}
-		
-		
 		
 	}
 	
@@ -252,6 +258,14 @@ public class Course implements Serializable{
 
 	public String getLecDay() {
 		return lecDay;
+	}
+	
+	public Date getLecStartTime() {
+		return lecStartTime;
+	}
+	
+	public Date getLecEndTime() {
+		return lecEndTime;
 	}
 
 	public String getLecRemark() {
