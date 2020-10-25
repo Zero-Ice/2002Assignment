@@ -10,9 +10,8 @@ import java.util.Calendar;
 public class StudMngmt {
 	
 
-	static StarsDB db;
-	static ArrayList<Student> studentList ;//= db.getAllStudents();
-	
+	static StarsDB database = StarsDB.getInstance();
+	static ArrayList<Student> studentList = database.getAllStudents(); //retrieve db from StarsDB
 	
 	//find a student via their matriculation number 
 	public static Student getStudentByMatric(String matricNo){ 
@@ -68,6 +67,28 @@ public class StudMngmt {
 		
 
 		}
+	
+	public static void printStudentList(){ //show all student exists in student db
+		boolean flag = false;
+		System.out.println();
+		System.out.println("Matriculation Number\tFull Name");
+		System.out.println("---------------------------------------------------");
+		
+		if(studentList.size() <= 0){
+			System.out.println("\nNo record is found!\n");
+			return;
+		}
+		
+		for (Student s: studentList){
+			System.out.print(s.getMatricNo() + "         \t");
+			System.out.print(s.getName() + " " + s.getLastName());
+			System.out.println();
+			
+			flag = true;
+		}
+		if (!flag) System.out.println("\nNo record is found!");
+	}
+	
 
 	
 	
