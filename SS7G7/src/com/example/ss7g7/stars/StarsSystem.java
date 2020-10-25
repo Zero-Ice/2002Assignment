@@ -57,7 +57,7 @@ public class StarsSystem {
 			//// End comment block to remove login
 			
 			
-			User.UserType currentUserType = User.UserType.STUDENT;
+			User.UserType currentUserType = User.UserType.ADMIN;
 			
 			
 			// TODO: Based on the user, create a new student/admin object. Create here or inside Student/Admin UI
@@ -72,7 +72,7 @@ public class StarsSystem {
 				runStudentMenu();
 				break;
 			case ADMIN:
-				AdminUI.printAdminUI(db);
+				AdminUI.printAdminUI();
 				break;
 			default:
 				break;

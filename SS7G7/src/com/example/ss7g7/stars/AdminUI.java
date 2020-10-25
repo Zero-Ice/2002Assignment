@@ -8,7 +8,7 @@ public class AdminUI {
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	
-	public static void printAdminUI(StarsDB db)
+	public static void printAdminUI()
 	{
 		
 		int choice;
@@ -25,10 +25,10 @@ public class AdminUI {
 			try{
 				switch (choice) {
 					case 1: // Go to Admin student UI class
-						AdminStudUI.printAdminStudUI(db);
+						AdminStudUI.printAdminStudUI();
 						break;
 					case 2: // Go to Admin Course UI class
-						AdminCourseUI.printAdminCourseUI(db);
+						AdminCourseUI.printAdminCourseUI();
 						break;
 					case 3: // Log out
 						System.out.println("Logged out successfully");

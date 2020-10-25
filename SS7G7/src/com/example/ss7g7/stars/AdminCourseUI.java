@@ -3,16 +3,13 @@ import java.util.*;
 
 public class AdminCourseUI {
 
-	static List<Course> courseList;
-	static List<Student> studentList;
+	static List<Course> courseList; //retrieve db from StarsDB.class
+	static List<Student> studentList; //retrieve db from StarsDB.class
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	
-	public static void printAdminCourseUI(StarsDB db) {
-		
-		studentList = db.getAllStudents(); 
-		courseList =  db.getAllCourse(); 
+	public static void printAdminCourseUI() {
 		
 		int choice;
 		Logout:
@@ -74,7 +71,7 @@ public class AdminCourseUI {
 	}
 
 
-	private static void addNewCourse() {
+	private static void addNewCourse() { //add new course to db 
 		
 		String courseCode;
 		String courseName;
@@ -112,7 +109,7 @@ public class AdminCourseUI {
         //update to database
         AdminCourseMngmt.addCourse(courseCode.toUpperCase(), courseName.toUpperCase(),schooName.toUpperCase(), AU);
 
-       
+       //Course.showfullCourseDetails(); //show result 
 	    System.out.println();
 		System.out.println("The Course has been added.");
 		
@@ -126,7 +123,7 @@ public class AdminCourseUI {
 
 	private static void removeACourse() {
 		
-		//Course.showfullCourseDetails(); make this static
+		//Course.showfullCourseDetails(); //show result 
 		System.out.print("Enter the course's code:"); 
 		String courseCode = sc.nextLine();
 		AdminCourseMngmt.removeCourse(courseCode.toUpperCase()); //check and update to database
@@ -169,15 +166,15 @@ public class AdminCourseUI {
 							
 							System.out.print("Enter the updated course code:"); 
 							courseCode = sc.nextLine();
-							//Course.updateCourseCode(courseCode); make it static
+							//Course.updateCourseCode(courseCode);  // add to db
 							
 							System.out.print("Enter the updated code name:"); 
 							courseName = sc.nextLine();
-							//Course.updateCourseName(courseCode); make it static
+							//Course.updateCourseName(courseCode); // add to db
 							
 							System.out.print("Enter the updated school name:"); 
 							schooName = sc.nextLine();
-							//Course.updateSchooName(schooName); make it static
+							//Course.updateSchooName(schooName); // add to db
 
 							break;
 						case 2: 
@@ -186,11 +183,11 @@ public class AdminCourseUI {
 							int check=0;
 							System.out.print("Enter the Index Number:"); 
 							indexNum = sc.nextInt();
-							//check = Course.getIndex(indexNum); make it static 
+							//check = Course.getIndex(indexNum); // check from course class
 							System.out.print("Enter the New Index Number:"); 
 							NindexNum = sc.nextInt();
-							//Course.updateIndex(check,NindexNum); make it static 
-							//Course.showAllIndexDetails(); make it static
+							//Course.updateIndex(check,NindexNum); // add to db
+							//Course.showAllIndexDetails(); /show result
 							
 							break;
 						case 3: 
@@ -202,7 +199,7 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated tutorial venue:"); 
 							tutVenue = sc.nextLine();
 							
-							//courseList.getIndex(indexNum).updateTutVenue(tutVenue);
+							//courseList.getIndex(indexNum).updateTutVenue(tutVenue); // add to db
 							
 							break;
 						case 4: 
@@ -217,7 +214,7 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated lab venue:"); 
 							labVenue = sc.nextLine();
 							
-							//courseList.getCourseName(courseName).getIndex(indexNum).updateLabVenue(labVenue);
+							//courseList.getCourseName(courseName).getIndex(indexNum).updateLabVenue(labVenue); // add to db
 							break;
 						case 5: 
 							//update index lecture venue 
@@ -228,7 +225,7 @@ public class AdminCourseUI {
 							System.out.print("Enter the updated lab venue:"); 
 							lecVenue = sc.nextLine();
 							
-							//courseList.updateLecVenue(lecVenue);
+							//courseList.updateLecVenue(lecVenue); // add to db
 							
 							break Logout;
 						case 6: // Log out
@@ -248,7 +245,7 @@ public class AdminCourseUI {
 	}
 
 
-	private static void addNewIndex() {
+	private static void addNewIndex() {// add new index to db
 		
 		 int indexNum =0;
 		 int vacancy = 0;
@@ -263,7 +260,7 @@ public class AdminCourseUI {
 		 int endMinutes= 0;
 
 		 
-		//Course.showAllIndexDetails()
+		//Course.showAllIndexDetails() //show result
 			 
   
 		 while(true) { // ask user to input coursecode first 
@@ -283,7 +280,7 @@ public class AdminCourseUI {
 		indexNum = sc.nextInt();
 		System.out.print("Enter the course's maximum vacancy slots:"); 
 		vacancy = sc.nextInt();
-		tempC.addIndex(indexNum, vacancy); // add index number and number of ava slots in that course
+		tempC.addIndex(indexNum, vacancy); // add index number and number of ava slots in that course to db
 
 		System.out.print("Enter the tutorial day:"); 
 		intDay = sc.nextInt();
@@ -299,7 +296,7 @@ public class AdminCourseUI {
 		tutVenue = sc.nextLine();
 						
 		//create new tutorial lesson
-		//courseList.getIndex(indexNum).setTutDetails(intDay,startHours,startMinutes,endHours, endMinutes,tutVenue,"",""); 
+		//courseList.getIndex(indexNum).setTutDetails(intDay,startHours,startMinutes,endHours, endMinutes,tutVenue,"","");  // add to db
 		
 		//create new lab lesson
 		System.out.print("Enter the lab day:"); 
@@ -315,7 +312,7 @@ public class AdminCourseUI {
 		System.out.print("Enter the lab venue:"); 
 		labVenue = sc.nextLine();
 						
-		//courseList.getIndex(indexNum).setLabDetails(intDay,startHours,startMinutes,endHours, endMinutes,labVenue,"","");
+		//courseList.getIndex(indexNum).setLabDetails(intDay,startHours,startMinutes,endHours, endMinutes,labVenue,"",""); // add to db
 				
 
 		//create new lecture lesson
@@ -333,9 +330,9 @@ public class AdminCourseUI {
 		System.out.print("Enter the lecture venue:"); 
 		lecVenue = sc.nextLine();
 						
-		//courseList.setLecDetails(intDay,startHours,startMinutes,endHours,endMinutes,lecVenue,"","");
+		//courseList.setLecDetails(intDay,startHours,startMinutes,endHours,endMinutes,lecVenue,"",""); // add to db
 
-		//Course.showAllIndexDetails(); make it static
+		//Course.showAllIndexDetails(); //show result 
 		}
 	
 	
@@ -346,17 +343,17 @@ public class AdminCourseUI {
 		
 		//remove a index from database 
 		
-		//Course.showAllIndexDetails(); make it static
+		//Course.showAllIndexDetails(); // show result 
 		System.out.print("Enter the course's Index Number:"); 
 		int indexN = sc.nextInt();
-		//Course.removeIndex(indexN); make it static
+		//Course.removeIndex(indexN); // remove index from db
 		
 		
 	}
 
 
 	private static void viewCourse() {
-		//Course.showfullCourseDetails(); make it static
+		//Course.showfullCourseDetails(); //show result 
 		
 	}
 
@@ -383,7 +380,7 @@ public class AdminCourseUI {
 		
 		for (Course s: courseList){
 			System.out.print(s.getCourseName() + "         \t");
-			//System.out.print(s.getIndexNum() + " " + s.getLastName());
+			//System.out.print(s.getIndexNum() + " " + s.getLastName()); //show result from student db 
 			//System.out.println();
 			
 			check = true;
@@ -397,7 +394,7 @@ public class AdminCourseUI {
 
 
 	private static void CheckIndexSlots() {
-		//Course.showAllIndexDetails(); make it static
+		//Course.showAllIndexDetails(); // show result 
 		
 	}
 

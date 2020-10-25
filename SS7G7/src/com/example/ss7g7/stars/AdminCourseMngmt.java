@@ -4,10 +4,10 @@ import java.util.List;
 
 
 public class AdminCourseMngmt {
-	static List<Course> courseList;// = StarsDB.getAllStudents(); calling from starsDB directly.
+	static List<Course> courseList; //retrieve course db from starsDB.class
 	
 
-	public static boolean isExistingCourseCode(String courseCode) {
+	public static boolean isExistingCourseCode(String courseCode) { //check if such coursecode exist in db 
 		for (Course c : courseList) {
 			if (c.getCourseCode().equals(courseCode)) {
 				return true;}
@@ -15,7 +15,7 @@ public class AdminCourseMngmt {
 		return false;
 	}
 	
-	public static Course getCourseByCode (String courseCode){
+	public static Course getCourseByCode (String courseCode){ //retrieve coursecode from db 
 		for (Course c : courseList) {
 			if (c.getCourseCode().equals(courseCode)) {
 				return c;}
@@ -23,7 +23,7 @@ public class AdminCourseMngmt {
 		return null;
 	}
 
-	public static void removeCourse(String courseCode) {
+	public static void removeCourse(String courseCode) { //remove coursecode from db 
 		
 		if (isExistingCourseCode(courseCode)){
 			Course course = getCourseByCode(courseCode);
@@ -36,7 +36,7 @@ public class AdminCourseMngmt {
 		}
 		
 	}
-
+	// add new course into db
 	public static void addCourse(String courseCode, String courseName, String SchooName, int aU) {
 		Course newCourse 		= new Course(courseCode, courseName,SchooName, aU);
 		courseList.add(newCourse);

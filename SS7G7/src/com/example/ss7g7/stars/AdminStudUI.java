@@ -8,18 +8,14 @@ import java.util.*;
 
 public class AdminStudUI {
 	
-	static List<Course> courseList;
-	static List<Student> studentList;
+	static List<Course> courseList; //retrieve db from StarsDB
+	static List<Student> studentList; //retrieve db from StarsDB
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	
-	public static void printAdminStudUI(StarsDB db) {
+	public static void printAdminStudUI() {
 
-		
-		List<Student> studentList = db.getAllStudents();
-		List<Course> courseList = db.getAllCourse();
-		 
 		int choice;
 		Logout:
 		while(true){ //Print selection menu
@@ -70,7 +66,7 @@ public class AdminStudUI {
 
 	private static void editStudentAccess() {
 		
-		printStudentList();
+		printStudentList(); //show result from db 
 		
 		Boolean check = false;
 		String matNum = "";
@@ -113,7 +109,7 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the student's username: ");
+			System.out.print("Enter the student's username: "); //check if such username exists 
 			username = sc.nextLine();
 			check = !(StudMngmt.isExistingUsername(username));
 		} while (check);
@@ -150,7 +146,8 @@ public class AdminStudUI {
         Calendar accessEnd = CalendarMngmt.getValidDateTime("access end");
        
         StudMngmt.addStudent(username, name,lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
-        					
+        
+        // after user input in username and password, it should store inside starsDB				
        
         
 	    System.out.println();
@@ -161,12 +158,12 @@ public class AdminStudUI {
 	}
 	
 	//Function to remove a new student to database
-	private static void removeStudent() {
+	private static void removeStudent() { //remove student from student db
 		
     	Boolean check = false;
 		String matricNo = "";
 		
-		//CourseMngmt.printStudentList();
+		//CourseMngmt.printStudentList(); //show result 
 		System.out.println();
 		
 		System.out.print("Press any key to continue");
@@ -174,7 +171,7 @@ public class AdminStudUI {
 		sc.nextLine();
 		
 		do {
-			System.out.print("Enter student's matriculation number: ");
+			System.out.print("Enter student's matriculation number: "); //check if such matricNo exists
 			matricNo = sc.nextLine();
 			check = StudMngmt.isExistingMatNum(matricNo);
 			if (check){
@@ -182,11 +179,11 @@ public class AdminStudUI {
 			}
 		} while (check);
 		
-		StudMngmt.removeStudent(matricNo);
+		StudMngmt.removeStudent(matricNo); //remove student from db 
 		System.out.println("Student with matriculation number of " + matricNo + " has been removed.");
 	}
 
-	public static void printStudentList(){
+	public static void printStudentList(){ //show all student exists in student db
 		boolean flag = false;
 		System.out.println();
 		System.out.println("Matriculation Number\tFull Name");
@@ -208,17 +205,17 @@ public class AdminStudUI {
 	}
 	
 
-	private static void printStudListByIndex() {
+	private static void printStudListByIndex() { //show studentlist when user type in a course code and index number
 		// TODO Auto-generated method stub
 		
 	}
 	
-	private static void printStudListByCourse() {
+	private static void printStudListByCourse() { //show studentlist when user type in a course code
 		boolean flag = false;
 		System.out.println();
 		System.out.println("Course Name\t");
 		System.out.println("---------------------------------------------------");
-		
+		//ask user to enter course code then display those students under that course code 
 		if(courseList.size() <= 0){
 			System.out.println("\nNo record is found!\n");
 			return;
@@ -227,6 +224,7 @@ public class AdminStudUI {
 		for (Course c: courseList){
 			System.out.print(c.getCourseName() + "         \t");
 			System.out.println();
+			//show student list w
 			
 			flag = true;
 		}
