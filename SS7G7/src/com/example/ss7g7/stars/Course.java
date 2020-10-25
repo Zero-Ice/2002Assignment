@@ -59,7 +59,7 @@ public class Course implements Serializable{
 
 	
 	public void printStudentListByCourse() {
-		System.out.println(getCourseCode()+" "+ getCourseName());
+		System.out.println(getCourseCode());
 		for(int i = 0; i < indexes.size(); i++) {
 			System.out.println("Index "+indexes.get(i).getIndexNum());
 			indexes.get(i).printStudentListByIndex();

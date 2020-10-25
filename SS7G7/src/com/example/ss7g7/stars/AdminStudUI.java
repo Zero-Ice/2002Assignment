@@ -4,12 +4,11 @@ package com.example.ss7g7.stars;
 import java.util.*;
 
 
-
-
 public class AdminStudUI {
 	
-	static List<Course> courseList; //retrieve db from StarsDB
-	static List<Student> studentList; //retrieve db from StarsDB
+	static StarsDB database = StarsDB.getInstance();
+	static ArrayList<Course> courseList = database.getAllCourse();
+	static ArrayList<Student> studentList = database.getAllStudents(); //retrieve db from StarsDB
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
@@ -66,7 +65,7 @@ public class AdminStudUI {
 
 	private static void editStudentAccess() {
 		
-		printStudentList(); //show result from db 
+		StudMngmt.printStudentList(); //show result from db 
 		
 		Boolean check = false;
 		String matNum = "";
@@ -152,7 +151,7 @@ public class AdminStudUI {
         
 	    System.out.println();
 		System.out.println("The Student has been added.");
-		printStudentList();
+		StudMngmt.printStudentList();
 
 		
 	}
@@ -160,10 +159,11 @@ public class AdminStudUI {
 	//Function to remove a new student to database
 	private static void removeStudent() { //remove student from student db
 		
-    	Boolean check = false;
+    	Boolean check;
 		String matricNo = "";
 		
-		//CourseMngmt.printStudentList(); //show result 
+		StudMngmt.printStudentList();
+		
 		System.out.println();
 		
 		System.out.print("Press any key to continue");
@@ -183,52 +183,70 @@ public class AdminStudUI {
 		System.out.println("Student with matriculation number of " + matricNo + " has been removed.");
 	}
 
-	public static void printStudentList(){ //show all student exists in student db
-		boolean flag = false;
-		System.out.println();
-		System.out.println("Matriculation Number\tFull Name");
-		System.out.println("---------------------------------------------------");
-		
-		if(studentList.size() <= 0){
-			System.out.println("\nNo record is found!\n");
-			return;
-		}
-		
-		for (Student s: studentList){
-			System.out.print(s.getMatricNo() + "         \t");
-			System.out.print(s.getName() + " " + s.getLastName());
-			System.out.println();
-			
-			flag = true;
-		}
-		if (!flag) System.out.println("\nNo record is found!");
-	}
-	
 
 	private static void printStudListByIndex() { //show studentlist when user type in a course code and index number
-		// TODO Auto-generated method stub
+
+		boolean check = false;
+		String courseCode  = "";
+		int indexNum;
+		
+		System.out.println("Press any key to continue");
+		sc.nextLine();
+		sc.nextLine();
+		do {
+			System.out.print("Enter the course code: "); //check if such username exists 
+			courseCode = sc.nextLine();
+			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			if(check)
+			{System.out.println("Course code is not found in database.");}
+		} while (check);
+		System.out.print("Enter the index code: "); 
+		indexNum = sc.nextInt();
+		
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		tempCourse.getIndex(indexNum).printStudentListByIndex();
 		
 	}
 	
 	private static void printStudListByCourse() { //show studentlist when user type in a course code
-		boolean flag = false;
-		System.out.println();
-		System.out.println("Course Name\t");
-		System.out.println("---------------------------------------------------");
-		//ask user to enter course code then display those students under that course code 
-		if(courseList.size() <= 0){
-			System.out.println("\nNo record is found!\n");
-			return;
-		}
 		
-		for (Course c: courseList){
-			System.out.print(c.getCourseName() + "         \t");
-			System.out.println();
+		boolean check = false;
+		String courseCode  = "";
+		
+		System.out.println("Press any key to continue");
+		sc.nextLine();
+		sc.nextLine();
+		do {
+			System.out.print("Enter the course code: "); //check if such username exists 
+			courseCode = sc.nextLine();
+			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			if(check)
+			{System.out.println("Course code is not found in database.");}
+		} while (check);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		tempCourse.printStudentListByCourse();
+		
+		
+		
+		//System.out.println();
+		//System.out.println("Course Name\t");
+		//System.out.println("---------------------------------------------------");
+		//ask user to enter course code then display those students under that course code 
+		//if(courseList.size() <= 0){
+			//System.out.println("\nNo record is found!\n");
+			//return;
+		//}
+		
+		//for (Course c: courseList){
+			//System.out.print(c.getCourseName() + "         \t");
+			//System.out.println();
 			//show student list w
 			
-			flag = true;
-		}
-		if (!flag) System.out.println("\nNo record is found!");
+			//flag = true;
+		//}
+		//if (!flag) System.out.println("\nNo record is found!");
+		
+		
 		
 	}
 

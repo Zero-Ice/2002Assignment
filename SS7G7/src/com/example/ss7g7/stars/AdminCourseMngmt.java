@@ -1,10 +1,13 @@
 package com.example.ss7g7.stars;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class AdminCourseMngmt {
-	static List<Course> courseList; //retrieve course db from starsDB.class
+	
+	static StarsDB database = StarsDB.getInstance();
+	static ArrayList<Course> courseList = database.getAllCourse();
 	
 
 	public static boolean isExistingCourseCode(String courseCode) { //check if such coursecode exist in db 
@@ -43,6 +46,7 @@ public class AdminCourseMngmt {
 		System.out.println();
 		
 	}
+	
 
 
 }
