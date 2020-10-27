@@ -46,8 +46,7 @@ public class AdminStudUI {
 					case 5: // Go to PrintListBycourseUI Function
 						printStudListByCourse();
 						break;
-					case 6: // Log out
-						System.out.println("Logged out successfully");
+					case 6: // Go back
 						System.out.println();
 						break Logout;
 					default:
@@ -200,10 +199,10 @@ public class AdminStudUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		System.out.print("Enter the index code: "); 
+		System.out.print("Enter the index number: "); 
 		indexNum = sc.nextInt();
 		
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		tempCourse.getIndex(indexNum).printStudentListByIndex();
 		
 	}
@@ -223,30 +222,9 @@ public class AdminStudUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		tempCourse.printStudentListByCourse();
-		
-		
-		
-		//System.out.println();
-		//System.out.println("Course Name\t");
-		//System.out.println("---------------------------------------------------");
-		//ask user to enter course code then display those students under that course code 
-		//if(courseList.size() <= 0){
-			//System.out.println("\nNo record is found!\n");
-			//return;
-		//}
-		
-		//for (Course c: courseList){
-			//System.out.print(c.getCourseName() + "         \t");
-			//System.out.println();
-			//show student list w
-			
-			//flag = true;
-		//}
-		//if (!flag) System.out.println("\nNo record is found!");
-		
-		
+	
 		
 	}
 

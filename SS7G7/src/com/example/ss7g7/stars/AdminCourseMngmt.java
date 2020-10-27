@@ -21,6 +21,7 @@ public class AdminCourseMngmt {
 	public static Course getCourseByCode (String courseCode){ //retrieve coursecode from db 
 		for (Course c : courseList) {
 			if (c.getCourseCode().equals(courseCode)) {
+
 				return c;}
 		}
 		return null;

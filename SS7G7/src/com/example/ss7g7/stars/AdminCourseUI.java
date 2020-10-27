@@ -55,8 +55,7 @@ public class AdminCourseUI {
 					case 8: 
 						CheckIndexSlots();
 						break;
-					case 9: // Log out
-						System.out.println("Logged out successfully");
+					case 9: // Go back
 						System.out.println();
 						break Logout;
 					default:
@@ -98,7 +97,8 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course name already found in database, please enter another code");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		
 		
 		System.out.print("Enter course's name: ");
 		courseName = sc.nextLine();
@@ -120,13 +120,13 @@ public class AdminCourseUI {
         
 		System.out.print("Enter the lecture day(1 for monday, 2 for tuesday...):"); 
 		intDay = sc.nextInt();
-		System.out.print("Enter the lecture starting time(hours):"); 
+		System.out.print("Enter the lecture starting time(hours)(XX:00):"); 
 		startHours = sc.nextInt();
-		System.out.print("Enter the lecture starting (minutes):"); 
+		System.out.print("Enter the lecture starting (minutes)(00:XX):"); 
 		startMinutes = sc.nextInt();
-		System.out.print("Enter the lecture ending time(hours):"); 
+		System.out.print("Enter the lecture ending time(hours)(XX:00):"); 
 		endHours = sc.nextInt();
-		System.out.print("Enter the lecture ending time(minutes):"); 
+		System.out.print("Enter the lecture ending time(minutes)(00:XX):"); 
 		endMinutes = sc.nextInt();
 		System.out.print("Enter the lecture venue:"); 
 		lecVenue = sc.nextLine();
@@ -179,6 +179,7 @@ public class AdminCourseUI {
 		
 		Logout:
 			while(true){ //Print selection menu
+				System.out.println("");
 				System.out.println("Welcome to admin update page");
 				System.out.println("");
 				System.out.println("1. Update Course Details ");
@@ -246,23 +247,24 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		
 		System.out.print("Enter the updated course code:"); 
 		NcourseCode = sc.nextLine();
-		tempCourse.updateCourseCode(NcourseCode);
+		tempCourse.updateCourseCode(NcourseCode.toUpperCase());
 		
-		System.out.print("Enter the updated code name:"); 
+		System.out.print("Enter the updated course name:"); 
 		courseName = sc.nextLine();
-		tempCourse.updateCourseName(courseName);
+		tempCourse.updateCourseName(courseName.toUpperCase());
 		
 		System.out.print("Enter the updated school name:"); 
 		schooName = sc.nextLine();
-		tempCourse.updateSchooName(schooName);
+		tempCourse.updateSchooName(schooName.toUpperCase());
 		
-		System.out.print(courseName +"has been changed to " + NcourseCode + 
-				"course name changed to" + courseName + "school name changed to" + schooName); 
-		
+		System.out.println("");
+		System.out.print("Course code " + courseCode.toUpperCase() +" has been changed to " + NcourseCode.toUpperCase() + 
+				" , course name changed to " + courseName.toUpperCase() + " and school name changed to " + schooName.toUpperCase()); 
+		System.out.println("");
 		
 	}
 	
@@ -275,22 +277,21 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code you want to update: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
 			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		
 		
-		System.out.print("Enter the Index Number:"); 
+		System.out.print("Enter the index number:"); 
 		int indexNum = sc.nextInt();
-		System.out.print("Enter the New Index Number:"); 
+		System.out.print("Enter the new index number:"); 
 		int NindexNum = sc.nextInt();
-		
+		System.out.println("");
 		tempCourse.updateIndex(indexNum, NindexNum);
-		System.out.print(indexNum +"has been changed to " + NindexNum); 
 		//tempCourse.showAllIndexDetails(); /show result
 		
 	}
@@ -312,7 +313,7 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		
 		System.out.print("Enter the updated lecture venue: "); 
 		lecVenue = sc.nextLine();
@@ -321,8 +322,8 @@ public class AdminCourseUI {
 		
 		tempCourse.updateLecVenue(lecVenue);
 		tempCourse.updateLecRemark(lecRemark);
-		
-		System.out.print(courseCode + "'s lecture venue and remark has been updated"); 
+		System.out.println("");
+		System.out.print("Course code " + courseCode.toUpperCase() + "'s lecture venue and remark has been updated"); 
 		
 		
 	}
@@ -347,8 +348,11 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		
+		System.out.print("Enter the index number you want to change:"); 
+		indexNum = sc.nextInt();
+		sc.nextLine();
 		System.out.print("Enter the updated tutorial venue: "); 
 		tutVenue = sc.nextLine();
 		System.out.print("Enter the updated tutorial group number: "); 
@@ -360,7 +364,9 @@ public class AdminCourseUI {
 		tempCourse.getIndex(indexNum).updateTutRemark(tutRemark);
 		tempCourse.getIndex(indexNum).updateTutVenue(tutVenue);
 		
-		System.out.print(courseCode + "'s tutorial venue, group number and remark has been updated"); 
+		System.out.println("");
+		System.out.print("Index number " + indexNum + "'s tutorial venue, group number and remark has been updated"); 
+		System.out.println("");
 	}
 	
 	private static void updateLabDetail()
@@ -382,7 +388,11 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		
+		System.out.print("Enter the index number you want to change:"); 
+		indexNum = sc.nextInt();
+		sc.nextLine();
 		
 		System.out.print("Enter the updated lab venue: "); 
 		labVenue = sc.nextLine();
@@ -390,12 +400,15 @@ public class AdminCourseUI {
 		labGroup = sc.nextLine();
 		System.out.print("Enter the updated lab remark: "); 
 		labRemark = sc.nextLine();
+
 		
 		tempCourse.getIndex(indexNum).updateLabGroup(labGroup);
 		tempCourse.getIndex(indexNum).updateLabRemark(labRemark);
 		tempCourse.getIndex(indexNum).updateLabVenue(labVenue);
 		
-		System.out.print(courseCode + "'s lab venue, group number and remark has been updated"); 
+		System.out.println("");
+		System.out.print("Index Number " + indexNum + "'s lab venue, group number and remark has been updated"); 
+		System.out.println("");
 		
 	}
 	
@@ -429,48 +442,50 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempC = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempC = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 			
-		System.out.print("Enter the course's Index Number:"); 
-		int indexNo = sc.nextInt();
+		System.out.print("Enter the course's index number:"); 
+		indexNum = sc.nextInt();
 		System.out.print("Enter the course's maximum vacancy slots:"); 
 		vacancy = sc.nextInt();
 		tempC.addIndex(indexNum, vacancy); // add index number and number of ava slots in that course to db
-		System.out.println(courseCode + "of" + indexNum +"has been added.");
 			
-		
+		System.out.print(""); 
+		System.out.print(""); 
 		//create new tutorial lesson
-		System.out.print("Enter the tutorial day:"); 
+		System.out.print("Enter the tutorial day(1 for monday, 2 for tuesday...):"); 
 		intDay = sc.nextInt();
-		System.out.print("Enter the tutorial starting time(hours):"); 
+		System.out.print("Enter the tutorial starting time(hours)(XX:00):"); 
 		startHours = sc.nextInt();
-		System.out.print("Enter the tutorial starting (minutes):"); 
+		System.out.print("Enter the tutorial starting (minutes)(00:XX):"); 
 		startMinutes = sc.nextInt();
-		System.out.print("Enter the tutorial ending time(hours):"); 
+		System.out.print("Enter the tutorial ending time(hours)(XX:00):"); 
 		endHours = sc.nextInt();
-		System.out.print("Enter the tutorial ending time(minutes):"); 
+		System.out.print("Enter the tutorial ending time(minutes)(00:XX):"); 
 		endMinutes = sc.nextInt();
+		sc.nextLine();
 		System.out.print("Enter the tutorial venue:"); 
 		tutVenue = sc.nextLine();
 		System.out.print("Enter the tutorial remark:"); 
 		tutRemarks = sc.nextLine();
 		System.out.print("Enter the tutorial group number:"); 
 		tutGroup = sc.nextLine();
-		tempC.getIndex(indexNo).setTutDetails(intDay, startHours, startMinutes, 
+		tempC.getIndex(indexNum).setTutDetails(intDay, startHours, startMinutes, 
 				endHours, endMinutes, tutVenue, tutRemarks, tutGroup);
 		
-
+		System.out.print(""); 
 		//create new lab lesson
-		System.out.print("Enter the lab day:"); 
+		System.out.print("Enter the lab day(1 for monday, 2 for tuesday...):"); 
 		intDay = sc.nextInt();
-		System.out.print("Enter the lab starting time(hours):"); 
+		System.out.print("Enter the lab starting time(hours)(XX:00):"); 
 		startHours = sc.nextInt();
-		System.out.print("Enter the lab starting (minutes):"); 
+		System.out.print("Enter the lab starting (minutes)(00:XX):"); 
 		startMinutes = sc.nextInt();
-		System.out.print("Enter the lab ending time(hours):"); 
+		System.out.print("Enter the lab ending time(hours)(XX:00):"); 
 		endHours = sc.nextInt();
-		System.out.print("Enter the lab ending time(minutes):"); 
+		System.out.print("Enter the lab ending time(minutes)(00:XX):"); 
 		endMinutes = sc.nextInt();
+		sc.nextLine();
 		System.out.print("Enter the lab venue:"); 
 		labVenue = sc.nextLine();
 		System.out.print("Enter the lab remark:"); 
@@ -478,10 +493,11 @@ public class AdminCourseUI {
 		System.out.print("Enter the lab group number:"); 
 		labGroup = sc.nextLine();
 						
-		tempC.getIndex(indexNo).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
+		tempC.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
 				labVenue, labRemarks, labGroup);
-				
-		System.out.println(indexNo + "'s lab and tutorial details has been added.");
+		
+		System.out.print("");  
+		System.out.println("Index Number" +indexNum + "'s lab and tutorial details has been added.");
 		//tempC.showAllIndexDetails();
 		}
 	
@@ -505,13 +521,13 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		
-		System.out.print("Enter the course's Index Number:"); 
+		System.out.print("Enter the course's index number:"); 
 		int indexNo = sc.nextInt();
 		
+		System.out.println(""); 
 		tempCourse.removeIndex(indexNo);
-		System.out.println(indexNo + "of " + courseCode + " has been removed.");
 		
 		
 	}
@@ -531,7 +547,8 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		System.out.println("");
 		//tempCourse.showfullCourseDetails();
 		
 	}
@@ -553,10 +570,11 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		System.out.print("Enter the index code: "); 
+		System.out.print("Enter the index number: "); 
 		indexNum = sc.nextInt();
 		
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		System.out.println("");
 		tempCourse.getIndex(indexNum).showNumOfVacancies();
 		
 		
@@ -580,10 +598,11 @@ public class AdminCourseUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		System.out.print("Enter the index code: "); 
+		System.out.print("Enter the index number: "); 
 		indexNum = sc.nextInt();
 		
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode);
+		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		System.out.println("");
 		tempCourse.getIndex(indexNum).showNumOfVacancies();
 		
 	}
