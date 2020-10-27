@@ -18,7 +18,7 @@ public class AdminCourseUI {
 			System.out.println("Welcome to admin course page");
 			System.out.println("");
 			System.out.println("1. Add new course");
-			System.out.println("2. remove a course");
+			System.out.println("2. Remove a course");
 			System.out.println("3. Update course/index");
 			System.out.println("4. Add new index");
 			System.out.println("5. Remove a index");
@@ -118,7 +118,7 @@ public class AdminCourseUI {
         	}
         }
         
-		System.out.print("Enter the lecture day:"); 
+		System.out.print("Enter the lecture day(1 for monday, 2 for tuesday...):"); 
 		intDay = sc.nextInt();
 		System.out.print("Enter the lecture starting time(hours):"); 
 		startHours = sc.nextInt();
@@ -130,6 +130,7 @@ public class AdminCourseUI {
 		endMinutes = sc.nextInt();
 		System.out.print("Enter the lecture venue:"); 
 		lecVenue = sc.nextLine();
+		sc.nextLine();
 		System.out.print("Enter the lecture remark:"); 
 		lecRemarks = sc.nextLine();
 		System.out.print("Enter the lecture group number:"); 
@@ -151,12 +152,24 @@ public class AdminCourseUI {
 
 
 	private static void removeACourse() {
+		String courseCode ="";
+		boolean check;
 		
-		//Course.showfullCourseDetails(); //show result 
-		System.out.print("Enter the course's code:"); 
-		String courseCode = sc.nextLine();
+		
+		System.out.println("Press any key to continue");
+		sc.nextLine();
+		sc.nextLine();
+		do {
+			System.out.print("Enter the course code you want to remove: "); //check if such username exists 
+			courseCode = sc.nextLine();
+			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			if(check)
+			{System.out.println("Course code is not found in database.");}
+		} while (check);
+		
 		AdminCourseMngmt.removeCourse(courseCode.toUpperCase()); //check and update to database
-		
+		System.out.println("");
+		//Course.showfullCourseDetails(); //show result 
 	}
 
 
