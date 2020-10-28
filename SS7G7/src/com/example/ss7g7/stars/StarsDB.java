@@ -151,6 +151,15 @@ public class StarsDB {
 
 		return null;
 	}
+	
+	public Course getCourse(String courseCode) {
+		for(Course c : courses) {
+			if(c.getCourseCode().equals(courseCode)) {
+				return c;
+			}
+		}
+		return null;
+	}
 
 	public void setCourseRecord() {
 
