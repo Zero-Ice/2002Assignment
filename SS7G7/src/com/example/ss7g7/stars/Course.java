@@ -90,8 +90,11 @@ public class Course implements Serializable{
 	}
 	
 	//TODO: Check lec Clash
-	public void checkLecClash(Student student) {
-
+	public void checkLecClash() {
+		
+//		String stuCourseCode =student.getCourses().get(0).getCourseCode();
+//		System.out.println(stuCourseCode);
+		System.out.println(StarsDB.getInstance().getCourse("CZ2002"));
 	}
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
