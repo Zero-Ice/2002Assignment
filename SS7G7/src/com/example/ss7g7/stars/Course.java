@@ -1,9 +1,9 @@
 package com.example.ss7g7.stars;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 
 public class Course implements Serializable{
@@ -14,8 +14,8 @@ public class Course implements Serializable{
 	private String lecRemark;
 	private String lecGroup;
 	private int AU;
-	private Date lecStartTime;
-	private Date lecEndTime;
+	private static LocalTime lecStartTime;
+	private static LocalTime lecEndTime;
 	private String lecDay;
 	private ArrayList<Index> indexes; // array of indexes
 	private boolean courseAvailability;
@@ -27,8 +27,6 @@ public class Course implements Serializable{
 		this.AU=au;
 		this.indexes = new ArrayList<Index>();
 		this.schooName = school_Name;
-		this.lecStartTime= new Date();
-		this.lecEndTime= new Date();
 		this.lecVenue ="";
 		this.courseAvailability =true;
 		
@@ -41,7 +39,6 @@ public class Course implements Serializable{
 				return indexes.get(i);
 			}
 		}
-		//need change i think
 		return null;
 	}
 	
@@ -91,10 +88,16 @@ public class Course implements Serializable{
 	
 	//TODO: Check lec Clash
 	public void checkLecClash() {
+		ArrayList<Course> allCourses = StarsDB.getInstance().getAllCourse();
 		
-//		String stuCourseCode =student.getCourses().get(0).getCourseCode();
-//		System.out.println(stuCourseCode);
-		System.out.println(StarsDB.getInstance().getCourse("CZ2002"));
+//		for(int i =0; i<allCourses.size();i++ ) {
+//			System.out.println(allCourses.get(i).getLecDay());
+//			System.out.println(allCourses.get(i).getLecStartTime());
+//			System.out.println(allCourses.get(i).getLecEndTime());
+//			System.out.println(allCourses.get(i).getTest());
+//			System.out.println("\n");
+//		}
+//		System.out.println(StarsDB.getInstance().getCourse("CZ2002"));
 	}
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
@@ -170,10 +173,8 @@ public class Course implements Serializable{
 		
 	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String lecVenue,String lecRemarks, String lecGroup) {
-		lecStartTime.setHours(startHours);
-		lecStartTime.setMinutes(startMinutes);
-		lecEndTime.setHours(endHours);
-		lecEndTime.setMinutes(startMinutes);
+		updateLecStartTime(lecStartTime.of(startHours, startMinutes));
+		updateLecEndTime(lecEndTime.of(endHours, endMinutes));
 		lecDay = setDay(intDay);
 		updateLecVenue(lecVenue);
 		updateLecGroup(lecGroup);
@@ -244,9 +245,8 @@ public class Course implements Serializable{
 	}
 	
 	public void getLecDetails() {
-		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
-		String lecStart = formatter.format(lecStartTime);
-		String lecEnd =formatter.format(lecEndTime);
+		String lecStart = getLecStartTime().toString();
+		String lecEnd =getLecEndTime().toString();
 		
 		String time = lecStart + " - " + lecEnd;
 
@@ -263,13 +263,6 @@ public class Course implements Serializable{
 		return lecDay;
 	}
 	
-	public Date getLecStartTime() {
-		return lecStartTime;
-	}
-	
-	public Date getLecEndTime() {
-		return lecEndTime;
-	}
 
 	public String getLecRemark() {
 		return lecRemark;
@@ -286,6 +279,24 @@ public class Course implements Serializable{
 	public void updateLecGroup(String lecGroup) {
 		this.lecGroup = lecGroup;
 	}
+
+	public LocalTime getLecStartTime() {
+		return lecStartTime;
+	}
+
+	public void updateLecStartTime(LocalTime lecStartTime) {
+		this.lecStartTime = lecStartTime;
+	}
+
+	public LocalTime getLecEndTime() {
+		return lecEndTime;
+	}
+
+	public void updateLecEndTime(LocalTime lecEndTime) {
+		this.lecEndTime = lecEndTime;
+	}
+
+
 	
 	
 	
