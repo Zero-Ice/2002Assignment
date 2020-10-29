@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Index {
 	private int indexNum;
 	private String courseCode;
-	private int numVacancy;
+	private int numSeats;
 	private ArrayList<String> seatVacancy; 
 	private ArrayList<String> studentWaitlist;
 	private String tutVenue;
@@ -26,10 +26,10 @@ public class Index {
 	private boolean indexFull;
 	//TODO: waitlist for students
 	
-	public Index(int index_Num, String courseCode, int num_Vacancy) {
+	public Index(int index_Num, String courseCode, int num_Seat) {
 		this.indexNum=index_Num;
 		this.courseCode = courseCode;
-		this.numVacancy=num_Vacancy;
+		this.numSeats=num_Seat;
 		this.tutStartTime = new Date();
 		this.tutEndTime = new Date();
 		this.labStartTime = new Date();
@@ -39,7 +39,7 @@ public class Index {
 		this.studentWaitlist = new ArrayList<String>();
 		
 		//initialize all to vacant
-		for(int i =0;i<numVacancy;i++) {
+		for(int i =0;i<numSeats;i++) {
 			this.seatVacancy.add("vacant");
 		}
 	}
@@ -61,7 +61,7 @@ public class Index {
 			System.out.println(matricNo+ " has registered before.");
 			return;
 		}else{
-			for(int i =0;i<numVacancy;i++) {
+			for(int i =0;i<numSeats;i++) {
 				if(seatVacancy.get(i).contains("vacant")) {
 					seatVacancy.set(i, matricNo);
 					student.addCourse(this.courseCode, this.indexNum);
@@ -88,21 +88,21 @@ public class Index {
 		String matricNo = student.getMatricNo();
 		
 		if(seatVacancy.contains(matricNo)) {
-			for(int i =0;i<numVacancy;i++) {
+			for(int i =0;i<numSeats;i++) {
 				if(seatVacancy.get(i).contains(matricNo)) {
-					if(indexFull==false) {
-						seatVacancy.set(i, "vacant");
-						student.dropCourse(this.indexNum);
-						System.out.println(matricNo+ " unassigned from index " +indexNum);
-					}else {
-						seatVacancy.set(i, studentWaitlist.get(0));
-						studentWaitlist.remove(0);
-					}
+					seatVacancy.set(i, "vacant");
+					student.dropCourse(this.indexNum);
+					System.out.println(matricNo+ " unassigned from index " +indexNum);
 					return;
 				}
 			}
 		}
 		System.out.println(matricNo+ " was not found in index "+ indexNum);
+	}
+	
+	//TODO
+	public void addFromWaitlistToIndex() {
+		
 	}
 	
 	
@@ -127,7 +127,7 @@ public class Index {
 	public int showNumOfVacancies() {
 		int numOfVacant=0;
 		
-		for(int i =0;i<numVacancy;i++) {
+		for(int i =0;i<numSeats;i++) {
 			if(seatVacancy.get(i).contains("vacant")) {
 				numOfVacant++;
 			}
@@ -137,7 +137,7 @@ public class Index {
 	
 	public void printStudentListByIndex() {
 		System.out.println(indexNum);
-		for(int i =0;i<numVacancy;i++) {
+		for(int i =0;i<numSeats;i++) {
 			if(seatVacancy.get(i).contains("vacant")!=true) {
 				System.out.println(seatVacancy.get(i));
 			}
