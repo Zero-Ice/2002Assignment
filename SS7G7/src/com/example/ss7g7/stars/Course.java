@@ -71,12 +71,12 @@ public class Course implements Serializable{
 //		System.out.println(op);	
 //		showAllIndexDetails();
 //	}
-//	public void showAllIndexDetails() {
-//		int sizeOfIndex= indexes.size();
-//		for(int i = 0; i<sizeOfIndex;i++) {
-//			System.out.println("Index: "+indexes.get(i).getIndexNum() + " Vacancies: " + indexes.get(i).showNumOfVacancies());
-//		}
-//	}
+	public void printNumVacanciesAllIndexes() {
+		int sizeOfIndex= indexes.size();
+		for(int i = 0; i<sizeOfIndex;i++) {
+			System.out.println("Index: "+indexes.get(i).getIndexNum() + " Vacancies: " + indexes.get(i).getNumOfVacancies());
+		}
+	}
 	
 	// check if student has registered between indexes
 	public boolean checkIndexClash(String matricNo) {

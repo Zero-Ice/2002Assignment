@@ -124,7 +124,7 @@ public class Index {
 	}
 	
 	
-	public int showNumOfVacancies() {
+	public int getNumOfVacancies() {
 		int numOfVacant=0;
 		
 		for(int i =0;i<numSeats;i++) {
