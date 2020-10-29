@@ -136,10 +136,12 @@ public class StarsDB {
 		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
 		c.addIndex(123456, 30);
 		c.addIndex(696969, 30);
+		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
 		courses.add(c);
 
 		c = new Course("CZ2005", "OS", "SCSE", 3);
 		c.addIndex(200005, 30);
+		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OS", "CS3");
 		courses.add(c);
 	}
 
