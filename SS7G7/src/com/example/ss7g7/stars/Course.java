@@ -14,8 +14,8 @@ public class Course implements Serializable{
 	private String lecRemark;
 	private String lecGroup;
 	private int AU;
-	private static LocalTime lecStartTime;
-	private static LocalTime lecEndTime;
+	private LocalTime lecStartTime;
+	private LocalTime lecEndTime;
 	private String lecDay;
 	private ArrayList<Index> indexes; // array of indexes
 	private boolean courseAvailability;
@@ -90,13 +90,12 @@ public class Course implements Serializable{
 	public void checkLecClash() {
 		ArrayList<Course> allCourses = StarsDB.getInstance().getAllCourse();
 		
-//		for(int i =0; i<allCourses.size();i++ ) {
-//			System.out.println(allCourses.get(i).getLecDay());
-//			System.out.println(allCourses.get(i).getLecStartTime());
-//			System.out.println(allCourses.get(i).getLecEndTime());
-//			System.out.println(allCourses.get(i).getTest());
-//			System.out.println("\n");
-//		}
+		for(int i =0; i<allCourses.size();i++ ) {
+			System.out.println(allCourses.get(i).getLecDay());
+			System.out.println(allCourses.get(i).getLecStartTime());
+			System.out.println(allCourses.get(i).getLecEndTime());
+			System.out.println("\n");
+		}
 //		System.out.println(StarsDB.getInstance().getCourse("CZ2002"));
 	}
 	
