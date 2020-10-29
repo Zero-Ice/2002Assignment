@@ -575,7 +575,7 @@ public class AdminCourseUI {
 		
 		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		System.out.println("");
-		tempCourse.getIndex(indexNum).showNumOfVacancies();
+		tempCourse.getIndex(indexNum).getNumOfVacancies();
 		
 		
 		
@@ -603,7 +603,7 @@ public class AdminCourseUI {
 		
 		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		System.out.println("");
-		tempCourse.getIndex(indexNum).showNumOfVacancies();
+		tempCourse.getIndex(indexNum).getNumOfVacancies();
 		
 	}
 

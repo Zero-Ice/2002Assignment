@@ -188,7 +188,7 @@ public class StudentMenu {
 
 				// Class type, Group, Day, Time, Venue, Remark
 				System.out.println("Class type, Group, Day, Time, Venue, Remark");
-				System.out.println("Vacancy " + index.showNumOfVacancies());
+				System.out.println("Vacancy " + index.getNumOfVacancies());
 			} else {
 				System.out.println("Index " + indexNo + "does not exist in the course");
 			}
