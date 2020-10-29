@@ -138,7 +138,10 @@ public class Index {
 	public void printStudentListByIndex() {
 		System.out.println(indexNum);
 		for(int i =0;i<numVacancy;i++) {
-			System.out.println(i+1 + ": "+seatVacancy.get(i));
+			if(seatVacancy.get(i).contains("vacant")!=true) {
+				System.out.println(seatVacancy.get(i));
+			}
+			
 		}
 		System.out.println();
 	}
