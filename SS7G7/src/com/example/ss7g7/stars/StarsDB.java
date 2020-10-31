@@ -162,6 +162,38 @@ public class StarsDB {
 		}
 		return null;
 	}
+	
+	public boolean isExistingCourseCode(String courseCode)
+	{
+		for(Course c : courses)
+		{
+			if(c.getCourseCode().equals(courseCode)) 
+			{return true;}
+		}
+		return false;
+	}
+	
+	public static void removeCourse(String courseCode) { //remove coursecode from db 
+		
+		if (db_instance.isExistingCourseCode(courseCode)){
+			Course course = db_instance.getCourse(courseCode);
+
+			db_instance.courses.remove(course);
+			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
+		}
+		else{
+			System.out.println("Course code is not found!\n");
+		}
+		
+	}
+	// add new course into db
+	public static void addCourse(String courseCode, String courseName, String SchooName, int aU) {
+		Course newCourse 		= new Course(courseCode, courseName,SchooName, aU);
+		db_instance.courses.add(newCourse);
+		System.out.println();
+		
+	}
+	
 
 	public void setCourseRecord() {
 
