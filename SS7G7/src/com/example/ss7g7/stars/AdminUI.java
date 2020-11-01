@@ -1,6 +1,6 @@
 package com.example.ss7g7.stars;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class AdminUI {
 	
@@ -14,7 +14,7 @@ public class AdminUI {
 		int choice;
 		Logout:
 		while(true){ //Print selection menu
-			System.out.println("Welcome to admin page");
+			System.out.println("Welcome to Stars System's Admin Page");
 			System.out.println("");
 			System.out.println("1. Student");
 			System.out.println("2. Course");

@@ -63,11 +63,11 @@ public class Course implements Serializable{
 		}
 	}
 	
-//	public void showfullCourseDetails() {
-//		String op = getCourseCode() +" "+getCourseName()+" "+getSchooName();
-//		System.out.println(op);	
-//		showAllIndexDetails();
-//	}
+	//public void showfullCourseDetails() {
+		//String op = getCourseCode() +" "+getCourseName()+" "+getSchooName();
+		//System.out.println(op);	
+	//}
+	
 	public void printNumVacanciesAllIndexes() {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {

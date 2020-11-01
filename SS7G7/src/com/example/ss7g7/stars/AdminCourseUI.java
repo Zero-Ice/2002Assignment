@@ -1,11 +1,9 @@
 package com.example.ss7g7.stars;
-import java.util.*;
+import java.util.Scanner;
 
 public class AdminCourseUI {
 
 	static StarsDB database = StarsDB.getInstance();
-	static ArrayList<Course> courseList = database.getAllCourse();
-	static ArrayList<Student> studentList = database.getAllStudents(); //retrieve db from StarsDB
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
@@ -13,9 +11,9 @@ public class AdminCourseUI {
 	public static void printAdminCourseUI() {
 		
 		int choice;
-		Logout:
+		GoBack:
 		while(true){ //Print selection menu
-			System.out.println("Welcome to admin course page");
+			System.out.println("Welcome to Admin Course Page");
 			System.out.println("");
 			System.out.println("1. Add new course");
 			System.out.println("2. Remove a course");
@@ -32,32 +30,32 @@ public class AdminCourseUI {
 			try{
 				switch (choice) {
 					case 1: 
-						addNewCourse();
+						addNewCourse(); //Add new course to database
 						break;
 					case 2: 
-						removeACourse();
+						removeACourse(); //Remove existing course from database
 						break;
 					case 3: 
-						updateCourseIndex();
+						updateCourseIndex(); //Update existing course/index detail
 						break;
 					case 4: 
-						addNewIndex();
+						addNewIndex(); //Add new index number to existing course code
 						break;
 					case 5: 
-						removeAIndex();
+						removeAIndex();//Remove existing index number from course code
 						break;
 					case 6: 
-						viewCourse();
+						viewCourse();//View course code detail by course code
 						break;
 					case 7:
-						viewIndexByCourse();
+						viewIndexByCourse();//View index number detail by course code
 						break;
 					case 8: 
-						CheckIndexSlots();
+						CheckIndexSlots();//View index number's vacancies 
 						break;
 					case 9: // Go back
 						System.out.println();
-						break Logout;
+						break GoBack;
 					default:
 						System.out.println("Incorrect Input, please try again"); //when user input incorrect value
 								}
@@ -93,11 +91,11 @@ public class AdminCourseUI {
 		do { //check if it exist in the database
 			System.out.print("Enter the course's code: ");
 			courseCode = sc.nextLine();
-			check = AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase());
+			check = database.isExistingCourseCode(courseCode.toUpperCase());
 			if(check)
 			{System.out.println("Course name already found in database, please enter another code");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
 		
 		System.out.print("Enter course's name: ");
@@ -137,12 +135,13 @@ public class AdminCourseUI {
 		lecGroup = sc.nextLine();
         
         //update to database
-        AdminCourseMngmt.addCourse(courseCode.toUpperCase(), courseName.toUpperCase(),schooName.toUpperCase(), AU);
+		database.addCourse(courseCode.toUpperCase(), courseName.toUpperCase(),schooName.toUpperCase(), AU);
 
 		tempCourse.setLecDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
         		lecVenue, lecRemarks, lecGroup);
         
-       //Course.showfullCourseDetails(); //show result 
+		
+		database.printCourseList();; //show result
 	    System.out.println();
 		System.out.println("The Course has been added.");
 		
@@ -151,25 +150,26 @@ public class AdminCourseUI {
 	}
 
 
-	private static void removeACourse() {
+	private static void removeACourse() { //remove a course from database
 		String courseCode ="";
 		boolean check;
 		
-		
+		database.printCourseList();; //show result
+		System.out.println();
 		System.out.println("Press any key to continue");
 		sc.nextLine();
 		sc.nextLine();
 		do {
 			System.out.print("Enter the course code you want to remove: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
 		
-		AdminCourseMngmt.removeCourse(courseCode.toUpperCase()); //check and update to database
+		database.removeCourse(courseCode.toUpperCase()); //check and update to database
 		System.out.println("");
-		//Course.showfullCourseDetails(); //show result 
+		database.printCourseList();; //show result 
 	}
 
 
@@ -177,10 +177,10 @@ public class AdminCourseUI {
 
 		 int choice;
 		
-		Logout:
+		GoBack:
 			while(true){ //Print selection menu
 				System.out.println("");
-				System.out.println("Welcome to admin update page");
+				System.out.println("Welcome to Admin Update Page");
 				System.out.println("");
 				System.out.println("1. Update Course Details ");
 				System.out.println("2. Update Index Details");
@@ -194,29 +194,29 @@ public class AdminCourseUI {
 				try{
 					switch (choice) {
 						case 1: 
-							//update course detail
+							//Update course detail
 							updateCourseDetail();
 							break;
 						case 2: 
-							//update index number detail
+							//Update index number detail
 							updateIndexDetail();
 							break;
 						case 3: 
-							//update lecture detail
+							//Update lecture detail
 							updateLecDetail();
 							break;
 						case 4: 
-							//update tutorial detail
+							//Update tutorial detail
 							updateTutDetail();
 	
 							break;
 						case 5: 
-							//updaet lab detail
+							//Update lab detail
 							updateLabDetail();
 							break;
-						case 6: // Log out
+						case 6: // Go back
 							System.out.println();
-							break Logout;
+							break GoBack;
 						default:
 							System.out.println("Incorrect Input, please try again"); //when user input incorrect value
 										}
@@ -229,12 +229,12 @@ public class AdminCourseUI {
 		
 	}
 	
-	private static void updateCourseDetail()
+	private static void updateCourseDetail() 
 	{
 		String courseCode = "";
 		String NcourseCode = "";
 		String courseName = "";
-		String schooName = "";
+		int AU = 0;
 		boolean check = false;
 		
 		System.out.println("Press any key to continue");
@@ -243,11 +243,11 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code you want to update: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
 		System.out.print("Enter the updated course code:"); 
 		NcourseCode = sc.nextLine();
@@ -257,13 +257,22 @@ public class AdminCourseUI {
 		courseName = sc.nextLine();
 		tempCourse.updateCourseName(courseName.toUpperCase());
 		
-		System.out.print("Enter the updated school name:"); 
-		schooName = sc.nextLine();
-		tempCourse.updateSchooName(schooName.toUpperCase());
-		
+        while(true){ //check if user input the correct input format 
+        	try{
+        		System.out.print("Enter the updated AU:"); 
+        		AU = sc.nextInt();
+        		sc.nextLine();
+        		break;
+        	} catch (Exception e){
+        		sc.nextLine();
+        		System.out.println("Invalid input! Academic Unit must be a number!");
+        	}
+        }
+        tempCourse.updateAU(AU);
+        
 		System.out.println("");
 		System.out.print("Course code " + courseCode.toUpperCase() +" has been changed to " + NcourseCode.toUpperCase() + 
-				" , course name changed to " + courseName.toUpperCase() + " and school name changed to " + schooName.toUpperCase()); 
+				" , course name changed to " + courseName.toUpperCase() + " and AU value changed to " + AU); 
 		System.out.println("");
 		
 	}
@@ -272,6 +281,7 @@ public class AdminCourseUI {
 	{
 		String courseCode = "";
 		boolean check = false;
+		int indexNum =0;
 		
 		System.out.println("Press any key to continue");
 		sc.nextLine();
@@ -279,20 +289,26 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
+		do {
+			System.out.print("Enter the index number: "); //check if such index number exists
+			indexNum = sc.nextInt();
+			check = !(tempCourse.containsIndexNo(indexNum));
+			if(check)
+			{
+				{System.out.println("Index number not found in database.");}
+			}
+		}while(check);
 		
-		System.out.print("Enter the index number:"); 
-		int indexNum = sc.nextInt();
 		System.out.print("Enter the new index number:"); 
 		int NindexNum = sc.nextInt();
 		System.out.println("");
 		tempCourse.updateIndex(indexNum, NindexNum);
-		//tempCourse.showAllIndexDetails(); /show result
 		
 	}
 	
@@ -309,11 +325,11 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
 		System.out.print("Enter the updated lecture venue: "); 
 		lecVenue = sc.nextLine();
@@ -344,14 +360,21 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
-		System.out.print("Enter the index number you want to change:"); 
-		indexNum = sc.nextInt();
+		do {
+			System.out.print("Enter the index number: ");  //check if such index number exists
+			indexNum = sc.nextInt();
+			check = !(tempCourse.containsIndexNo(indexNum));
+			if(check)
+			{
+				{System.out.println("Index number not found in database.");}
+			}
+		}while(check);
 		sc.nextLine();
 		System.out.print("Enter the updated tutorial venue: "); 
 		tutVenue = sc.nextLine();
@@ -384,16 +407,22 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
-		System.out.print("Enter the index number you want to change:"); 
-		indexNum = sc.nextInt();
+		do {
+			System.out.print("Enter the index number: ");  //check if such index number exists
+			indexNum = sc.nextInt();
+			check = !(tempCourse.containsIndexNo(indexNum));
+			if(check)
+			{
+				{System.out.println("Index number not found in database.");}
+			}
+		}while(check);
 		sc.nextLine();
-		
 		System.out.print("Enter the updated lab venue: "); 
 		labVenue = sc.nextLine();
 		System.out.print("Enter the updated lab group number: "); 
@@ -438,17 +467,30 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempC = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
-			
-		System.out.print("Enter the course's index number:"); 
-		indexNum = sc.nextInt();
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
+		
+		while(true){
+			System.out.print("Enter the course's index number:");   //check if such index number exists
+			indexNum = sc.nextInt();
+			System.out.print("");  
+			check = !(tempCourse.containsIndexNo(indexNum));
+			if(!check)
+			{
+				{System.out.println("Index number found in database, please try again");
+				}
+			}
+			else
+			{break;}
+		}
+		
 		System.out.print("Enter the course's maximum vacancy slots:"); 
 		vacancy = sc.nextInt();
-		tempC.addIndex(indexNum, vacancy); // add index number and number of ava slots in that course to db
+		
+		tempCourse.addIndex(indexNum, vacancy); // add index number and number of ava slots in that course to db
 			
 		System.out.print(""); 
 		System.out.print(""); 
@@ -470,7 +512,7 @@ public class AdminCourseUI {
 		tutRemarks = sc.nextLine();
 		System.out.print("Enter the tutorial group number:"); 
 		tutGroup = sc.nextLine();
-		tempC.getIndex(indexNum).setTutDetails(intDay, startHours, startMinutes, 
+		tempCourse.getIndex(indexNum).setTutDetails(intDay, startHours, startMinutes, 
 				endHours, endMinutes, tutVenue, tutRemarks, tutGroup);
 		
 		System.out.print(""); 
@@ -493,23 +535,20 @@ public class AdminCourseUI {
 		System.out.print("Enter the lab group number:"); 
 		labGroup = sc.nextLine();
 						
-		tempC.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
+		tempCourse.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
 				labVenue, labRemarks, labGroup);
 		
-		System.out.print("");  
-		System.out.println("Index Number" +indexNum + "'s lab and tutorial details has been added.");
-		//tempC.showAllIndexDetails();
+		System.out.println("");  
+		System.out.println("Index Number " +indexNum + "'s lab and tutorial details has been added.");
+
 		}
-	
-	
-		
 
-
-	private static void removeAIndex() {
+	private static void removeAIndex() {//remove a index number from a course
 		
 		//remove a index from database 
 		boolean check = false;
 		String courseCode  = "";
+		int indexNum=0;
 		
 		System.out.println("Press any key to continue");
 		sc.nextLine();
@@ -517,23 +556,29 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
-		System.out.print("Enter the course's index number:"); 
-		int indexNo = sc.nextInt();
+		do {
+			System.out.print("Enter the course's index number:");  
+			indexNum = sc.nextInt();
+			check = !(tempCourse.containsIndexNo(indexNum));
+			if(check)
+			{
+				{System.out.println("Index number not found in database.");}
+			}
+		}while(check);
 		
 		System.out.println(""); 
-		tempCourse.removeIndex(indexNo);
-		
+		tempCourse.removeIndex(indexNum);
 		
 	}
 
 
-	private static void viewCourse() {
+	private static void viewCourse() { //view course detail
 		boolean check = false;
 		String courseCode  = "";
 		
@@ -543,19 +588,54 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		System.out.println("");
-		//tempCourse.showfullCourseDetails();
+		database.printCourseList();
 		
 	}
 
 
-	private static void viewIndexByCourse() {
+	private static void viewIndexByCourse() { //view index number detail by course code
 		
+		boolean check = false;
+		String courseCode  = "";
+		int indexNum=0;
+		
+		System.out.println("Press any key to continue");
+		sc.nextLine();
+		sc.nextLine();
+		do {
+			System.out.print("Enter the course code: "); //check if such username exists 
+			courseCode = sc.nextLine();
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
+			if(check)
+			{System.out.println("Course code is not found in database.");}
+		} while (check);
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
+		
+		do {
+			System.out.print("Enter the course's index number:");  
+			indexNum = sc.nextInt();
+			check = !(tempCourse.containsIndexNo(indexNum));
+			if(check)
+			{
+				{System.out.println("Index number not found in database.");}
+			}
+		}while(check);
+	
+		System.out.println("");
+		tempCourse.getIndex(indexNum).printStudentListByIndex();
+		
+		
+		
+		
+	}
+
+
+	private static void CheckIndexSlots() { //view index number number of vacancies(slots)
 		boolean check = false;
 		String courseCode  = "";
 		int indexNum;
@@ -566,42 +646,22 @@ public class AdminCourseUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		System.out.print("Enter the index number: "); 
-		indexNum = sc.nextInt();
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
-		System.out.println("");
-		tempCourse.getIndex(indexNum).getNumOfVacancies();
-		
-		
-		
-		
-	}
-
-
-	private static void CheckIndexSlots() {
-		boolean check = false;
-		String courseCode  = "";
-		int indexNum;
-		
-		System.out.println("Press any key to continue");
-		sc.nextLine();
-		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
-			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			System.out.print("Enter the course's index number:");  
+			indexNum = sc.nextInt();
+			check = !(tempCourse.containsIndexNo(indexNum));
 			if(check)
-			{System.out.println("Course code is not found in database.");}
-		} while (check);
-		System.out.print("Enter the index number: "); 
-		indexNum = sc.nextInt();
+			{
+				{System.out.println("Index number not found in database.");}
+			}
+		}while(check);
 		
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
 		System.out.println("");
 		tempCourse.getIndex(indexNum).getNumOfVacancies();
 		
