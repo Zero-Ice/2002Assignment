@@ -97,10 +97,15 @@ public class Course implements Serializable{
 				if(allCourses.get(i).getCourseCode()==studentRegCourse.get(j).getCourseCode()) {
 //					System.out.println(allCourses.get(i).getCourseCode());
 //					System.out.println(allCourses.get(i).getLecDay());
-//					System.out.println(allCourses.get(i).getLecStartTime());
+//					System.out.println(allCourses.get(i).getCourseCode() + ": "+allCourses.get(i).getLecStartTime());
+//					System.out.println(courseStudentApplying.getCourseCode() + ": " + courseStudentApplying.getLecStartTime());
 //					System.out.println(allCourses.get(i).getLecEndTime());
 					
-					if(allCourses.get(i).getLecDay()==courseStudentApplying.getLecDay()) {
+					//Time same as the lec
+					if(allCourses.get(i).getLecDay()==courseStudentApplying.getLecDay() &&
+							allCourses.get(i).getLecStartTime().compareTo(courseStudentApplying.getLecStartTime())==0 &&
+							allCourses.get(i).getLecEndTime().compareTo(courseStudentApplying.getLecEndTime())==0) 
+					{
 						System.out.println("wont be able");
 					}
 				}
