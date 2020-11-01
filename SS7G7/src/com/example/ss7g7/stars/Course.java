@@ -87,15 +87,32 @@ public class Course implements Serializable{
 	}
 	
 	//TODO: Check lec Clash
-	public void checkLecClash() {
-		ArrayList<Course> allCourses = StarsDB.getInstance().getAllCourse();
+	public void checkLecClash(Student student, Course courseStudentApplying) {
+		ArrayList<RegisteredCourse> studentRegCourse=student.getCourses();
 		
+		ArrayList<Course> allCourses = StarsDB.getInstance().getAllCourse();
+	
 		for(int i =0; i<allCourses.size();i++ ) {
-			System.out.println(allCourses.get(i).getLecDay());
-			System.out.println(allCourses.get(i).getLecStartTime());
-			System.out.println(allCourses.get(i).getLecEndTime());
-			System.out.println("\n");
+			for(int j =0; j<studentRegCourse.size();j++ ) {
+				if(allCourses.get(i).getCourseCode()==studentRegCourse.get(j).getCourseCode()) {
+//					System.out.println(allCourses.get(i).getCourseCode());
+//					System.out.println(allCourses.get(i).getLecDay());
+//					System.out.println(allCourses.get(i).getLecStartTime());
+//					System.out.println(allCourses.get(i).getLecEndTime());
+					
+					if(allCourses.get(i).getLecDay()==courseStudentApplying.getLecDay()) {
+						System.out.println("wont be able");
+					}
+				}
+			}
 		}
+		
+//		for(int i =0; i<allCourses.size();i++ ) {
+//			System.out.println(allCourses.get(i).getLecDay());
+//			System.out.println(allCourses.get(i).getLecStartTime());
+//			System.out.println(allCourses.get(i).getLecEndTime());
+//			System.out.println("\n");
+//		}
 //		System.out.println(StarsDB.getInstance().getCourse("CZ2002"));
 	}
 	
