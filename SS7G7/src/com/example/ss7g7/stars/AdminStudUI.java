@@ -189,6 +189,7 @@ public class AdminStudUI {
 		String courseCode  = "";
 		int indexNum;
 		
+		
 		System.out.println("Press any key to continue");
 		sc.nextLine();
 		sc.nextLine();
@@ -199,13 +200,21 @@ public class AdminStudUI {
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		System.out.print("Enter the index number: "); 
-		indexNum = sc.nextInt();
-		
 		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		do {
+			System.out.print("Enter the index number: "); 
+			indexNum = sc.nextInt();
+			check = !(tempCourse.containsIndexNo(indexNum));
+			if(check)
+			{
+				{System.out.println("Index number is not found in database.");
+			}
+			}
+		}while(check);
+
 		tempCourse.getIndex(indexNum).printStudentListByIndex();
-		
 	}
+	
 	
 	private static void printStudListByCourse() { //show studentlist when user type in a course code
 		
@@ -218,11 +227,11 @@ public class AdminStudUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code is not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		tempCourse.printStudentListByCourse();
 	
 		
