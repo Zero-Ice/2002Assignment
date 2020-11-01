@@ -1,14 +1,13 @@
 package com.example.ss7g7.stars;
 
 
-import java.util.*;
+import java.util.Scanner;
+import java.util.Calendar;
 
 
 public class AdminStudUI {
 	
 	static StarsDB database = StarsDB.getInstance();
-	static ArrayList<Course> courseList = database.getAllCourse();
-	static ArrayList<Student> studentList = database.getAllStudents(); //retrieve db from StarsDB
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
@@ -16,9 +15,9 @@ public class AdminStudUI {
 	public static void printAdminStudUI() {
 
 		int choice;
-		Logout:
+		GoBack:
 		while(true){ //Print selection menu
-			System.out.println("Welcome to admin student page");
+			System.out.println("Welcome to Admin Student Page");
 			System.out.println("");
 			System.out.println("1. Edit student access period");
 			System.out.println("2. Add a student");
@@ -31,24 +30,24 @@ public class AdminStudUI {
 			choice = sc.nextInt();
 			try{
 				switch (choice) {
-					case 1: //Go to Edit Student Access UI Function
+					case 1: // Edit an existing student access period
 						editStudentAccess();
 						break;
-					case 2: // Go to Add Student UI Function
+					case 2: // Add a new student to database
 						addStudent();
 						break;
-					case 3: // Go to RemoveStudentUI Function
+					case 3: // Remove an existing student from database
 						removeStudent();
 						break;
-					case 4: // Go to PrintListByIndexUI Function
+					case 4: // Print student list by index number
 						printStudListByIndex();
 						break;
-					case 5: // Go to PrintListBycourseUI Function
+					case 5: // Print student list by course code
 						printStudListByCourse();
 						break;
 					case 6: // Go back
 						System.out.println();
-						break Logout;
+						break GoBack;
 					default:
 						System.out.println("Incorrect Input, please try again"); //when user input incorrect value
 								}
@@ -84,7 +83,8 @@ public class AdminStudUI {
 		Calendar newAccessStart = CalendarMngmt.getValidDateTime("new start access time");
 		Calendar newAccessEnd = CalendarMngmt.getValidDateTime("new end access time");
 		StudMngmt.updateAccessPeriod(matNum, newAccessStart, newAccessEnd);
-		System.out.println("Access time is updated Successfully!");
+		System.out.println("");
+		System.out.println("Access time has been updated successfully!");
 		
 	}
 
@@ -132,10 +132,17 @@ public class AdminStudUI {
         System.out.print("Enter student's nationality: ");
         nationality = sc.nextLine();
         
-  
-        System.out.print("Enter student's Mobile Number: ");
-        mobileNo = sc.nextInt();
-        sc.nextLine();
+        while(true){ //check if user input the correct input format 
+        	try{
+        		System.out.print("Enter student's mobile number: "); 
+        		mobileNo = sc.nextInt();
+        		sc.nextLine();
+        		break;
+        	} catch (Exception e){
+        		sc.nextLine();
+        		System.out.println("Invalid input! Please input numberical values!");
+        	}
+        }
     
         System.out.print("Enter student's Email Address: ");
         email = sc.nextLine();
@@ -149,7 +156,7 @@ public class AdminStudUI {
        
         
 	    System.out.println();
-		System.out.println("The Student has been added.");
+		System.out.println("The student has been added.");
 		StudMngmt.printStudentList();
 
 		
@@ -158,7 +165,7 @@ public class AdminStudUI {
 	//Function to remove a new student to database
 	private static void removeStudent() { //remove student from student db
 		
-    	Boolean check;
+    	Boolean check=false;
 		String matricNo = "";
 		
 		StudMngmt.printStudentList();
@@ -187,7 +194,7 @@ public class AdminStudUI {
 
 		boolean check = false;
 		String courseCode  = "";
-		int indexNum;
+		int indexNum=0;
 		
 		
 		System.out.println("Press any key to continue");
@@ -196,19 +203,19 @@ public class AdminStudUI {
 		do {
 			System.out.print("Enter the course code: "); //check if such username exists 
 			courseCode = sc.nextLine();
-			check =!(AdminCourseMngmt.isExistingCourseCode(courseCode.toUpperCase()));
+			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
-			{System.out.println("Course code is not found in database.");}
+			{System.out.println("Course code not found in database.");}
 		} while (check);
-		Course tempCourse = AdminCourseMngmt.getCourseByCode(courseCode.toUpperCase());
+		Course tempCourse = database.getCourse(courseCode.toUpperCase());
+		
 		do {
 			System.out.print("Enter the index number: "); 
 			indexNum = sc.nextInt();
 			check = !(tempCourse.containsIndexNo(indexNum));
 			if(check)
 			{
-				{System.out.println("Index number is not found in database.");
-			}
+				{System.out.println("Index number not found in database.");}
 			}
 		}while(check);
 
@@ -229,7 +236,7 @@ public class AdminStudUI {
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
-			{System.out.println("Course code is not found in database.");}
+			{System.out.println("Course code not found in database.");}
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		tempCourse.printStudentListByCourse();

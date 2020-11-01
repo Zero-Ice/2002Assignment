@@ -173,12 +173,12 @@ public class StarsDB {
 		return false;
 	}
 	
-	public static void removeCourse(String courseCode) { //remove coursecode from db 
+	public void removeCourse(String courseCode) { //remove coursecode from db 
 		
-		if (db_instance.isExistingCourseCode(courseCode)){
-			Course course = db_instance.getCourse(courseCode);
+		if (isExistingCourseCode(courseCode)){
+			Course course = getCourse(courseCode);
 
-			db_instance.courses.remove(course);
+			courses.remove(course);
 			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
 		}
 		else{
@@ -187,11 +187,32 @@ public class StarsDB {
 		
 	}
 	// add new course into db
-	public static void addCourse(String courseCode, String courseName, String SchooName, int aU) {
+	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
 		Course newCourse 		= new Course(courseCode, courseName,SchooName, aU);
-		db_instance.courses.add(newCourse);
+		courses.add(newCourse);
 		System.out.println();
 		
+	}
+	
+	public void printCourseList(){ //print course detail
+		boolean flag = false;
+		System.out.println();
+		System.out.println("Course Code\tCourse Name\tAU");
+		System.out.println("---------------------------------------------------");
+		
+		if(courses.size() <= 0){
+			System.out.println("\nNo record is found!\n");
+			return;
+		}
+		
+		for (Course c: courses){
+			System.out.print(c.getCourseCode() + "         \t");
+			System.out.print(c.getCourseName()+ "          " + c.getAU());
+			System.out.println();
+			
+			flag = true;
+		}
+		if (!flag) System.out.println("\nNo record is found!");
 	}
 	
 
