@@ -95,30 +95,19 @@ public class Course implements Serializable{
 		for(int i =0; i<allCourses.size();i++ ) {
 			for(int j =0; j<studentRegCourse.size();j++ ) {
 				if(allCourses.get(i).getCourseCode()==studentRegCourse.get(j).getCourseCode()) {
-//					System.out.println(allCourses.get(i).getCourseCode());
-//					System.out.println(allCourses.get(i).getLecDay());
-//					System.out.println(allCourses.get(i).getCourseCode() + ": "+allCourses.get(i).getLecStartTime());
-//					System.out.println(courseStudentApplying.getCourseCode() + ": " + courseStudentApplying.getLecStartTime());
-//					System.out.println(allCourses.get(i).getLecEndTime());
 					
-					//Time same as the lec
+					System.out.println(courseStudentApplying.getLecStartTime().isBefore(allCourses.get(i).getLecStartTime()));
+					//Time same as the lec from another course
 					if(allCourses.get(i).getLecDay()==courseStudentApplying.getLecDay() &&
 							allCourses.get(i).getLecStartTime().compareTo(courseStudentApplying.getLecStartTime())==0 &&
 							allCourses.get(i).getLecEndTime().compareTo(courseStudentApplying.getLecEndTime())==0) 
 					{
-						System.out.println("wont be able");
+						System.out.println("wont be able"); //return true;
 					}
 				}
 			}
 		}
 		
-//		for(int i =0; i<allCourses.size();i++ ) {
-//			System.out.println(allCourses.get(i).getLecDay());
-//			System.out.println(allCourses.get(i).getLecStartTime());
-//			System.out.println(allCourses.get(i).getLecEndTime());
-//			System.out.println("\n");
-//		}
-//		System.out.println(StarsDB.getInstance().getCourse("CZ2002"));
 	}
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
