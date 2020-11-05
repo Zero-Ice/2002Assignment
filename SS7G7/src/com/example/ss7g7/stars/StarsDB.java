@@ -30,7 +30,7 @@ public class StarsDB {
 	/*
 	 * Loads data from the files using the file paths given
 	 */
-	public boolean init(String studentDataFilePath, String courseDataFilePath, String indexDataFilePath) {
+	public boolean init(String studentDataFilePath, String courseDataFilePath) {
 		// TODO: File I/O
 		this.studentDataFilePath = studentDataFilePath;
 		this.courseDataFilePath = courseDataFilePath;
@@ -206,10 +206,10 @@ public class StarsDB {
 		Calendar newDate1 = Calendar.getInstance(); // create a date to accessStart
 		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
 
-		Student x = new Student("student1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "dimdim@hotmai.com",
+		Student x = new Student("student1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "marktan@hotmail.com",
 				newDate1, newDate2);
 		file.setStudentRecord(x);
-		Student y = new Student("student2", "Laura", " Tan", "U1969420", "F", "Spain", 96549119, "dimdim@hotmai.com",
+		Student y = new Student("student2", "Laura", " Tan", "U1829091", "F", "Spain", 96533219, "lautan@hotmail.com",
 				newDate1, newDate2);
 		file.setStudentRecord(y);
 
