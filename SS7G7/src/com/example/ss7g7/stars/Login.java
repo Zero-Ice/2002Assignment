@@ -18,16 +18,21 @@ public class Login {
 		UNSUCCESSFUL_LOGIN,
 		MAX_LOGIN_RESULT
 	}
-	private User user = new User();
-	private StringBuilder passClear = new StringBuilder();
+	private User user;
+	private StringBuilder passClear;
 	private String passCipher;  
 	private StarsDB db;
 
 	Login(StarsDB db) {
-		this.db = db; 
+		this.db = db;
+		
 	}
 	
 	LOGIN_RESULT login(){
+		
+		user = new User();
+		passClear = new StringBuilder();
+		String passCipher = "";
 		String auth = new String();
         HashMap<String, String> hmap = db.getDBLoginCred();
        
