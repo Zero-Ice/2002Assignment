@@ -3,6 +3,7 @@ package com.example.ss7g7.stars;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 
@@ -40,6 +41,16 @@ public class Course implements Serializable{
 			}
 		}
 		return null;
+	}
+	
+	public void printAllIndexes () {
+		
+		Iterator i = indexes.iterator();
+		
+		while(i.hasNext()) {
+			System.out.println(i.next()+"\n");
+		}
+		
 	}
 	
 

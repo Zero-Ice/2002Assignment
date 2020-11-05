@@ -1,6 +1,8 @@
 package com.example.ss7g7.stars;
 
-public class RegisteredCourse {
+import java.io.Serializable;
+
+public class RegisteredCourse implements Serializable{
 
 	private String courseCode;
 	private int indexNo;

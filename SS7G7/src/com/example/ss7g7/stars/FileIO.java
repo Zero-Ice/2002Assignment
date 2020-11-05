@@ -14,7 +14,13 @@ import java.util.*;
 public class FileIO {
 	
 	private ArrayList<Student> students = new ArrayList<Student>();
-
+	private ArrayList<Course> courses = new ArrayList<Course>();
+	private ArrayList<Index> indexes = new ArrayList<Index>();
+	
+	private String studentDataFilePath = "";
+	private String courseDataFilePath = "";
+	private String indexDataFilePath = "";
+	
 	public List [] getLoginCredentials () {
 		
 		String path = "../SS7G7/lib/logincred.txt";
@@ -40,22 +46,9 @@ public class FileIO {
         return new List[] {username, pass};
 	}
 	
-	public void setCourseRecord (String path, Course c) {
-		
-		ArrayList<String> courseDetails = new ArrayList<String>();
-		
-		courseDetails.add(c.getCourseCode());
-		courseDetails.add(c.getCourseName());
-		courseDetails.add(c.getSchooName());
-		courseDetails.add(Integer.toString(c.getAU()));
-		courseDetails.add(c.getLecDay());
-		courseDetails.add(c.getLecVenue());
-		//courseDetails.add(c.getCourseAvailability());
-		
-	}
 	
-	public void setStudentRecord (String path, Student s) {
-		
+	public void setStudentRecord (Student s) {
+				
 		FileOutputStream fs = null;
 		ObjectOutputStream os = null;
 		
@@ -64,7 +57,7 @@ public class FileIO {
 			
 			students.add(s);
 			
-			fs = new FileOutputStream(path);
+			fs = new FileOutputStream(studentDataFilePath);
 			os = new ObjectOutputStream(fs);
 			
 			os.writeObject(students);
@@ -85,57 +78,78 @@ public class FileIO {
 			}
 		}
 		
-		
-//		ArrayList<String> studentDetails = new ArrayList<String>();
-//		
-//		studentDetails.add(s.getUserName());
-//		studentDetails.add(s.getName());
-//		studentDetails.add(s.getLastName());
-//		studentDetails.add(s.getNationality());
-//		studentDetails.add(s.getMatricNo());
-//		studentDetails.add(Integer.toString(s.getMobileNo()));
-//		studentDetails.add(s.getEmail());
-//		
-//		Iterator<String> i = studentDetails.iterator();
-		
-//		FileWriter myWriter = null;
-//		BufferedWriter print = null;
-//		
-//		  try {
-//
-//			  	myWriter = new FileWriter(path, true);
-//			  	print = new BufferedWriter(myWriter);
-//			  	
-//		        while(i.hasNext()) {
-//		        	print.write(i.next()+",");
-//		        }
-//		       
-//		        System.out.println("Successfully wrote to the file.");
-//		        
-//		      } catch (IOException e) {
-//		    	  
-//		        System.out.println("Write operation failed");
-//		        e.printStackTrace();
-//		      }
-//		  		finally {
-//		  			
-//		  			try {
-//		  				if (myWriter != null && print!=null) {
-//		  					print.write(System.lineSeparator());
-//		  					print.close();
-//		  					myWriter.close();
-//		  				}
-//						
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						System.out.println("File failed to close");
-//						e.printStackTrace();
-//					}
-//		  	  }
 		    
 	}
 	
+	public void setCourseRecord (Course c) {
+		
+		FileOutputStream fs = null;
+		ObjectOutputStream os = null;
+		
+		
+		try{
+			
+			courses.add(c);
+			
+			fs = new FileOutputStream(courseDataFilePath);
+			os = new ObjectOutputStream(fs);
+			
+			os.writeObject(courses);
+			
+		}catch (IOException e){
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+				if(fs!=null && os!=null) {
+					fs.close();
+					os.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void setIndexRecord (Index i) {
+		
+		FileOutputStream fs = null;
+		ObjectOutputStream os = null;
+		
+		
+		try{
+			
+			indexes.add(i);
+			
+			fs = new FileOutputStream(indexDataFilePath);
+			os = new ObjectOutputStream(fs);
+			
+			os.writeObject(indexes);
+			
+		}catch (IOException e){
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+				if(fs!=null && os!=null) {
+					fs.close();
+					os.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	public ArrayList<Student> getStudentRecords (String path) {
+		
+		this.studentDataFilePath = path;
 		
 		FileInputStream fs = null;
 		ObjectInputStream os = null;
@@ -172,6 +186,194 @@ public class FileIO {
 			
 			
 	}
+	
+	public ArrayList<Course> getCourseRecords (String path) {
+		
+		this.courseDataFilePath = path;
+		
+		FileInputStream fs = null;
+		ObjectInputStream os = null;
+		
+		try {
+			fs = new FileInputStream(path);
+			os = new ObjectInputStream(fs);
+			
+			this.courses = ((ArrayList<Course>) os.readObject());
+			
+			for(Course c: courses) {
+				System.out.println(c);
+			}
+		}catch (IOException | ClassNotFoundException e) {
+			//TODO Auto-generated catch block
+			System.out.println("Failed to read file");
+			e.printStackTrace();
+			
+		}finally {
+			try {
+  				if (fs != null && os !=null) {
+  					fs.close();
+  					os.close();
+  				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File failed to close");
+				e.printStackTrace();
+			}
+		}
+		
+		return this.courses;
+		
+	}
+	
+	public ArrayList<Index> getIndexRecords (String path) {
+		
+		this.indexDataFilePath = path;
+		
+		FileInputStream fs = null;
+		ObjectInputStream os = null;
+		
+		try {
+			fs = new FileInputStream(path);
+			os = new ObjectInputStream(fs);
+			
+			this.indexes = ((ArrayList<Index>) os.readObject());
+			
+			for(Index i: indexes) {
+				System.out.println(i.getIndexNum());
+			}
+		}catch (IOException | ClassNotFoundException e) {
+			//TODO Auto-generated catch block
+			System.out.println("Failed to read file");
+			e.printStackTrace();
+			
+		}finally {
+			try {
+  				if (fs != null && os !=null) {
+  					fs.close();
+  					os.close();
+  				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File failed to close");
+				e.printStackTrace();
+			}
+		}
+		
+		return this.indexes;
+		
+	}
+	
+	public void updateStudentRecords (Student currentStudent) {
+		
+		FileInputStream fsIn = null;
+		ObjectInputStream osIn = null;
+		FileOutputStream fsOut = null;
+		ObjectOutputStream osOut = null;
+				
+		try {
+			fsIn = new FileInputStream(studentDataFilePath);
+			osIn = new ObjectInputStream(fsIn);
+			
+			this.students = ((ArrayList<Student>) osIn.readObject());
+			
+			
+			//Removes outdated info and update ser file
+			for(Student s: students) {
+				if (s.getUserName().equals(currentStudent.getUserName())) {
+					students.remove(s);
+					students.add(currentStudent);
+					break;
+				}
+			}
+			
+		
+			fsOut = new FileOutputStream(studentDataFilePath);
+			osOut = new ObjectOutputStream(fsOut);
+			
+			osOut.writeObject(students);
+			
+			
+		}catch (IOException | ClassNotFoundException e) {
+			//TODO Auto-generated catch block
+			System.out.println("Failed to update file");
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+  				if (fsIn != null && osIn !=null && fsOut != null && osOut !=null) {
+  					fsIn.close();
+  					osIn.close();
+  					fsOut.close();
+  					osOut.close();
+  				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File failed to close");
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	public void updateCourseRecords (Course currentCourse) {
+		
+		FileInputStream fsIn = null;
+		ObjectInputStream osIn = null;
+		FileOutputStream fsOut = null;
+		ObjectOutputStream osOut = null;
+				
+		try {
+			fsIn = new FileInputStream(courseDataFilePath);
+			osIn = new ObjectInputStream(fsIn);
+			
+			this.courses = ((ArrayList<Course>) osIn.readObject());
+			
+			
+			//Removes outdated info and update ser file
+			for(Course c: courses) {
+				if (c.getCourseCode().equals(currentCourse.getCourseCode())) {
+					courses.remove(c);
+					courses.add(currentCourse);
+					break;
+				}
+			}
+			
+		
+			fsOut = new FileOutputStream(courseDataFilePath);
+			osOut = new ObjectOutputStream(fsOut);
+			
+			osOut.writeObject(courses);
+			
+			
+		}catch (IOException | ClassNotFoundException e) {
+			//TODO Auto-generated catch block
+			System.out.println("Failed to update file");
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+  				if (fsIn != null && osIn !=null && fsOut != null && osOut !=null) {
+  					fsIn.close();
+  					osIn.close();
+  					fsOut.close();
+  					osOut.close();
+  				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File failed to close");
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	
+	
+
 }
   
 	

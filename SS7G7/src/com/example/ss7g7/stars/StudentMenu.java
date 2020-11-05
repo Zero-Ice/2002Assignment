@@ -90,6 +90,8 @@ public class StudentMenu {
 		// Summary
 		// Index Number, Course Code
 		// Class Type, Group, Day, Time, Venue, Remark
+		
+		
 		System.out.println("Index Number " + indexToAdd + " Course " + courseToAdd.getCourseCode());
 		System.out.println("<Details>");
 
@@ -102,11 +104,18 @@ public class StudentMenu {
 			if (choice == 1) {
 				Index index = courseToAdd.getIndex(indexToAdd);
 				index.assignStudent(student);
+				
+				db.updateStudentRecords(student);
+				db.updateCourseRecords(courseToAdd);
+				
 				System.out.println("Successfully added index " + indexToAdd);
 				run = false;
+				
 			} else if (choice == 2) {
+				
 				run = false;
 				System.out.println("Returning to main menu");
+				
 			} else {
 				System.out.println("Invalid option");
 			}
@@ -139,13 +148,17 @@ public class StudentMenu {
 
 		boolean run = true;
 		while (run) {
-//			System.out.println("(1) Confirm to Drop Course");
+			System.out.println("(1) Confirm to Drop Course");
 			System.out.println("(2) Main Menu");
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
+				
 				Index index = c.getIndex(indexToDrop);
-				index.unassignStudent(student);
+				
+				db.updateCourseRecords(c);
+				db.updateStudentRecords(index.unassignStudent(student));
+				
 				System.out.println("Successfully dropped index " + indexToDrop);
 				run = false;
 			} else if (choice == 2) {
@@ -245,6 +258,11 @@ public class StudentMenu {
 			if (choice == 1) {
 				fromIndex.unassignStudent(student);
 				toIndex.assignStudent(student);
+				
+				db.updateStudentRecords(student);
+				db.updateCourseRecords(fromCourse);
+				db.updateCourseRecords(toCourse);
+				
 				System.out.println("Successfully changed index");
 				run = false;
 			} else if (choice == 2) {
@@ -262,11 +280,27 @@ public class StudentMenu {
 		// index (Remove + Add for both)
 		
 		// Step1: Ask index to swap
-		System.out.println(student.printCourses());
-		System.out.print("Enter the index that you want to swap: ");
-		int indexFrom = Integer.valueOf(scanner.nextLine());
+		
+		int indexFrom = 0;
+		int indexTo = 0;
+		
 		
 		// TODO: Check if student contains the course he/she wants to swap from
+		
+		do {
+			
+			if(indexFrom != 0) {
+				System.out.println("Index is not registered to you, please enter a valid index. ");
+			}
+			
+			System.out.println(student.printCourses());
+			System.out.print("Enter the index that you want to swap: ");
+			indexFrom = Integer.valueOf(scanner.nextLine());
+			
+			
+		}while (!student.containsCourse(indexFrom));
+		
+		System.out.println("...Switching to student 2\n");
 		
 		// Step2: Login for student 2. Check is successful and is student
 		Login login = new Login(db);
@@ -290,10 +324,20 @@ public class StudentMenu {
 		}
 		
 		// Step3: Ask for other user index to swap
-		System.out.print("Swap with peer index number: ");
-		int indexTo = Integer.valueOf(scanner.nextLine());
-
-		// TODO: Check if other student contains the course he/she wants to swap from
+		// TODO: Check if index entered is an index that is registered to the student
+		do {
+			
+			if (indexTo != 0) {
+				System.out.println("Index is not registered to you, please enter a valid index. ");
+			}
+			
+			System.out.println(otherStudent.printCourses());
+			System.out.print("Enter the index that you want to swap: ");
+			indexTo = Integer.valueOf(scanner.nextLine());
+			
+			
+		}while (!otherStudent.containsCourse(indexTo));
+		
 		
 		// Step4: Check indexes are from the same course
 		Course fromCourse = db.getCourse(indexFrom);
@@ -301,6 +345,9 @@ public class StudentMenu {
 
 		if (fromCourse == null || toCourse == null || !fromCourse.getCourseCode().equals(toCourse.getCourseCode())) {
 			System.out.println("Indexes are not from the same course");
+			return;
+		}else if (indexFrom == indexTo) {
+			System.out.println("Indexes are the same, swap is redundant.");
 			return;
 		}
 
@@ -311,6 +358,8 @@ public class StudentMenu {
 			System.out.println("Index is not found in the database");
 			return;
 		}
+			
+		
 		
 		// Step5: Check if new index has a clash.
 		
@@ -331,7 +380,13 @@ public class StudentMenu {
 				fromIndex.assignStudent(otherStudent);
 				toIndex.assignStudent(student);
 				
-				System.out.println(student.getMatricNo() + "-Index Number " + fromIndex.getIndexNum() + " has been successfully swopped with " + otherStudent.getMatricNo() + "-Index Number " + toIndex.getIndexNum());
+				db.updateCourseRecords(fromCourse);
+				db.updateCourseRecords(toCourse);
+				
+				db.updateStudentRecords(student);
+				db.updateStudentRecords(otherStudent);
+				
+				System.out.println(student.getMatricNo() + "-Index Number " + fromIndex.getIndexNum() + " has been successfully swapped with " + otherStudent.getMatricNo() + "-Index Number " + toIndex.getIndexNum());
 				run = false;
 			} else if (choice == 2) {
 				run = false;
