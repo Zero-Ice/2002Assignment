@@ -19,7 +19,6 @@ public class FileIO {
 	
 	private String studentDataFilePath = "";
 	private String courseDataFilePath = "";
-	private String indexDataFilePath = "";
 	
 	public List [] getLoginCredentials () {
 		
@@ -114,38 +113,6 @@ public class FileIO {
 		
 	}
 	
-	public void setIndexRecord (Index i) {
-		
-		FileOutputStream fs = null;
-		ObjectOutputStream os = null;
-		
-		
-		try{
-			
-			indexes.add(i);
-			
-			fs = new FileOutputStream(indexDataFilePath);
-			os = new ObjectOutputStream(fs);
-			
-			os.writeObject(indexes);
-			
-		}catch (IOException e){
-			e.printStackTrace();
-			
-		}finally {
-			
-			try {
-				if(fs!=null && os!=null) {
-					fs.close();
-					os.close();
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-	}
 	
 	public ArrayList<Student> getStudentRecords (String path) {
 		
@@ -226,46 +193,9 @@ public class FileIO {
 		
 	}
 	
-	public ArrayList<Index> getIndexRecords (String path) {
-		
-		this.indexDataFilePath = path;
-		
-		FileInputStream fs = null;
-		ObjectInputStream os = null;
-		
-		try {
-			fs = new FileInputStream(path);
-			os = new ObjectInputStream(fs);
-			
-			this.indexes = ((ArrayList<Index>) os.readObject());
-			
-			for(Index i: indexes) {
-				System.out.println(i.getIndexNum());
-			}
-		}catch (IOException | ClassNotFoundException e) {
-			//TODO Auto-generated catch block
-			System.out.println("Failed to read file");
-			e.printStackTrace();
-			
-		}finally {
-			try {
-  				if (fs != null && os !=null) {
-  					fs.close();
-  					os.close();
-  				}
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("File failed to close");
-				e.printStackTrace();
-			}
-		}
-		
-		return this.indexes;
-		
-	}
+
 	
-	public void updateStudentRecords (Student currentStudent) {
+	public void updateStudentRecords (Student currentStudent, String mode) {
 		
 		FileInputStream fsIn = null;
 		ObjectInputStream osIn = null;
@@ -282,8 +212,12 @@ public class FileIO {
 			//Removes outdated info and update ser file
 			for(Student s: students) {
 				if (s.getUserName().equals(currentStudent.getUserName())) {
-					students.remove(s);
-					students.add(currentStudent);
+					if(mode.equals("update")) {
+						students.remove(s);
+						students.add(currentStudent);
+					}else if(mode.equals("remove"))
+						students.remove(s);
+					
 					break;
 				}
 			}
@@ -318,7 +252,7 @@ public class FileIO {
 		}		
 	}
 	
-	public void updateCourseRecords (Course currentCourse) {
+	public void updateCourseRecords (Course currentCourse, String mode) {
 		
 		FileInputStream fsIn = null;
 		ObjectInputStream osIn = null;
@@ -335,8 +269,13 @@ public class FileIO {
 			//Removes outdated info and update ser file
 			for(Course c: courses) {
 				if (c.getCourseCode().equals(currentCourse.getCourseCode())) {
-					courses.remove(c);
-					courses.add(currentCourse);
+					
+					if (mode.equals("update")) {
+						courses.remove(c);
+						courses.add(currentCourse);
+					}else if (mode.equals("remove"))
+						courses.remove(c);
+					
 					break;
 				}
 			}
@@ -372,6 +311,9 @@ public class FileIO {
 	}
 	
 	
+	public void removeCourse() {
+		
+	}
 	
 
 }

@@ -141,7 +141,7 @@ public class AdminCourseUI {
         		lecVenue, lecRemarks, lecGroup);
         
 		
-		database.printCourseList();; //show result
+		database.printCourseList(); //show result
 	    System.out.println();
 		System.out.println("The Course has been added.");
 		

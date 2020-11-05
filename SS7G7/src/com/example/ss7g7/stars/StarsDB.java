@@ -22,8 +22,11 @@ public class StarsDB {
 	}
 
 	public static StarsDB getInstance() {
-		if(db_instance == null) db_instance = new StarsDB();
-		
+		if(db_instance == null) {
+			System.out.println("DATABASE NULL");
+			db_instance = new StarsDB();
+		}
+					
 		return db_instance;
 	}
 
@@ -70,7 +73,7 @@ public class StarsDB {
 				c.printAllIndexes();
 			}
 		}
-		
+				
 		return true;
 	}
 
@@ -146,26 +149,6 @@ public class StarsDB {
 		return false;
 	}
 	
-	public void removeCourse(String courseCode) { //remove coursecode from db 
-		
-		if (isExistingCourseCode(courseCode)){
-			Course course = getCourse(courseCode);
-
-			courses.remove(course);
-			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
-		}
-		else{
-			System.out.println("Course code is not found!\n");
-		}
-		
-	}
-	// add new course into db
-	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
-		Course newCourse 		= new Course(courseCode, courseName,SchooName, aU);
-		courses.add(newCourse);
-		System.out.println();
-		
-	}
 	
 	public void printCourseList(){ //print course detail
 		boolean flag = false;
@@ -188,16 +171,42 @@ public class StarsDB {
 		if (!flag) System.out.println("\nNo record is found!");
 	}
 	
-
+	
+	public void addStudent(Student currentStudent) {
+		file.setStudentRecord(currentStudent);
+	}
+	
+	public void removeStudent(Student currentStudent) {
+		file.updateStudentRecords(currentStudent, "remove");
+	}
+	
 	public void updateStudentRecords(Student currentStudent) {
-		file.updateStudentRecords(currentStudent);
+		file.updateStudentRecords(currentStudent, "update");
 	}
 	
-	public void updateCourseRecords(Course currentCourse) {
-		file.updateCourseRecords(currentCourse);
+	public void updateCourseRecords(Course course) {
+		file.updateCourseRecords(course, "update");
 	}
 	
-	
+	public void removeCourse(String courseCode) { //remove coursecode from db 
+		
+		if (isExistingCourseCode(courseCode)){
+			Course course = getCourse(courseCode);
+
+			file.updateCourseRecords(course, "remove");
+			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
+		}
+		else{
+			System.out.println("Course code is not found!\n");
+		}
+		
+	}
+	// add new course into db
+	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
+		Course newCourse = new Course(courseCode, courseName,SchooName, aU);
+		file.setCourseRecord(newCourse);
+		
+	}
 	
 	public void createDummyStudents() {
 
@@ -232,6 +241,10 @@ public class StarsDB {
 		file.setCourseRecord(c1);
 		
 	}
-
+	
+	public void setDBInstance(StarsDB db)
+	{
+		this.db_instance = db;
+	}
 
 }
