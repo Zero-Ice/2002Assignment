@@ -90,6 +90,8 @@ public class StudentMenu {
 		// Summary
 		// Index Number, Course Code
 		// Class Type, Group, Day, Time, Venue, Remark
+		
+		
 		System.out.println("Index Number " + indexToAdd + " Course " + courseToAdd.getCourseCode());
 		System.out.println("<Details>");
 
@@ -102,11 +104,18 @@ public class StudentMenu {
 			if (choice == 1) {
 				Index index = courseToAdd.getIndex(indexToAdd);
 				index.assignStudent(student);
+				
+				db.updateStudentRecords(student);
+				db.updateCourseRecords(courseToAdd);
+				
 				System.out.println("Successfully added index " + indexToAdd);
 				run = false;
+				
 			} else if (choice == 2) {
+				
 				run = false;
 				System.out.println("Returning to main menu");
+				
 			} else {
 				System.out.println("Invalid option");
 			}
@@ -139,14 +148,18 @@ public class StudentMenu {
 
 		boolean run = true;
 		while (run) {
-//			System.out.println("(1) Confirm to Drop Course");
+			System.out.println("(1) Confirm to Drop Course");
 			System.out.println("(2) Main Menu");
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
+				
 				Index index = c.getIndex(indexToDrop);
-				index.unassignStudent(student);
-				System.out.println("Successfully dropped index " + indexToDrop);
+				
+				db.updateCourseRecords(c);
+				db.updateStudentRecords(index.unassignStudent(student));
+				
+				//System.out.println("Successfully dropped index " + indexToDrop);
 				run = false;
 			} else if (choice == 2) {
 				run = false;

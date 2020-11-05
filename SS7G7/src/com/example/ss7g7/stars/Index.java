@@ -1,5 +1,8 @@
 package com.example.ss7g7.stars;
 import java.util.Date;
+
+import com.example.ss7g7.stars.User.UserType;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class Index implements Serializable{
 		this.tutEndTime = new Date();
 		this.labStartTime = new Date();
 		this.labEndTime = new Date();
-		this.indexFull=false;
+		this.indexFull = false;
 		this.seatVacancy = new ArrayList<String>();
 		this.studentWaitlist = new ArrayList<String>();
 		
@@ -62,10 +65,12 @@ public class Index implements Serializable{
 			System.out.println(matricNo+ " has registered before.");
 			return;
 		}else{
-			for(int i =0;i<numSeats;i++) {
-				if(seatVacancy.get(i).contains("vacant")) {
-					seatVacancy.set(i, matricNo);
+			for(int seat=0; seat<numSeats; seat++) {
+				if(seatVacancy.get(seat).contains("vacant")) {
+					seatVacancy.set(seat, matricNo);
+					
 					student.addCourse(this.courseCode, this.indexNum);
+					
 					System.out.println(matricNo+ " assigned to index " +indexNum);
 					return;
 				}
@@ -85,20 +90,23 @@ public class Index implements Serializable{
 		}
 	}
 	
-	public void unassignStudent(Student student) {
+	public Student unassignStudent(Student student) {
 		String matricNo = student.getMatricNo();
 		
 		if(seatVacancy.contains(matricNo)) {
 			for(int i =0;i<numSeats;i++) {
 				if(seatVacancy.get(i).contains(matricNo)) {
 					seatVacancy.set(i, "vacant");
-					student.dropCourse(this.indexNum);
+					
+					student.dropCourse(this.indexNum);	
 					System.out.println(matricNo+ " unassigned from index " +indexNum);
-					return;
+					
 				}
 			}
-		}
-		System.out.println(matricNo+ " was not found in index "+ indexNum);
+		}else 
+			System.out.println(matricNo+ " was not found in index "+ indexNum);
+		
+		return student;
 	}
 	
 	//TODO
@@ -109,7 +117,7 @@ public class Index implements Serializable{
 	
 	public void showStudentWaitlist() {
 		if(studentWaitlist.size()==0) {
-			System.out.println("no studet");
+			System.out.println("no student");
 		}else {
 			for(int i=0;i<studentWaitlist.size();i++) {
 				System.out.println(studentWaitlist.get(i));

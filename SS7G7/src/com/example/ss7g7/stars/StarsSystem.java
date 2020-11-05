@@ -19,7 +19,7 @@ public class StarsSystem {
 	 * 
 	 */
 	public boolean init() {
-		boolean successful = db.init("../SS7G7/lib/studentInfo.ser", "../SS7G7/lib/courseInfo.ser");
+		boolean successful = db.init("../SS7G7/lib/studentInfo.ser", "../SS7G7/lib/courseInfo.ser","../SS7G7/lib/indexInfo.ser" );
 		
 		return successful;
 	}

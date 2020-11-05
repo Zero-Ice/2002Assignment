@@ -13,6 +13,7 @@ public class StarsDB {
 
 	private ArrayList<Student> students;
 	private ArrayList<Course> courses;
+	
 	private FileIO file = new FileIO();
 
 	private StarsDB() {
@@ -29,22 +30,25 @@ public class StarsDB {
 	/*
 	 * Loads data from the files using the file paths given
 	 */
-	public boolean init(String studentDataFilePath, String courseDataFilePath) {
+	public boolean init(String studentDataFilePath, String courseDataFilePath, String indexDataFilePath) {
 		// TODO: File I/O
 		this.studentDataFilePath = studentDataFilePath;
 		this.courseDataFilePath = courseDataFilePath;
-
-		this.students = file.getStudentRecords(studentDataFilePath);
 		
+
 		/*
 		 * If need be, to "restore" the stored data to initial, just delete the contents
-		 * of the studentInfo and courseInfo .ser files and re-run the program
+		 * of the studentInfo and courseInfo .ser files and re-run the program twice. 
+		 * Once to initialize. Files should be restored on the second run.
 		 */
+
+		this.students = file.getStudentRecords(studentDataFilePath);
 
 		if (this.students.isEmpty()) {
 			System.out.print("Get failed");
+			System.out.println("Student File Empty.\nPopulating file...");
 			createDummyStudents();
-			System.out.println("DEBUGSTUDENTS");
+			
 			
 		} else {
 			for (Student s : this.students) {
@@ -56,17 +60,17 @@ public class StarsDB {
 		
 		if (this.courses.isEmpty()) {
 			System.out.print("Get failed");
+			System.out.println("Course File Empty.\nPopulating file...");
 			createDebugCourses();
-			System.out.println("DEBUGCOURSES");
 			
 		} else {
 			
 			for (Course c: this.courses) {
 				System.out.println(c.getCourseName()+ " COURSES "+ c.getCourseCode());
+				c.printAllIndexes();
 			}
 		}
 		
-
 		return true;
 	}
 
@@ -103,68 +107,16 @@ public class StarsDB {
 	}
 
 	public Student getStudent(String userName) {
-		for (int i = 0; i < students.size(); i++) {
-			if (userName.equals(students.get(i).getUserName())) {
-				return students.get(i);
+		for (int user = 0; user < students.size(); user++) {
+			if (userName.equals(students.get(user).getUserName())) {
+				return students.get(user);
 			}
 		}
 		return null;
 	}
 
-	public Student getDebugStudent(User currentUser) {
-
-		for (Student s : this.students) {
-			if (s.getUserName().equals(currentUser.getUser())) {
-				return s;
-			}
-		}
-
-		if (this.students.isEmpty()) {
-			System.out.println("Student file is empty\n Populating file...");
-			createDummyStudents();
-		}
-
-		// System.out.println("User not found");
-		return null;
-	}
 
 
-
-	public void createDummyStudents() {
-
-		// purpose of accessStart/End is for student to only enter the stars planner at
-		// certain time period
-		Calendar newDate1 = Calendar.getInstance(); // create a date to accessStart
-		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
-
-		Student x = new Student("student1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "dimdim@hotmai.com",
-				newDate1, newDate2);
-		file.setStudentRecord(studentDataFilePath, x);
-		Student y = new Student("student2", "Laura", " Tan", "U1969420", "F", "Spain", 96549119, "dimdim@hotmai.com",
-				newDate1, newDate2);
-		file.setStudentRecord(studentDataFilePath, y);
-
-
-	}
-	
-
-	// TODO: courses
-
-	public void createDebugCourses() {
-		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
-		c.addIndex(123456, 30);
-		c.addIndex(696969, 30);
-		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
-		
-		file.setCourseRecord(courseDataFilePath, c);
-		
-		Course c1 = new Course("CZ2005", "OS", "SCSE", 3);
-		c.addIndex(200005, 30);
-		c.setLecDetails(1, 13, 30, 15, 30, "LT19", "OS", "CS3");
-		
-		file.setCourseRecord(courseDataFilePath, c1);
-		
-	}
 
 	public Course getCourse(int indexNo) {
 		for (int i = 0; i < courses.size(); i++) {
@@ -237,8 +189,49 @@ public class StarsDB {
 	}
 	
 
-	public void setCourseRecord() {
+	public void updateStudentRecords(Student currentStudent) {
+		file.updateStudentRecords(currentStudent);
+	}
+	
+	public void updateCourseRecords(Course currentCourse) {
+		file.updateCourseRecords(currentCourse);
+	}
+	
+	
+	
+	public void createDummyStudents() {
+
+		// purpose of accessStart/End is for student to only enter the stars planner at
+		// certain time period
+		Calendar newDate1 = Calendar.getInstance(); // create a date to accessStart
+		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
+
+		Student x = new Student("student1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "dimdim@hotmai.com",
+				newDate1, newDate2);
+		file.setStudentRecord(x);
+		Student y = new Student("student2", "Laura", " Tan", "U1969420", "F", "Spain", 96549119, "dimdim@hotmai.com",
+				newDate1, newDate2);
+		file.setStudentRecord(y);
 
 	}
+	
+
+	public void createDebugCourses() {
+		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
+		c.addIndex(123456, 30);
+		c.addIndex(696969, 30);
+		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
+		
+		file.setCourseRecord(c);
+		
+		Course c1 = new Course("CZ2005", "OS", "SCSE", 3);
+		c1.addIndex(200005, 30);
+		c1.setLecDetails(1, 13, 30, 15, 30, "LT19", "OS", "CS3");
+	
+		
+		file.setCourseRecord(c1);
+		
+	}
+
 
 }
