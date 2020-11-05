@@ -27,6 +27,7 @@ public class StudMngmt {
 		Student student = getStudentByMatric(matricNo);
 		student.setAccessStart(newAccessStart);
 		student.setAccessEnd(newAccessEnd);
+		
 	}
 	
 	//check existing username in student database
@@ -57,13 +58,15 @@ public class StudMngmt {
 	
 	{
         Student newStud = new Student(username, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
-        studentList.add(newStud);
+        database.addStudent(newStud);
+        database.setDBInstance(database);
+      
 	}
 
 	//remove a student from studentlist in database 
 	public static void removeStudent(String matNum) {
 		Student student = getStudentByMatric(matNum);
-		studentList.remove(student);
+		database.removeStudent(student);
 		
 
 		}
