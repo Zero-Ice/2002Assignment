@@ -40,24 +40,26 @@ public class StarsSystem {
 			System.out.println("Welcome to the Stars System");
 			
 			//// Comment this block to remove login
-//			User currentUser = null;
-//			
-//			Login.LOGIN_RESULT loginResult = login.login();
-//			switch(loginResult) {
-//			case SUCCESSFUL_LOGIN:
-//				currentUser = login.getCurrentUser();
-//				break;
-//			default:
-//				break;
-//			}
-//			
-//			if(currentUser == null) continue;
-//			
-//			User.UserType currentUserType = currentUser.getUserType();
+
+			
+			Login.LOGIN_RESULT loginResult = login.login();
+			switch(loginResult) {
+			case SUCCESSFUL_LOGIN:
+				currentUser = login.getCurrentUser();
+				break;
+			default:
+				break;
+			}
+			
+			if(currentUser == null) break;
+			
+			User.UserType currentUserType = currentUser.getUserType();
+			
+			System.out.println(currentUserType);
 			//// End comment block to remove login
 			
 			
-			User.UserType currentUserType = User.UserType.ADMIN;
+//			User.UserType currentUserType = User.UserType.STUDENT;
 			
 			
 			// TODO: Based on the user, create a new student/admin object. Create here or inside Student/Admin UI
@@ -85,16 +87,16 @@ public class StarsSystem {
 	 * Returns the User who has logged in. 
 	 * If User.userType is NIL, it indicates the program to terminate. see run()
 	 */
-	private User getUser() {
-		// Handled by K
-		// Note: 1 Requirement is that Password should not be displayed on console when
-		// entering it
-		
-		this.currentUser = login.getCurrentUser();
-		
-		// TODO Change this temp return
-		return this.currentUser;
-	}
+//	private User getUser() {
+//		// Handled by K
+//		// Note: 1 Requirement is that Password should not be displayed on console when
+//		// entering it
+//		
+//		this.currentUser = login.getCurrentUser();
+//		
+//		// TODO Change this temp return
+//		return this.currentUser;
+//	}
 
 	/*
 	 * Function to handle logout Called by runStudentMenu and runAdminMenu
@@ -107,7 +109,7 @@ public class StarsSystem {
 	private void runStudentMenu() {
 		// TODO: Get Student Info based on currentUser
 		
-		Student student = db.getStudent("student1");
+		Student student = db.getStudent(currentUser.getUser());
 		
 		if(student == null) {
 			// throw exception. User exists but student does not exist in db

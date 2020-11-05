@@ -23,7 +23,6 @@ public class FileIO {
         String [] temp = {};
         List<String> username = new ArrayList<String>();
         List<String> pass = new ArrayList<String>();
-        List<String> userType = new ArrayList<String>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
         	
@@ -32,14 +31,13 @@ public class FileIO {
                 temp = line.split(splitBy);
                 username.add(temp[0]);
                 pass.add(temp[1]);
-                userType.add(temp[2]);
-             
+               
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return new List[] {username, pass, userType};
+        return new List[] {username, pass};
 	}
 	
 	public void setCourseRecord (String path, Course c) {
@@ -53,8 +51,6 @@ public class FileIO {
 		courseDetails.add(c.getLecDay());
 		courseDetails.add(c.getLecVenue());
 		//courseDetails.add(c.getCourseAvailability());
-		
-		
 		
 	}
 	
@@ -150,9 +146,9 @@ public class FileIO {
 			
 			this.students = ((ArrayList<Student>) os.readObject());
 			
-//			for(Student s: students) {
-//				System.out.println(s);
-//			}
+			for(Student s: students) {
+				System.out.println(s);
+			}
 		}catch (IOException | ClassNotFoundException e) {
 			//TODO Auto-generated catch block
 			System.out.println("Failed to read file");

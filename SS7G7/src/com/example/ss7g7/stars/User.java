@@ -34,6 +34,10 @@ public class User {
 		this.password = password;
 	}
 	
+	void setUserType(UserType type) {
+		this.userType = type;
+	}
+	
 	String getUser() {
 		return username;
 	}

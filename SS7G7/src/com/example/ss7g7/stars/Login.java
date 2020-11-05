@@ -2,6 +2,7 @@ package com.example.ss7g7.stars;
 
 import java.util.*;
 
+import com.example.ss7g7.stars.User.UserType;
 
 import java.io.Console;
 import java.math.BigInteger;
@@ -40,6 +41,14 @@ public class Login {
 			return LOGIN_RESULT.UNSUCCESSFUL_LOGIN;
 		}
 		else if (auth == "student") {
+			
+			this.user.setUserType(UserType.STUDENT);
+			System.out.println("Welcome");
+			return LOGIN_RESULT.SUCCESSFUL_LOGIN;
+		}
+		else if (auth == "admin") {
+			
+			this.user.setUserType(UserType.ADMIN);
 			System.out.println("Welcome");
 			return LOGIN_RESULT.SUCCESSFUL_LOGIN;
 		}
@@ -51,7 +60,7 @@ public class Login {
 		return this.user;
 	}
 	
-	User getLoginCred () {
+	void getLoginCred () {
 		
 		String username;
 		//char [] pass;
@@ -77,7 +86,6 @@ public class Login {
 		this.user.setUser(username);
 		this.user.setPass(passCipher);
 		
-		return this.user;
 		
 	}
 	
@@ -116,14 +124,22 @@ public class Login {
 		
 	 	Set set = hmap.entrySet();
 	 	Iterator i = set.iterator();
-	 	String key = hmap.get(this.user.getUser());
 	 	String privilege = "denied";
+		String key = hmap.get(this.user.getUser());
+		String cipherPass = "";
 	 	
+		
 	 	if (key != null) {
 	 		
-	 		if (this.user.getPass().toString().equals(key)) {
+	 		cipherPass = key.split("-")[0];
+	 		privilege = key.split("-")[1];
+	 		
+	 		if (this.user.getPass().toString().equals(cipherPass) && privilege.equals("student")) {
 	 			privilege = "student";
-	 			return privilege;
+	 		
+	 		}else if (this.user.getPass().toString().equals(cipherPass) && privilege.equals("admin")) {
+	 			privilege = "admin";
+	 		
 	 		}
 	 	}
 

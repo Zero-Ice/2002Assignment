@@ -61,14 +61,12 @@ public class StarsDB {
 		List[] credentials = new List[3];
 		List<String> username = new ArrayList<String>();
 		List<String> pass = new ArrayList<String>();
-		List<Boolean> admin = new ArrayList<Boolean>();
 		HashMap<String, String> hmap = new HashMap<String, String>();
 
 		if (file.getLoginCredentials() != null) {
 			credentials = file.getLoginCredentials();
 			username = credentials[0];
 			pass = credentials[1];
-			admin = credentials[2];
 
 		} else {
 			System.out.println("Error reading file");
@@ -129,6 +127,10 @@ public class StarsDB {
 		this.students = file.getStudentRecords(studentDataFilePath);
 
 	}
+	
+//	public void createDummyAdmin() {
+//		Admin
+//	}
 
 	// TODO: courses
 
