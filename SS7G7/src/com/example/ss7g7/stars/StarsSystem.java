@@ -39,8 +39,6 @@ public class StarsSystem {
 		while (run) {
 			System.out.println("Welcome to the Stars System");
 			
-			//// Comment this block to remove login
-
 			
 			Login.LOGIN_RESULT loginResult = login.login();
 			switch(loginResult) {
@@ -55,12 +53,10 @@ public class StarsSystem {
 			
 			User.UserType currentUserType = currentUser.getUserType();
 			
-			System.out.println(currentUserType);
-			//// End comment block to remove login
-			
-			
-//			User.UserType currentUserType = User.UserType.STUDENT;
-			
+			/*
+			 * PLEASE USE CREDENTIALS PROVIDED IN LOGINCRED.TXT AND README.TXT FOR THE
+			 * PASS IN CLEAR TEXT
+			 */			
 			
 			// TODO: Based on the user, create a new student/admin object. Create here or inside Student/Admin UI
 			
@@ -82,22 +78,7 @@ public class StarsSystem {
 		}
 	}
 
-	/*
-	 * 
-	 * Returns the User who has logged in. 
-	 * If User.userType is NIL, it indicates the program to terminate. see run()
-	 */
-//	private User getUser() {
-//		// Handled by K
-//		// Note: 1 Requirement is that Password should not be displayed on console when
-//		// entering it
-//		
-//		this.currentUser = login.getCurrentUser();
-//		
-//		// TODO Change this temp return
-//		return this.currentUser;
-//	}
-
+	
 	/*
 	 * Function to handle logout Called by runStudentMenu and runAdminMenu
 	 */
