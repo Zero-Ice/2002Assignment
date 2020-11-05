@@ -20,7 +20,6 @@ public class Student implements Serializable{
 	private Calendar accessEnd;
 	private ArrayList<RegisteredCourse> courses;
 	
-	
 	public Student (String username,String name, String lastName, String matricNo, String gender,
 					String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
 	{
