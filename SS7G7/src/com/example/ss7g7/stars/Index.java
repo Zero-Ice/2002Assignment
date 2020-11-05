@@ -1,9 +1,10 @@
 package com.example.ss7g7.stars;
 import java.util.Date;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class Index {
+public class Index implements Serializable{
 	private int indexNum;
 	private String courseCode;
 	private int numSeats;

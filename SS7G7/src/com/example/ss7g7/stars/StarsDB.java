@@ -35,15 +35,37 @@ public class StarsDB {
 		this.courseDataFilePath = courseDataFilePath;
 
 		this.students = file.getStudentRecords(studentDataFilePath);
+		
+		/*
+		 * If need be, to "restore" the stored data to initial, just delete the contents
+		 * of the studentInfo and courseInfo .ser files and re-run the program
+		 */
 
 		if (this.students.isEmpty()) {
 			System.out.print("Get failed");
+			createDummyStudents();
+			System.out.println("DEBUGSTUDENTS");
+			
 		} else {
 			for (Student s : this.students) {
 				System.out.println(s.getName() + " " + s.getUserName());
 			}
 		}
-		createDebugCourses();
+		
+		this.courses = file.getCourseRecords(courseDataFilePath);
+		
+		if (this.courses.isEmpty()) {
+			System.out.print("Get failed");
+			createDebugCourses();
+			System.out.println("DEBUGCOURSES");
+			
+		} else {
+			
+			for (Course c: this.courses) {
+				System.out.println(c.getCourseName()+ " COURSES "+ c.getCourseCode());
+			}
+		}
+		
 
 		return true;
 	}
@@ -106,9 +128,7 @@ public class StarsDB {
 		return null;
 	}
 
-	public void setStudentRecord(Student s) {
 
-	}
 
 	public void createDummyStudents() {
 
@@ -124,13 +144,9 @@ public class StarsDB {
 				newDate1, newDate2);
 		file.setStudentRecord(studentDataFilePath, y);
 
-		this.students = file.getStudentRecords(studentDataFilePath);
 
 	}
 	
-//	public void createDummyAdmin() {
-//		Admin
-//	}
 
 	// TODO: courses
 
@@ -139,12 +155,15 @@ public class StarsDB {
 		c.addIndex(123456, 30);
 		c.addIndex(696969, 30);
 		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
-		courses.add(c);
-
-		c = new Course("CZ2005", "OS", "SCSE", 3);
+		
+		file.setCourseRecord(courseDataFilePath, c);
+		
+		Course c1 = new Course("CZ2005", "OS", "SCSE", 3);
 		c.addIndex(200005, 30);
 		c.setLecDetails(1, 13, 30, 15, 30, "LT19", "OS", "CS3");
-		courses.add(c);
+		
+		file.setCourseRecord(courseDataFilePath, c1);
+		
 	}
 
 	public Course getCourse(int indexNo) {

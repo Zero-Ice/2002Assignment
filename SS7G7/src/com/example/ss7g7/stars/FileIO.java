@@ -14,6 +14,7 @@ import java.util.*;
 public class FileIO {
 	
 	private ArrayList<Student> students = new ArrayList<Student>();
+	private ArrayList<Course> courses = new ArrayList<Course>();
 
 	public List [] getLoginCredentials () {
 		
@@ -42,15 +43,34 @@ public class FileIO {
 	
 	public void setCourseRecord (String path, Course c) {
 		
-		ArrayList<String> courseDetails = new ArrayList<String>();
+		FileOutputStream fs = null;
+		ObjectOutputStream os = null;
 		
-		courseDetails.add(c.getCourseCode());
-		courseDetails.add(c.getCourseName());
-		courseDetails.add(c.getSchooName());
-		courseDetails.add(Integer.toString(c.getAU()));
-		courseDetails.add(c.getLecDay());
-		courseDetails.add(c.getLecVenue());
-		//courseDetails.add(c.getCourseAvailability());
+		
+		try{
+			
+			courses.add(c);
+			
+			fs = new FileOutputStream(path);
+			os = new ObjectOutputStream(fs);
+			
+			os.writeObject(courses);
+			
+		}catch (IOException e){
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+				if(fs!=null && os!=null) {
+					fs.close();
+					os.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
@@ -85,53 +105,6 @@ public class FileIO {
 			}
 		}
 		
-		
-//		ArrayList<String> studentDetails = new ArrayList<String>();
-//		
-//		studentDetails.add(s.getUserName());
-//		studentDetails.add(s.getName());
-//		studentDetails.add(s.getLastName());
-//		studentDetails.add(s.getNationality());
-//		studentDetails.add(s.getMatricNo());
-//		studentDetails.add(Integer.toString(s.getMobileNo()));
-//		studentDetails.add(s.getEmail());
-//		
-//		Iterator<String> i = studentDetails.iterator();
-		
-//		FileWriter myWriter = null;
-//		BufferedWriter print = null;
-//		
-//		  try {
-//
-//			  	myWriter = new FileWriter(path, true);
-//			  	print = new BufferedWriter(myWriter);
-//			  	
-//		        while(i.hasNext()) {
-//		        	print.write(i.next()+",");
-//		        }
-//		       
-//		        System.out.println("Successfully wrote to the file.");
-//		        
-//		      } catch (IOException e) {
-//		    	  
-//		        System.out.println("Write operation failed");
-//		        e.printStackTrace();
-//		      }
-//		  		finally {
-//		  			
-//		  			try {
-//		  				if (myWriter != null && print!=null) {
-//		  					print.write(System.lineSeparator());
-//		  					print.close();
-//		  					myWriter.close();
-//		  				}
-//						
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						System.out.println("File failed to close");
-//						e.printStackTrace();
-//					}
-//		  	  }
 		    
 	}
 	
@@ -171,6 +144,43 @@ public class FileIO {
 		return this.students;
 			
 			
+	}
+	
+	public ArrayList<Course> getCourseRecords (String path) {
+		
+		FileInputStream fs = null;
+		ObjectInputStream os = null;
+		
+		try {
+			fs = new FileInputStream(path);
+			os = new ObjectInputStream(fs);
+			
+			this.courses = ((ArrayList<Course>) os.readObject());
+			
+			for(Course c: courses) {
+				System.out.println(c);
+			}
+		}catch (IOException | ClassNotFoundException e) {
+			//TODO Auto-generated catch block
+			System.out.println("Failed to read file");
+			e.printStackTrace();
+			
+		}finally {
+			try {
+  				if (fs != null && os !=null) {
+  					fs.close();
+  					os.close();
+  				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File failed to close");
+				e.printStackTrace();
+			}
+		}
+		
+		return this.courses;
+		
 	}
 }
   
