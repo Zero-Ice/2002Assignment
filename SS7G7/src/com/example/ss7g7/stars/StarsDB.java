@@ -24,6 +24,11 @@ public class StarsDB {
 		students = new ArrayList<Student>();
 		courses = new ArrayList<Course>();
 	}
+	
+	public void setDBInstance(StarsDB db)
+	{
+		this.db_instance = db;
+	}
 
 	public static StarsDB getInstance() {
 		if(db_instance == null) {
@@ -80,6 +85,13 @@ public class StarsDB {
 				
 		return true;
 	}
+	
+	/*
+	 * 
+	 * STUDENT SECTION
+	 * 
+	 * 
+	 */
 
 	public ArrayList<Student> getAllStudents() {
 		return students;
@@ -89,30 +101,7 @@ public class StarsDB {
 		return courses;
 	}
 
-	public HashMap<String, String> getDBLoginCred() {
-
-		List[] credentials = new List[2];
-		List<String> username = new ArrayList<String>();
-		List<String> pass = new ArrayList<String>();
-		HashMap<String, String> hmap = new HashMap<String, String>();
-
-		if (file.getLoginCredentials() != null) {
-			credentials = file.getLoginCredentials();
-			
-			username = credentials[0];
-			pass = credentials[1];
-			
-		} else {
-			System.out.println("Error reading file");
-		}
-
-		for (int i = 0; i < username.size(); i++) {
-			hmap.put(username.get(i), pass.get(i));
-		}
-
-		return hmap;
-
-	}
+	
 
 	public Student getStudent(String userName) {
 		for (int user = 0; user < students.size(); user++) {
@@ -122,11 +111,52 @@ public class StarsDB {
 		}
 		return null;
 	}
+	public void addStudent(Student currentStudent) {
+		file.setStudentRecord(currentStudent);
+		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()), currentStudent.getPass());
+	}
+	
+	
+	public void removeStudent(Student currentStudent) {
+		file.updateStudentRecords(currentStudent, "remove");
+		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()), currentStudent.getPass());
+	}
+	
+	public void updateStudentRecords(Student currentStudent) {
+		file.updateStudentRecords(currentStudent, "update");
+	}
+	
+	
+	public void createDummyStudents() {
 
+		// purpose of accessStart/End is for student to only enter the stars planner at
+		// certain time period
+		Calendar newDate1 = Calendar.getInstance(); // create a date to accessStart
+		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
 
+		Student x = new Student("student1", "test1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "marktan@hotmail.com",
+				newDate1, newDate2);
+		file.setStudentRecord(x);
+		file.setLoginCredentials(x.getUsername(), hash(x.getPass()), x.getPass());
+		
+		Student y = new Student("student2", "test2", "Laura", " Tan", "U1829091", "F", "Spain", 96533219, "lautan@hotmail.com",
+				newDate1, newDate2);
+		file.setStudentRecord(y);
+		file.setLoginCredentials(y.getUsername(), hash(y.getPass()), y.getPass());
+		
+	}
+	
+	
+	
+	/*
+	 * 
+	 * 
+	 * COURSE SECTION
+	 * 
+	 * 
+	 */
 
-
-	public Course getCourse(int indexNo) {
+	public Course getCourseIndex(int indexNo) {
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).containsIndexNo(indexNo))
 				return courses.get(i);
@@ -176,6 +206,81 @@ public class StarsDB {
 		if (!flag) System.out.println("\nNo record is found!");
 	}
 	
+	
+	public void updateCourseRecords(Course course) {
+		file.updateCourseRecords(course, "update");
+	}
+	
+	public void removeCourse(String courseCode) { //remove coursecode from db 
+		
+		if (isExistingCourseCode(courseCode)){
+			Course course = getCourse(courseCode);
+
+			courses = file.updateCourseRecords(course, "remove");
+			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
+		}
+		else{
+			System.out.println("Course code is not found!\n");
+		}
+		
+	}
+	// add new course into db
+	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
+		Course newCourse = new Course(courseCode, courseName,SchooName, aU);
+		file.setCourseRecord(newCourse);
+		
+	}
+	
+	public void createDebugCourses() {
+		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
+		c.addIndex(123456, 30);
+		c.addIndex(696969, 30);
+		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
+		
+		file.setCourseRecord(c);
+		
+		Course c1 = new Course("CZ2005", "OS", "SCSE", 3);
+		c1.addIndex(200005, 30);
+		c1.setLecDetails(1, 13, 30, 15, 30, "LT19", "OS", "CS3");
+	
+		
+		file.setCourseRecord(c1);
+		
+	}
+	
+	/*
+	 * 
+	 * 
+	 * LOGIN SECTION
+	 * 
+	 * 
+	 */
+	
+	public HashMap<String, String> getDBLoginCred() {
+
+		List[] credentials = new List[2];
+		List<String> username = new ArrayList<String>();
+		List<String> pass = new ArrayList<String>();
+		HashMap<String, String> hmap = new HashMap<String, String>();
+
+		if (file.getLoginCredentials() != null) {
+			credentials = file.getLoginCredentials();
+			
+			username = credentials[0];
+			pass = credentials[1];
+			
+		} else {
+			System.out.println("Error reading file");
+		}
+
+		for (int i = 0; i < username.size(); i++) {
+			hmap.put(username.get(i), pass.get(i));
+		}
+
+		return hmap;
+
+	}
+	
 	String hash (String passClear) {
 		
 		String hash = new String();
@@ -207,89 +312,10 @@ public class StarsDB {
 	
 	}
 	
-	public void addStudent(Student currentStudent) {
-		file.setStudentRecord(currentStudent);
-		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()), currentStudent.getPass());
-	}
-	
 	public void addAdmin (String username, String password) {
 		file.setLoginCredentials(username, hash(password), password);
 	}
 	
-	public void removeStudent(Student currentStudent) {
-		file.updateStudentRecords(currentStudent, "remove");
-		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()), currentStudent.getPass());
-	}
 	
-	public void updateStudentRecords(Student currentStudent) {
-		file.updateStudentRecords(currentStudent, "update");
-	}
-	
-	public void updateCourseRecords(Course course) {
-		file.updateCourseRecords(course, "update");
-	}
-	
-	public void removeCourse(String courseCode) { //remove coursecode from db 
-		
-		if (isExistingCourseCode(courseCode)){
-			Course course = getCourse(courseCode);
-
-			file.updateCourseRecords(course, "remove");
-			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
-		}
-		else{
-			System.out.println("Course code is not found!\n");
-		}
-		
-	}
-	// add new course into db
-	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
-		Course newCourse = new Course(courseCode, courseName,SchooName, aU);
-		file.setCourseRecord(newCourse);
-		
-	}
-	
-	public void createDummyStudents() {
-
-		// purpose of accessStart/End is for student to only enter the stars planner at
-		// certain time period
-		Calendar newDate1 = Calendar.getInstance(); // create a date to accessStart
-		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
-
-		Student x = new Student("student1", "test1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "marktan@hotmail.com",
-				newDate1, newDate2);
-		file.setStudentRecord(x);
-		file.setLoginCredentials(x.getUsername(), hash(x.getPass()), x.getPass());
-		
-		Student y = new Student("student2", "test2", "Laura", " Tan", "U1829091", "F", "Spain", 96533219, "lautan@hotmail.com",
-				newDate1, newDate2);
-		file.setStudentRecord(y);
-		file.setLoginCredentials(y.getUsername(), hash(y.getPass()), y.getPass());
-		
-
-	}
-	
-
-	public void createDebugCourses() {
-		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
-		c.addIndex(123456, 30);
-		c.addIndex(696969, 30);
-		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
-		
-		file.setCourseRecord(c);
-		
-		Course c1 = new Course("CZ2005", "OS", "SCSE", 3);
-		c1.addIndex(200005, 30);
-		c1.setLecDetails(1, 13, 30, 15, 30, "LT19", "OS", "CS3");
-	
-		
-		file.setCourseRecord(c1);
-		
-	}
-	
-	public void setDBInstance(StarsDB db)
-	{
-		this.db_instance = db;
-	}
 
 }
