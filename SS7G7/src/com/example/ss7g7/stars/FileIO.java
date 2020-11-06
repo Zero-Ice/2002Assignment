@@ -177,11 +177,12 @@ public class FileIO {
 			System.out.println("END OF FILE");
 			
 			for (String user : credentials) {
+				System.out.println(user);
 				
 				if (user.equals(username+","+cipherPass+"-student")) {
 					credentials.remove(user);
 					System.out.println("Removed from credentials");
-					break;
+					continue;
 				}
 			}
 			
@@ -193,11 +194,10 @@ public class FileIO {
 				
 				for (String updatedUser: credentials) {
 					
-					System.out.println(updatedUser);
 					osOut.writeObject(updatedUser);
 					
 					//If not the last object, new outputstream
-					if (!(updatedUser.equals(credentials.get(credentials.size()-1))))
+					if (!(updatedUser.equals(credentials.get(credentials.size()-1).toString())))
 						osOut = new ObjectOutputStream(fsOut);
 				}
 				
@@ -440,7 +440,7 @@ public class FileIO {
 		}		
 	}
 	
-	public ArrayList<Course> updateCourseRecords (Course currentCourse, String mode) {
+	public void updateCourseRecords (Course currentCourse, String mode) {
 		
 		FileInputStream fsIn = null;
 		ObjectInputStream osIn = null;
@@ -461,10 +461,8 @@ public class FileIO {
 					if (mode.equals("update")) {
 						courses.remove(c);
 						courses.add(currentCourse);
-						
 					}else if (mode.equals("remove"))
 						courses.remove(c);
-					
 					
 					break;
 				}
@@ -497,9 +495,12 @@ public class FileIO {
 				System.out.println("File failed to close");
 				e.printStackTrace();
 			}
-		}	
+		}		
+	}
+	
+	
+	public void removeCourse() {
 		
-		return this.courses;
 	}
 	
 
