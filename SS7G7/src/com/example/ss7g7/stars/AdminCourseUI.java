@@ -61,7 +61,7 @@ public class AdminCourseUI {
 								}
 				}
 			catch (Exception e) {
-				System.out.println("Incorrect Input, please try again"); //when user input incorrect value
+				//System.out.println("Incorrect Input, please try again"); //when user input incorrect value
 			}
 			System.out.println();
 		}
@@ -168,8 +168,11 @@ public class AdminCourseUI {
 		} while (check);
 		
 		database.removeCourse(courseCode.toUpperCase()); //check and update to database
+		database.setDBInstance(database);
+
+		
 		System.out.println("");
-		database.printCourseList();; //show result 
+		database.printCourseList(); //show result 
 	}
 
 
@@ -537,6 +540,9 @@ public class AdminCourseUI {
 						
 		tempCourse.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
 				labVenue, labRemarks, labGroup);
+		
+		database.updateCourseRecords(tempCourse);
+		database.setDBInstance(database);
 		
 		System.out.println("");  
 		System.out.println("Index Number " +indexNum + "'s lab and tutorial details has been added.");
