@@ -440,7 +440,7 @@ public class FileIO {
 		}		
 	}
 	
-	public void updateCourseRecords (Course currentCourse, String mode) {
+	public ArrayList<Course> updateCourseRecords (Course currentCourse, String mode) {
 		
 		FileInputStream fsIn = null;
 		ObjectInputStream osIn = null;
@@ -495,7 +495,9 @@ public class FileIO {
 				System.out.println("File failed to close");
 				e.printStackTrace();
 			}
-		}		
+		}	
+		
+		return this.courses;
 	}
 	
 	
