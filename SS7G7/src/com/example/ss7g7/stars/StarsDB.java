@@ -97,11 +97,6 @@ public class StarsDB {
 		return students;
 	}
 
-	public ArrayList<Course> getAllCourse() {
-		return courses;
-	}
-
-	
 
 	public Student getStudent(String userName) {
 		for (int user = 0; user < students.size(); user++) {
@@ -155,6 +150,11 @@ public class StarsDB {
 	 * 
 	 * 
 	 */
+	
+	public ArrayList<Course> getAllCourse() {
+		return courses;
+	}
+
 
 	public Course getCourseIndex(int indexNo) {
 		for (int i = 0; i < courses.size(); i++) {
@@ -207,9 +207,13 @@ public class StarsDB {
 	}
 	
 	
-	public void updateCourseRecords(Course course) {
-		file.updateCourseRecords(course, "update");
+	// add new course into db
+	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
+		Course newCourse = new Course(courseCode, courseName,SchooName, aU);
+		file.setCourseRecord(newCourse);
+		
 	}
+	
 	
 	public void removeCourse(String courseCode) { //remove coursecode from db 
 		
@@ -224,12 +228,11 @@ public class StarsDB {
 		}
 		
 	}
-	// add new course into db
-	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
-		Course newCourse = new Course(courseCode, courseName,SchooName, aU);
-		file.setCourseRecord(newCourse);
-		
+	
+	public void updateCourseRecords(Course course) {
+		file.updateCourseRecords(course, "update");
 	}
+	
 	
 	public void createDebugCourses() {
 		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
