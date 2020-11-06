@@ -30,13 +30,12 @@ public class Login {
 	
 	LOGIN_RESULT login(){
 		
-		user = new User();
 		passClear = new StringBuilder();
 		String passCipher = "";
 		String auth = new String();
         HashMap<String, String> hmap = db.getDBLoginCred();
        
-		//-----------------Log user--------------------------//
+		//-----------------Log user input---------------------//
 		getLoginCred();
 		
 		//---------------Authenticate user-----------------//
@@ -87,43 +86,14 @@ public class Login {
 		String pass = sc.nextLine();
 		
 		
-		passCipher = hash(pass);
-		this.user.setUser(username);
-		this.user.setPass(passCipher);
+		passCipher = db.hash(pass);
+		user = new User(username, passCipher);
+//		this.user.setUser(username);
+//		this.user.setPass(passCipher);
 		
 		
 	}
 	
-	String hash (String passClear) {
-		
-		String hash = new String();
-		
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] encodedHash = digest.digest(passClear.toString().getBytes(StandardCharsets.UTF_8));
-			
-			// Convert byte array into signum representation  
-			BigInteger number = new BigInteger(1, encodedHash);
-  
-	        // Convert message digest into hex value  
-			StringBuilder hexString = new StringBuilder(number.toString(16)); 
-			
-	        // Pad with leading zeros 
-	        while (hexString.length() < 32)  
-	        {  
-	            hexString.insert(0, '0');  
-	        }  
-	  
-	        hash = hexString.toString();  
-	 
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return hash;
-	
-	}
 	
 	String authUser (HashMap<String, String> hmap) {
 		
@@ -138,7 +108,7 @@ public class Login {
 	 		
 	 		cipherPass = key.split("-")[0];
 	 		privilege = key.split("-")[1];
-	 		
+	 			 		
 	 		if (this.user.getPass().toString().equals(cipherPass) && privilege.equals("student")) {
 	 			privilege = "student";
 	 		
@@ -146,6 +116,8 @@ public class Login {
 	 			privilege = "admin";
 	 		
 	 		}
+	 	}else {
+	 		System.out.println("User does not exist in DB");
 	 	}
 
 	 	return privilege;

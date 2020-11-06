@@ -1,6 +1,7 @@
 package com.example.ss7g7.stars;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,32 +18,219 @@ public class FileIO {
 	private ArrayList<Course> courses = new ArrayList<Course>();
 	private ArrayList<Index> indexes = new ArrayList<Index>();
 	
+	private String loginCredentialsFilePath = "../SS7G7/lib/loginCred.ser";
 	private String studentDataFilePath = "";
 	private String courseDataFilePath = "";
 	
 	public List [] getLoginCredentials () {
 		
-		String path = "../SS7G7/lib/logincred.txt";
         String line = new String();
         String splitBy = ",";
-        String [] temp = {};
+        String[] temp = {};
         List<String> username = new ArrayList<String>();
         List<String> pass = new ArrayList<String>();
+        
+        /*
+		 * For config of credentials please ignore
+		 */
 
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-        	
-            while ((line = br.readLine()) != null) {
-            	
-                temp = line.split(splitBy);
-                username.add(temp[0]);
-                pass.add(temp[1]);
-               
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try (BufferedReader br = new BufferedReader(new FileReader("../SS7G7/lib/logincred.txt"))) {
+//        	
+//            while ((line = br.readLine()) != null) {
+//            	
+//                temp = line.split(splitBy);
+//                username.add(temp[0]);
+//                pass.add(temp[1]);
+//               
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        return new List[] {username, pass};
+        
+        
+        FileInputStream fs = null;
+		ObjectInputStream os = null;
+		boolean read = true;
+		
+		try {
+			fs = new FileInputStream(loginCredentialsFilePath);
+			os = new ObjectInputStream(fs);
+		
+			
+			while(read) {
+				line =  (String) os.readObject();
+								
+				temp = line.split(splitBy);
+				username.add(temp[0]);
+				pass.add(temp[1]);
+								 
+				os = new ObjectInputStream(fs);
+		}
+			
+		}
+		catch (EOFException e) {
+			read = false;
+			System.out.println("END OF FILE");
+		}
+		catch (IOException | ClassNotFoundException  e) {
+			//TODO Auto-generated catch block
+			System.out.println("Failed to read credentials");
+			e.printStackTrace();
+			
+		}
+		finally {
+			try {
+  				if (fs != null && os !=null) {
+  					fs.close();
+  					os.close();
+  				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File failed to close");
+				e.printStackTrace();
+			}
+		}
+		
+		return new List[] {username, pass};
+	}
+	
+	public void setLoginCredentials(String username, String cipherPass, String clearPass) {
+		
+		//To save credentials in logincred.txt with pass in hash
+		FileOutputStream fs = null;
+		ObjectOutputStream os = null;
+		
+		//For our convenience to track login details in clear text
+		FileOutputStream fs1 = null;
+		ObjectOutputStream os1 = null;
+		
+		try{
+			fs = new FileOutputStream(loginCredentialsFilePath, true);
+			os = new ObjectOutputStream(fs);
+			
+			os.writeObject(username+","+cipherPass+"-student");
+			
+			
+			/*
+			 * To view updated login credentials, please close and reopen the README.txt
+			 * file
+			 */
+			fs1 = new FileOutputStream("../SS7G7/lib/README.txt", true);
+			os1 = new ObjectOutputStream(fs1);
+			
+			os1.writeObject("\n"+username+" //"+clearPass);
+			
+		}catch (IOException e){
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+				if(fs!=null && os!=null) {
+					fs.close();
+					os.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void removeLoginCredentials(String username, String cipherPass, String clearPass) {
+		
+		String line = new String();
+        ArrayList<String> credentials = new ArrayList<String>();
+        
+		/*
+		 * Please manually remove clear text translation from README.txt to avoid
+		 * confusion
+		 */
+        
+		//To save credentials in logincred.txt with pass in hash
+		FileInputStream fsIn = null;
+		ObjectInputStream osIn = null;
+		FileOutputStream fsOut = null;
+		ObjectOutputStream osOut = null;
+	
+		
+		boolean read = true;
+		
+		try {
+			fsIn = new FileInputStream(loginCredentialsFilePath);
+			osIn = new ObjectInputStream(fsIn);
+		
+			
+			while(read) {
+				line =  (String) osIn.readObject();
+				credentials.add(line);
+				
+				osIn = new ObjectInputStream(fsIn);
+			}
+			
+		}
+		catch (EOFException e) {
+			read = false;
+			System.out.println("END OF FILE");
+			
+			for (String user : credentials) {
+				System.out.println(user);
+				
+				if (user.equals(username+","+cipherPass+"-student")) {
+					credentials.remove(user);
+					System.out.println("Removed from credentials");
+					continue;
+				}
+			}
+			
+			try {
+				
+				fsOut = new FileOutputStream(loginCredentialsFilePath);
+				osOut = new ObjectOutputStream(fsOut);
+				
+				
+				for (String updatedUser: credentials) {
+					
+					osOut.writeObject(updatedUser);
+					
+					//If not the last object, new outputstream
+					if (!(updatedUser.equals(credentials.get(credentials.size()-1).toString())))
+						osOut = new ObjectOutputStream(fsOut);
+				}
+				
+			}catch (IOException e1){
+				
+				System.out.println("Failed to update credentials");
+				e1.printStackTrace();
+				
+			}	
+		}
+		catch (IOException | ClassNotFoundException  e2) {
+			//TODO Auto-generated catch block
+			System.out.println("Failed to read credentials");
+			e2.printStackTrace();
+			
+		}
+		finally {
+			try {
+  				if (fsIn != null && osIn !=null && fsOut != null && osOut !=null ) {
+  					fsIn.close();
+  					osIn.close();
+  					fsOut.close();
+  					osOut.close();
+  				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File failed to close");
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 	
 	

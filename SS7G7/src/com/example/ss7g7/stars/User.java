@@ -1,8 +1,10 @@
 package com.example.ss7g7.stars;
 
-public class User {
-	private String username;
-	private String password;
+import java.io.Serializable;
+
+public class User implements Serializable {
+	protected String username;
+	protected String password;
 	
 	private UserType userType;
 	public enum UserType{
@@ -13,8 +15,10 @@ public class User {
 	}
 	
 	// TODO: Change constructor
-	public User() {
+	public User(String username, String password) {
 		userType = userType.NIL;
+		this.username = username;
+		this.password = password;
 	}
 	
 	public UserType getUserType() {
