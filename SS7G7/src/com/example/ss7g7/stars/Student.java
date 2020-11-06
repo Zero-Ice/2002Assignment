@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class Student implements Serializable{
+public class Student extends User{
 	
-	private String username;
 	private String name; 
 	private String lastName;
 	private String matricNo;
@@ -20,10 +19,10 @@ public class Student implements Serializable{
 	private Calendar accessEnd;
 	private ArrayList<RegisteredCourse> courses;
 	
-	public Student (String username,String name, String lastName, String matricNo, String gender,
+	public Student (String username, String password, String name, String lastName, String matricNo, String gender,
 					String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
 	{
-		this.username = username;
+		super(username, password);
 		this.name = name;
 		this.lastName = lastName;
 		this.matricNo	= matricNo;
@@ -35,6 +34,7 @@ public class Student implements Serializable{
 		this.accessEnd = accessEnd;
 		courses = new ArrayList<RegisteredCourse>();
 	}
+	
 	
 	public void setCourses(ArrayList<RegisteredCourse> indexes) {
 		this.courses.clear();

@@ -53,11 +53,11 @@ public class StudMngmt {
 	}
 	
 	// add new student to studentlist in database
-	public static void addStudent(String username,String name, String lastName,
+	public static void addStudent(String username, String password, String name, String lastName,
 			String matricNo, String gender, String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
 	
 	{
-        Student newStud = new Student(username, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
+        Student newStud = new Student(username, password, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
         database.addStudent(newStud);
         database.setDBInstance(database);
       
@@ -67,9 +67,9 @@ public class StudMngmt {
 	public static void removeStudent(String matNum) {
 		Student student = getStudentByMatric(matNum);
 		database.removeStudent(student);
+		database.setDBInstance(database);
 		
-
-		}
+	}
 	
 	public static void printStudentList(){ //show all student exists in student db
 		boolean flag = false;

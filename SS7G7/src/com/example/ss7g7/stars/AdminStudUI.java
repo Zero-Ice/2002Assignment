@@ -50,10 +50,10 @@ public class AdminStudUI {
 						break GoBack;
 					default:
 						System.out.println("Incorrect Input, please try again"); //when user input incorrect value
-								}
 				}
+			}
 			catch (Exception e) {
-				System.out.println("Incorrect Input, please try again"); //when user input incorrect value
+				//System.out.println("Incorrect Input, please try again"); //when user input incorrect value
 			}
 			System.out.println();
 		}
@@ -149,8 +149,13 @@ public class AdminStudUI {
         
         Calendar accessStart = CalendarMngmt.getValidDateTime("access start");
         Calendar accessEnd = CalendarMngmt.getValidDateTime("access end");
-       
-        StudMngmt.addStudent(username, name,lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
+        
+		/*
+		 * For config of credentials, please ignore
+		 */
+        //database.addAdmin(username, passWord);
+        
+        StudMngmt.addStudent(username, passWord, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
         
         // after user input in username and password, it should store inside starsDB				
        
@@ -165,7 +170,7 @@ public class AdminStudUI {
 	//Function to remove a new student to database
 	private static void removeStudent() { //remove student from student db
 		
-    	Boolean check=false;
+    	Boolean check = false;
 		String matricNo = "";
 		
 		StudMngmt.printStudentList();

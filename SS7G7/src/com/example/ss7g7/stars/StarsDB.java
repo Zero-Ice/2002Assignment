@@ -1,5 +1,9 @@
 package com.example.ss7g7.stars;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -87,16 +91,17 @@ public class StarsDB {
 
 	public HashMap<String, String> getDBLoginCred() {
 
-		List[] credentials = new List[3];
+		List[] credentials = new List[2];
 		List<String> username = new ArrayList<String>();
 		List<String> pass = new ArrayList<String>();
 		HashMap<String, String> hmap = new HashMap<String, String>();
 
 		if (file.getLoginCredentials() != null) {
 			credentials = file.getLoginCredentials();
+			
 			username = credentials[0];
 			pass = credentials[1];
-
+			
 		} else {
 			System.out.println("Error reading file");
 		}
@@ -171,13 +176,49 @@ public class StarsDB {
 		if (!flag) System.out.println("\nNo record is found!");
 	}
 	
+	String hash (String passClear) {
+		
+		String hash = new String();
+		
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] encodedHash = digest.digest(passClear.toString().getBytes(StandardCharsets.UTF_8));
+			
+			// Convert byte array into signum representation  
+			BigInteger number = new BigInteger(1, encodedHash);
+  
+	        // Convert message digest into hex value  
+			StringBuilder hexString = new StringBuilder(number.toString(16)); 
+			
+	        // Pad with leading zeros 
+	        while (hexString.length() < 32)  
+	        {  
+	            hexString.insert(0, '0');  
+	        }  
+	  
+	        hash = hexString.toString();  
+	 
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return hash;
+	
+	}
 	
 	public void addStudent(Student currentStudent) {
 		file.setStudentRecord(currentStudent);
+		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()), currentStudent.getPass());
+	}
+	
+	public void addAdmin (String username, String password) {
+		file.setLoginCredentials(username, hash(password), password);
 	}
 	
 	public void removeStudent(Student currentStudent) {
 		file.updateStudentRecords(currentStudent, "remove");
+		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()), currentStudent.getPass());
 	}
 	
 	public void updateStudentRecords(Student currentStudent) {
@@ -215,12 +256,16 @@ public class StarsDB {
 		Calendar newDate1 = Calendar.getInstance(); // create a date to accessStart
 		Calendar newDate2 = Calendar.getInstance(); // create a date for accessEnd
 
-		Student x = new Student("student1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "marktan@hotmail.com",
+		Student x = new Student("student1", "test1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119, "marktan@hotmail.com",
 				newDate1, newDate2);
 		file.setStudentRecord(x);
-		Student y = new Student("student2", "Laura", " Tan", "U1829091", "F", "Spain", 96533219, "lautan@hotmail.com",
+		file.setLoginCredentials(x.getUsername(), hash(x.getPass()), x.getPass());
+		
+		Student y = new Student("student2", "test2", "Laura", " Tan", "U1829091", "F", "Spain", 96533219, "lautan@hotmail.com",
 				newDate1, newDate2);
 		file.setStudentRecord(y);
+		file.setLoginCredentials(y.getUsername(), hash(y.getPass()), y.getPass());
+		
 
 	}
 	
