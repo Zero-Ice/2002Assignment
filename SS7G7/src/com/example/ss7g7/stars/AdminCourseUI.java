@@ -160,7 +160,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code you want to remove: "); //check if such username exists 
+			System.out.print("Enter the course code you want to remove: "); //check if such course exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -518,17 +518,71 @@ public class AdminCourseUI {
 				endHours, endMinutes, tutVenue, tutRemarks, tutGroup);
 		
 		System.out.print(""); 
-		//create new lab lesson
+
+		while (true){
 		System.out.print("Enter the lab day(1 for monday, 2 for tuesday...):"); 
 		intDay = sc.nextInt();
-		System.out.print("Enter the lab starting time(hours)(XX:00):"); 
-		startHours = sc.nextInt();
-		System.out.print("Enter the lab starting (minutes)(00:XX):"); 
-		startMinutes = sc.nextInt();
-		System.out.print("Enter the lab ending time(hours)(XX:00):"); 
-		endHours = sc.nextInt();
-		System.out.print("Enter the lab ending time(minutes)(00:XX):"); 
-		endMinutes = sc.nextInt();
+		if(intDay > 7 || intDay == 0)
+			{System.out.println("input value cant be 0 or higher than 7, please try again"); }
+		else
+			{break;}	
+		}
+		
+		while(true) //loop to check if starting time is higher than ending time
+		{	
+					
+			while(true){
+				System.out.print("Enter the lab starting time(hours)(XX:00):"); 
+				startHours = sc.nextInt();
+					if(startHours < 8 || startHours > 24)
+					{
+						System.out.println("input value cant be lower than 8 or higher than 24, please try again"); 
+					}
+					else
+					{break;}
+					}
+
+			while(true){
+				System.out.print("Enter the lab starting (minutes)(00:XX):");
+				startMinutes = sc.nextInt();
+					if(startMinutes >60)
+					{
+						System.out.println("input value cant be higher than 60, please try again"); 
+					}
+					else
+					{break;}
+					}
+					 
+			while(true){
+				System.out.print("Enter the lab ending time(hours)(XX:00):"); 
+				endHours = sc.nextInt();
+					if(endHours <8 || endHours >24)
+					{
+						System.out.println("input value cant be lower than 8 or higher than 24, please try again"); 
+					}
+					else
+					{break;}
+					}
+					
+			while(true){
+				System.out.print("Enter the lab ending time(minutes)(00:XX):"); 
+				endMinutes = sc.nextInt();
+					if(endMinutes >60)
+					{
+						System.out.println("input value cant be higher than 60, please try again"); 
+					}
+					else
+					{break;}
+					}
+					
+			if(startHours > endHours){
+				System.out.println("Lab starting time cant be later than its ending time, please try again");
+			}
+			else
+			{break;}
+			
+			}
+
 		sc.nextLine();
 		System.out.print("Enter the lab venue:"); 
 		labVenue = sc.nextLine();
@@ -536,7 +590,7 @@ public class AdminCourseUI {
 		labRemarks = sc.nextLine();
 		System.out.print("Enter the lab group number:"); 
 		labGroup = sc.nextLine();
-						
+			
 		tempCourse.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
 				labVenue, labRemarks, labGroup);
 		
@@ -590,7 +644,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -612,7 +666,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -648,7 +702,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such coursecode exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
