@@ -68,9 +68,9 @@ public class StudentMenu {
 		// E.g CZ2002 has 10195 and 10196. If already registered 10195, do not allow
 		// 10196 to be added
 
-		Course courseToAdd = db.getCourseIndex(indexToAdd);
+		Course courseToAdd = db.getCourseByIndex(indexToAdd);
 		if (courseToAdd != null) {
-			boolean alreadyRegistered = student.containsCoure(courseToAdd.getCourseCode());
+			boolean alreadyRegistered = student.containsCourse(courseToAdd.getCourseCode());
 
 			if (alreadyRegistered) {
 				System.out.println("Course " + courseToAdd.getCourseCode()
@@ -83,7 +83,14 @@ public class StudentMenu {
 		}
 
 		// Step2: Check if will clash with other courses
-		// TODO: Check clash
+		Index index = courseToAdd.getIndex(indexToAdd);
+		
+		boolean willClash = student.willNewCourseClashTimetable(courseToAdd, index);
+		if(willClash)
+		{
+			System.out.println("Cannot add course as it clashes with timetable");
+			return;
+		}
 
 		// Step3: If step 1 and 2 pass, confirm to add the new course.
 
@@ -102,13 +109,11 @@ public class StudentMenu {
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				Index index = courseToAdd.getIndex(indexToAdd);
 				index.assignStudent(student);
 				
 				db.updateStudentRecords(student);
 				db.updateCourseRecords(courseToAdd);
 				
-				System.out.println("Successfully added index " + indexToAdd);
 				run = false;
 				
 			} else if (choice == 2) {
@@ -133,7 +138,7 @@ public class StudentMenu {
 		}
 
 		// Step2: Double check that the course exists in the db
-		Course c = db.getCourseIndex(indexToDrop);
+		Course c = db.getCourseByIndex(indexToDrop);
 		if (c == null) {
 			System.out.println("Cannot find course with index no " + indexToDrop);
 			return;
@@ -155,6 +160,7 @@ public class StudentMenu {
 			if (choice == 1) {
 				
 				Index index = c.getIndex(indexToDrop);
+				student.dropCourse(index.getIndexNum());
 				
 				db.updateCourseRecords(c);
 				db.updateStudentRecords(index.unassignStudent(student));
@@ -172,7 +178,7 @@ public class StudentMenu {
 
 	// Print the details of a Course with index
 	private void printCourse(int indexNo) {
-		Course c = db.getCourseIndex(indexNo);
+		Course c = db.getCourseByIndex(indexNo);
 		if (c != null) {
 			System.out.println("Index Number " + indexNo + " Course " + c.getCourseCode() + "\n"
 					+ "Course Type REGISTERED + Status REGISTERED");
@@ -192,7 +198,7 @@ public class StudentMenu {
 		int indexNo = Integer.valueOf(scanner.nextLine());
 
 		// Step 1: Check if index entered belongs to a course
-		Course c = db.getCourseIndex(indexNo);
+		Course c = db.getCourseByIndex(indexNo);
 		if (c != null) {
 			Index index = c.getIndex(indexNo);
 
@@ -227,8 +233,8 @@ public class StudentMenu {
 		int indexTo = Integer.valueOf(scanner.nextLine());
 
 		// Step3: Double check that the index from and to belongs to the same course
-		Course fromCourse = db.getCourseIndex(indexFrom);
-		Course toCourse = db.getCourseIndex(indexTo);
+		Course fromCourse = db.getCourseByIndex(indexFrom);
+		Course toCourse = db.getCourseByIndex(indexTo);
 
 		if (fromCourse == null || toCourse == null || !fromCourse.getCourseCode().equals(toCourse.getCourseCode())) {
 			System.out.println("Indexes are not from the same course");
@@ -244,6 +250,11 @@ public class StudentMenu {
 		}
 		
 		// Step4: Check if new index has a clash.
+		boolean willClash = student.willSwappedCourseClashTimetable(toCourse, toIndex, fromCourse);
+		if(willClash) {
+			System.out.println("Cannot add course as it clashes with timetable");
+			return;
+		}
 
 		// Step5: Double confirm
 		boolean run = true;
@@ -340,8 +351,8 @@ public class StudentMenu {
 		
 		
 		// Step4: Check indexes are from the same course
-		Course fromCourse = db.getCourseIndex(indexFrom);
-		Course toCourse = db.getCourseIndex(indexTo);
+		Course fromCourse = db.getCourseByIndex(indexFrom);
+		Course toCourse = db.getCourseByIndex(indexTo);
 
 		if (fromCourse == null || toCourse == null || !fromCourse.getCourseCode().equals(toCourse.getCourseCode())) {
 			System.out.println("Indexes are not from the same course");
@@ -358,10 +369,17 @@ public class StudentMenu {
 			System.out.println("Index is not found in the database");
 			return;
 		}
-			
-		
 		
 		// Step5: Check if new index has a clash.
+		
+		// Course does not matter as we are swapping index only. 
+		boolean willClash = student.willSwappedCourseClashTimetable(toCourse, toIndex, fromCourse);
+		boolean willOtherStudClash = otherStudent.willSwappedCourseClashTimetable(fromCourse, fromIndex, toCourse);
+		
+		if(willClash || willOtherStudClash) {
+			System.out.println("Cannot swap indexes as new index does not fit in timetable");
+			return;
+		}
 		
 		// Step6: Print details and double confirm.
 		boolean run = true;
