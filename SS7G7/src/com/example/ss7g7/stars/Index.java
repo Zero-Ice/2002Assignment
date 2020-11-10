@@ -273,6 +273,30 @@ public class Index implements Serializable{
 	public ArrayList<String> getVacancyList()
 	{return seatVacancy;}
 
+	public LocalDateTime getTutStartTime() {
+		return tutStartTime;
+	}
+	
+	public LocalDateTime getTutEndTime() {
+		return tutEndTime;
+	}
+	
+	public LocalDateTime getLabStartTime() {
+		return labStartTime;
+	}
+	
+	public LocalDateTime getLabEndTime() {
+		return labEndTime;
+	}
+	
+	public int getTutOccurring() {
+		return tutOccurring;
+	}
+	
+	public int getLabOccurring() {
+		return labOccurring;
+	}
+	
 	
 
 }
