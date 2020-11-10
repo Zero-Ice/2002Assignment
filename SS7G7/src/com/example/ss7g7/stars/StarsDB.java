@@ -57,7 +57,7 @@ public class StarsDB {
 		this.students = file.getStudentRecords(studentDataFilePath);
 
 		if (this.students.isEmpty()) {
-			System.out.print("Get failed");
+			System.out.print("Get Student File failed");
 			System.out.println("Student File Empty.\nPopulating file...");
 			createDummyStudents();
 			
@@ -71,7 +71,7 @@ public class StarsDB {
 		this.courses = file.getCourseRecords(courseDataFilePath);
 		
 		if (this.courses.isEmpty()) {
-			System.out.print("Get failed");
+			System.out.print("Get Course File failed");
 			System.out.println("Course File Empty.\nPopulating file...");
 			createDebugCourses();
 			
