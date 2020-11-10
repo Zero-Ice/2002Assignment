@@ -110,7 +110,7 @@ public class Student extends User{
 		ArrayList<RegisteredCourse> courseCopy = (ArrayList)courses.clone();
 		
 		for(int i = 0; i < courseCopy.size(); i++) {
-			if(courseCopy.get(i).getCourseCode() == excludeCourse.getCourseCode()) {
+			if(courseCopy.get(i).getCourseCode().equals(excludeCourse.getCourseCode())) {
 				courseCopy.remove(i);
 				break;
 			}
