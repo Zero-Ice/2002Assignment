@@ -10,6 +10,8 @@ import java.util.Iterator;
 
 
 public class Course implements Serializable{
+	static final long serialVersionUID = 1L;
+
 	private String courseCode;
 	private String courseName;
 	private String schooName;
