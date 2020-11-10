@@ -158,15 +158,17 @@ public class Course implements Serializable{
 	
 	
 ///////////////////////                    ADMIN indexes              ////////////////////////////
-	public void addIndex(int index, int vacancy) {
-
+	public Index addIndex(int index, int vacancy) {
+		
 		if(getIndex(index)==null) {
-			indexes.add(new Index(index, courseCode, vacancy));
+			Index i = new Index(index, courseCode, vacancy);
+			indexes.add(i);
 			System.out.println("Index "+index+" was successfully added to "+ courseCode);
+			return i;
 		}else {
 			System.out.println("Index "+index+" already exists in "+ courseCode + "!");
 		}
-		
+		return null;
 	}
 	
 	public void removeIndex(int index) {
