@@ -31,6 +31,8 @@ public class Course implements Serializable{
 		this.schooName = school_Name;
 		this.lecVenue ="";
 		this.courseAvailability =true;
+		lecStartTime = null;
+		lecEndTime = null;
 		
 	}
 	
@@ -205,8 +207,8 @@ public class Course implements Serializable{
 		
 	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String lecVenue,String lecRemarks, String lecGroup) {
-		updateLecStartTime(lecStartTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes));
-		updateLecEndTime(lecEndTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes));
+		updateLecStartTime(LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes));
+		updateLecEndTime(LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes));
 		updateLecVenue(lecVenue);
 		updateLecGroup(lecGroup);
 		updateLecRemark(lecRemarks);

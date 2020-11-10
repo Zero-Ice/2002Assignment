@@ -41,6 +41,10 @@ public class Index implements Serializable{
 		this.studentWaitlist = new ArrayList<String>();
 		tutOccurring = 0;
 		labOccurring = 0;
+		tutStartTime = null;
+		tutEndTime = null;
+		labStartTime = null;
+		labEndTime = null;
 		
 		//initialize all to vacant
 		for(int i =0;i<numSeats;i++) {
@@ -189,8 +193,8 @@ public class Index implements Serializable{
 	
 	public void setTutDetails(int intDay, int startHours, int startMinutes,int endHours,
 			int endMinutes,String tutVenue, String tutRemarks, String tutGroup, int occurring) {
-		tutStartTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		tutEndTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		tutStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
+		tutEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
 		tutOccurring = occurring;
 		
 		updateTutVenue(tutVenue);
@@ -222,8 +226,8 @@ public class Index implements Serializable{
 	public void setLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String labVenue,String labRemarks, String labGroup, int occurring) {
 		
-		labStartTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		labEndTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		labStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
+		labEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
 		labOccurring = occurring;
 		
 		updateLabVenue(labVenue);
