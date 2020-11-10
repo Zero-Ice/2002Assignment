@@ -68,7 +68,7 @@ public class StarsDB {
 			}
 		}
 		
-//		this.courses = file.getCourseRecords(courseDataFilePath);
+		this.courses = file.getCourseRecords(courseDataFilePath);
 		
 		if (this.courses.isEmpty()) {
 			System.out.print("Get Course File failed");
