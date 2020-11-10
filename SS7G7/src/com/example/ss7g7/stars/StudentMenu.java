@@ -249,7 +249,7 @@ public class StudentMenu {
 		}
 		
 		// Step4: Check if new index has a clash.
-		boolean willClash = student.willNewCourseClashTimetable(toCourse, toIndex);
+		boolean willClash = student.willSwappedCourseClashTimetable(toCourse, toIndex, fromCourse);
 		if(willClash) {
 			System.out.println("Cannot add course as it clashes with timetable");
 			return;
@@ -372,8 +372,8 @@ public class StudentMenu {
 		// Step5: Check if new index has a clash.
 		
 		// Course does not matter as we are swapping index only. 
-		boolean willClash = student.willNewCourseClashTimetable(fromCourse, toIndex);
-		boolean willOtherStudClash = otherStudent.willNewCourseClashTimetable(toCourse, fromIndex);
+		boolean willClash = student.willSwappedCourseClashTimetable(toCourse, toIndex, fromCourse);
+		boolean willOtherStudClash = otherStudent.willSwappedCourseClashTimetable(fromCourse, fromIndex, toCourse);
 		
 		if(willClash || willOtherStudClash) {
 			System.out.println("Cannot swap indexes as new index does not fit in timetable");

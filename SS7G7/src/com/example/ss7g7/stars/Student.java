@@ -95,7 +95,28 @@ public class Student extends User{
 	}
 	
 	public boolean willNewCourseClashTimetable(Course newCourse, Index newIndex) {
+		
 		for(RegisteredCourse rc : courses) 
+		{
+			Course c = StarsDB.getInstance().getCourseByIndex(rc.getIndexNo());
+			Index index = c.getIndex(rc.getIndexNo());
+			if(willCourseClashWithOtherCourse(c, index, newCourse, newIndex)) return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean willSwappedCourseClashTimetable(Course newCourse, Index newIndex, Course excludeCourse) {
+		ArrayList<RegisteredCourse> courseCopy = (ArrayList)courses.clone();
+		
+		for(int i = 0; i < courseCopy.size(); i++) {
+			if(courseCopy.get(i).getCourseCode() == excludeCourse.getCourseCode()) {
+				courseCopy.remove(i);
+				break;
+			}
+		}
+		
+		for(RegisteredCourse rc : courseCopy) 
 		{
 			Course c = StarsDB.getInstance().getCourseByIndex(rc.getIndexNo());
 			Index index = c.getIndex(rc.getIndexNo());
