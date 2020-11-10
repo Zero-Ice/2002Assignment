@@ -57,7 +57,7 @@ public class StarsDB {
 		this.students = file.getStudentRecords(studentDataFilePath);
 
 		if (this.students.isEmpty()) {
-			System.out.print("Get failed");
+			System.out.print("Get Student File failed");
 			System.out.println("Student File Empty.\nPopulating file...");
 			createDummyStudents();
 			
@@ -68,10 +68,10 @@ public class StarsDB {
 			}
 		}
 		
-		this.courses = file.getCourseRecords(courseDataFilePath);
+//		this.courses = file.getCourseRecords(courseDataFilePath);
 		
 		if (this.courses.isEmpty()) {
-			System.out.print("Get failed");
+			System.out.print("Get Course File failed");
 			System.out.println("Course File Empty.\nPopulating file...");
 			createDebugCourses();
 			
@@ -156,7 +156,7 @@ public class StarsDB {
 	}
 
 
-	public Course getCourseIndex(int indexNo) {
+	public Course getCourseByIndex(int indexNo) {
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).containsIndexNo(indexNo))
 				return courses.get(i);
@@ -236,19 +236,32 @@ public class StarsDB {
 	
 	public void createDebugCourses() {
 		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
-		c.addIndex(123456, 30);
-		c.addIndex(696969, 30);
 		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
 		
-		file.setCourseRecord(c);
+		Index i1 = c.addIndex(120014, 30);
+		i1.setTutDetails(2, 12, 0, 14, 0, "A ROOM", "NO REMARKS", "SS1", 3);
+		
+		Index i2 = c.addIndex(100012, 30);
+		i2.setTutDetails(2, 10, 0, 12, 0, "A ROOM", "NO REMARKS", "SS2", 3);
+		
 		
 		Course c1 = new Course("CZ2005", "OS", "SCSE", 3);
-		c1.addIndex(200005, 30);
-		c1.setLecDetails(1, 13, 30, 15, 30, "LT19", "OS", "CS3");
+		Index i3 = c1.addIndex(200005, 30);
+		i3.setTutDetails(2, 11, 0, 13, 0, "C ROOM", "NO REMARKS", "SP1", 3);
+		c1.setLecDetails(1, 10, 30, 12, 30, "LT19", "OS", "CS3");
+		
+		Course c2 = new Course("CZ2001", "ALGO", "SCSE", 3);
+		Index i4 = c2.addIndex(200001, 30);
+		i4.setTutDetails(2, 10, 0, 12, 0, "A ROOM", "NO REMARKS", "SA1", 3);
+		
+		Course c3 = new Course("EE8084", "Cyber Sec", "EE", 3);
+		c3.setLecDetails(1, 12, 0, 14, 0, "ONLINE", "lmao", "dank420");
+		c3.addIndex(999999, 30);
 	
-		
-		file.setCourseRecord(c1);
-		
+		courses.add(c);
+		courses.add(c1);
+		courses.add(c2);
+		courses.add(c3);
 	}
 	
 	/*

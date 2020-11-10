@@ -42,8 +42,9 @@ public class Student extends User{
 	}
 	
 	public boolean addCourse(String courseCode, int indexNo) {
-		// TODO: Check if a mod has already been added. 
-		// E.g cannot have 2 indexes that belong to the same mod
+		// Do not allow adding of new course if student already registered for that coursecode
+		// If went through the proper procedures and checks through StudentMenu and Index, should not return false here
+		if(containsCourse(courseCode)) return false;
 		
 		courses.add(new RegisteredCourse(courseCode, indexNo));
 		
@@ -68,7 +69,7 @@ public class Student extends User{
 		return false;
 	}
 	
-	public boolean containsCoure(String courseCode) {
+	public boolean containsCourse(String courseCode) {
 		for(RegisteredCourse rc : courses) {
 			if(rc.getCourseCode().equals(courseCode)) return true;
 		}
@@ -93,6 +94,72 @@ public class Student extends User{
 		return s;
 	}
 	
+	public boolean willNewCourseClashTimetable(Course newCourse, Index newIndex) {
+		
+		for(RegisteredCourse rc : courses) 
+		{
+			Course c = StarsDB.getInstance().getCourseByIndex(rc.getIndexNo());
+			Index index = c.getIndex(rc.getIndexNo());
+			if(willCourseClashWithOtherCourse(c, index, newCourse, newIndex)) return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean willSwappedCourseClashTimetable(Course newCourse, Index newIndex, Course excludeCourse) {
+		ArrayList<RegisteredCourse> courseCopy = (ArrayList)courses.clone();
+		
+		for(int i = 0; i < courseCopy.size(); i++) {
+			if(courseCopy.get(i).getCourseCode().equals(excludeCourse.getCourseCode())) {
+				courseCopy.remove(i);
+				break;
+			}
+		}
+		
+		for(RegisteredCourse rc : courseCopy) 
+		{
+			Course c = StarsDB.getInstance().getCourseByIndex(rc.getIndexNo());
+			Index index = c.getIndex(rc.getIndexNo());
+			if(willCourseClashWithOtherCourse(c, index, newCourse, newIndex)) return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean willCourseClashWithOtherCourse(Course course, Index index, Course otherCourse, Index otherIndex) {
+		// Check lec clash with lec
+		// Check lec clash with tut
+		// Check lec clash with lab
+		
+		// Check tut clash with lec
+		// Check tut clash with tut
+		// Check tut clash with lab
+		
+		// Check lab clash with lec
+		// Check lab clash with tut
+		// Check lab clash with lab
+		if(
+				StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3, otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
+				|| StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3, otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
+				|| StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3, otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
+				// 
+				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(), otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
+				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(), otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
+				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(), otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
+				//
+				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(), otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
+				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(), otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
+				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(), otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
+				)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	// Getters & setters
+	
 	public ArrayList<RegisteredCourse> getCourses() {
 		return courses;
 	}
@@ -107,6 +174,7 @@ public class Student extends User{
 				+ printCourses();
 		return s;
 	}
+	
 
 	public String getUserName() {
 		return username;
