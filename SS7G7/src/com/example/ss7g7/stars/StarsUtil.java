@@ -20,12 +20,31 @@ public class StarsUtil {
 			if(occuringWeek != otherOccurringWeek) return false;
 		}
 		
+//		if(!checkTimingFormat(startTime, endTime, otherStartTime, otherEndTime)) return false;
+		
 		// Will not clash if not on the same day
 		if(startTime.getDayOfWeek() != otherStartTime.getDayOfWeek()) return false;
 		
 		if((startTime.equals(otherStartTime) || startTime.isAfter(otherStartTime)) && startTime.isBefore(otherEndTime)) return true;
 		
 		if((endTime.isAfter(otherStartTime) && (endTime.isBefore(otherEndTime) || endTime.equals(otherEndTime)))) return true;
+		
+		return false;
+	}
+	
+	public static boolean checkTimingFormat(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime otherStartTime, LocalDateTime otherEndTime)
+	{
+		if(startTime.getYear() == endTime.getYear() 
+				&& startTime.getYear() == otherStartTime.getYear() 
+				&& startTime.getYear() == otherEndTime.getYear()
+				&& startTime.getMonth() == endTime.getMonth()
+				&& startTime.getMonth() == otherStartTime.getMonth()
+				&& startTime.getMonth() == otherEndTime.getMonth()
+				)
+		{
+			return true;
+		}
+		
 		
 		return false;
 	}
