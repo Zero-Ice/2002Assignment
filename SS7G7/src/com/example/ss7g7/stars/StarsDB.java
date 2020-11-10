@@ -267,6 +267,7 @@ public class StarsDB {
 		file.setCourseRecord(c1);
 		file.setCourseRecord(c2);
 		file.setCourseRecord(c3);
+
 	}
 	
 	/*
