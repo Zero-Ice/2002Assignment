@@ -45,18 +45,13 @@ public class Login {
 			return LOGIN_RESULT.UNSUCCESSFUL_LOGIN;
 		}
 		else if (auth == "student") {
-			
 			this.user.setUserType(UserType.STUDENT);
-			System.out.println("Welcome");
-			return LOGIN_RESULT.SUCCESSFUL_LOGIN;
 		}
 		else if (auth == "admin") {
-			
 			this.user.setUserType(UserType.ADMIN);
-			System.out.println("Welcome");
-			return LOGIN_RESULT.SUCCESSFUL_LOGIN;
 		}
 		
+		System.out.println("Welcome");
 		return LOGIN_RESULT.SUCCESSFUL_LOGIN;
 	}
 	

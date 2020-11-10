@@ -258,10 +258,15 @@ public class StarsDB {
 		c3.setLecDetails(1, 12, 0, 14, 0, "ONLINE", "lmao", "dank420");
 		c3.addIndex(999999, 30);
 	
-		courses.add(c);
-		courses.add(c1);
-		courses.add(c2);
-		courses.add(c3);
+//		courses.add(c);
+//		courses.add(c1);
+//		courses.add(c2);
+//		courses.add(c3);
+		
+		file.setCourseRecord(c);
+		file.setCourseRecord(c1);
+		file.setCourseRecord(c2);
+		file.setCourseRecord(c3);
 	}
 	
 	/*
