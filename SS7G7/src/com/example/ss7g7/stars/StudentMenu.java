@@ -68,9 +68,9 @@ public class StudentMenu {
 		// E.g CZ2002 has 10195 and 10196. If already registered 10195, do not allow
 		// 10196 to be added
 
-		Course courseToAdd = db.getCourseIndex(indexToAdd);
+		Course courseToAdd = db.getCourseByIndex(indexToAdd);
 		if (courseToAdd != null) {
-			boolean alreadyRegistered = student.containsCoure(courseToAdd.getCourseCode());
+			boolean alreadyRegistered = student.containsCourse(courseToAdd.getCourseCode());
 
 			if (alreadyRegistered) {
 				System.out.println("Course " + courseToAdd.getCourseCode()
@@ -108,7 +108,6 @@ public class StudentMenu {
 				db.updateStudentRecords(student);
 				db.updateCourseRecords(courseToAdd);
 				
-				System.out.println("Successfully added index " + indexToAdd);
 				run = false;
 				
 			} else if (choice == 2) {
@@ -133,7 +132,7 @@ public class StudentMenu {
 		}
 
 		// Step2: Double check that the course exists in the db
-		Course c = db.getCourseIndex(indexToDrop);
+		Course c = db.getCourseByIndex(indexToDrop);
 		if (c == null) {
 			System.out.println("Cannot find course with index no " + indexToDrop);
 			return;
@@ -172,7 +171,7 @@ public class StudentMenu {
 
 	// Print the details of a Course with index
 	private void printCourse(int indexNo) {
-		Course c = db.getCourseIndex(indexNo);
+		Course c = db.getCourseByIndex(indexNo);
 		if (c != null) {
 			System.out.println("Index Number " + indexNo + " Course " + c.getCourseCode() + "\n"
 					+ "Course Type REGISTERED + Status REGISTERED");
@@ -192,7 +191,7 @@ public class StudentMenu {
 		int indexNo = Integer.valueOf(scanner.nextLine());
 
 		// Step 1: Check if index entered belongs to a course
-		Course c = db.getCourseIndex(indexNo);
+		Course c = db.getCourseByIndex(indexNo);
 		if (c != null) {
 			Index index = c.getIndex(indexNo);
 
@@ -227,8 +226,8 @@ public class StudentMenu {
 		int indexTo = Integer.valueOf(scanner.nextLine());
 
 		// Step3: Double check that the index from and to belongs to the same course
-		Course fromCourse = db.getCourseIndex(indexFrom);
-		Course toCourse = db.getCourseIndex(indexTo);
+		Course fromCourse = db.getCourseByIndex(indexFrom);
+		Course toCourse = db.getCourseByIndex(indexTo);
 
 		if (fromCourse == null || toCourse == null || !fromCourse.getCourseCode().equals(toCourse.getCourseCode())) {
 			System.out.println("Indexes are not from the same course");
@@ -340,8 +339,8 @@ public class StudentMenu {
 		
 		
 		// Step4: Check indexes are from the same course
-		Course fromCourse = db.getCourseIndex(indexFrom);
-		Course toCourse = db.getCourseIndex(indexTo);
+		Course fromCourse = db.getCourseByIndex(indexFrom);
+		Course toCourse = db.getCourseByIndex(indexTo);
 
 		if (fromCourse == null || toCourse == null || !fromCourse.getCourseCode().equals(toCourse.getCourseCode())) {
 			System.out.println("Indexes are not from the same course");

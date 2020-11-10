@@ -156,7 +156,7 @@ public class StarsDB {
 	}
 
 
-	public Course getCourseIndex(int indexNo) {
+	public Course getCourseByIndex(int indexNo) {
 		for (int i = 0; i < courses.size(); i++) {
 			if (courses.get(i).containsIndexNo(indexNo))
 				return courses.get(i);
