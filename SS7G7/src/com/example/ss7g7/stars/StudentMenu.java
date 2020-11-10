@@ -83,7 +83,14 @@ public class StudentMenu {
 		}
 
 		// Step2: Check if will clash with other courses
-		// TODO: Check clash
+		Index index = courseToAdd.getIndex(indexToAdd);
+		
+		boolean willClash = student.willNewCourseClashTimetable(courseToAdd, index);
+		if(willClash)
+		{
+			System.out.println("Cannot add course as it clashes with timetable");
+			return;
+		}
 
 		// Step3: If step 1 and 2 pass, confirm to add the new course.
 
@@ -102,7 +109,6 @@ public class StudentMenu {
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				Index index = courseToAdd.getIndex(indexToAdd);
 				index.assignStudent(student);
 				
 				db.updateStudentRecords(student);
@@ -243,6 +249,11 @@ public class StudentMenu {
 		}
 		
 		// Step4: Check if new index has a clash.
+		boolean willClash = student.willNewCourseClashTimetable(toCourse, toIndex);
+		if(willClash) {
+			System.out.println("Cannot add course as it clashes with timetable");
+			return;
+		}
 
 		// Step5: Double confirm
 		boolean run = true;
@@ -357,10 +368,17 @@ public class StudentMenu {
 			System.out.println("Index is not found in the database");
 			return;
 		}
-			
-		
 		
 		// Step5: Check if new index has a clash.
+		
+		// Course does not matter as we are swapping index only. 
+		boolean willClash = student.willNewCourseClashTimetable(fromCourse, toIndex);
+		boolean willOtherStudClash = otherStudent.willNewCourseClashTimetable(toCourse, fromIndex);
+		
+		if(willClash || willOtherStudClash) {
+			System.out.println("Cannot swap indexes as new index does not fit in timetable");
+			return;
+		}
 		
 		// Step6: Print details and double confirm.
 		boolean run = true;
