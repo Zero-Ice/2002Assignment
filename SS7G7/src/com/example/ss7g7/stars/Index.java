@@ -1,5 +1,7 @@
 package com.example.ss7g7.stars;
 import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 import com.example.ss7g7.stars.User.UserType;
 
@@ -16,17 +18,17 @@ public class Index implements Serializable{
 	private String tutVenue;
 	private String tutGroup;
 	private String tutRemark;
-	private String tutDay;
 	private String labVenue;
-	private String labDay;
 	private String labGroup;
 	
 	
 	private String labRemark;
-	private Date tutStartTime;
-	private Date tutEndTime;
-	private Date labStartTime;
-	private Date labEndTime;
+	private LocalDateTime tutStartTime;
+	private LocalDateTime tutEndTime;
+	private int tutOccurring;
+	private LocalDateTime labStartTime;
+	private LocalDateTime labEndTime;
+	private int labOccurring;
 	private boolean indexFull;
 	//TODO: waitlist for students
 	
@@ -34,13 +36,11 @@ public class Index implements Serializable{
 		this.indexNum=index_Num;
 		this.courseCode = courseCode;
 		this.numSeats=num_Seat;
-		this.tutStartTime = new Date();
-		this.tutEndTime = new Date();
-		this.labStartTime = new Date();
-		this.labEndTime = new Date();
 		this.indexFull = false;
 		this.seatVacancy = new ArrayList<String>();
 		this.studentWaitlist = new ArrayList<String>();
+		tutOccurring = 0;
+		labOccurring = 0;
 		
 		//initialize all to vacant
 		for(int i =0;i<numSeats;i++) {
@@ -181,19 +181,18 @@ public class Index implements Serializable{
 		
 		String time = tutStart + " - " + tutEnd;
 		
-		String tutDetails = "Tut "+ "\t"+ tutGroup + "\t" + tutDay + "\t" + time + "\t" + tutVenue+ "\t"+ tutRemark;
+		String tutDetails = "Tut "+ "\t"+ tutGroup + "\t" + tutStartTime.getDayOfWeek() + "\t" + time + "\t" + tutVenue+ "\t"+ tutRemark;
 		
 		System.out.println(tutDetails);
 	}
 
 	
 	public void setTutDetails(int intDay, int startHours, int startMinutes,int endHours,
-			int endMinutes,String tutVenue, String tutRemarks, String tutGroup) {
-		tutStartTime.setHours(startHours);
-		tutStartTime.setMinutes(startMinutes);
-		tutEndTime.setHours(endHours);
-		tutEndTime.setMinutes(startMinutes);
-		tutDay = setDay(intDay);
+			int endMinutes,String tutVenue, String tutRemarks, String tutGroup, int occurring) {
+		tutStartTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
+		tutEndTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		tutOccurring = occurring;
+		
 		updateTutVenue(tutVenue);
 		updateTutRemark(tutRemarks);
 		updateTutGroup(tutGroup);
@@ -215,36 +214,22 @@ public class Index implements Serializable{
 		String labEnd =formatter.format(labEndTime);
 		
 		String time = labStart + " - " + labEnd;
-		String labDetails = "Lab \t" + labGroup+ "\t" +labDay + "\t" + time + "\t" + labVenue+ "\t" +labRemark;
+		String labDetails = "Lab \t" + labGroup+ "\t" +labStartTime.getDayOfWeek() + "\t" + time + "\t" + labVenue+ "\t" +labRemark;
 		
 		System.out.println(labDetails);
 	}
 
 	public void setLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
-			String labVenue,String labRemarks, String labGroup) {
-		labStartTime.setHours(startHours);
-		labStartTime.setMinutes(startMinutes);
-		labEndTime.setHours(endHours);
-		labEndTime.setMinutes(startMinutes);
-		labDay = setDay(intDay);
+			String labVenue,String labRemarks, String labGroup, int occurring) {
+		
+		labStartTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
+		labEndTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		labOccurring = occurring;
+		
 		updateLabVenue(labVenue);
 		updateLabRemark(labRemarks);
 		updateLabGroup(labGroup);
 	}
-	
-	
-	private String setDay(int intDay) {
-		switch(intDay) {
-		case 1: return "Monday";
-		case 2: return "Tuesday";
-		case 3: return "Wednesday";
-		case 4: return "Thursday";
-		case 5: return "Friday";
-		}
-		
-		return null;
-	}
-
 
 	public String getTutRemark() {
 		return tutRemark;
