@@ -160,6 +160,7 @@ public class StudentMenu {
 			if (choice == 1) {
 				
 				Index index = c.getIndex(indexToDrop);
+				student.dropCourse(index.getIndexNum());
 				
 				db.updateCourseRecords(c);
 				db.updateStudentRecords(index.unassignStudent(student));
