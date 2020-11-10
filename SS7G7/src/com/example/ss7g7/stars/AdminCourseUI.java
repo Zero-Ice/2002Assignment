@@ -461,6 +461,8 @@ public class AdminCourseUI {
 		 int startMinutes= 0;
 		 int endHours= 0;
 		 int endMinutes= 0;
+		 int tutOccurring = 3;
+		 int labOccurring = 3;
 		 boolean check = false;
 			 
 		System.out.println("Press any key to continue");
@@ -514,8 +516,10 @@ public class AdminCourseUI {
 		tutRemarks = sc.nextLine();
 		System.out.print("Enter the tutorial group number:"); 
 		tutGroup = sc.nextLine();
+		System.out.print("Enter the occurring week for tutorial\n(1)Even, (2)Odd, (3)Every");
+		tutOccurring = sc.nextInt();
 		tempCourse.getIndex(indexNum).setTutDetails(intDay, startHours, startMinutes, 
-				endHours, endMinutes, tutVenue, tutRemarks, tutGroup);
+				endHours, endMinutes, tutVenue, tutRemarks, tutGroup, tutOccurring);
 		
 		System.out.print(""); 
 		//create new lab lesson
@@ -536,9 +540,11 @@ public class AdminCourseUI {
 		labRemarks = sc.nextLine();
 		System.out.print("Enter the lab group number:"); 
 		labGroup = sc.nextLine();
+		System.out.print("Enter the occurring week for tutorial\n(1)Even, (2)Odd, (3)Every");
+		labOccurring = sc.nextInt();
 						
 		tempCourse.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
-				labVenue, labRemarks, labGroup);
+				labVenue, labRemarks, labGroup, labOccurring);
 		
 		database.updateCourseRecords(tempCourse);
 		
