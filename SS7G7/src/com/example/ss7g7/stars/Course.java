@@ -1,7 +1,9 @@
 package com.example.ss7g7.stars;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,9 +17,8 @@ public class Course implements Serializable{
 	private String lecRemark;
 	private String lecGroup;
 	private int AU;
-	private LocalTime lecStartTime;
-	private LocalTime lecEndTime;
-	private String lecDay;
+	private LocalDateTime lecStartTime;
+	private LocalDateTime lecEndTime;
 	private ArrayList<Index> indexes; // array of indexes
 	private boolean courseAvailability;
 
@@ -98,36 +99,36 @@ public class Course implements Serializable{
 	}
 	
 	//TODO: Check lec Clash
-	public void checkLecClash(Student student, Course courseStudentApplying) {
-		ArrayList<RegisteredCourse> studentRegCourse=student.getCourses();
-		
-		ArrayList<Course> allCourses = StarsDB.getInstance().getAllCourse();
-	
-		for(int i =0; i<allCourses.size();i++ ) {
-			for(int j =0; j<studentRegCourse.size();j++ ) {
-				if(allCourses.get(i).getCourseCode()==studentRegCourse.get(j).getCourseCode()) {
-					
-//					System.out.println(courseStudentApplying.getLecStartTime().isAfter(allCourses.get(i).getLecEndTime()));
-//					System.out.println(courseStudentApplying.getLecEndTime().isBefore(allCourses.get(i).getLecStartTime()));
-					
-					//Time same as the lec from another course
-					if(allCourses.get(i).getLecDay()==courseStudentApplying.getLecDay() &&
-							allCourses.get(i).getLecStartTime().compareTo(courseStudentApplying.getLecStartTime())==0 &&
-							allCourses.get(i).getLecEndTime().compareTo(courseStudentApplying.getLecEndTime())==0) 
-					{
-						System.out.println("wont be able"); //return true;
-					}else if(courseStudentApplying.getLecStartTime().isAfter(allCourses.get(i).getLecEndTime())==false || 
-							courseStudentApplying.getLecEndTime().isBefore(allCourses.get(i).getLecStartTime())==false) 
-					{
-						System.out.println("wont be able"); //return true;
-					}
-				}
-			}
-		}
-		
-		//return false;
-		
-	}
+//	public void checkLecClash(Student student, Course courseStudentApplying) {
+//		ArrayList<RegisteredCourse> studentRegCourse=student.getCourses();
+//		
+//		ArrayList<Course> allCourses = StarsDB.getInstance().getAllCourse();
+//	
+//		for(int i =0; i<allCourses.size();i++ ) {
+//			for(int j =0; j<studentRegCourse.size();j++ ) {
+//				if(allCourses.get(i).getCourseCode()==studentRegCourse.get(j).getCourseCode()) {
+//					
+////					System.out.println(courseStudentApplying.getLecStartTime().isAfter(allCourses.get(i).getLecEndTime()));
+////					System.out.println(courseStudentApplying.getLecEndTime().isBefore(allCourses.get(i).getLecStartTime()));
+//					
+//					//Time same as the lec from another course
+//					if(allCourses.get(i).getLecDay()==courseStudentApplying.getLecDay() &&
+//							allCourses.get(i).getLecStartTime().compareTo(courseStudentApplying.getLecStartTime())==0 &&
+//							allCourses.get(i).getLecEndTime().compareTo(courseStudentApplying.getLecEndTime())==0) 
+//					{
+//						System.out.println("wont be able"); //return true;
+//					}else if(courseStudentApplying.getLecStartTime().isAfter(allCourses.get(i).getLecEndTime())==false || 
+//							courseStudentApplying.getLecEndTime().isBefore(allCourses.get(i).getLecStartTime())==false) 
+//					{
+//						System.out.println("wont be able"); //return true;
+//					}
+//				}
+//			}
+//		}
+//		
+//		//return false;
+//		
+//	}
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
 	public void assignStudent(int index, Student student) {
@@ -202,26 +203,12 @@ public class Course implements Serializable{
 		
 	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String lecVenue,String lecRemarks, String lecGroup) {
-		updateLecStartTime(lecStartTime.of(startHours, startMinutes));
-		updateLecEndTime(lecEndTime.of(endHours, endMinutes));
-		lecDay = setDay(intDay);
+		updateLecStartTime(lecStartTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes));
+		updateLecEndTime(lecEndTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes));
 		updateLecVenue(lecVenue);
 		updateLecGroup(lecGroup);
 		updateLecRemark(lecRemarks);
 	}
-	
-	private String setDay(int intDay) {
-		switch(intDay) {
-		case 1: return "Monday";
-		case 2: return "Tuesday";
-		case 3: return "Wednesday";
-		case 4: return "Thursday";
-		case 5: return "Friday";
-		}
-		
-		return null;
-	}
-	
 	
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -279,7 +266,7 @@ public class Course implements Serializable{
 		
 		String time = lecStart + " - " + lecEnd;
 
-		String lecDetails = "Lec "+ "\t"+ lecGroup + "\t" + lecDay + "\t" + time + "\t" + lecVenue+ "\t"+ lecRemark;
+		String lecDetails = "Lec "+ "\t"+ lecGroup + "\t" + lecStartTime.getDayOfWeek() + "\t" + time + "\t" + lecVenue+ "\t"+ lecRemark;
 		
 		System.out.println(lecDetails);
 	}
@@ -287,11 +274,6 @@ public class Course implements Serializable{
 	public int getAU() {
 		return AU;
 	}
-
-	public String getLecDay() {
-		return lecDay;
-	}
-	
 
 	public String getLecRemark() {
 		return lecRemark;
@@ -309,19 +291,19 @@ public class Course implements Serializable{
 		this.lecGroup = lecGroup;
 	}
 
-	public LocalTime getLecStartTime() {
+	public LocalDateTime getLecStartTime() {
 		return lecStartTime;
 	}
 
-	public void updateLecStartTime(LocalTime lecStartTime) {
+	public void updateLecStartTime(LocalDateTime lecStartTime) {
 		this.lecStartTime = lecStartTime;
 	}
 
-	public LocalTime getLecEndTime() {
+	public LocalDateTime getLecEndTime() {
 		return lecEndTime;
 	}
 
-	public void updateLecEndTime(LocalTime lecEndTime) {
+	public void updateLecEndTime(LocalDateTime lecEndTime) {
 		this.lecEndTime = lecEndTime;
 	}
 
