@@ -13,6 +13,11 @@ public class StarsUtil {
 	
 	public static boolean timingWillClash(LocalDateTime startTime, LocalDateTime endTime, int occuringWeek, LocalDateTime otherStartTime, LocalDateTime otherEndTime, int otherOccurringWeek)
 	{
+		if(startTime == null || endTime == null || otherStartTime == null || otherEndTime == null) {
+//			System.out.println("Unable to check Null timing");
+			return false;
+		}
+		
 		// If neither is weekly, check if same odd/even
 		if(occuringWeek != 3 && otherOccurringWeek != 3)
 		{
