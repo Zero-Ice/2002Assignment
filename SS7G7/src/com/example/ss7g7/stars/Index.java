@@ -18,7 +18,7 @@ public class Index implements Serializable{
 	private String courseCode;
 	private int numSeats;
 	private ArrayList<String> seatVacancy; 
-	private ArrayList<String> studentWaitlist;
+	private ArrayList<Student> studentWaitlist;
 	private String tutVenue;
 	private String tutGroup;
 	private String tutRemark;
@@ -34,7 +34,7 @@ public class Index implements Serializable{
 	private LocalDateTime labEndTime;
 	private int labOccurring;
 	private boolean indexFull;
-	//TODO: waitlist for students
+
 	
 	public Index(int index_Num, String courseCode, int num_Seat) {
 		this.indexNum=index_Num;
@@ -42,7 +42,7 @@ public class Index implements Serializable{
 		this.numSeats=num_Seat;
 		this.indexFull = false;
 		this.seatVacancy = new ArrayList<String>();
-		this.studentWaitlist = new ArrayList<String>();
+		this.studentWaitlist = new ArrayList<Student>();
 		tutOccurring = 0;
 		labOccurring = 0;
 		tutStartTime = null;
@@ -65,7 +65,7 @@ public class Index implements Serializable{
 		}
 	}
 	
-	// TODO: Waitlist of students
+
 	public void assignStudent(Student student) {
 		String matricNo = student.getMatricNo();
 		
@@ -86,16 +86,21 @@ public class Index implements Serializable{
 		}
 		indexFull=true;
 		System.out.println("Index Full!");
-		addStudentToWaitlist(matricNo);
+		addStudentToWaitlist(student);
 		
 	}
 	
-	public void addStudentToWaitlist(String matricNo) {
-		if(studentWaitlist.contains(matricNo)) {
+	public void addStudentToWaitlist(Student student) {
+		String matricNo = student.getMatricNo();
 
-		}else {
-			studentWaitlist.add(matricNo);
+		for(int i =0;i<studentWaitlist.size();i++) {
+			if(studentWaitlist.get(i).getMatricNo()==matricNo) {
+				System.out.println("Student already in waitlist");
+				return;
+			}
 		}
+		studentWaitlist.add(student);
+		
 	}
 	
 	public Student unassignStudent(Student student) {
@@ -120,15 +125,16 @@ public class Index implements Serializable{
 	//TODO
 	public void addFromWaitlistToIndex() {
 		
+
 	}
 	
 	
 	public void showStudentWaitlist() {
 		if(studentWaitlist.size()==0) {
-			System.out.println("no student");
+			System.out.println("no student in waitlist");
 		}else {
 			for(int i=0;i<studentWaitlist.size();i++) {
-				System.out.println(studentWaitlist.get(i));
+				System.out.println(studentWaitlist.get(i).getMatricNo());
 			}
 		}
 	}
