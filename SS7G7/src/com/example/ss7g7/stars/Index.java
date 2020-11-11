@@ -112,11 +112,11 @@ public class Index implements Serializable{
 					seatVacancy.set(i, "vacant");
 					student.dropCourse(this.indexNum);	
 					System.out.println(matricNo+ " unassigned from index " +indexNum);
-					if(indexFull==true) {
-						indexFull=false;
-						addFromWaitlistToIndex();
-					}
-					
+//					if(indexFull==true) {
+//						indexFull=false;
+//						addFromWaitlistToIndex();
+//					}
+//					
 				}
 			}
 		}else 
