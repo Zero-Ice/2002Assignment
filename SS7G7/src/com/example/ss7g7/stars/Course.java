@@ -102,37 +102,7 @@ public class Course implements Serializable{
 		return false;
 	}
 	
-	//TODO: Check lec Clash
-//	public void checkLecClash(Student student, Course courseStudentApplying) {
-//		ArrayList<RegisteredCourse> studentRegCourse=student.getCourses();
-//		
-//		ArrayList<Course> allCourses = StarsDB.getInstance().getAllCourse();
-//	
-//		for(int i =0; i<allCourses.size();i++ ) {
-//			for(int j =0; j<studentRegCourse.size();j++ ) {
-//				if(allCourses.get(i).getCourseCode()==studentRegCourse.get(j).getCourseCode()) {
-//					
-////					System.out.println(courseStudentApplying.getLecStartTime().isAfter(allCourses.get(i).getLecEndTime()));
-////					System.out.println(courseStudentApplying.getLecEndTime().isBefore(allCourses.get(i).getLecStartTime()));
-//					
-//					//Time same as the lec from another course
-//					if(allCourses.get(i).getLecDay()==courseStudentApplying.getLecDay() &&
-//							allCourses.get(i).getLecStartTime().compareTo(courseStudentApplying.getLecStartTime())==0 &&
-//							allCourses.get(i).getLecEndTime().compareTo(courseStudentApplying.getLecEndTime())==0) 
-//					{
-//						System.out.println("wont be able"); //return true;
-//					}else if(courseStudentApplying.getLecStartTime().isAfter(allCourses.get(i).getLecEndTime())==false || 
-//							courseStudentApplying.getLecEndTime().isBefore(allCourses.get(i).getLecStartTime())==false) 
-//					{
-//						System.out.println("wont be able"); //return true;
-//					}
-//				}
-//			}
-//		}
-//		
-//		//return false;
-//		
-//	}
+
 	
 //////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
 	public void assignStudent(int index, Student student) {
