@@ -3,6 +3,10 @@ package com.example.ss7g7.stars;
 import java.io.Serializable;
 
 public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4659485486899989487L;
 	protected String username;
 	protected String password;
 	
