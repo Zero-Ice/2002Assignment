@@ -98,11 +98,11 @@ public class FileIO {
 	
 	public void setLoginCredentials(String username, String cipherPass, String clearPass) {
 		
-		//To save credentials in logincred.txt with pass in hash
+		//To save credentials in loginCred.ser with pass in hash
 		FileOutputStream fs = null;
 		ObjectOutputStream os = null;
 		
-		//For our convenience to track login details in clear text
+		//For our convenience to track login details in clear text in README.txt
 		FileOutputStream fs1 = null;
 		ObjectOutputStream os1 = null;
 		
