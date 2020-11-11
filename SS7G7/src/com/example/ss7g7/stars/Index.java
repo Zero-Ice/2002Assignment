@@ -106,9 +106,12 @@ public class Index implements Serializable{
 			for(int i =0;i<numSeats;i++) {
 				if(seatVacancy.get(i).contains(matricNo)) {
 					seatVacancy.set(i, "vacant");
-					
 					student.dropCourse(this.indexNum);	
 					System.out.println(matricNo+ " unassigned from index " +indexNum);
+					if(indexFull==true) {
+						indexFull=false;
+						addFromWaitlistToIndex();
+					}
 					
 				}
 			}
@@ -118,9 +121,14 @@ public class Index implements Serializable{
 		return student;
 	}
 	
-	//TODO
 	public void addFromWaitlistToIndex() {
-		
+		if(studentWaitlist.size()==0) {
+			System.out.println("no student in waitlist");
+		}
+		else {
+			assignStudent(studentWaitlist.get(0));
+			studentWaitlist.remove(0);
+		}
 
 	}
 	
