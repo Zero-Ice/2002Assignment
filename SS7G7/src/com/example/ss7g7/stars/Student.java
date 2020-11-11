@@ -8,6 +8,10 @@ import java.util.Calendar;
 
 public class Student extends User{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 691574352314613452L;
 	private String name; 
 	private String lastName;
 	private String matricNo;
