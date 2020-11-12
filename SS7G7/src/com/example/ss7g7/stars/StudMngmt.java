@@ -1,7 +1,11 @@
 package com.example.ss7g7.stars;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
 
 
 //This class is used by AdminStudUI to check against the database.
@@ -12,6 +16,10 @@ public class StudMngmt {
 
 	static StarsDB database = StarsDB.getInstance();
 	static ArrayList<Student> studentList = database.getAllStudents(); //retrieve db from StarsDB
+	
+	static Scanner sc = new Scanner(System.in);
+	static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");	
+	
 	
 	//find a student via their matriculation number 
 	public static Student getStudentByMatric(String matricNo){ 
@@ -92,7 +100,36 @@ public class StudMngmt {
 		if (!flag) System.out.println("\nNo record is found!");
 	}
 	
+	
 
+	//check if user input the right access start/end format 
+	public static Calendar getValidDateTime(String mode){
+		
+		String date = "";
+
+	    Date parsedDate = null;
+		boolean validDate = false;		
+		Calendar newDate = Calendar.getInstance();
+		
+		do{
+			System.out.print("Enter " + mode + " (DD/MM/YYYY HH:MM): ");
+			date  = sc.nextLine();
+			dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		    try {
+		    	parsedDate = dateFormat.parse(date);
+		    	 
+		    } catch (ParseException e) {
+		        System.out.println("Input is not in the correct format!");
+		        continue;
+		    }
+		    newDate.setTime(parsedDate);
+
+		    validDate = true;
+
+		} while(!validDate);
+				
+		return newDate;
+	}
 	
 	
 	

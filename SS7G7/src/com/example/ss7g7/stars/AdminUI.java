@@ -18,7 +18,7 @@ public class AdminUI {
 			System.out.println("");
 			System.out.println("1. Student");
 			System.out.println("2. Course");
-			System.out.println("3. Exit");
+			System.out.println("3. Go back to previous page");
 			System.out.println("");
 			System.out.print("Please select one of the options: ");
 			choice = sc.nextInt();
