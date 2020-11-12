@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class RegisteredCourse implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6490197148516823632L;
+	
 	private String courseCode;
 	private int indexNo;
 	

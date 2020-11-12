@@ -14,6 +14,7 @@ public class Index implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -464339125814698090L;
+	
 	private int indexNum;
 	private String courseCode;
 	private int numSeats;

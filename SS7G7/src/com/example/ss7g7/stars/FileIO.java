@@ -501,9 +501,7 @@ public class FileIO {
 	}
 	
 	
-	public void removeCourse() {
-		
-	}
+
 	
 
 }

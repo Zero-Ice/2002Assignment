@@ -19,6 +19,7 @@ public class StarsDB {
 	private ArrayList<Course> courses;
 	
 	private FileIO file = new FileIO();
+	private SendEmail send = new SendEmail();
 
 	private StarsDB() {
 		students = new ArrayList<Student>();
@@ -82,6 +83,9 @@ public class StarsDB {
 				c.printAllIndexes();
 			}
 		}
+		
+		System.out.println("Sending test email..");
+		send.email("teststudent457@gmail.com", "Test", "Test");
 				
 		return true;
 	}
@@ -267,6 +271,9 @@ public class StarsDB {
 		file.setCourseRecord(c1);
 		file.setCourseRecord(c2);
 		file.setCourseRecord(c3);
+		
+		
+		
 
 	}
 	
