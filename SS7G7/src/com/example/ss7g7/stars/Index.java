@@ -35,7 +35,7 @@ public class Index implements Serializable{
 	private LocalDateTime labEndTime;
 	private int labOccurring;
 	private boolean indexFull;
-
+	private SendEmail send;
 	
 	public Index(int index_Num, String courseCode, int num_Seat) {
 		this.indexNum=index_Num;
@@ -44,6 +44,7 @@ public class Index implements Serializable{
 		this.indexFull = false;
 		this.seatVacancy = new ArrayList<String>();
 		this.studentWaitlist = new ArrayList<Student>();
+		this.send = new SendEmail();
 		tutOccurring = 0;
 		labOccurring = 0;
 		tutStartTime = null;
@@ -58,7 +59,7 @@ public class Index implements Serializable{
 	}
 	
 	
-	public boolean indexSeatClash(String matricNo) {
+	public boolean isStudentRegistered(String matricNo) {
 		if(seatVacancy.contains(matricNo)) {
 			return true;
 		}else{
@@ -88,22 +89,23 @@ public class Index implements Serializable{
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
-		
 	}
-	
+
 	public void addStudentToWaitlist(Student student) {
 
 		if(isStudentInWaitlist(student)==false) {
 			student.addCourse(this.courseCode, this.indexNum);
 			studentWaitlist.add(student);
 			System.out.println("Email to be sent to "+ student.getEmail());
+//			send.email(student.getEmail(), Subject, Body);
+			
 		}else {
 			System.out.println("Student already in waitlist");
 		}
 		
 	}
 	
-	public Student unassignStudent(Student student) {
+	public Student unassignStudent(Student student, boolean triggerWaitlistUpdate) {
 		String matricNo = student.getMatricNo();
 		
 		if(seatVacancy.contains(matricNo)) {
@@ -114,7 +116,9 @@ public class Index implements Serializable{
 					System.out.println(matricNo+ " unassigned from index " +indexNum);
 					if(indexFull==true) {
 						indexFull=false;
-						addFromWaitlistToIndex();
+						if(triggerWaitlistUpdate) {
+							addFromWaitlistToIndex();
+						}
 					}
 					
 				}
@@ -130,6 +134,10 @@ public class Index implements Serializable{
 			System.out.println(matricNo+ " was not found in index "+ indexNum);
 		
 		return student;
+	}
+	
+	public Student unassignStudent(Student student) {
+		return unassignStudent(student, true);
 	}
 	
 	public void addFromWaitlistToIndex() {

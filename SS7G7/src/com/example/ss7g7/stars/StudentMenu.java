@@ -290,6 +290,12 @@ public class StudentMenu {
 		// TODO: Check if both index belong to the same course. If same course, swap
 		// index (Remove + Add for both)
 		
+		// Step 0: Check if any registered courses. Cannot swap if no registered
+		if(student.getCourses().size() == 0) {
+			System.out.println("No registered courses.");
+			return;
+		}
+		
 		// Step1: Ask index to swap
 		
 		int indexFrom = 0;
@@ -392,9 +398,12 @@ public class StudentMenu {
 			int choice = Integer.valueOf(scanner.nextLine());
 
 			if (choice == 1) {
-				fromIndex.unassignStudent(student);
-				toIndex.unassignStudent(otherStudent);
+				// Do not trigger waitlist.
+				// An empty vacancy for each index will be the result.
+				fromIndex.unassignStudent(student, false);
+				toIndex.unassignStudent(otherStudent, false);
 				
+				// Assign the students to the empty vacancy from the result earlier
 				fromIndex.assignStudent(otherStudent);
 				toIndex.assignStudent(student);
 				
