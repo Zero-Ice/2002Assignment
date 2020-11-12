@@ -272,6 +272,9 @@ public class AdminCourseUI {
         }
         tempCourse.updateAU(AU);
         
+        database.updateCourseRecords(tempCourse);
+        database.setDBInstance(database);
+        
 		System.out.println("");
 		System.out.print("Course code " + courseCode.toUpperCase() +" has been changed to " + NcourseCode.toUpperCase() + 
 				" , course name changed to " + courseName.toUpperCase() + " and AU value changed to " + AU); 
@@ -312,6 +315,9 @@ public class AdminCourseUI {
 		System.out.println("");
 		tempCourse.updateIndex(indexNum, NindexNum);
 		
+		database.updateCourseRecords(tempCourse);
+        database.setDBInstance(database);
+		
 	}
 	
 	private static void updateLecDetail()
@@ -343,6 +349,8 @@ public class AdminCourseUI {
 		System.out.println("");
 		System.out.print("Course code " + courseCode.toUpperCase() + "'s lecture venue and remark has been updated"); 
 		
+		database.updateCourseRecords(tempCourse);
+        database.setDBInstance(database);
 		
 	}
 	
@@ -389,9 +397,13 @@ public class AdminCourseUI {
 		tempCourse.getIndex(indexNum).updateTutRemark(tutRemark);
 		tempCourse.getIndex(indexNum).updateTutVenue(tutVenue);
 		
+		database.updateCourseRecords(tempCourse);
+        database.setDBInstance(database);
+		
 		System.out.println("");
 		System.out.print("Index number " + indexNum + "'s tutorial venue, group number and remark has been updated"); 
 		System.out.println("");
+		
 	}
 	
 	private static void updateLabDetail()
@@ -436,6 +448,9 @@ public class AdminCourseUI {
 		tempCourse.getIndex(indexNum).updateLabGroup(labGroup);
 		tempCourse.getIndex(indexNum).updateLabRemark(labRemark);
 		tempCourse.getIndex(indexNum).updateLabVenue(labVenue);
+		
+		database.updateCourseRecords(tempCourse);
+        database.setDBInstance(database);
 		
 		System.out.println("");
 		System.out.print("Index Number " + indexNum + "'s lab venue, group number and remark has been updated"); 
@@ -601,6 +616,7 @@ public class AdminCourseUI {
 				labVenue, labRemarks, labGroup, labOccurring);
 		
 		database.updateCourseRecords(tempCourse);
+        database.setDBInstance(database);
 		
 		System.out.println("");  
 		System.out.println("Index Number " +indexNum + "'s lab and tutorial details has been added.");
@@ -638,6 +654,9 @@ public class AdminCourseUI {
 		
 		System.out.println(""); 
 		tempCourse.removeIndex(indexNum);
+		
+		database.updateCourseRecords(tempCourse);
+        database.setDBInstance(database);
 		
 	}
 
