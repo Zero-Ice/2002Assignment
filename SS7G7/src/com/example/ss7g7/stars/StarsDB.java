@@ -182,6 +182,7 @@ public class StarsDB {
 	{
 		for(Course c : courses)
 		{
+			//System.out.println(c.getCourseCode()+courseCode+"COMPARE");
 			if(c.getCourseCode().equals(courseCode)) 
 			{return true;}
 		}
@@ -214,13 +215,14 @@ public class StarsDB {
 	// add new course into db
 	public void addCourse(String courseCode, String courseName, String SchooName, int aU) {
 		Course newCourse = new Course(courseCode, courseName,SchooName, aU);
-		file.setCourseRecord(newCourse);
+		courses = file.setCourseRecord(newCourse);
 		
 	}
 	
 	
 	public void removeCourse(String courseCode) { //remove coursecode from db 
 		
+		System.out.println(courseCode);
 		if (isExistingCourseCode(courseCode)){
 			Course course = getCourse(courseCode);
 
