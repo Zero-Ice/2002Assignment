@@ -85,7 +85,7 @@ public class StarsDB {
 		}
 		
 		System.out.println("Sending test email..");
-		send.email("teststudent457@gmail.com", "Test", "Test");
+//		send.email("teststudent457@gmail.com", "Test", "Test");
 				
 		return true;
 	}
