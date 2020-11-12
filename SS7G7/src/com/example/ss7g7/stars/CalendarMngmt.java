@@ -3,7 +3,7 @@ package com.example.ss7g7.stars;
 import java.text.*;
 import java.util.*;
 
-
+//can be deleted
 //this class is used by AdminStudUI to check
 
 

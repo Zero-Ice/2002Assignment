@@ -3,6 +3,7 @@ package com.example.ss7g7.stars;
 import java.util.ArrayList;
 import java.util.List;
 
+//can be deleted
 
 public class AdminCourseMngmt {
 	

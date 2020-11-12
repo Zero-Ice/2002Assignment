@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 public class AdminStudUI {
 	
-	static StarsDB database = StarsDB.getInstance();
+	private static StarsDB database = StarsDB.getInstance(); 
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
@@ -24,7 +24,7 @@ public class AdminStudUI {
 			System.out.println("3. Remove a student");
 			System.out.println("4. Print student list by index number");
 			System.out.println("5. Print student list by course name");
-			System.out.println("6. Exit");
+			System.out.println("6. Go back to previous page");
 			System.out.println("");
 			System.out.print("Please select one of the options: ");
 			choice = sc.nextInt();
@@ -60,8 +60,8 @@ public class AdminStudUI {
 		
 	}
 
-
-	private static void editStudentAccess() {
+	// Function to change a student access timing
+	private static void editStudentAccess() { 
 		
 		StudMngmt.printStudentList(); //show result from db 
 		
@@ -72,7 +72,7 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter student's matriculation number: ");
+			System.out.print("Enter student's matriculation number: "); //check if such matNum exists
 			matNum = sc.nextLine();
 			check = StudMngmt.isExistingMatNum(matNum);
 			if(check){
@@ -80,8 +80,8 @@ public class AdminStudUI {
 			}
 		} while (check);
 
-		Calendar newAccessStart = CalendarMngmt.getValidDateTime("new start access time");
-		Calendar newAccessEnd = CalendarMngmt.getValidDateTime("new end access time");
+		Calendar newAccessStart = StudMngmt.getValidDateTime("new start access time");
+		Calendar newAccessEnd = StudMngmt.getValidDateTime("new end access time");
 		StudMngmt.updateAccessPeriod(matNum, newAccessStart, newAccessEnd);
 		System.out.println("");
 		System.out.println("Access time has been updated successfully!");
@@ -147,8 +147,8 @@ public class AdminStudUI {
         System.out.print("Enter student's Email Address: ");
         email = sc.nextLine();
         
-        Calendar accessStart = CalendarMngmt.getValidDateTime("access start");
-        Calendar accessEnd = CalendarMngmt.getValidDateTime("access end");
+        Calendar accessStart = StudMngmt.getValidDateTime("access start");
+        Calendar accessEnd = StudMngmt.getValidDateTime("access end");
         
 		/*
 		 * For config of credentials, please ignore
@@ -168,7 +168,7 @@ public class AdminStudUI {
 	}
 	
 	//Function to remove a new student to database
-	private static void removeStudent() { //remove student from student db
+	private static void removeStudent() { 
 		
     	Boolean check = false;
 		String matricNo = "";
@@ -182,7 +182,7 @@ public class AdminStudUI {
 		sc.nextLine();
 		
 		do {
-			System.out.print("Enter student's matriculation number: "); //check if such matricNo exists
+			System.out.print("Enter student's matriculation number: "); //check if such matNum exists
 			matricNo = sc.nextLine();
 			check = StudMngmt.isExistingMatNum(matricNo);
 			if (check){
@@ -194,8 +194,8 @@ public class AdminStudUI {
 		System.out.println("Student with matriculation number of " + matricNo + " has been removed.");
 	}
 
-
-	private static void printStudListByIndex() { //show studentlist when user type in a course code and index number
+	//Function to show student list with course code and index number
+	private static void printStudListByIndex() { 
 
 		boolean check = false;
 		String courseCode  = "";
@@ -206,7 +206,7 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -215,7 +215,7 @@ public class AdminStudUI {
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
 		do {
-			System.out.print("Enter the index number: "); 
+			System.out.print("Enter the index number: ");  //check if such index number exists 
 			indexNum = sc.nextInt();
 			check = !(tempCourse.containsIndexNo(indexNum));
 			if(check)
@@ -227,8 +227,8 @@ public class AdminStudUI {
 		tempCourse.getIndex(indexNum).printStudentListByIndex();
 	}
 	
-	
-	private static void printStudListByCourse() { //show studentlist when user type in a course code
+	//Function to show student list with course code
+	private static void printStudListByCourse() { 
 		
 		boolean check = false;
 		String courseCode  = "";
@@ -237,13 +237,14 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code not found in database.");}
 		} while (check);
-		Course tempCourse = database.getCourse(courseCode.toUpperCase());
+		
+		Course tempCourse = database.getCourse(courseCode.toUpperCase()); 
 		tempCourse.printStudentListByCourse();
 	
 		
