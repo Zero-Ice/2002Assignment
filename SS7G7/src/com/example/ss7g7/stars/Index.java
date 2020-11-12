@@ -100,6 +100,7 @@ public class Index implements Serializable{
 			}
 		}
 		studentWaitlist.add(student);
+		System.out.println("Email to be sent to "+ student.getEmail());
 		
 	}
 	
