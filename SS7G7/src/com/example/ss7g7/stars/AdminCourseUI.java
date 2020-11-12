@@ -276,16 +276,13 @@ public class AdminCourseUI {
 			tempCourse.updateCourseName(courseName.toUpperCase());
 			tempCourse.updateAU(AU);
 			database.updateCourseRecords(tempCourse);
-			database.setDBInstance(database);
-			
         }
         else {
         	database.removeCourse(courseCode);
         	database.addCourse(NcourseCode, courseName.toUpperCase(), tempCourse.getSchooName(), AU);
-        	database.setDBInstance(database);
-    		
         }
-       
+        
+    	database.setDBInstance(database);       
         
 		System.out.println("");
 		System.out.print("Course code " + courseCode.toUpperCase() +" has been changed to " + NcourseCode.toUpperCase() + 
