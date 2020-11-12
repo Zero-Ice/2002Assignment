@@ -8,7 +8,6 @@ import java.util.Calendar;
 public class AdminStudUI {
 	
 	private static StarsDB database = StarsDB.getInstance(); 
-	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	

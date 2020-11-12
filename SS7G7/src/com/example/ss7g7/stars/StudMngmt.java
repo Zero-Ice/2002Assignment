@@ -100,8 +100,6 @@ public class StudMngmt {
 		if (!flag) System.out.println("\nNo record is found!");
 	}
 	
-	
-
 	//check if user input the right access start/end format 
 	public static Calendar getValidDateTime(String mode){
 		
@@ -130,8 +128,4 @@ public class StudMngmt {
 				
 		return newDate;
 	}
-	
-	
-	
-
 }

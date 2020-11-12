@@ -1,4 +1,5 @@
 package com.example.ss7g7.stars;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AdminCourseUI {
@@ -112,19 +113,73 @@ public class AdminCourseUI {
         	}
         }
         
-		System.out.print("Enter the lecture day(1 for monday, 2 for tuesday...):"); 
-		intDay = sc.nextInt();
-		System.out.print("Enter the lecture starting time(hours)(XX:00):"); 
-		startHours = sc.nextInt();
-		System.out.print("Enter the lecture starting (minutes)(00:XX):"); 
-		startMinutes = sc.nextInt();
-		System.out.print("Enter the lecture ending time(hours)(XX:00):"); 
-		endHours = sc.nextInt();
-		System.out.print("Enter the lecture ending time(minutes)(00:XX):"); 
-		endMinutes = sc.nextInt();
+        while(true) { //Check if user input numerical values for below inputs
+            try { //try/catch if user input string input
+        		while (true){ //loop if user input out of range value
+        			System.out.print("Enter the lecture day(1 for monday, 2 for tuesday...):"); 
+        			intDay = sc.nextInt();
+        			if(intDay > 5 || intDay == 0)
+        				{System.out.println("input value cant be 0 or higher than 5, please try again"); }
+        			else
+        				{break;}	
+        			}
+        			while(true) //loop to check if starting time is higher than ending time
+        			{		
+        				while(true){//loop if user input out of range value
+        					System.out.print("Enter the lecture starting time(hours)(XX:00):"); 
+        					startHours = sc.nextInt();
+        						if(startHours < 8 || startHours > 24){
+        							System.out.println("input value cant be lower than 8 or higher than 24, please try again"); 
+        						}
+        						else
+        						{break;}
+        						}
+        				while(true){//loop if user input out of range value
+        					System.out.print("Enter the lecture starting (minutes)(00:XX):");
+        					startMinutes = sc.nextInt();
+        						if(startMinutes >60){
+        							System.out.println("input value cant be higher than 60, please try again"); 
+        						}
+        						else
+        						{break;}
+        						} 
+        				while(true){//loop if user input out of range value
+        					System.out.print("Enter the lecture ending time(hours)(XX:00):"); 
+        					endHours = sc.nextInt();
+        						if(endHours <8 || endHours >24)
+        						{
+        							System.out.println("input value cant be lower than 8 or higher than 24, please try again"); 
+        						}
+        						else
+        						{break;}
+        						}	
+        				while(true){//loop if user input out of range value
+        					System.out.print("Enter the lecture ending time(minutes)(00:XX):"); 
+        					endMinutes = sc.nextInt();
+        						if(endMinutes >60)
+        						{
+        							System.out.println("input value cant be higher than 60, please try again"); 
+        						}
+        						else
+        						{break;}
+        						}
+        				if(startHours > endHours){
+        					System.out.println("lecture starting time cant be later than its ending time, please try again");
+        				}
+        				else
+        				{break;}
+        				}
+    		break;
+            }
+    		catch (InputMismatchException e) {
+    			System.out.println("Please enter numerical value only"); //when user input incorrect value
+    			sc.next();
+    		}
+        	
+        }
+		sc.nextLine();
 		System.out.print("Enter the lecture venue:"); 
 		lecVenue = sc.nextLine();
-		sc.nextLine();
 		System.out.print("Enter the lecture remark:"); 
 		lecRemarks = sc.nextLine();
 		System.out.print("Enter the lecture group number:"); 
@@ -206,7 +261,6 @@ public class AdminCourseUI {
 						case 4: 
 							//Update tutorial detail
 							updateTutDetail();
-	
 							break;
 						case 5: 
 							//Update lab detail
@@ -226,7 +280,7 @@ public class AdminCourseUI {
 				}
 		
 	}
-	
+	//Function to update course detail
 	private static void updateCourseDetail() 
 	{
 		String courseCode = "";
@@ -239,7 +293,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code you want to update: "); //check if such username exists 
+			System.out.print("Enter the course code you want to update: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -290,7 +344,7 @@ public class AdminCourseUI {
 		System.out.println("");
 		
 	}
-	
+	//Function to update index detail
 	private static void updateIndexDetail()
 	{
 		String courseCode = "";
@@ -301,7 +355,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course name exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -328,7 +382,7 @@ public class AdminCourseUI {
         database.setDBInstance(database);
 		
 	}
-	
+	//Function to update lecture detail via course code
 	private static void updateLecDetail()
 	{
 		boolean check = false;
@@ -340,7 +394,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -362,7 +416,7 @@ public class AdminCourseUI {
         database.setDBInstance(database);
 		
 	}
-	
+	//Function to update tutorial detail via course code and index number 
 	private static void updateTutDetail()
 	{
 		
@@ -377,7 +431,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -415,6 +469,7 @@ public class AdminCourseUI {
 		
 	}
 	
+	//Function to update lab detail via course code and index number 
 	private static void updateLabDetail()
 	{
 		boolean check = false;
@@ -428,7 +483,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such username exists 
+			System.out.print("Enter the course code: "); //check if such course code exists 
 			courseCode = sc.nextLine();
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
@@ -468,8 +523,8 @@ public class AdminCourseUI {
 	}
 	
 
-
-	private static void addNewIndex() {// add new index to db
+	//Function to add new index via course code to database 
+	private static void addNewIndex() {
 		
 		 int indexNum =0;
 		 int vacancy = 0;
@@ -523,16 +578,75 @@ public class AdminCourseUI {
 		System.out.print(""); 
 		System.out.print(""); 
 		//create new tutorial lesson
+		
+		while (true) { //loop if user input string input instead of int
+		try {	//try/catch if user input string input
+			
+		while (true){ //loop if user input out of range value
 		System.out.print("Enter the tutorial day(1 for monday, 2 for tuesday...):"); 
 		intDay = sc.nextInt();
-		System.out.print("Enter the tutorial starting time(hours)(XX:00):"); 
-		startHours = sc.nextInt();
-		System.out.print("Enter the tutorial starting (minutes)(00:XX):"); 
-		startMinutes = sc.nextInt();
-		System.out.print("Enter the tutorial ending time(hours)(XX:00):"); 
-		endHours = sc.nextInt();
-		System.out.print("Enter the tutorial ending time(minutes)(00:XX):"); 
-		endMinutes = sc.nextInt();
+		if(intDay > 5 || intDay == 0)
+			{System.out.println("input value cant be 0 or higher than 5, please try again"); }
+		else
+			{break;}	
+		}
+		
+		while(true) //loop to check if starting time is higher than ending time
+		{		
+			while(true){//loop if user input out of range value
+				System.out.print("Enter the tutorial starting time(hours)(XX:00):"); 
+				startHours = sc.nextInt();
+					if(startHours < 8 || startHours > 24){
+						System.out.println("input value cant be lower than 8 or higher than 24, please try again"); 
+					}
+					else
+					{break;}
+					}
+			while(true){//loop if user input out of range value
+				System.out.print("Enter the tutorial starting (minutes)(00:XX):");
+				startMinutes = sc.nextInt();
+					if(startMinutes >60){
+						System.out.println("input value cant be higher than 60, please try again"); 
+					}
+					else
+					{break;}
+					} 
+			while(true){//loop if user input out of range value
+				System.out.print("Enter the tutorial ending time(hours)(XX:00):"); 
+				endHours = sc.nextInt();
+					if(endHours <8 || endHours >24)
+					{
+						System.out.println("input value cant be lower than 8 or higher than 24, please try again"); 
+					}
+					else
+					{break;}
+					}	
+			while(true){//loop if user input out of range value
+				System.out.print("Enter the tutorial ending time(minutes)(00:XX):"); 
+				endMinutes = sc.nextInt();
+					if(endMinutes >60)
+					{
+						System.out.println("input value cant be higher than 60, please try again"); 
+					}
+					else
+					{break;}
+					}
+			if(startHours > endHours){
+				System.out.println("tutorial starting time cant be later than its ending time, please try again");
+			}
+			else
+			{break;}
+			}
+		break;
+		}
+		catch(InputMismatchException e)
+		{
+			System.out.println("Please enter numerical value only"); //when user input incorrect value
+    		sc.next();
+
+		}
+		}
+
 		sc.nextLine();
 		System.out.print("Enter the tutorial venue:"); 
 		tutVenue = sc.nextLine();
@@ -540,48 +654,47 @@ public class AdminCourseUI {
 		tutRemarks = sc.nextLine();
 		System.out.print("Enter the tutorial group number:"); 
 		tutGroup = sc.nextLine();
-		System.out.print("Enter the occurring week for tutorial\n(1)Even, (2)Odd, (3)Every");
+		System.out.print("Enter the occurring week for tutorial\n(1)Even, (2)Odd, (3)Every : ");
 		tutOccurring = sc.nextInt();
 		tempCourse.getIndex(indexNum).setTutDetails(intDay, startHours, startMinutes, 
 				endHours, endMinutes, tutVenue, tutRemarks, tutGroup, tutOccurring);
 		
 		System.out.print(""); 
 
-		while (true){
+		
+		while (true) { //loop if user input string input instead of int
+		try {	//try/catch if user input string input
+			
+		while (true){ //loop if user input out of range value
 		System.out.print("Enter the lab day(1 for monday, 2 for tuesday...):"); 
 		intDay = sc.nextInt();
-		if(intDay > 7 || intDay == 0)
-			{System.out.println("input value cant be 0 or higher than 7, please try again"); }
+		if(intDay > 5 || intDay == 0)
+			{System.out.println("input value cant be 0 or higher than 5, please try again"); }
 		else
 			{break;}	
 		}
 		
 		while(true) //loop to check if starting time is higher than ending time
-		{	
-					
-			while(true){
+		{		
+			while(true){//loop if user input out of range value
 				System.out.print("Enter the lab starting time(hours)(XX:00):"); 
 				startHours = sc.nextInt();
-					if(startHours < 8 || startHours > 24)
-					{
+					if(startHours < 8 || startHours > 24){
 						System.out.println("input value cant be lower than 8 or higher than 24, please try again"); 
 					}
 					else
 					{break;}
 					}
-
-			while(true){
+			while(true){//loop if user input out of range value
 				System.out.print("Enter the lab starting (minutes)(00:XX):");
 				startMinutes = sc.nextInt();
-					if(startMinutes >60)
-					{
+					if(startMinutes >60){
 						System.out.println("input value cant be higher than 60, please try again"); 
 					}
 					else
 					{break;}
-					}
-					 
-			while(true){
+					} 
+			while(true){//loop if user input out of range value
 				System.out.print("Enter the lab ending time(hours)(XX:00):"); 
 				endHours = sc.nextInt();
 					if(endHours <8 || endHours >24)
@@ -590,9 +703,8 @@ public class AdminCourseUI {
 					}
 					else
 					{break;}
-					}
-					
-			while(true){
+					}	
+			while(true){//loop if user input out of range value
 				System.out.print("Enter the lab ending time(minutes)(00:XX):"); 
 				endMinutes = sc.nextInt();
 					if(endMinutes >60)
@@ -602,15 +714,21 @@ public class AdminCourseUI {
 					else
 					{break;}
 					}
-					
 			if(startHours > endHours){
 				System.out.println("Lab starting time cant be later than its ending time, please try again");
 			}
 			else
 			{break;}
-			
 			}
+		break;
+		}
+		catch(InputMismatchException e)
+		{
+			System.out.println("Please enter numerical value only"); //when user input incorrect value
+    		sc.next();
 
+		}
+		}
 		sc.nextLine();
 		System.out.print("Enter the lab venue:"); 
 		labVenue = sc.nextLine();
@@ -618,7 +736,7 @@ public class AdminCourseUI {
 		labRemarks = sc.nextLine();
 		System.out.print("Enter the lab group number:"); 
 		labGroup = sc.nextLine();
-		System.out.print("Enter the occurring week for tutorial\n(1)Even, (2)Odd, (3)Every");
+		System.out.print("Enter the occurring week for tutorial\n(1)Even, (2)Odd, (3)Every : ");
 		labOccurring = sc.nextInt();
 						
 		tempCourse.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
@@ -668,7 +786,7 @@ public class AdminCourseUI {
         database.setDBInstance(database);
 		
 	}
-
+	//Function to print all existing course from database 
 	private static void viewCourse() { 
 		database.printCourseList();
 		
@@ -705,10 +823,7 @@ public class AdminCourseUI {
 	
 		System.out.println("");
 		tempCourse.getIndex(indexNum).printStudentListByIndex();
-		
-		
-		
-		
+	
 	}
 
 	//Function to view index number number of vacancies(slots)
@@ -741,7 +856,6 @@ public class AdminCourseUI {
 		
 		System.out.println("");
 		tempCourse.getIndex(indexNum).getNumOfVacancies();
-		
 	}
 }
 		
