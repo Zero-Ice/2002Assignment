@@ -84,7 +84,7 @@ public class StarsDB {
 			}
 		}
 		
-		System.out.println("Sending test email..");
+//		System.out.println("Sending test email..");
 //		send.email("teststudent457@gmail.com", "Test", "Test");
 				
 		return true;
@@ -234,7 +234,7 @@ public class StarsDB {
 	}
 	
 	public void updateCourseRecords(Course course) {
-		file.updateCourseRecords(course, "update");
+		courses = file.updateCourseRecords(course, "update");
 	}
 	
 	
@@ -271,9 +271,6 @@ public class StarsDB {
 		file.setCourseRecord(c1);
 		file.setCourseRecord(c2);
 		file.setCourseRecord(c3);
-		
-		
-		
 
 	}
 	
