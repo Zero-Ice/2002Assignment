@@ -58,7 +58,7 @@ public class Index implements Serializable{
 	}
 	
 	
-	public boolean indexSeatClash(String matricNo) {
+	public boolean isStudentRegistered(String matricNo) {
 		if(seatVacancy.contains(matricNo)) {
 			return true;
 		}else{
@@ -88,9 +88,8 @@ public class Index implements Serializable{
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
-		
 	}
-	
+
 	public void addStudentToWaitlist(Student student) {
 
 		if(isStudentInWaitlist(student)==false) {
@@ -103,7 +102,7 @@ public class Index implements Serializable{
 		
 	}
 	
-	public Student unassignStudent(Student student) {
+	public Student unassignStudent(Student student, boolean triggerWaitlistUpdate) {
 		String matricNo = student.getMatricNo();
 		
 		if(seatVacancy.contains(matricNo)) {
@@ -114,7 +113,9 @@ public class Index implements Serializable{
 					System.out.println(matricNo+ " unassigned from index " +indexNum);
 					if(indexFull==true) {
 						indexFull=false;
-						addFromWaitlistToIndex();
+						if(triggerWaitlistUpdate) {
+							addFromWaitlistToIndex();
+						}
 					}
 					
 				}
@@ -130,6 +131,10 @@ public class Index implements Serializable{
 			System.out.println(matricNo+ " was not found in index "+ indexNum);
 		
 		return student;
+	}
+	
+	public Student unassignStudent(Student student) {
+		return unassignStudent(student, true);
 	}
 	
 	public void addFromWaitlistToIndex() {
