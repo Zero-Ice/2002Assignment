@@ -91,16 +91,14 @@ public class Index implements Serializable{
 	}
 	
 	public void addStudentToWaitlist(Student student) {
-		String matricNo = student.getMatricNo();
 
-		for(int i =0;i<studentWaitlist.size();i++) {
-			if(studentWaitlist.get(i).getMatricNo()==matricNo) {
-				System.out.println("Student already in waitlist");
-				return;
-			}
+		if(isStudentInWaitlist(student)==false) {
+			student.addCourse(this.courseCode, this.indexNum);
+			studentWaitlist.add(student);
+			System.out.println("Email to be sent to "+ student.getEmail());
+		}else {
+			System.out.println("Student already in waitlist");
 		}
-		studentWaitlist.add(student);
-		System.out.println("Email to be sent to "+ student.getEmail());
 		
 	}
 	
@@ -113,14 +111,21 @@ public class Index implements Serializable{
 					seatVacancy.set(i, "vacant");
 					student.dropCourse(this.indexNum);	
 					System.out.println(matricNo+ " unassigned from index " +indexNum);
-//					if(indexFull==true) {
-//						indexFull=false;
-//						addFromWaitlistToIndex();
-//					}
-//					
+					if(indexFull==true) {
+						indexFull=false;
+						addFromWaitlistToIndex();
+					}
+					
 				}
 			}
-		}else 
+		}else if(isStudentInWaitlist(student)==true) {
+			student.dropCourse(this.indexNum);
+			for(int i=0;i<studentWaitlist.size();i++) {
+				if(studentWaitlist.get(i).getMatricNo()==matricNo) {
+					studentWaitlist.remove(i);
+				}
+			}
+		}else  
 			System.out.println(matricNo+ " was not found in index "+ indexNum);
 		
 		return student;
@@ -134,9 +139,7 @@ public class Index implements Serializable{
 			assignStudent(studentWaitlist.get(0));
 			studentWaitlist.remove(0);
 		}
-
 	}
-	
 	
 	public void showStudentWaitlist() {
 		if(studentWaitlist.size()==0) {
@@ -146,6 +149,17 @@ public class Index implements Serializable{
 				System.out.println(studentWaitlist.get(i).getMatricNo());
 			}
 		}
+	}
+	
+	public boolean isStudentInWaitlist(Student student) {
+		String matricNo = student.getMatricNo();
+		for(int i =0;i<studentWaitlist.size();i++) {
+			if(studentWaitlist.get(i).getMatricNo()==matricNo) {
+				System.out.println("Student already in waitlist");
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
