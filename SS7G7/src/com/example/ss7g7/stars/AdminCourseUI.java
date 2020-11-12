@@ -136,6 +136,7 @@ public class AdminCourseUI {
         
         //update to database
 		database.addCourse(courseCode.toUpperCase(), courseName.toUpperCase(),schooName.toUpperCase(), AU);
+		database.setDBInstance(database);
 
 		tempCourse.setLecDetails(intDay, startHours, startMinutes, endHours, endMinutes, 
         		lecVenue, lecRemarks, lecGroup);
@@ -154,7 +155,7 @@ public class AdminCourseUI {
 		String courseCode ="";
 		boolean check;
 		
-		database.printCourseList();; //show result
+		database.printCourseList(); //show result
 		System.out.println();
 		System.out.println("Press any key to continue");
 		sc.nextLine();
@@ -171,7 +172,7 @@ public class AdminCourseUI {
 		database.setDBInstance(database);
 		
 		System.out.println("");
-		database.printCourseList();; //show result 
+		database.printCourseList(); //show result 
 	}
 
 
@@ -253,11 +254,12 @@ public class AdminCourseUI {
 		
 		System.out.print("Enter the updated course code:"); 
 		NcourseCode = sc.nextLine();
-		tempCourse.updateCourseCode(NcourseCode.toUpperCase());
+		
+		//tempCourse.updateCourseCode(NcourseCode.toUpperCase());
 		
 		System.out.print("Enter the updated course name:"); 
 		courseName = sc.nextLine();
-		tempCourse.updateCourseName(courseName.toUpperCase());
+		//tempCourse.updateCourseName(courseName.toUpperCase());
 		
         while(true){ //check if user input the correct input format 
         	try{
@@ -270,10 +272,25 @@ public class AdminCourseUI {
         		System.out.println("Invalid input! Academic Unit must be a number!");
         	}
         }
-        tempCourse.updateAU(AU);
+        //tempCourse.updateAU(AU);
         
-        database.updateCourseRecords(tempCourse);
-        database.setDBInstance(database);
+    
+        if (courseCode.equals(NcourseCode)) {
+        	
+			tempCourse.updateCourseCode(NcourseCode.toUpperCase());
+			tempCourse.updateCourseName(courseName.toUpperCase());
+			tempCourse.updateAU(AU);
+			database.updateCourseRecords(tempCourse);
+			database.setDBInstance(database);
+			
+        }
+        else {
+        	database.removeCourse(courseCode);
+        	database.addCourse(NcourseCode, courseName.toUpperCase(), tempCourse.getSchooName(), AU);
+        	database.setDBInstance(database);
+    		
+        }
+       
         
 		System.out.println("");
 		System.out.print("Course code " + courseCode.toUpperCase() +" has been changed to " + NcourseCode.toUpperCase() + 
@@ -662,20 +679,20 @@ public class AdminCourseUI {
 
 
 	private static void viewCourse() { //view course detail
-		boolean check = false;
-		String courseCode  = "";
-		
-		System.out.println("Press any key to continue");
-		sc.nextLine();
-		sc.nextLine();
-		do {
-			System.out.print("Enter the course code: "); //check if such course code exists 
-			courseCode = sc.nextLine();
-			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
-			if(check)
-			{System.out.println("Course code is not found in database.");}
-		} while (check);
-		System.out.println("");
+//		boolean check = false;
+//		String courseCode  = "";
+//		
+//		System.out.println("Press any key to continue");
+//		sc.nextLine();
+//		sc.nextLine();
+//		do {
+//			System.out.print("Enter the course code: "); //check if such course code exists 
+//			courseCode = sc.nextLine();
+//			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
+//			if(check)
+//			{System.out.println("Course code is not found in database.");}
+//		} while (check);
+//		System.out.println("");
 		database.printCourseList();
 		
 	}

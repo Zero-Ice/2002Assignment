@@ -268,7 +268,7 @@ public class FileIO {
 		    
 	}
 	
-	public void setCourseRecord (Course c) {
+	public ArrayList<Course> setCourseRecord (Course c) {
 		
 		FileOutputStream fs = null;
 		ObjectOutputStream os = null;
@@ -298,6 +298,8 @@ public class FileIO {
 				e.printStackTrace();
 			}
 		}
+		
+		return courses;
 		
 	}
 	
