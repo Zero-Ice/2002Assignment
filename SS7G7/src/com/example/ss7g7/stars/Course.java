@@ -95,7 +95,7 @@ public class Course implements Serializable{
 	public boolean checkIndexClash(String matricNo) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
-			if(indexes.get(i).indexSeatClash(matricNo)==true) {
+			if(indexes.get(i).isStudentRegistered(matricNo)==true) {
 				return true;
 			}
 		}
