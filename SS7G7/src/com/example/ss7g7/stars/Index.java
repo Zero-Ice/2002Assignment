@@ -35,7 +35,7 @@ public class Index implements Serializable{
 	private LocalDateTime labEndTime;
 	private int labOccurring;
 	private boolean indexFull;
-
+	private SendEmail send;
 	
 	public Index(int index_Num, String courseCode, int num_Seat) {
 		this.indexNum=index_Num;
@@ -44,6 +44,7 @@ public class Index implements Serializable{
 		this.indexFull = false;
 		this.seatVacancy = new ArrayList<String>();
 		this.studentWaitlist = new ArrayList<Student>();
+		this.send = new SendEmail();
 		tutOccurring = 0;
 		labOccurring = 0;
 		tutStartTime = null;
@@ -97,6 +98,8 @@ public class Index implements Serializable{
 			student.addCourse(this.courseCode, this.indexNum);
 			studentWaitlist.add(student);
 			System.out.println("Email to be sent to "+ student.getEmail());
+//			send.email(student.getEmail(), Subject, Body);
+			
 		}else {
 			System.out.println("Student already in waitlist");
 		}
