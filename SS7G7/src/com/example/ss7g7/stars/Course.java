@@ -102,7 +102,7 @@ public class Course implements Serializable{
 		return false;
 	}
 	
-//////////////////////////////////////////////////     STUDENT assign & unassign if student registers by course            ///////////////////////////////////////
+///////////		    STUDENT assign & unassign if student registers by course        /////////////////
 	public void assignStudent(int index, Student student) {
 		String matricNo = student.getMatricNo();
 		
@@ -220,14 +220,14 @@ public class Course implements Serializable{
 ///////////////////////                    SET lec details              ////////////////////////////	
 	
 // Method to set  Lecture details such as the time,venue, group and remark
-public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
-String lecVenue,String lecRemarks, String lecGroup) {
-updateLecStartTime(LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes));
-updateLecEndTime(LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes));
-updateLecVenue(lecVenue);
-updateLecGroup(lecGroup);
-updateLecRemark(lecRemarks);
-}
+	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
+			String lecVenue,String lecRemarks, String lecGroup) {
+		updateLecStartTime(LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes));
+		updateLecEndTime(LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes));
+		updateLecVenue(lecVenue);
+		updateLecGroup(lecGroup);
+		updateLecRemark(lecRemarks);
+	}
 
 
 /************************************************************************************************************/
