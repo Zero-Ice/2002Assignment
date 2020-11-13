@@ -153,7 +153,7 @@ public class StarsDB {
 		
 	}
 	
-	//find a student via their matriculation number 
+	//Function to find a student via their matriculation number 
 	public Student getStudentByMatric(String matricNo){ 
 		for (Student s : students) {
 			if (s.getMatricNo().equals(matricNo)) {
@@ -162,7 +162,7 @@ public class StarsDB {
 		return null;
 	}
 	
-	//For admin to edit a student access period
+	//Function for admin to edit a student access period
 	public void updateAccessPeriod(String matricNo, Calendar newAccessStart, Calendar newAccessEnd){ 
 		Student student = getStudentByMatric(matricNo);
 		student.setAccessStart(newAccessStart);
@@ -170,7 +170,7 @@ public class StarsDB {
 		
 	}
 	
-	//check existing username in student database
+	//Function to check existing username in student database
 	public  Boolean isExistingUsername(String username){ 
 		for (Student s : students) {
 			if (s.getUserName().equals(username)) {
@@ -181,7 +181,7 @@ public class StarsDB {
 		return true;
 	}
 	
-	//check student via their matriculation number 
+	//Function to check student via their matriculation number 
 	public  Boolean isExistingMatNum(String matricNo){ 
 		for (Student s : students) {
 			if (s.getMatricNo().equals(matricNo)) {
@@ -192,7 +192,7 @@ public class StarsDB {
 		return true;
 	}
 	
-	// add new student to studentlist in database
+	//Function to add new student to database
 	public void addStudent(String username, String password, String name, String lastName,
 			String matricNo, String gender, String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
 	
@@ -203,7 +203,7 @@ public class StarsDB {
       
 	}
 
-	//remove a student from studentlist in database 
+	//Function to remove a student in database 
 	public void removeStudent(String matNum) {
 		Student student = getStudentByMatric(matNum);
 		db_instance.removeStudent(student);
@@ -211,7 +211,8 @@ public class StarsDB {
 		
 	}
 	
-	public void printStudentList(){ //show all student exists in student db
+	//Function to show all student exists in student db
+	public void printStudentList(){ 
 		boolean flag = false;
 		System.out.println();
 		System.out.println("Matriculation Number\tFull Name");
@@ -232,9 +233,12 @@ public class StarsDB {
 		if (!flag) System.out.println("\nNo record is found!");
 	}
 	
-	//check if user input the right access start/end format 
-	public Calendar getValidDateTime(String mode){
+	//Function check if user input the right access start/end format 
+	public Calendar getValidDateTime(String mode) throws ParseException{
 		
+		SimpleDateFormat testdate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Date test1 = testdate.parse("32/13/2040 25:61"); //check if user input an out of range date
+		Date test2 = testdate.parse("32/13/1991 25:61"); //check if user input an out of range date
 		String date = "";
 
 	    Date parsedDate = null;
@@ -255,6 +259,10 @@ public class StarsDB {
 		    newDate.setTime(parsedDate);
 
 		    validDate = true;
+		    
+		    if(parsedDate.after(test1) || parsedDate.before(test2))
+		    {System.out.println("Input is not in the correct format!");
+		    validDate = false;}
 
 		} while(!validDate);
 				

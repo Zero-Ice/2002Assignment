@@ -2,6 +2,7 @@ package com.example.ss7g7.stars;
 
 
 import java.util.Scanner;
+import java.text.ParseException;
 import java.util.Calendar;
 
 
@@ -60,7 +61,7 @@ public class AdminStudUI {
 	}
 
 	// Function to change a student access timing
-	private static void editStudentAccess() { 
+	private static void editStudentAccess() throws ParseException { 
 		
 		database.printStudentList(); //show result from db 
 		
@@ -88,7 +89,7 @@ public class AdminStudUI {
 	}
 
 	//Function to add a new student to database
-	private static void addStudent() {
+	private static void addStudent() throws ParseException {
 		
 		String username = "";
 		String passWord = "";
