@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 
+//can be deleted
 //This class is used by AdminStudUI to check against the database.
 
 
@@ -37,6 +38,8 @@ public class StudMngmt {
 		student.setAccessEnd(newAccessEnd);
 		
 	}
+	
+	
 	
 	//check existing username in student database
 	public static Boolean isExistingUsername(String username){ 

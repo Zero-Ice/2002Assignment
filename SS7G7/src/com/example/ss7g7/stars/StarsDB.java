@@ -4,10 +4,14 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class StarsDB {
 	private static StarsDB db_instance = null;
@@ -20,6 +24,10 @@ public class StarsDB {
 	
 	private FileIO file = new FileIO();
 	private SendEmail send = new SendEmail();
+	
+	
+	private static Scanner sc = new Scanner(System.in);
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");	
 
 	private StarsDB() {
 		students = new ArrayList<Student>();
@@ -145,7 +153,113 @@ public class StarsDB {
 		
 	}
 	
+	//find a student via their matriculation number 
+	public Student getStudentByMatric(String matricNo){ 
+		for (Student s : students) {
+			if (s.getMatricNo().equals(matricNo)) {
+				return s;}
+		}
+		return null;
+	}
 	
+	//For admin to edit a student access period
+	public void updateAccessPeriod(String matricNo, Calendar newAccessStart, Calendar newAccessEnd){ 
+		Student student = getStudentByMatric(matricNo);
+		student.setAccessStart(newAccessStart);
+		student.setAccessEnd(newAccessEnd);
+		
+	}
+	
+	//check existing username in student database
+	public  Boolean isExistingUsername(String username){ 
+		for (Student s : students) {
+			if (s.getUserName().equals(username)) {
+				System.out.println("This username has already been used, please try again.");
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	//check student via their matriculation number 
+	public  Boolean isExistingMatNum(String matricNo){ 
+		for (Student s : students) {
+			if (s.getMatricNo().equals(matricNo)) {
+				System.out.println("Matriculation number is found in database.");
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// add new student to studentlist in database
+	public void addStudent(String username, String password, String name, String lastName,
+			String matricNo, String gender, String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
+	
+	{
+        Student newStud = new Student(username, password, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
+        db_instance.addStudent(newStud);
+        db_instance.setDBInstance(db_instance);
+      
+	}
+
+	//remove a student from studentlist in database 
+	public void removeStudent(String matNum) {
+		Student student = getStudentByMatric(matNum);
+		db_instance.removeStudent(student);
+		db_instance.setDBInstance(db_instance);
+		
+	}
+	
+	public void printStudentList(){ //show all student exists in student db
+		boolean flag = false;
+		System.out.println();
+		System.out.println("Matriculation Number\tFull Name");
+		System.out.println("---------------------------------------------------");
+		
+		if(students.size() <= 0){
+			System.out.println("\nNo record is found!\n");
+			return;
+		}
+		
+		for (Student s: students){
+			System.out.print(s.getMatricNo() + "         \t");
+			System.out.print(s.getName() + " " + s.getLastName());
+			System.out.println();
+			
+			flag = true;
+		}
+		if (!flag) System.out.println("\nNo record is found!");
+	}
+	
+	//check if user input the right access start/end format 
+	public Calendar getValidDateTime(String mode){
+		
+		String date = "";
+
+	    Date parsedDate = null;
+		boolean validDate = false;		
+		Calendar newDate = Calendar.getInstance();
+		
+		do{
+			System.out.print("Enter " + mode + " (DD/MM/YYYY HH:MM): ");
+			date  = sc.nextLine();
+			dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		    try {
+		    	parsedDate = dateFormat.parse(date);
+		    	 
+		    } catch (ParseException e) {
+		        System.out.println("Input is not in the correct format!");
+		        continue;
+		    }
+		    newDate.setTime(parsedDate);
+
+		    validDate = true;
+
+		} while(!validDate);
+				
+		return newDate;
+	}
 	
 	/*
 	 * 
