@@ -16,6 +16,12 @@ package com.example.ss7g7.stars;
 */
 
 public class main {
+	
+	/**
+	 * This is the main method of main. 
+	 * @param args Unused
+	 * @return Nothing
+	 */
 	public static void main(String[] args) {
 		StarsSystem stars = new StarsSystem();
 

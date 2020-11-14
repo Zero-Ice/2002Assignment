@@ -25,7 +25,7 @@ import java.util.Scanner;
 * file IO from text files. 
 * 
 *
-* @author  Ong Rui Peng
+* @author  Ong Rui Peng, Angelina
 * @since   2020-10-15
 */
 public class StarsDB {
