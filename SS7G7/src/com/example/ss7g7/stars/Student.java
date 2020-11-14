@@ -5,7 +5,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+/**
+* <h1>Student Class</h1>
+* The Student class is a subclass of User
+* It stores the details of a student. 
+* 
+* <p>
+* Provides getters and setters to certain variables.
+* Print functions to output data.
+* Functions to add and remove courses.
+* Functions to check if the new course from swapping or
+* adding will clash with student's timetable.
+* 
+*
+* @author  Ong Rui Peng
+* @since   2020-10-15
+*/
 public class Student extends User{
 	
 	/**
@@ -23,6 +38,21 @@ public class Student extends User{
 	private Calendar accessEnd;
 	private ArrayList<RegisteredCourse> courses;
 	
+	/**
+	 * Constructor for Student Class
+	 * 
+	 * @param username
+	 * @param password
+	 * @param name
+	 * @param lastName
+	 * @param matricNo
+	 * @param gender
+	 * @param nationality
+	 * @param mobileNo
+	 * @param email
+	 * @param accessStart
+	 * @param accessEnd
+	 */
 	public Student (String username, String password, String name, String lastName, String matricNo, String gender,
 					String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
 	{
@@ -40,11 +70,25 @@ public class Student extends User{
 	}
 	
 	
+	/**
+	 * Sets the courses a student has registered
+	 * 
+	 * @param indexes
+	 */
 	public void setCourses(ArrayList<RegisteredCourse> indexes) {
 		this.courses.clear();
 		this.courses = indexes;
 	}
 	
+	/**
+	 * This method adds a course to the student
+	 * Returns false if the student already registered to that course
+	 * true otherwise
+	 * 
+	 * @param courseCode
+	 * @param indexNo
+	 * @return boolean
+	 */
 	public boolean addCourse(String courseCode, int indexNo) {
 		// Do not allow adding of new course if student already registered for that coursecode
 		// If went through the proper procedures and checks through StudentMenu and Index, should not return false here
@@ -55,6 +99,14 @@ public class Student extends User{
 		return true;
 	}
 	
+	/**
+	 * This method drops the course registered to the student
+	 * Returns true if the course is registered to the student
+	 * false if the failed to drop course (not found)
+	 * 
+	 * @param indexNo
+	 * @return boolean
+	 */
 	public boolean dropCourse(int indexNo) {
 		for(int i = 0; i < courses.size(); i++) {
 			if(courses.get(i).getIndexNo() == indexNo) {
@@ -65,6 +117,13 @@ public class Student extends User{
 		return false;
 	}
 	
+	/**
+	 * This method returns a boolean result if the student
+	 * has registered a course with an index number.
+	 * 
+	 * @param indexNo
+	 * @return boolean
+	 */
 	public boolean containsCourse(int indexNo) {
 		for(RegisteredCourse rc : courses) {
 			if(rc.getIndexNo() == indexNo) return true;
@@ -73,6 +132,13 @@ public class Student extends User{
 		return false;
 	}
 	
+	/**
+	 * This method returns a boolean result if the student
+	 * has registered a course with a course code
+	 * 
+	 * @param indexNo
+	 * @return boolean
+	 */
 	public boolean containsCourse(String courseCode) {
 		for(RegisteredCourse rc : courses) {
 			if(rc.getCourseCode().equals(courseCode)) return true;
@@ -81,6 +147,15 @@ public class Student extends User{
 		return false;
 	}
 	
+	/**
+	 * This method prints the courses registered for a student
+	 * The format is
+	 * No courses registered
+	 * <no>
+	 * <courseCode> <indexNo>, <courseCode> <indexNo>, ..., <courseCode> <indexNo>
+	 * 
+	 * @return String
+	 */
 	public String printCourses() {
 		String s = "";
 		
@@ -98,6 +173,14 @@ public class Student extends User{
 		return s;
 	}
 	
+	/**
+	 * This method returns a boolean result if a new course added will
+	 * clash with the student's timetable
+	 * 
+	 * @param newCourse
+	 * @param newIndex
+	 * @return boolean
+	 */
 	public boolean willNewCourseClashTimetable(Course newCourse, Index newIndex) {
 		
 		for(RegisteredCourse rc : courses) 
@@ -110,6 +193,18 @@ public class Student extends User{
 		return false;
 	}
 	
+	/**
+	 * This method returns a boolean result whether swapping a course
+	 * with another student will clash with the student's timetable.
+	 * Checks if the new course will clash with any of the student's 
+	 * registered courses. 
+	 * Returns true if will clash, false otherwise
+	 * 
+	 * @param newCourse
+	 * @param newIndex
+	 * @param excludeCourse
+	 * @return boolean
+	 */
 	public boolean willSwappedCourseClashTimetable(Course newCourse, Index newIndex, Course excludeCourse) {
 		ArrayList<RegisteredCourse> courseCopy = (ArrayList)courses.clone();
 		
@@ -130,6 +225,18 @@ public class Student extends User{
 		return false;
 	}
 	
+	/**
+	 * This method checks if a course will clash with another course
+	 * Checks each lecture, tutorial and lab timings
+	 * Returns true if even a single timing clashes,
+	 * false otherwise(none of the classes/timings clash)
+	 * 
+	 * @param course
+	 * @param index
+	 * @param otherCourse
+	 * @param otherIndex
+	 * @return boolean
+	 */
 	private boolean willCourseClashWithOtherCourse(Course course, Index index, Course otherCourse, Index otherIndex) {
 		// Check lec clash with lec
 		// Check lec clash with tut
@@ -162,12 +269,18 @@ public class Student extends User{
 		return false;
 	}
 	
-	// Getters & setters
-	
-	public ArrayList<RegisteredCourse> getCourses() {
-		return courses;
-	}
-	
+	/**
+	 * Override java toString function
+	 * Format
+	 * Name: <name>
+	 * Matriculation Number: <matricNo>
+	 * Username: <username>
+	 * Gender: <gender>
+	 * Nationality: <nationality>
+	 * <courses> (refer to printCourses)
+	 * 
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		String s = "Name: " + name + "\n"
@@ -179,84 +292,195 @@ public class Student extends User{
 		return s;
 	}
 	
+	
+	// Getters & setters
+	
+	/**
+	 * Getter function for courses
+	 * 
+	 * @return ArrayList<RegisteredCourse>
+	 */
+	public ArrayList<RegisteredCourse> getCourses() {
+		return courses;
+	}
+	
 
+	/**
+	 * Getter function for username
+	 * @return String 
+	 */
 	public String getUserName() {
 		return username;
 	}
 
+	/**
+	 * Set method for username
+	 * 
+	 * @param username
+	 */
 	public void getUserName(String username) {
 		this.username = username;
 	}
 
 
+	/**
+	 * Get method for name
+	 * 
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Set method for name
+	 * 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/** 
+	 * Get method for last name
+	 * 
+	 * @return String
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * Set method for last name
+	 * 
+	 * @param lastName
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	/**
+	 * Get method for matriculation number
+	 * 
+	 * @return String
+	 */
 	public String getMatricNo() {
 		return matricNo;
 	}
 
+	/**
+	 * Set method for matriculation number
+	 * 
+	 * @param matricNo
+	 */
 	public void setMatricNo(String matricNo) {
 		this.matricNo = matricNo;
 	}
 
+	/**
+	 * Get method for gender
+	 * 
+	 * @return String
+	 */
 	public String getGender() {
 		return gender;
 	}
 
+	/**
+	 * Set method for gender
+	 * 
+	 * @param gender
+	 */
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
+	/**
+	 * Get method for nationality
+	 * 
+	 * @return String
+	 */
 	public String getNationality() {
 		return nationality;
 	}
 
+	/**
+	 * Set method for nationality
+	 * 
+	 * @param nationality
+	 */
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
 
+	/**
+	 * Get method for mobile number
+	 * 
+	 * @return int
+	 */
 	public int getMobileNo() {
 		return mobileNo;
 	}
 
+	/**
+	 * Set method for mobile number
+	 * 
+	 * @param mobileNo
+	 */
 	public void setMobileNo(int mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
+	/**
+	 * Get method for email
+	 * 
+	 * @return String
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Set method for email
+	 * 
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Get method for access start
+	 * 
+	 * @return Calendar
+	 */
 	public Calendar getAccessStart() {
 		return accessStart;
 	}
 
+	/**
+	 * Set method for access start
+	 * 
+	 * @param accessStart
+	 */
 	public void setAccessStart(Calendar accessStart) {
 		this.accessStart = accessStart;
 	}
 
+	/**
+	 * Get method for access end
+	 * 
+	 * @return Calendar
+	 */
 	public Calendar getAccessEnd() {
 		return accessEnd;
 	}
 
+	/**
+	 * Set method for access end
+	 * 
+	 * @param accessEnd
+	 */
 	public void setAccessEnd(Calendar accessEnd) {
 		this.accessEnd = accessEnd;
 	}

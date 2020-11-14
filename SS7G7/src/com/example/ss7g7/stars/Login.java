@@ -57,7 +57,7 @@ public class Login {
 			return LOGIN_RESULT.SUCCESSFUL_LOGIN;
 		}
 		
-		return LOGIN_RESULT.SUCCESSFUL_LOGIN;
+		return LOGIN_RESULT.UNSUCCESSFUL_LOGIN;
 	}
 	
 	User getCurrentUser () {

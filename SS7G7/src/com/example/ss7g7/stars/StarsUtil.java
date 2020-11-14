@@ -4,6 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+/**
+* <h1>Stars Utility(StarsUtil)</h1>
+* StarsUtil is a utility class that provides
+* utility functions that may be used anywhere
+* in the application to help develop features.
+* 
+* @author  Ong Rui Peng
+* @since   2020-11-10
+*/
 public class StarsUtil {
 	// Use Date to check date of the week
 	// Use Month to check odd, even, or every week
