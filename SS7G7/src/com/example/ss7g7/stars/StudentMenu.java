@@ -5,6 +5,24 @@ import java.util.Scanner;
 
 import com.example.ss7g7.stars.User.UserType;
 
+/**
+* <h1>Student Menu</h1>
+* Provides a console based user interface to
+* students who are logged in
+* 
+* <p>
+* Provides 7 options to the student user
+* Add Course
+* Drop Course
+* Print Courses Registered
+* Check Vacancies Available
+* Change Index No.
+* Swap Index No. with another student
+* Logout
+*
+* @author  Ong Rui Peng
+* @since   2020-10-15
+*/
 public class StudentMenu {
 	private Student student;
 	Scanner scanner;

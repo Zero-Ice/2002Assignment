@@ -13,6 +13,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+* <h1>Stars Database System</h1>
+* The StarsDB is a singleton that acts as a 'database'
+* Since we are not allowed to use any databases, this
+* class helps us manage the students and courses.
+* 
+* <p>
+* The StarsDB is used to store the data throughout the
+* application. The initial data is loaded through
+* file IO from text files. 
+* 
+*
+* @author  Ong Rui Peng
+* @since   2020-10-15
+*/
 public class StarsDB {
 	private static StarsDB db_instance = null;
 

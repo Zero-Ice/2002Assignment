@@ -1,5 +1,34 @@
 package com.example.ss7g7.stars;
 
+
+/**
+* <h1></h1>
+* 
+* 
+* <p>
+* 
+* 
+* 
+*
+* @author  
+* @since   YYYY-MM-DD
+*/
+
+/**
+* <h1>Stars System</h1>
+* The Stars System is the base framework that
+* is used for authentication and decides which
+* menu to show depending on the user who logged in.
+* 
+* <p>
+* The StarsSystem class initializes the database, StarsDB
+* It runs the login and keeps track of the current user.
+* 
+*
+* @author  Ong Rui Peng
+* @since   2020-10-15 
+*/
+
 public class StarsSystem {
 	private StarsDB db; 
 	private Login login;

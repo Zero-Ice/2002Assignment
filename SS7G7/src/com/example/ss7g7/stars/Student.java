@@ -5,7 +5,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+/**
+* <h1>Student Class</h1>
+* The Student class is a subclass of User
+* It stores the details of a student. 
+* 
+* <p>
+* Provides getters and setters to certain variables.
+* Print functions to output data.
+* Functions to add and remove courses.
+* Functions to check if the new course from swapping or
+* adding will clash with student's timetable.
+* 
+*
+* @author  Ong Rui Peng
+* @since   2020-10-15
+*/
 public class Student extends User{
 	
 	/**
