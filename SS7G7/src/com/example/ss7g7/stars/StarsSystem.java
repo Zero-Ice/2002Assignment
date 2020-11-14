@@ -72,7 +72,7 @@ public class StarsSystem {
 				runStudentMenu();
 				break;
 			case ADMIN:
-				AdminUI.printAdminUI();
+				runAdminMenu();
 				break;
 			default:
 				break;
@@ -109,7 +109,8 @@ public class StarsSystem {
 	}
 
 	private void runAdminMenu() {
-		// TODO some while loop
+		AdminUI.printAdminUI();
+		logout();
 		// Notes: Once this function ends, it goes back to login. see run()
 	}
 }
