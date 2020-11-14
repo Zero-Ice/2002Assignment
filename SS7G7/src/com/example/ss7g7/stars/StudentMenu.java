@@ -28,12 +28,24 @@ public class StudentMenu {
 	Scanner scanner;
 	StarsDB db;
 
+	/**
+	 * Constructor for StudentMenu class
+	 * 
+	 * @param db
+	 * @param student
+	 */
 	public StudentMenu(StarsDB db, Student student) {
 		this.db = db;
 		this.student = student;
 		scanner = new Scanner(System.in);
 	}
 
+	/**
+	 * This method controls the main loop of the
+	 * console UI for StudentMenu
+	 * Asks the user for input and executes functions
+	 * based on user input. 
+	 */
 	public void run() {
 
 		boolean run = true;
@@ -74,10 +86,21 @@ public class StudentMenu {
 				System.out.println("See you again");
 				run = false;
 				break;
+			default:
+				System.out.println("Invalid choice. Try again");
+				break;
 			}
 		}
 	}
 
+	/**
+	 * This method helps the student add a new course.
+	 * The method performs a series of checks such as
+	 * 1. Checking if the course is already registered by the student
+	 * 2. Check if the new course will clash with the student's timetable
+	 * Lastly, the summary is printed out and the student may confirm
+	 * to add the new course or exit.
+	 */
 	private void addCourse() {
 		System.out.print("Enter an index number of the course: ");
 		int indexToAdd = Integer.valueOf(scanner.nextLine());
@@ -145,6 +168,14 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * This method helps the student drop a course
+	 * The method performs a series of checks such as
+	 * 1. Checking if the course is already registered by the student
+	 * 2. Check if course exists in the db
+	 * Lastly, the summary is printed out and the student may confirm
+	 * to drop the new course or exit.
+	 */
 	private void dropCourse() {
 		System.out.print("Enter an index number of the course to drop: ");
 		int indexToDrop = Integer.valueOf(scanner.nextLine());
@@ -194,7 +225,14 @@ public class StudentMenu {
 		}
 	}
 
-	// Print the details of a Course with index
+	/**
+	 * This method prints details of an course based on a index number.
+	 * The format printed out is 
+	 * Index Number <indexNo> Course <courseCode>
+	 * Course Type <courseType> + Status <status>
+	 * 
+	 * @param indexNo
+	 */
 	private void printCourse(int indexNo) {
 		Course c = db.getCourseByIndex(indexNo);
 		if (c != null) {
@@ -205,12 +243,19 @@ public class StudentMenu {
 		}
 	}
 
-	// Print the details of the courses registered by the student
+	/**
+	 * This method prints the courses registered by the student
+	 * 
+	 */
 	private void printCoursesRegistered() {
 		System.out.println(student.printCourses());
 	}
 
-	// Prints the details of the vacancy based on user input
+	/**
+	 * This method retrieves the vacancies available for an index number
+	 * Asks the user to input an index number then prints out
+	 * its details if it exists
+	 */
 	private void checkVacanciesAvailable() {
 		System.out.print("Enter index number: ");
 		int indexNo = Integer.valueOf(scanner.nextLine());
@@ -234,7 +279,15 @@ public class StudentMenu {
 		}
 	}
 
-	// Changes the index within a course.
+	/**
+	 * This method provides an interface to help the student change an index
+	 * Asks the user to input the indexes they want to change to and from
+	 * Performs a series of checks
+	 * 1. Both indexes belongs to the same course
+	 * 2. Checks if the new index will clash with student's timetable
+	 * Prints out the summary and the student may confirm to change indexes
+	 * or exit
+	 */
 	private void changeIndex() {
 		System.out.println(student.printCourses());
 		System.out.print("Enter the index that you want to change from: ");
@@ -304,6 +357,18 @@ public class StudentMenu {
 
 	}
 
+	/**
+	 * This method provides an interface to help the student change an index
+	 * with another student
+	 * Asks the user to input the indexes they want to change
+	 * Asks the other student for input (login and the index they want to change)
+	 * Performs a series of checks
+	 * 1. Other student is registered to the index they would like to change
+	 * 2. Check indexes are from the same course
+	 * 3. Checks if the new index will clash with either student(s) timetable
+	 * Prints out the summary and the student(s) may confirm to change indexes
+	 * or exit
+	 */
 	private void swapIndex() {
 		// TODO: Check if both index belong to the same course. If same course, swap
 		// index (Remove + Add for both)
