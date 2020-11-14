@@ -1,5 +1,6 @@
 package com.example.ss7g7.stars;
 
+import com.example.ss7g7.stars.Login.LOGIN_RESULT;
 
 /**
 * <h1></h1>
@@ -59,7 +60,6 @@ public class StarsSystem {
 	 */
 	public boolean init() {
 		boolean successful = db.init("../SS7G7/lib/studentInfo.ser", "../SS7G7/lib/courseInfo.ser");
-		db.setDBInstance(db);
 		
 		return successful;
 	}
@@ -86,15 +86,17 @@ public class StarsSystem {
 			
 			
 			Login.LOGIN_RESULT loginResult = login.login();
-			switch(loginResult) {
-			case SUCCESSFUL_LOGIN:
+			if(loginResult == LOGIN_RESULT.SUCCESSFUL_LOGIN) {
 				currentUser = login.getCurrentUser();
-				break;
-			default:
-				break;
+			} else {
+				System.out.println("Unsuccessful login. Please try again");
+				continue;
 			}
 			
-			if(currentUser == null) break;
+			if(currentUser == null) {
+				System.out.println("Error, null user. Please try again");
+				continue;
+			}
 			
 			User.UserType currentUserType = currentUser.getUserType();
 			

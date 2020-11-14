@@ -44,16 +44,14 @@ public class StarsDB {
 	private static Scanner sc = new Scanner(System.in);
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");	
 
+	/**
+	 * Constructor of StarsDB
+	 */
 	private StarsDB() {
 		students = new ArrayList<Student>();
 		courses = new ArrayList<Course>();
 	}
 	
-	public void setDBInstance(StarsDB db)
-	{
-		this.db_instance = db;
-	}
-
 	public static StarsDB getInstance() {
 		if(db_instance == null) {
 			System.out.println("DATABASE NULL");
@@ -213,16 +211,15 @@ public class StarsDB {
 	
 	{
         Student newStud = new Student(username, password, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
-        db_instance.addStudent(newStud);
-        db_instance.setDBInstance(db_instance);
+        
+        StarsDB.getInstance().addStudent(newStud);
       
 	}
 
 	//Function to remove a student in database 
 	public void removeStudent(String matNum) {
 		Student student = getStudentByMatric(matNum);
-		db_instance.removeStudent(student);
-		db_instance.setDBInstance(db_instance);
+		StarsDB.getInstance().removeStudent(student);
 		
 	}
 	
