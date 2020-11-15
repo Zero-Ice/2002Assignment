@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -222,8 +223,8 @@ public class Course implements Serializable{
 // Method to set  Lecture details such as the time,venue, group and remark
 	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String lecVenue,String lecRemarks, String lecGroup) {
-		updateLecStartTime(LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes));
-		updateLecEndTime(LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes));
+		updateLecStartTime(LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes));
+		updateLecEndTime(LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes));
 		updateLecVenue(lecVenue);
 		updateLecGroup(lecGroup);
 		updateLecRemark(lecRemarks);
@@ -259,8 +260,10 @@ public class Course implements Serializable{
 	
 	// Method to get all the details at once
 	public String getLecDetails() {
-		String lecStart = getLecStartTime().toString();
-		String lecEnd =getLecEndTime().toString();
+		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
+		
+		String lecStart = getLecStartTime().format(formatter);
+		String lecEnd =getLecEndTime().format(formatter);
 		
 		String time = lecStart + " - " + lecEnd;
 

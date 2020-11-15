@@ -2,6 +2,7 @@ package com.example.ss7g7.stars;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 import com.example.ss7g7.stars.User.UserType;
 
@@ -85,7 +86,11 @@ public class Index implements Serializable{
 	public String toString() {
 		// Example
 		// Class Type, Group, Day, Time, Venue, Remark
-		return "Index" + Integer.toString(indexNum);
+		String s = "";
+		s += "Index" + Integer.toString(indexNum) + "\n";
+		s += getTutDetails() + "\n";
+		s += getLabDetails();
+		return s;
 	}
 	
 ///////////////////////    Index Related          ////////////////////////////
@@ -140,6 +145,7 @@ public class Index implements Serializable{
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
+		student.addWaitingCourse(this.courseCode, this.indexNum);
 	}
 	
 	public Student unassignStudent(Student student, boolean triggerWaitlistUpdate) {
@@ -236,8 +242,8 @@ public class Index implements Serializable{
 ///////////////////////                    SET tut details              ////////////////////////////
 	public void setTutDetails(int intDay, int startHours, int startMinutes,int endHours,
 			int endMinutes,String tutVenue, String tutRemarks, String tutGroup, int occurring) {
-		tutStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		tutEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		tutStartTime = LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes);
+		tutEndTime = LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes);
 		tutOccurring = occurring;
 		
 		updateTutVenue(tutVenue);
@@ -266,9 +272,11 @@ public class Index implements Serializable{
 ///////////////////////                    get tut Details (getters)            ////////////////////////////
 	
 	public String getTutDetails() {
-		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
-		String tutStart = formatter.format(tutStartTime);
-		String tutEnd =formatter.format(tutEndTime);
+		if(tutStartTime == null || tutEndTime == null) return "";
+		
+		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
+		String tutStart = tutStartTime.format(formatter);
+		String tutEnd = tutEndTime.format(formatter);
 		
 		String time = tutStart + " - " + tutEnd;
 		
@@ -309,8 +317,8 @@ public class Index implements Serializable{
 	public void setLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String labVenue,String labRemarks, String labGroup, int occurring) {
 		
-		labStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		labEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		labStartTime = LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes);
+		labEndTime = LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes);
 		labOccurring = occurring;
 		
 		updateLabVenue(labVenue);
@@ -339,9 +347,11 @@ public class Index implements Serializable{
 ///////////////////////                    get lab Details (getters)            ////////////////////////////
 	
 	public String getLabDetails() {
-		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
-		String labStart = formatter.format(labStartTime);
-		String labEnd =formatter.format(labEndTime);
+		if(labStartTime == null || labEndTime == null) return "";
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+		String labStart = labStartTime.format(formatter);
+		String labEnd = labEndTime.format(formatter);
 		
 		String time = labStart + " - " + labEnd;
 		String labDetails = "Lab \t" + labGroup+ "\t" +labStartTime.getDayOfWeek() + "\t" + time + "\t" + labVenue+ "\t" +labRemark;
@@ -372,6 +382,10 @@ public class Index implements Serializable{
 	
 	public int getLabOccurring() {
 		return labOccurring;
+	}
+	
+	public int getWaitlistLength() {
+		return this.studentWaitlist.size();
 	}
 	
 /************************************************************************************************************/

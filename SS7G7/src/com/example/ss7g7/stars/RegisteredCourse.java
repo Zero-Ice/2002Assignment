@@ -11,10 +11,18 @@ public class RegisteredCourse implements Serializable{
 	
 	private String courseCode;
 	private int indexNo;
+	private String status;
 	
 	public RegisteredCourse(String courseCode, int indexNo) {
 		this.courseCode = courseCode;
 		this.indexNo = indexNo;
+		status = "Registered";
+	}
+	
+	public RegisteredCourse(String courseCode, int indexNo, String status) {
+		this.courseCode = courseCode;
+		this.indexNo = indexNo;
+		this.status = status;
 	}
 	
 	public String getCourseCode() {
@@ -23,5 +31,13 @@ public class RegisteredCourse implements Serializable{
 	
 	public int getIndexNo() {
 		return indexNo;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
