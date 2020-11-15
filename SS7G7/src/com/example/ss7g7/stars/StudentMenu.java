@@ -141,7 +141,8 @@ public class StudentMenu {
 		
 		
 		System.out.println("Index Number " + indexToAdd + " Course " + courseToAdd.getCourseCode());
-		System.out.println("<Details>");
+		System.out.println(index.getTutDetails());
+		System.out.println(index.getLabDetails());
 
 		boolean run = true;
 		while (run) {
