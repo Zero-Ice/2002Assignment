@@ -242,8 +242,8 @@ public class Index implements Serializable{
 ///////////////////////                    SET tut details              ////////////////////////////
 	public void setTutDetails(int intDay, int startHours, int startMinutes,int endHours,
 			int endMinutes,String tutVenue, String tutRemarks, String tutGroup, int occurring) {
-		tutStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		tutEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		tutStartTime = LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes);
+		tutEndTime = LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes);
 		tutOccurring = occurring;
 		
 		updateTutVenue(tutVenue);
@@ -317,8 +317,8 @@ public class Index implements Serializable{
 	public void setLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String labVenue,String labRemarks, String labGroup, int occurring) {
 		
-		labStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		labEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		labStartTime = LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes);
+		labEndTime = LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes);
 		labOccurring = occurring;
 		
 		updateLabVenue(labVenue);
