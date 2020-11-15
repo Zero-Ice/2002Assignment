@@ -199,7 +199,7 @@ public class StudentMenu {
 		// Summary
 		// Index Number, Course Code
 		System.out.println("Index Number " + indexToDrop + " Course " + c.getCourseCode());
-		System.out.println("Course Type " + /* CORE */ "<CourseType> " + " Status REGISTERED");
+		System.out.println("Status " + student.getCourseStatus(c.getCourseCode()));
 
 		boolean run = true;
 		while (run) {
