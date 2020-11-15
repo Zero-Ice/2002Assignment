@@ -172,12 +172,17 @@ public class Student extends User{
 			return s;
 		}
 		
+		s += "Course, AU, Index Number, Status";
 		for(int i = 0; i < courses.size(); i++) {
-			s += courses.get(i).getCourseCode() + " " + courses.get(i).getIndexNo();
+			s += courses.get(i).getCourseCode() + ", " + courses.get(i).getIndexNo() + ", " + (courses.get(i).getStatus().equals("Registered") ? 
+					"REGISTERED" : "WAITLIST") + "\n";
 			if(i == courses.size() - 1) break;
 			
 			s += ", ";
 		}
+		
+		s += "TOTAL AU REGISTERED " + Integer.toString(getAUs());
+		
 		return s;
 	}
 	
@@ -500,5 +505,14 @@ public class Student extends User{
 	 */
 	public void setAccessEnd(Calendar accessEnd) {
 		this.accessEnd = accessEnd;
+	}
+	
+	public String getCourseStatus(String courseCode) {
+		for(RegisteredCourse rc : courses) {
+			if(rc.getCourseCode().equals(courseCode)) {
+				return rc.getStatus();
+			}
+		}
+		return "";
 	}
 }
