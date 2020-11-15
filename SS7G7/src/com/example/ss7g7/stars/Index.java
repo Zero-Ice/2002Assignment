@@ -86,7 +86,11 @@ public class Index implements Serializable{
 	public String toString() {
 		// Example
 		// Class Type, Group, Day, Time, Venue, Remark
-		return "Index" + Integer.toString(indexNum);
+		String s = "";
+		s += "Index" + Integer.toString(indexNum) + "\n";
+		s += getTutDetails() + "\n";
+		s += getLabDetails();
+		return s;
 	}
 	
 ///////////////////////    Index Related          ////////////////////////////
