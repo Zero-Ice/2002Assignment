@@ -140,6 +140,7 @@ public class Index implements Serializable{
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
+		student.addWaitingCourse(this.courseCode, this.indexNum);
 	}
 	
 	public Student unassignStudent(Student student, boolean triggerWaitlistUpdate) {
@@ -372,6 +373,10 @@ public class Index implements Serializable{
 	
 	public int getLabOccurring() {
 		return labOccurring;
+	}
+	
+	public int getWaitlistLength() {
+		return this.studentWaitlist.size();
 	}
 	
 /************************************************************************************************************/

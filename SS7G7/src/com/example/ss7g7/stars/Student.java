@@ -99,6 +99,14 @@ public class Student extends User{
 		return true;
 	}
 	
+	public boolean addWaitingCourse(String courseCode, int indexNo) {
+		if(containsCourse(courseCode)) return false;
+		
+		courses.add(new RegisteredCourse(courseCode, indexNo, "Waitlist"));
+		
+		return true;
+	}
+	
 	/**
 	 * This method drops the course registered to the student
 	 * Returns true if the course is registered to the student
@@ -290,6 +298,15 @@ public class Student extends User{
 				+ "Nationality: " + nationality + "\n"
 				+ printCourses();
 		return s;
+	}
+	
+	public int getAUs() {
+		StarsDB db = StarsDB.getInstance();
+		int au = 0;
+		for(RegisteredCourse rc : courses) {
+			au += db.getCourse(rc.getCourseCode()).getAU();
+		}
+		return au;
 	}
 	
 	

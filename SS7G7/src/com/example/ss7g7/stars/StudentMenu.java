@@ -269,8 +269,11 @@ public class StudentMenu {
 			if (index != null) {
 
 				// Class type, Group, Day, Time, Venue, Remark
-				System.out.println("Class type, Group, Day, Time, Venue, Remark");
-				System.out.println("Vacancy " + index.getNumOfVacancies());
+				System.out.println("Index Number " + index.getIndexNum() + "    Course " + c.getCourseCode());
+				System.out.println("Group, Day, Time, Venue, Remark");
+				System.out.println(index.getLabDetails());
+				System.out.println(index.getTutDetails());
+				System.out.println("Places Available " + index.getNumOfVacancies() + "     Length of waitlist " + index.getWaitlistLength());
 			} else {
 				System.out.println("Index " + indexNo + "does not exist in the course");
 			}
