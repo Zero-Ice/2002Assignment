@@ -1,43 +1,39 @@
 package com.example.ss7g7.stars;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
-* <h1>Student Class</h1>
-* The Student class is a subclass of User
-* It stores the details of a student. 
-* 
-* <p>
-* Provides getters and setters to certain variables.
-* Print functions to output data.
-* Functions to add and remove courses.
-* Functions to check if the new course from swapping or
-* adding will clash with student's timetable.
-* 
-*
-* @author  Ong Rui Peng
-* @since   2020-10-15
-*/
-public class Student extends User{
-	
+ * <h1>Student Class</h1> The Student class is a subclass of User It stores the
+ * details of a student.
+ * 
+ * <p>
+ * Provides getters and setters to certain variables. Print functions to output
+ * data. Functions to add and remove courses. Functions to check if the new
+ * course from swapping or adding will clash with student's timetable.
+ * 
+ *
+ * @author Ong Rui Peng
+ * @since 2020-10-15
+ */
+public class Student extends User {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 691574352314613452L;
-	private String name; 
+	private String name;
 	private String lastName;
 	private String matricNo;
 	private String gender;
-	private String nationality; 
+	private String nationality;
 	private int mobileNo;
 	private String email;
 	private Calendar accessStart;
 	private Calendar accessEnd;
 	private ArrayList<RegisteredCourse> courses;
-	
+
 	/**
 	 * Constructor for Student Class
 	 * 
@@ -53,14 +49,13 @@ public class Student extends User{
 	 * @param accessStart
 	 * @param accessEnd
 	 */
-	public Student (String username, String password, String name, String lastName, String matricNo, String gender,
-					String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) 
-	{
+	public Student(String username, String password, String name, String lastName, String matricNo, String gender,
+			String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd) {
 		super(username, password);
 		this.name = name;
 		this.lastName = lastName;
-		this.matricNo	= matricNo;
-		this.gender	= gender;
+		this.matricNo = matricNo;
+		this.gender = gender;
 		this.nationality = nationality;
 		this.mobileNo = mobileNo;
 		this.email = email;
@@ -68,8 +63,7 @@ public class Student extends User{
 		this.accessEnd = accessEnd;
 		courses = new ArrayList<RegisteredCourse>();
 	}
-	
-	
+
 	/**
 	 * Sets the courses a student has registered
 	 * 
@@ -79,139 +73,142 @@ public class Student extends User{
 		this.courses.clear();
 		this.courses = indexes;
 	}
-	
+
 	/**
-	 * This method adds a course to the student
-	 * Returns false if the student already registered to that course
-	 * true otherwise
+	 * This method adds a course to the student Returns false if the student already
+	 * registered to that course true otherwise
 	 * 
 	 * @param courseCode
 	 * @param indexNo
 	 * @return boolean
 	 */
 	public boolean addCourse(String courseCode, int indexNo) {
-		// Do not allow adding of new course if student already registered for that coursecode
-		// If went through the proper procedures and checks through StudentMenu and Index, should not return false here
-		if(containsCourse(courseCode)) return false;
-		
+		// Do not allow adding of new course if student already registered for that
+		// coursecode
+		// If went through the proper procedures and checks through StudentMenu and
+		// Index, should not return false here
+		if (containsCourse(courseCode))
+			return false;
+
 		courses.add(new RegisteredCourse(courseCode, indexNo));
-		
+
 		return true;
 	}
-	
+
 	public boolean addWaitingCourse(String courseCode, int indexNo) {
-		if(containsCourse(courseCode)) return false;
-		
+		if (containsCourse(courseCode))
+			return false;
+
 		courses.add(new RegisteredCourse(courseCode, indexNo, "Waitlist"));
-		
+
 		return true;
 	}
-	
+
 	/**
-	 * This method drops the course registered to the student
-	 * Returns true if the course is registered to the student
-	 * false if the failed to drop course (not found)
+	 * This method drops the course registered to the student Returns true if the
+	 * course is registered to the student false if the failed to drop course (not
+	 * found)
 	 * 
 	 * @param indexNo
 	 * @return boolean
 	 */
 	public boolean dropCourse(int indexNo) {
-		for(int i = 0; i < courses.size(); i++) {
-			if(courses.get(i).getIndexNo() == indexNo) {
+		for (int i = 0; i < courses.size(); i++) {
+			if (courses.get(i).getIndexNo() == indexNo) {
 				courses.remove(i);
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
-	 * This method returns a boolean result if the student
-	 * has registered a course with an index number.
+	 * This method returns a boolean result if the student has registered a course
+	 * with an index number.
 	 * 
 	 * @param indexNo
 	 * @return boolean
 	 */
 	public boolean containsCourse(int indexNo) {
-		for(RegisteredCourse rc : courses) {
-			if(rc.getIndexNo() == indexNo) return true;
+		for (RegisteredCourse rc : courses) {
+			if (rc.getIndexNo() == indexNo)
+				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * This method returns a boolean result if the student
-	 * has registered a course with a course code
+	 * This method returns a boolean result if the student has registered a course
+	 * with a course code
 	 * 
 	 * @param indexNo
 	 * @return boolean
 	 */
 	public boolean containsCourse(String courseCode) {
-		for(RegisteredCourse rc : courses) {
-			if(rc.getCourseCode().equals(courseCode)) return true;
+		for (RegisteredCourse rc : courses) {
+			if (rc.getCourseCode().equals(courseCode))
+				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * This method prints the courses registered for a student
-	 * The format is
-	 * No courses registered
-	 * <no>
-	 * <courseCode> <indexNo>, <courseCode> <indexNo>, ..., <courseCode> <indexNo>
+	 * This method prints the courses registered for a student The format is No
+	 * courses registered <no> <courseCode> <indexNo>, <courseCode> <indexNo>, ...,
+	 * <courseCode> <indexNo>
 	 * 
 	 * @return String
 	 */
 	public String printCourses() {
 		String s = "";
-		
-		if(courses.size() == 0) {
+
+		if (courses.size() == 0) {
 			s += "No courses registered";
 			return s;
 		}
-		
+
 		s += "Course, AU, Index Number, Status";
-		for(int i = 0; i < courses.size(); i++) {
-			s += courses.get(i).getCourseCode() + ", " + courses.get(i).getIndexNo() + ", " + (courses.get(i).getStatus().equals("Registered") ? 
-					"REGISTERED" : "WAITLIST") + "\n";
-			if(i == courses.size() - 1) break;
-			
+		for (int i = 0; i < courses.size(); i++) {
+			s += courses.get(i).getCourseCode() + ", " + courses.get(i).getIndexNo() + ", "
+					+ (courses.get(i).getStatus().equals("Registered") ? "REGISTERED" : "WAITLIST") + "\n";
+			if (i == courses.size() - 1)
+				break;
+
 			s += ", ";
 		}
-		
+
 		s += "TOTAL AU REGISTERED " + Integer.toString(getAUs());
-		
+
 		return s;
 	}
-	
+
 	/**
-	 * This method returns a boolean result if a new course added will
-	 * clash with the student's timetable
+	 * This method returns a boolean result if a new course added will clash with
+	 * the student's timetable
 	 * 
 	 * @param newCourse
 	 * @param newIndex
 	 * @return boolean
 	 */
 	public boolean willNewCourseClashTimetable(Course newCourse, Index newIndex) {
-		
-		for(RegisteredCourse rc : courses) 
-		{
+
+		for (RegisteredCourse rc : courses) {
 			Course c = StarsDB.getInstance().getCourseByIndex(rc.getIndexNo());
 			Index index = c.getIndex(rc.getIndexNo());
-			if(willCourseClashWithOtherCourse(c, index, newCourse, newIndex)) return true;
+			if (willCourseClashWithOtherCourse(c, index, newCourse, newIndex))
+				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * This method returns a boolean result whether swapping a course
-	 * with another student will clash with the student's timetable.
-	 * Checks if the new course will clash with any of the student's 
-	 * registered courses. 
-	 * Returns true if will clash, false otherwise
+	 * This method returns a boolean result whether swapping a course with another
+	 * student will clash with the student's timetable. Checks if the new course
+	 * will clash with any of the student's registered courses. Returns true if will
+	 * clash, false otherwise
 	 * 
 	 * @param newCourse
 	 * @param newIndex
@@ -219,30 +216,29 @@ public class Student extends User{
 	 * @return boolean
 	 */
 	public boolean willSwappedCourseClashTimetable(Course newCourse, Index newIndex, Course excludeCourse) {
-		ArrayList<RegisteredCourse> courseCopy = (ArrayList)courses.clone();
-		
-		for(int i = 0; i < courseCopy.size(); i++) {
-			if(courseCopy.get(i).getCourseCode().equals(excludeCourse.getCourseCode())) {
+		ArrayList<RegisteredCourse> courseCopy = (ArrayList) courses.clone();
+
+		for (int i = 0; i < courseCopy.size(); i++) {
+			if (courseCopy.get(i).getCourseCode().equals(excludeCourse.getCourseCode())) {
 				courseCopy.remove(i);
 				break;
 			}
 		}
-		
-		for(RegisteredCourse rc : courseCopy) 
-		{
+
+		for (RegisteredCourse rc : courseCopy) {
 			Course c = StarsDB.getInstance().getCourseByIndex(rc.getIndexNo());
 			Index index = c.getIndex(rc.getIndexNo());
-			if(willCourseClashWithOtherCourse(c, index, newCourse, newIndex)) return true;
+			if (willCourseClashWithOtherCourse(c, index, newCourse, newIndex))
+				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * This method checks if a course will clash with another course
-	 * Checks each lecture, tutorial and lab timings
-	 * Returns true if even a single timing clashes,
-	 * false otherwise(none of the classes/timings clash)
+	 * This method checks if a course will clash with another course Checks each
+	 * lecture, tutorial and lab timings Returns true if even a single timing
+	 * clashes, false otherwise(none of the classes/timings clash)
 	 * 
 	 * @param course
 	 * @param index
@@ -254,69 +250,70 @@ public class Student extends User{
 		// Check lec clash with lec
 		// Check lec clash with tut
 		// Check lec clash with lab
-		
+
 		// Check tut clash with lec
 		// Check tut clash with tut
 		// Check tut clash with lab
-		
+
 		// Check lab clash with lec
 		// Check lab clash with tut
 		// Check lab clash with lab
-		if(
-				StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3, otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
-				|| StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3, otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
-				|| StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3, otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
-				// 
-				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(), otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
-				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(), otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
-				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(), otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
+		if (StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3,
+				otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
+				|| StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3,
+						otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
+				|| StarsUtil.timingWillClash(course.getLecStartTime(), course.getLecEndTime(), 3,
+						otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
 				//
-				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(), otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
-				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(), otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
-				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(), otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
-				)
-		{
+				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(),
+						otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
+				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(),
+						otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
+				|| StarsUtil.timingWillClash(index.getTutStartTime(), index.getTutEndTime(), index.getTutOccurring(),
+						otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())
+				//
+				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(),
+						otherCourse.getLecStartTime(), otherCourse.getLecEndTime(), 3)
+				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(),
+						otherIndex.getTutStartTime(), otherIndex.getTutEndTime(), otherIndex.getTutOccurring())
+				|| StarsUtil.timingWillClash(index.getLabStartTime(), index.getLabEndTime(), index.getLabOccurring(),
+						otherIndex.getLabStartTime(), otherIndex.getLabEndTime(), otherIndex.getLabOccurring())) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * Override java toString function
-	 * Format
-	 * Name: <name>
-	 * Matriculation Number: <matricNo>
-	 * Username: <username>
-	 * Gender: <gender>
-	 * Nationality: <nationality>
+	 * Override java toString function Format Name: <name> Matriculation Number:
+	 * <matricNo> Username: <username> Gender: <gender> Nationality: <nationality>
 	 * <courses> (refer to printCourses)
 	 * 
 	 * @return String
 	 */
 	@Override
 	public String toString() {
-		String s = "Name: " + name + "\n"
-				+ "Matriculation Number: " + matricNo + "\n"
-				+ "Username: " + username + "\n"
-				+ "Gender: " + gender + "\n"
-				+ "Nationality: " + nationality + "\n"
-				+ printCourses();
+		String s = "Name: " + name + "\n" + "Matriculation Number: " + matricNo + "\n" + "Username: " + username + "\n"
+				+ "Gender: " + gender + "\n" + "Nationality: " + nationality + "\n" + printCourses();
 		return s;
 	}
-	
+
+	/**
+	 * Calculates and returns the total au registered
+	 * 
+	 * @return int
+	 */
 	public int getAUs() {
 		StarsDB db = StarsDB.getInstance();
 		int au = 0;
-		for(RegisteredCourse rc : courses) {
+		for (RegisteredCourse rc : courses) {
 			au += db.getCourse(rc.getCourseCode()).getAU();
 		}
 		return au;
 	}
-	
-	
+
 	// Getters & setters
-	
+
 	/**
 	 * Getter function for courses
 	 * 
@@ -325,11 +322,11 @@ public class Student extends User{
 	public ArrayList<RegisteredCourse> getCourses() {
 		return courses;
 	}
-	
 
 	/**
 	 * Getter function for username
-	 * @return String 
+	 * 
+	 * @return String
 	 */
 	public String getUserName() {
 		return username;
@@ -343,7 +340,6 @@ public class Student extends User{
 	public void getUserName(String username) {
 		this.username = username;
 	}
-
 
 	/**
 	 * Get method for name
@@ -363,7 +359,7 @@ public class Student extends User{
 		this.name = name;
 	}
 
-	/** 
+	/**
 	 * Get method for last name
 	 * 
 	 * @return String
@@ -506,10 +502,17 @@ public class Student extends User{
 	public void setAccessEnd(Calendar accessEnd) {
 		this.accessEnd = accessEnd;
 	}
-	
+
+	/**
+	 * Get the course status of a registered course by specifying
+	 * course code
+	 * 
+	 * @param courseCode
+	 * @return String
+	 */
 	public String getCourseStatus(String courseCode) {
-		for(RegisteredCourse rc : courses) {
-			if(rc.getCourseCode().equals(courseCode)) {
+		for (RegisteredCourse rc : courses) {
+			if (rc.getCourseCode().equals(courseCode)) {
 				return rc.getStatus();
 			}
 		}
