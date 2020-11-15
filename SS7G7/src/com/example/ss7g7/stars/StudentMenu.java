@@ -27,6 +27,7 @@ public class StudentMenu {
 	private Student student;
 	Scanner scanner;
 	StarsDB db;
+	private final int RECOMMENDED_AU = 21;
 
 	/**
 	 * Constructor for StudentMenu class
@@ -98,6 +99,7 @@ public class StudentMenu {
 	 * The method performs a series of checks such as
 	 * 1. Checking if the course is already registered by the student
 	 * 2. Check if the new course will clash with the student's timetable
+	 * 3. Check if AU > 21
 	 * Lastly, the summary is printed out and the student may confirm
 	 * to add the new course or exit.
 	 */
@@ -132,8 +134,15 @@ public class StudentMenu {
 			System.out.println("Cannot add course as it clashes with timetable");
 			return;
 		}
+		
+		// Step3: Check if added course > 21 AU
+		if(courseToAdd.getAU() + student.getAUs() > 21) {
+			System.out.println("Cannot add course as it exceeds recommended AU of 21");
+			return;
+		}
 
-		// Step3: If step 1 and 2 pass, confirm to add the new course.
+		// Step4: If step 1 and 2 pass, confirm to add the new course.
+		
 
 		// Summary
 		// Index Number, Course Code
