@@ -2,6 +2,7 @@ package com.example.ss7g7.stars;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 import com.example.ss7g7.stars.User.UserType;
 
@@ -267,9 +268,11 @@ public class Index implements Serializable{
 ///////////////////////                    get tut Details (getters)            ////////////////////////////
 	
 	public String getTutDetails() {
-		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
-		String tutStart = formatter.format(tutStartTime);
-		String tutEnd =formatter.format(tutEndTime);
+		if(tutStartTime == null || tutEndTime == null) return "";
+		
+		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
+		String tutStart = tutStartTime.format(formatter);
+		String tutEnd = tutEndTime.format(formatter);
 		
 		String time = tutStart + " - " + tutEnd;
 		
@@ -340,9 +343,11 @@ public class Index implements Serializable{
 ///////////////////////                    get lab Details (getters)            ////////////////////////////
 	
 	public String getLabDetails() {
-		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
-		String labStart = formatter.format(labStartTime);
-		String labEnd =formatter.format(labEndTime);
+		if(labStartTime == null || labEndTime == null) return "";
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+		String labStart = labStartTime.format(formatter);
+		String labEnd = labEndTime.format(formatter);
 		
 		String time = labStart + " - " + labEnd;
 		String labDetails = "Lab \t" + labGroup+ "\t" +labStartTime.getDayOfWeek() + "\t" + time + "\t" + labVenue+ "\t" +labRemark;
