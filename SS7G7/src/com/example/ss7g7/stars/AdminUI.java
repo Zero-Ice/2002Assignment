@@ -2,37 +2,25 @@ package com.example.ss7g7.stars;
 
 import java.util.Scanner;
 
-
 /**
  * <h1>Admin User Interface</h1>
- * 
  * <p>
  * The AdminUI provides an overview 
  * of the administrative actions that
  * an admin user would be allowed to make.
  * 
- * @author Kah Hui
- * created on 2020/10/15
+ *<p>
+ * The options include:
+ * <li>Going to AdminStudUI to edit students information of StarsSystem
+ * <li>Going to AdminCourseUI to edit courses information of StarsSystem
+ * <li>Going back to previous page (Login page)
  * 
+ * @author Ng Kah Hui
  * @version %I%
- * @since 1.0
- *
+ * @since 2020-10-15
  */
 public class AdminUI {
-	/**
-	 * <h1>AdminUI</h1>
-	 * Provides a user interface for admin/staff who has logged in to StarsSystem.
-	 * 
-	 * 
-	 *<p>
-	 * Provides 3 options
-	 * 1)Go to AdminStudUI to edit students information of StarsSystem
-	 * 2)Go to AdminCourseUI to edit courses information of StarsSystem
-	 * 3)Go back to previous page(login page)
-	 * 
-	 * @author Ng Kah Hui
-	 * @since 2020-10-15
-	 */
+	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	/**

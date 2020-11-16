@@ -5,23 +5,6 @@ import java.util.Scanner;
 import java.text.ParseException;
 import java.util.Calendar;
 
-/**
- * <h1>AdminStudUI</h1>
- * Provides a user interface for admin/staff who has chose student option from AdminUI
- * 
- * 
- *<p>
- * Provides 6 options
- * 1)Edit an existing student access period to StarsSystem
- * 2)Add a new student to StarsSystem
- * 3)Remove an existing student from StarsSystem
- * 4)Print a student list by entering an existing course code's index number
- * 5)Print a student list by entering an existing course code
- * 6)Go back to previous page(AdminUI)
- * 
- * @author Ng Kah Hui
- * @since 2020-10-15
- */
 
 /**
  * <h1>Admin Student User Interface</h1>
@@ -31,23 +14,25 @@ import java.util.Calendar;
  * overview of the administrative actions that
  * an admin user would be allowed to make on
  * students.
- * 
- * @author Kah Hui
- * created on 2020/10/15
- * 
+ * <p>
+ * The options include:
+ * <li>Editing an existing student access period to StarsSystem 
+ * <li>Adding a new student to StarsSystem 
+ * <li>Removing an existing student from StarsSystem 
+ * <li>Printing a student list by entering an existing course code's index number 
+ * <li>Printing a student list by entering an existing course code 
+ * <li>Going  back to previous page (AdminUI) 
+ *  
+ * @author Ng Kah Hui 
  * @version %I%
- * @since 1.0
+ * @since 2020-10-15 
+ * 
  * 
  */
 public class AdminStudUI {
 	
 	private static StarsDB database = StarsDB.getInstance(); 
 	private static Scanner sc = new Scanner(System.in); // take input from user
-	
-	/**
-	 * This method is entered when admin/staff chose student option from AdminUI
-	 * Ask user which options they want to choose
-	 */
 	
 	/**
 	 * This method prints all the administrative
@@ -101,7 +86,7 @@ public class AdminStudUI {
 		
 	}
 	/**
-	 * This method allows admin/staff to edit an existing student access time to StarsSystem
+	 * This method allows user to edit an existing student access time to database
 	 * 1.Method ask user to enter a student matriculation number and check if it exists in the database
 	 * 2.If such matriculation number exists in the database, method will ask user to input the student updated new start/end access time
 	 * 3.Method also check if user input in an specific format
@@ -135,7 +120,7 @@ public class AdminStudUI {
 	}
 
 	/**
-	 * This method allows user to add a new student to StarsSystem
+	 * This method allows user to add a new student to database
 	 * 1.Method ask user to input the new student matriculation number and check if it already exists in the database
 	 * 2.If it does not exist, method continue to ask user to input other necessary information
 	 * 3.Method add new student information to database
@@ -214,7 +199,7 @@ public class AdminStudUI {
 	}
 	
 	/**
-	 * This method allows user to remove an existing student from StarsSystem
+	 * This method allows user to remove an existing student from database
 	 * 1.Method print out list of all students in database
 	 * 2.Method ask user to input student matriculation number and check if it exists in the database
 	 * 3.If it exists in the database, method remove student from database
