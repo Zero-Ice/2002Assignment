@@ -5,6 +5,23 @@ import java.util.Scanner;
 import java.text.ParseException;
 import java.util.Calendar;
 
+/**
+ * <h1>AdminStudUI</h1>
+ * Provides a user interface for admin/staff who has chose student option from AdminUI
+ * 
+ * 
+ *<p>
+ * Provides 6 options
+ * 1)Edit an existing student access period to StarsSystem
+ * 2)Add a new student to StarsSystem
+ * 3)Remove an existing student from StarsSystem
+ * 4)Print a student list by entering an existing course code's index number
+ * 5)Print a student list by entering an existing course code
+ * 6)Go back to previous page(AdminUI)
+ * 
+ * @author Ng Kah Hui
+ * @since 2020-10-15
+ */
 
 /**
  * <h1>Admin Student User Interface</h1>
@@ -27,6 +44,10 @@ public class AdminStudUI {
 	private static StarsDB database = StarsDB.getInstance(); 
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
+	/**
+	 * This method is entered when admin/staff chose student option from AdminUI
+	 * Ask user which options they want to choose
+	 */
 	
 	/**
 	 * This method prints all the administrative
@@ -79,12 +100,12 @@ public class AdminStudUI {
 		}
 		
 	}
-
 	/**
-	 * This method is to change a student access timing.
-	 * 
-	 * @throws ParseException 	when the user inputted start or end
-	 * 							access date is incorrectly formatted.
+	 * This method allows admin/staff to edit an existing student access time to StarsSystem
+	 * 1.Method ask user to enter a student matriculation number and check if it exists in the database
+	 * 2.If such matriculation number exists in the database, method will ask user to input the student updated new start/end access time
+	 * 3.Method also check if user input in an specific format
+	 * @throws ParseException when user didnt input in an specific format for access tim.
 	 */
 	private static void editStudentAccess() throws ParseException { 
 		
@@ -114,10 +135,12 @@ public class AdminStudUI {
 	}
 
 	/**
-	 * This method is to add a new student to database.
-	 * 
-	 * @throws ParseException when the user inputted start or end
-	 * 						  access date is incorrectly formatted.
+	 * This method allows user to add a new student to StarsSystem
+	 * 1.Method ask user to input the new student matriculation number and check if it already exists in the database
+	 * 2.If it does not exist, method continue to ask user to input other necessary information
+	 * 3.Method add new student information to database
+	 * 4.Method print out list of all students in database
+	 * @throws ParseException when user didnt input in an specific format for access time 
 	 */
 	private static void addStudent() throws ParseException {
 		
@@ -191,7 +214,10 @@ public class AdminStudUI {
 	}
 	
 	/**
-	 * This method is to remove a new student to database.
+	 * This method allows user to remove an existing student from StarsSystem
+	 * 1.Method print out list of all students in database
+	 * 2.Method ask user to input student matriculation number and check if it exists in the database
+	 * 3.If it exists in the database, method remove student from database
 	 */
 	private static void removeStudent() { 
 		
@@ -220,7 +246,10 @@ public class AdminStudUI {
 	}
 
 	/**
-	 * This method is to show student list with course code and index number
+	 * Method allows user to print student list via a course code's index number
+	 * 1.Method ask user to input course code and check if it exists in the database
+	 * 2.If it does exists, method ask user to input the course code's index number and check if it exists in the database
+	 * 3.If it does exists, method print out student list
 	 */
 	private static void printStudListByIndex() { 
 
@@ -255,7 +284,9 @@ public class AdminStudUI {
 	}
 	
 	/**
-	 * This method is to show student list with course code
+	 * This method allows user to print student list by a course code
+	 * 1.Method ask user to input course code and check if it exists in the database
+	 * 2/If it does exists, print out student list
 	 */
 	private static void printStudListByCourse() { 
 		
