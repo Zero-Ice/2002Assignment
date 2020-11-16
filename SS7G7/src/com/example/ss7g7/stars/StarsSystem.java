@@ -127,10 +127,10 @@ public class StarsSystem {
 	/**
 	 * This method is used to create a StudentMenu and runs it.
 	 * It also checks beforehand if the current user exists
-	 * in the database or not.
+	 * in the database or not. 
 	 * 
-	 * @exception Prints error messages and does not create a StudentMenu. 
-	 * Goes back to the main loop of StarsSystem
+	 * If user does not exist, it prints an error message and
+	 * returns to the main loop of StarsSystem.
 	 */
 	private void runStudentMenu() {
 		// TODO: Get Student Info based on currentUser
@@ -155,8 +155,6 @@ public class StarsSystem {
 	/**
 	 * This method is used to create an AdminUI/AdminMenu and runs it.
 	 * 
-	 * @param Nothing
-	 * @return Nothing
 	 */
 	private void runAdminMenu() {
 		AdminUI.printAdminUI();

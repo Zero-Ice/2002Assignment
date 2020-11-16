@@ -15,7 +15,10 @@ import com.example.ss7g7.stars.User.UserType;
  * another student Logout
  *
  * @author Ong Rui Peng
- * @since 2020-10-15
+ * created on 2020/10/15
+ * 
+ * @version %I%
+ * @since 1.0
  */
 public class StudentMenu {
 	private Student student;
