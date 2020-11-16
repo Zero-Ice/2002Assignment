@@ -255,7 +255,10 @@ public class Index implements Serializable{
 			student.addCourse(this.courseCode, this.indexNum);
 			studentWaitlist.add(student);
 			System.out.println("Email to be sent to "+ student.getEmail());
-//			send.email(student.getEmail(), Subject, Body);
+//			String subject = "Placement of waitlist for Index " + indexNum ;
+//			String bodyMessage = "You have been placed on waitlist for " + indexNum + ".";
+//			String body = "Dear " + student.getName() +" " + student.getLastName()+",\n"+bodyMessage;
+//			send.email(xxxxxxxx@gmail.com, Subject, Body);
 			
 		}else {
 			System.out.println("Student already in waitlist");
