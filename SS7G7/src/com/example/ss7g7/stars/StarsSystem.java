@@ -139,7 +139,6 @@ public class StarsSystem {
 		Student student = db.getStudent(currentUser.getUsername());
 		
 		if(student == null) {
-			// throw exception. User exists but student does not exist in db
 			System.out.println("User not found in database");
 			return;
 			
