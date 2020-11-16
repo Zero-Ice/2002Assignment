@@ -22,7 +22,10 @@ import java.util.Iterator;
  *  This class also provides getters and setters for the above mentioned.
  *  
  * @author Jabir Shah Halith
- * @since 2020-10-19
+ * created on 2020/10/19
+ * 
+ * @version %I%
+ * @since 1.0
  */
 
 public class Course implements Serializable{
