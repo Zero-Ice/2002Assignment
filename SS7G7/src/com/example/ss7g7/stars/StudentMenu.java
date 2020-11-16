@@ -10,9 +10,14 @@ import com.example.ss7g7.stars.User.UserType;
  * are logged in
  * 
  * <p>
- * Provides 7 options to the student user Add Course Drop Course Print Courses
- * Registered Check Vacancies Available Change Index No. Swap Index No. with
- * another student Logout
+ * Provides 7 options to the student user 
+ * <li>Add Course 
+ * <li>Drop Course 
+ * <li>Print Courses Registered 
+ * <li>Check Vacancies Available 
+ * <li>Change Index No. 
+ * <li>Swap Index No. with another student 
+ * <li>Logout
  *
  * @author Ong Rui Peng
  * created on 2020/10/15
