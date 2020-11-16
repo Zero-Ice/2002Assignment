@@ -136,6 +136,13 @@ public class Login {
 	}
 	
 	
+	/**
+	 * This method authenticates the user
+	 * by cross checking the user credentials stored in the database
+	 * 
+	 * @param hmap refers to the key value pairs retrieved from the database
+	 * @return String <code>privilege</code> of user 
+	 */
 	String authUser (HashMap<String, String> hmap) {
 		
 	 	Set set = hmap.entrySet();
