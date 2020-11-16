@@ -389,7 +389,7 @@ public class Course implements Serializable{
 ///////////////////////                    get Lec Details (getters)            ////////////////////////////
 	
 	/**
-	 * Method to get all the lecuture details such as Day, Time, Group, Venue and Remark  at once 
+	 * Method to get all the lecture details such as Day, Time, Group, Venue and Remark  at once 
 	 * @return full details of the lecture 
 	 */
 	public String getLecDetails() {
