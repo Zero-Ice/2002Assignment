@@ -3,10 +3,28 @@ package com.example.ss7g7.stars;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * <h1>Admin Course User Interface</h1>
+ * 
+ * <p>
+ * The AdminCourseUI provides a streamlined 
+ * overview of the administrative actions that
+ * an admin user would be allowed to make on
+ * courses.
+ * 
+ * @author Kah Hui
+ * @version %I%
+ * @since 1.0
+ *
+ */
 public class AdminCourseUI {
 
 	private static Scanner sc = new Scanner(System.in); // take input from user
 
+	/**
+	 * This method prints all the administrative
+	 * options available.
+	 */
 	public static void printAdminCourseUI() {
 
 		int choice;
@@ -65,7 +83,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to add new course to database
+	/**
+	 * This method is to add a new course to database.
+	 */
 	private static void addNewCourse() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -198,7 +218,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to remove course from database
+	/**
+	 * This method is to remove a course from database.
+	 */
 	private static void removeACourse() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -225,7 +247,9 @@ public class AdminCourseUI {
 		database.printCourseList(); // show result
 	}
 
-	// Function to add a new index via course code to database
+	/**
+	 * This method is to add a new index via course code to database.
+	 */
 	private static void updateCourseIndex() {
 		int choice;
 
@@ -278,7 +302,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to update course detail
+	/**
+	 * 	This method is to update course details.
+	 */
 	private static void updateCourseDetail() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -304,11 +330,9 @@ public class AdminCourseUI {
 		System.out.print("Enter the updated course code:");
 		NcourseCode = sc.nextLine();
 
-		// tempCourse.updateCourseCode(NcourseCode.toUpperCase());
 
 		System.out.print("Enter the updated course name:");
 		courseName = sc.nextLine();
-		// tempCourse.updateCourseName(courseName.toUpperCase());
 
 		while (true) { // check if user input the correct input format
 			try {
@@ -321,14 +345,16 @@ public class AdminCourseUI {
 				System.out.println("Invalid input! Academic Unit must be a number!");
 			}
 		}
-		// tempCourse.updateAU(AU);
 
+		//If course code to be updated equals the new course code, update course
 		if (courseCode.equals(NcourseCode)) {
 
 			tempCourse.updateCourseCode(NcourseCode.toUpperCase());
 			tempCourse.updateCourseName(courseName.toUpperCase());
 			tempCourse.updateAU(AU);
 			database.updateCourseRecords(tempCourse);
+		
+		//Else, remove existing course and add new course
 		} else {
 			database.removeCourse(courseCode);
 			database.addCourse(NcourseCode, courseName.toUpperCase(), tempCourse.getSchooName(), AU);
@@ -341,7 +367,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to update index detail
+	/**
+	 * This method is to update index detail.
+	 */
 	private static void updateIndexDetail() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -382,7 +410,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to update lecture detail via course code
+	/**
+	 * This method is to update lecture detail via course code.
+	 */
 	private static void updateLecDetail() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -418,7 +448,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to update tutorial detail via course code and index number
+	/**
+	 * This method is to update tutorial detail via course code and index number
+	 */
 	private static void updateTutDetail() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -472,7 +504,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to update lab detail via course code and index number
+	/**
+	 * This method is to update lab detail via course code and index number.
+	 */
 	private static void updateLabDetail() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -526,7 +560,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to add new index via course code to database
+	/**
+	 * This method is to add new index via course code to database.
+	 */
 	private static void addNewIndex() {
 
 		StarsDB database = StarsDB.getInstance();
@@ -749,7 +785,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to remove an index number from a course from database
+	/**
+	 * This method is to remove an index number from a course from database
+	 */
 	private static void removeAIndex() {
 
 		StarsDB database = StarsDB.getInstance();
@@ -789,7 +827,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to print all existing course from database
+	/**
+	 * This method is to print all existing course from database
+	 */
 	private static void viewCourse() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -797,7 +837,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to view index number detail by course code
+	/**
+	 * This method is to view index number detail by course code.
+	 */
 	private static void viewIndexByCourse() {
 		StarsDB database = StarsDB.getInstance();
 
@@ -834,7 +876,9 @@ public class AdminCourseUI {
 
 	}
 
-	// Function to view index number number of vacancies(slots)
+	/**
+	 * This method is to view index number number of vacancies(slots).
+	 */
 	private static void CheckIndexSlots() {
 		StarsDB database = StarsDB.getInstance();
 

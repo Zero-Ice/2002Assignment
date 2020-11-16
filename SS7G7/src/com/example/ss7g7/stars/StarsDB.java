@@ -61,8 +61,8 @@ public class StarsDB {
 	 * This function provides a getter to the static StarsDB instance and creates a new
 	 * database instance if none exists.
 	 * 
-	 * @param <code>null</code>
-	 * @return StarsDB
+	 * @param 	<code>null</code>
+	 * @return	StarsDB
 	 */
 	public static StarsDB getInstance() {
 		if (db_instance == null) {
@@ -77,9 +77,9 @@ public class StarsDB {
 	 * Loads data from the files using the file paths given. Creates dummy
 	 * students/courses if none was loaded from the files.
 	 * 
-	 * @param studentDataFilePath refers to the .ser data file of the students
-	 * @param courseDataFilePath refers to the .ser data file of the courses
-	 * @return <code>true</code> returns upon initialization of the database
+	 * @param studentDataFilePath	refers to the .ser data file of the students
+	 * @param courseDataFilePath	refers to the .ser data file of the courses
+	 * @return <code>true</code>	returns upon initialization of the database
 	 * 
 	 */
 	public boolean init(String studentDataFilePath, String courseDataFilePath) {
@@ -135,7 +135,7 @@ public class StarsDB {
 	 * This method returns all students in the database.
 	 * 
 	 * @param <code>null</code>
-	 * @return ArrayList<Student> This is the students data.
+	 * @return students		which is an array list of Student objects
 	 */
 	public ArrayList<Student> getAllStudents() {
 		return students;
@@ -148,8 +148,8 @@ public class StarsDB {
 	 * username. 
 	 * 
 	 * @param userName
-	 * @return student if student is found in database;
-	 * 			<code>null</code> if student is not found.
+	 * @return student	if student is found in database;
+	 * 					<code>null</code> if student is not found.
 	 */
 	public Student getStudent(String userName) {
 		for (int user = 0; user < students.size(); user++) {
@@ -161,7 +161,7 @@ public class StarsDB {
 	}
 
 	/**
-	 * Adds a student to the DB and updates the file.
+	 * Adds a student object to the database and updates the .ser file.
 	 * 
 	 * @param currentStudent refers to the student to be added
 	 */
@@ -222,8 +222,8 @@ public class StarsDB {
 	 * 
 	 * 
 	 * @param matricNo
-	 * @return s if student is found in the database;
-	 * 			<code>null</code> if student is not found.
+	 * @return s 	if student is found in the database;
+ * 					<code>null</code> if student is not found.
 	 */
 	public Student getStudentByMatric(String matricNo) {
 		for (Student s : students) {
@@ -252,7 +252,7 @@ public class StarsDB {
 	 * Checks if a username already belongs to an existing student.
 	 * 
 	 * @param username
-	 * @return <code>true</code> if username exists;
+	 * @return 	<code>true</code> if username exists;
 	 * 			<code>false</code> if username does not exist.
 	 */
 	public Boolean isExistingUsername(String username) {
@@ -268,7 +268,7 @@ public class StarsDB {
 	/**Checks if a matric number belongs to an existing student
 	 * 
 	 * @param matricNo
-	 * @return <code>true</code> if matric number exists;
+	 * @return 	<code>true</code> if matric number exists;
 	 * 			<code>false</code> if it does not.
 	 */
 	public Boolean isExistingMatNum(String matricNo) {
@@ -282,7 +282,7 @@ public class StarsDB {
 	}
 
 	/**
-	 * This method adds a student object into the database.
+	 * This method adds a student object with all its defined parameters into the database.
 	 * 
 	 * @param username
 	 * @param password
@@ -353,7 +353,8 @@ public class StarsDB {
 	 * 
 	 * @param mode can be the start or end of the access date
 	 * @return newDate is a user input date that is correctly formatted
-	 * @throws ParseException
+	 * @throws ParseException when the user inputted start or end
+	 * 						  access date is incorrectly formatted.
 	 */
 	public Calendar getValidDateTime(String mode) throws ParseException {
 
@@ -414,7 +415,7 @@ public class StarsDB {
 	 * course containing the index number. 
 	 * 
 	 * @param indexNo
-	 * @return course if course with given index is found;
+	 * @return 	course if course with given index is found;
 	 * 			<code>null</code> if course is not found.
 	 */
 	public Course getCourseByIndex(int indexNo) {
@@ -432,8 +433,8 @@ public class StarsDB {
 	 * course with the course code.
 	 * 
 	 * @param courseCode
-	 * @return c if course is found in the database;
-	 * 			<code>null</code> if course is not found.
+	 * @return c 	if course is found in the database;
+	 * 				<code>null</code> if course is not found.
 	 */
 	public Course getCourse(String courseCode) {
 		for (Course c : courses) {
@@ -449,7 +450,7 @@ public class StarsDB {
 	 * This method checks if the user inputted course code exists in the database.
 	 * 
 	 * @param courseCode refers to the user inputted course code
-	 * @return <code>true</code> if course exists;
+	 * @return 	<code>true</code> if course exists;
 	 * 			<code>false</code> if course does not.
 	 */
 	public boolean isExistingCourseCode(String courseCode) {
@@ -607,7 +608,7 @@ public class StarsDB {
 	 * storing of user credentials
 	 * 
 	 * @param passClear refers to the clear text password to be hashed
-	 * @return hash which is a SHA-256 hash
+	 * @return hash in SHA-256
 	 */
 	String hash(String passClear) {
 
@@ -644,6 +645,9 @@ public class StarsDB {
 	 * 
 	 * @param username
 	 * @param password
+	 * @deprecated	This method was used to create the admin account.
+	 * 				It is not expected to be used otherwise. 
+	 * 				Use {@link StarsDB#addStudent(Student)} to add student accounts.
 	 */
 	public void addAdmin(String username, String password) {
 		file.setLoginCredentials(username, hash(password), password);

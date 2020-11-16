@@ -2,12 +2,29 @@ package com.example.ss7g7.stars;
 
 import java.util.Scanner;
 
+
+/**
+ * <h1>Admin User Interface</h1>
+ * 
+ * <p>
+ * The AdminUI provides an overview 
+ * of the administrative actions that
+ * an admin user would be allowed to make.
+ * 
+ * @author Kah Hui
+ * @version %I%
+ * @since 1.0
+ *
+ */
 public class AdminUI {
 	
 	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
-	
+	/**
+	 * This method prints all the administrative
+	 * options available.
+	 */
 	public static void printAdminUI()
 	{
 		
