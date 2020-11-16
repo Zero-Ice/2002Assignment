@@ -16,6 +16,8 @@ import java.util.Iterator;
  * of a Course object in a file.
  * 
  * @author 
+ * created on 2020/10/15
+ * 
  * @version %I%
  * @since 1.0
  *

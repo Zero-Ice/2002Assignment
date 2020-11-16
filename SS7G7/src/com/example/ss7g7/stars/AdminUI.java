@@ -12,6 +12,8 @@ import java.util.Scanner;
  * an admin user would be allowed to make.
  * 
  * @author Kah Hui
+ * created on 2020/10/15
+ * 
  * @version %I%
  * @since 1.0
  *

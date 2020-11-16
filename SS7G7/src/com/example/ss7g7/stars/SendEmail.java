@@ -2,15 +2,23 @@ package com.example.ss7g7.stars;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * The class SendEmail is to establish
+ * a connection with the SMTP server "gmail.com"
+ * to send a customized email from a dummy gmail account
+ * 
+ * @author Angelina
+ * created on 2020/10/15
+ * 
+ * @version %I%
+ * @since 1.0
+ */
+
 public class SendEmail implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String senderEmailID;
 	private String senderPassword;
@@ -20,6 +28,9 @@ public class SendEmail implements Serializable{
 	private String emailSubject;
 	private String emailBody;
 	
+	/**
+	 * This is the constructor of the class SendEmail
+	 */
 	SendEmail(){
 		
 		senderEmailID = "testperson324@gmail.com";
@@ -28,11 +39,21 @@ public class SendEmail implements Serializable{
 		emailServerPort = "465";
 		receiverEmailID = "";
 		emailSubject = "Test Mail";
-		emailBody = ":)";
+		emailBody = "";
 	}
 	
 	
-	public void email(String receiverEmailID,String Subject, String Body){
+	/**
+	 * This method sends a customized email
+	 * based on the given parameters via a dummy account
+	 * 
+	 * @param receiverEmailID
+	 * @param Subject
+	 * @param Body
+	 * 
+	 * @see {@link SMTPAuthenticator#SMTPAuthenticator(String, String)}
+	 */
+	public void email(String receiverEmailID, String Subject, String Body){
 	     
 	    // Receiver Email Address
 	    this.receiverEmailID=receiverEmailID; 
@@ -60,8 +81,7 @@ public class SendEmail implements Serializable{
 		    msg.setText(emailBody);
 		    msg.setSubject(emailSubject);
 		    msg.setFrom(new InternetAddress(senderEmailID));
-		    msg.addRecipient(Message.RecipientType.TO,
-		    new InternetAddress(receiverEmailID));
+		    msg.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmailID));
 		    Transport.send(msg);
 		    System.out.println("Message send Successfully"); 
 	    }

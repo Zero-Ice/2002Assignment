@@ -10,6 +10,18 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+
+/**
+ * The Login class is to log and authenticate
+ * users trying to access the StarsSystem
+ * 
+ * @author Ong Rui Peng
+ * @author Angelina
+ * created on 2020/10/15
+ * 
+ * @version %I%
+ * @since 1.0
+ */
 public class Login {
 	
 	public enum LOGIN_RESULT {
@@ -23,11 +35,31 @@ public class Login {
 	private String passCipher;  
 	private StarsDB db;
 
+	/**
+	 * This is a constructor that
+	 * requires a given instance of the singleton StarsDB
+	 * to set its own private variable of the database with the 
+ 	 * initialized instance of the database
+	 * 
+	 * @param db refers to the initialized instance of the database
+	 */
 	Login(StarsDB db) {
 		this.db = db;
 		
 	}
 	
+	/**
+	 * This method gets the user inputted credentials and
+	 * authenticates the user against stored user credentials
+	 * in the database.
+	 * 
+	 * <p>
+	 * Once the user has been authenticated, user will be
+	 * streamed into <code>UserType.ADMIN</code> or <code>UserType.STUDENT</code>
+	 * 
+	 * @return	<code>UNSUCCESSFUL_LOGIN</code> if authentication fails; 
+	 * 			<code>SUCCESSFUL_LOGIN</code> if authentication is successful.
+	 */
 	LOGIN_RESULT login(){
 		
 		passClear = new StringBuilder();
@@ -60,10 +92,19 @@ public class Login {
 		return LOGIN_RESULT.UNSUCCESSFUL_LOGIN;
 	}
 	
+	/**
+	 * This method returns the current user
+	 * 
+	 * @return object <code>user</code>
+	 */
 	User getCurrentUser () {
 		return this.user;
 	}
 	
+	/**
+	 * This method retrieves user inputted credentials
+	 * 
+	 */
 	void getLoginCred () {
 		
 		String username;

@@ -164,22 +164,24 @@ public class StarsDB {
 	 * Adds a student object to the database and updates the .ser file.
 	 * 
 	 * @param currentStudent refers to the student to be added
+	 * @see {@link FileIO#setStudentRecord(Student)}
+	 * @see {@link FileIO#setLoginCredentials(String, String)}
 	 */
 	public void addStudent(Student currentStudent) {
 		file.setStudentRecord(currentStudent);
-		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()),
-				currentStudent.getPass());
+		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
 	/**
 	 * Removes a student from the database and updates the student file.
 	 * 
 	 * @param currentStudent refers to the student to be removed
+	 * @see {@link FileIO#updateStudentRecords(Student, String)}
+	 * @see {@link FileIO#removeLoginCredentials(String, String)}
 	 */
 	public void removeStudent(Student currentStudent) {
 		file.updateStudentRecords(currentStudent, "remove");
-		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()),
-				currentStudent.getPass());
+		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
 	/**
@@ -204,12 +206,12 @@ public class StarsDB {
 		Student x = new Student("student1", "test1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119,
 				"marktan@hotmail.com", newDate1, newDate2);
 		file.setStudentRecord(x);
-		file.setLoginCredentials(x.getUsername(), hash(x.getPass()), x.getPass());
+		file.setLoginCredentials(x.getUsername(), hash(x.getPass()));
 
 		Student y = new Student("student2", "test2", "Laura", " Tan", "U1829091", "F", "Spain", 96533219,
 				"lautan@hotmail.com", newDate1, newDate2);
 		file.setStudentRecord(y);
-		file.setLoginCredentials(y.getUsername(), hash(y.getPass()), y.getPass());
+		file.setLoginCredentials(y.getUsername(), hash(y.getPass()));
 
 	}
 
@@ -650,7 +652,7 @@ public class StarsDB {
 	 * 				Use {@link StarsDB#addStudent(Student)} to add student accounts.
 	 */
 	public void addAdmin(String username, String password) {
-		file.setLoginCredentials(username, hash(password), password);
+		file.setLoginCredentials(username, hash(password));
 	}
 
 }

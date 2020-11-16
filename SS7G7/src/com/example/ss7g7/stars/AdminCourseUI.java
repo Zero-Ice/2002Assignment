@@ -13,6 +13,8 @@ import java.util.Scanner;
  * courses.
  * 
  * @author Kah Hui
+ * created on 2020/10/15
+ * 
  * @version %I%
  * @since 1.0
  *
