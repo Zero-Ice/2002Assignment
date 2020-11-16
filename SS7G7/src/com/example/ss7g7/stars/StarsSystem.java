@@ -27,7 +27,7 @@ public class StarsSystem {
 	private Login login;
 	private User currentUser;
 	private StudentMenu studentMenu;
-	private AdminUI adminMenu;
+	private AdminMenu adminMenu;
 
 	/**
 	 * Constructor of StarsSystem.
@@ -158,7 +158,10 @@ public class StarsSystem {
 	 * 
 	 */
 	private void runAdminMenu() {
-		AdminUI.printAdminUI();
+		adminMenu = new AdminMenu();
+		
+		adminMenu.run();
+		
 		logout();
 		// Notes: Once this function ends, it goes back to login. see run()
 	}

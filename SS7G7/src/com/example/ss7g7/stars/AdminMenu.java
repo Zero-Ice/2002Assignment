@@ -18,7 +18,7 @@ import java.util.Scanner;
  * @since 1.0
  *
  */
-public class AdminUI {
+public class AdminMenu {
 	/**
 	 * <h1>AdminUI</h1>
 	 * Provides a user interface for admin/staff who has logged in to StarsSystem.
@@ -33,13 +33,18 @@ public class AdminUI {
 	 * @author Ng Kah Hui
 	 * @since 2020-10-15
 	 */
-	private static Scanner sc = new Scanner(System.in); // take input from user
+	
+	private Scanner sc; 
+	
+	public AdminMenu() {
+		sc = new Scanner(System.in); // take input from user
+	}
 	
 	/**
 	 * This method prints all the administrative
 	 * options available.
 	 */
-	public static void printAdminUI()
+	public void run()
 	{
 		/**
 		 * This method is entered when user entered as an admin/staff
