@@ -34,66 +34,6 @@ import java.util.Scanner;
  * @since 1.0
  * 
  */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
-/**
- * @author Kizuyami
- *
- */
 public class StarsDB {
 	private static StarsDB db_instance = null;
 
@@ -180,9 +120,6 @@ public class StarsDB {
 				c.printAllIndexes();
 			}
 		}
-
-//		System.out.println("Sending test email..");
-//		send.email("teststudent457@gmail.com", "Test", "Test");
 
 		return true;
 	}
