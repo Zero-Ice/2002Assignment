@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.text.ParseException;
 import java.util.Calendar;
 
+
 /**
  * <h1>Admin Student User Interface</h1>
  * 
@@ -13,20 +14,19 @@ import java.util.Calendar;
  * overview of the administrative actions that
  * an admin user would be allowed to make on
  * students.
- * 
- * Provides 6 options
- * 1)Edit an existing student access period to StarsSystem
- * 2)Add a new student to StarsSystem
- * 3)Remove an existing student from StarsSystem
- * 4)Print a student list by entering an existing course code's index number
- * 5)Print a student list by entering an existing course code
- * 6)Go back to previous page(AdminUI)
- * 
- * @author Kah Hui
- * created on 2020/10/15
- * 
+ * <p>
+ * The options include:
+ * <li>Editing an existing student access period to StarsSystem 
+ * <li>Adding a new student to StarsSystem 
+ * <li>Removing an existing student from StarsSystem 
+ * <li>Printing a student list by entering an existing course code's index number 
+ * <li>Printing a student list by entering an existing course code 
+ * <li>Going  back to previous page (AdminUI) 
+ *  
+ * @author Ng Kah Hui 
  * @version %I%
- * @since 1.0
+ * @since 2020-10-15 
+ * 
  * 
  */
 public class AdminStudUI {
