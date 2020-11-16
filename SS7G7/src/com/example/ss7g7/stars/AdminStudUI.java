@@ -2,13 +2,13 @@ package com.example.ss7g7.stars;
 
 
 import java.util.Scanner;
+import java.text.ParseException;
 import java.util.Calendar;
 
 
 public class AdminStudUI {
 	
 	private static StarsDB database = StarsDB.getInstance(); 
-	
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	
@@ -61,9 +61,9 @@ public class AdminStudUI {
 	}
 
 	// Function to change a student access timing
-	private static void editStudentAccess() { 
+	private static void editStudentAccess() throws ParseException { 
 		
-		StudMngmt.printStudentList(); //show result from db 
+		database.printStudentList(); //show result from db 
 		
 		Boolean check = false;
 		String matNum = "";
@@ -74,22 +74,22 @@ public class AdminStudUI {
 		do {
 			System.out.print("Enter student's matriculation number: "); //check if such matNum exists
 			matNum = sc.nextLine();
-			check = StudMngmt.isExistingMatNum(matNum);
+			check = database.isExistingMatNum(matNum);
 			if(check){
 				System.out.println("Matriculation number is not found in database.");
 			}
 		} while (check);
 
-		Calendar newAccessStart = StudMngmt.getValidDateTime("new start access time");
-		Calendar newAccessEnd = StudMngmt.getValidDateTime("new end access time");
-		StudMngmt.updateAccessPeriod(matNum, newAccessStart, newAccessEnd);
+		Calendar newAccessStart = database.getValidDateTime("new start access time");
+		Calendar newAccessEnd = database.getValidDateTime("new end access time");
+		database.updateAccessPeriod(matNum, newAccessStart, newAccessEnd);
 		System.out.println("");
 		System.out.println("Access time has been updated successfully!");
 		
 	}
 
 	//Function to add a new student to database
-	private static void addStudent() {
+	private static void addStudent() throws ParseException {
 		
 		String username = "";
 		String passWord = "";
@@ -109,7 +109,7 @@ public class AdminStudUI {
 		do {
 			System.out.print("Enter the student's username: "); //check if such username exists 
 			username = sc.nextLine();
-			check = !(StudMngmt.isExistingUsername(username));
+			check = !(database.isExistingUsername(username));
 		} while (check);
 		
 		System.out.print("Enter student's default password: ");
@@ -123,7 +123,7 @@ public class AdminStudUI {
 		do {
 			System.out.print("Enter student matriculation number: ");
 			matricNo = sc.nextLine();
-			check = !StudMngmt.isExistingMatNum(matricNo);
+			check = !database.isExistingMatNum(matricNo);
 		} while (check);
 
 		System.out.print("Enter student's gender(M/F): ");
@@ -147,22 +147,22 @@ public class AdminStudUI {
         System.out.print("Enter student's Email Address: ");
         email = sc.nextLine();
         
-        Calendar accessStart = StudMngmt.getValidDateTime("access start");
-        Calendar accessEnd = StudMngmt.getValidDateTime("access end");
+        Calendar accessStart = database.getValidDateTime("access start");
+        Calendar accessEnd = database.getValidDateTime("access end");
         
 		/*
 		 * For config of credentials, please ignore
 		 */
         //database.addAdmin(username, passWord);
         
-        StudMngmt.addStudent(username, passWord, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
+        database.addStudent(username, passWord, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
         
         // after user input in username and password, it should store inside starsDB				
        
         
 	    System.out.println();
 		System.out.println("The student has been added.");
-		StudMngmt.printStudentList();
+		database.printStudentList();
 
 		
 	}
@@ -173,7 +173,7 @@ public class AdminStudUI {
     	Boolean check = false;
 		String matricNo = "";
 		
-		StudMngmt.printStudentList();
+		database.printStudentList();
 		
 		System.out.println();
 		
@@ -184,13 +184,13 @@ public class AdminStudUI {
 		do {
 			System.out.print("Enter student's matriculation number: "); //check if such matNum exists
 			matricNo = sc.nextLine();
-			check = StudMngmt.isExistingMatNum(matricNo);
+			check = database.isExistingMatNum(matricNo);
 			if (check){
 				System.out.println("Matriculation number is not found in database.");
 			}
 		} while (check);
 		
-		StudMngmt.removeStudent(matricNo); //remove student from db 
+		database.removeStudent(matricNo); //remove student from db 
 		System.out.println("Student with matriculation number of " + matricNo + " has been removed.");
 	}
 

@@ -2,6 +2,7 @@ package com.example.ss7g7.stars;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
 import com.example.ss7g7.stars.User.UserType;
 
@@ -25,8 +26,6 @@ public class Index implements Serializable{
 	private String tutRemark;
 	private String labVenue;
 	private String labGroup;
-	
-	
 	private String labRemark;
 	private LocalDateTime tutStartTime;
 	private LocalDateTime tutEndTime;
@@ -37,6 +36,11 @@ public class Index implements Serializable{
 	private boolean indexFull;
 	private SendEmail send;
 	
+	//TODO: email body and subject
+	//TODO: return waitlist
+	
+	
+	// Constructor for Index Class
 	public Index(int index_Num, String courseCode, int num_Seat) {
 		this.indexNum=index_Num;
 		this.courseCode = courseCode;
@@ -58,7 +62,7 @@ public class Index implements Serializable{
 		}
 	}
 	
-	
+	// Method return boolean on whether student has registered to current index
 	public boolean isStudentRegistered(String matricNo) {
 		if(seatVacancy.contains(matricNo)) {
 			return true;
@@ -66,8 +70,60 @@ public class Index implements Serializable{
 			return false;
 		}
 	}
-	
 
+	// Method to print students registered for the index
+	public void printStudentListByIndex() {
+		System.out.println(indexNum);
+		for(int i =0;i<numSeats;i++) {
+			if(seatVacancy.get(i).contains("vacant")!=true) {
+				System.out.println(seatVacancy.get(i));
+			}
+		}
+		System.out.println();
+	}
+	
+	@Override
+	public String toString() {
+		// Example
+		// Class Type, Group, Day, Time, Venue, Remark
+		String s = "";
+		s += "Index" + Integer.toString(indexNum) + "\n";
+		s += getTutDetails() + "\n";
+		s += getLabDetails();
+		return s;
+	}
+	
+///////////////////////    Index Related          ////////////////////////////
+	
+	// getter for index number
+	public int getIndexNum() {
+		return indexNum;
+	}
+
+	// setter for index number ( to update index number)
+	public void setIndexNum(int indexNum) {
+		this.indexNum = indexNum;
+	}
+
+	// returns the vacancy list 
+	public ArrayList<String> getVacancyList(){
+		return seatVacancy;
+	}
+	
+	// return number of vacancies left
+	public int getNumOfVacancies() {
+		int numOfVacant=0;
+		
+		for(int i =0;i<numSeats;i++) {
+			if(seatVacancy.get(i).contains("vacant")) {
+				numOfVacant++;
+			}
+		}
+		return numOfVacant;
+	}
+	
+/************************************************************************************************************/
+///////////////////////                    Assign and Unassign Student from index          ////////////////////////////
 	public void assignStudent(Student student) {
 		String matricNo = student.getMatricNo();
 		
@@ -89,20 +145,7 @@ public class Index implements Serializable{
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
-	}
-
-	public void addStudentToWaitlist(Student student) {
-
-		if(isStudentInWaitlist(student)==false) {
-			student.addCourse(this.courseCode, this.indexNum);
-			studentWaitlist.add(student);
-			System.out.println("Email to be sent to "+ student.getEmail());
-//			send.email(student.getEmail(), Subject, Body);
-			
-		}else {
-			System.out.println("Student already in waitlist");
-		}
-		
+		student.addWaitingCourse(this.courseCode, this.indexNum);
 	}
 	
 	public Student unassignStudent(Student student, boolean triggerWaitlistUpdate) {
@@ -139,7 +182,27 @@ public class Index implements Serializable{
 	public Student unassignStudent(Student student) {
 		return unassignStudent(student, true);
 	}
+
+/************************************************************************************************************/
+
+///////////////////////                    Waitlist        ////////////////////////////
 	
+	// Method to add student to waitlist
+	public void addStudentToWaitlist(Student student) {
+
+		if(isStudentInWaitlist(student)==false) {
+			student.addCourse(this.courseCode, this.indexNum);
+			studentWaitlist.add(student);
+			System.out.println("Email to be sent to "+ student.getEmail());
+//			send.email(student.getEmail(), Subject, Body);
+			
+		}else {
+			System.out.println("Student already in waitlist");
+		}
+		
+	}
+	
+	// Method to add student from waitlist into index
 	public void addFromWaitlistToIndex() {
 		if(studentWaitlist.size()==0) {
 			System.out.println("no student in waitlist");
@@ -150,6 +213,7 @@ public class Index implements Serializable{
 		}
 	}
 	
+	// Shows the students who are in waitlist
 	public void showStudentWaitlist() {
 		if(studentWaitlist.size()==0) {
 			System.out.println("no student in waitlist");
@@ -160,6 +224,7 @@ public class Index implements Serializable{
 		}
 	}
 	
+	// checks if student has already been placed on waitlist
 	public boolean isStudentInWaitlist(Student student) {
 		String matricNo = student.getMatricNo();
 		for(int i =0;i<studentWaitlist.size();i++) {
@@ -170,106 +235,90 @@ public class Index implements Serializable{
 		}
 		return false;
 	}
-	
-	@Override
-	public String toString() {
-		// Example
-		// Class Type, Group, Day, Time, Venue, Remark
-		return "Index" + Integer.toString(indexNum);
-	}
-	
-	
-	public int getNumOfVacancies() {
-		int numOfVacant=0;
-		
-		for(int i =0;i<numSeats;i++) {
-			if(seatVacancy.get(i).contains("vacant")) {
-				numOfVacant++;
-			}
-		}
-		return numOfVacant;
-	}
-	
-	public void printStudentListByIndex() {
-		System.out.println(indexNum);
-		for(int i =0;i<numSeats;i++) {
-			if(seatVacancy.get(i).contains("vacant")!=true) {
-				System.out.println(seatVacancy.get(i));
-			}
-			
-		}
-		System.out.println();
-	}
-	
 
-	public int getIndexNum() {
-		return indexNum;
-	}
+/************************************************************************************************************/
 
-	public void setIndexNum(int indexNum) {
-		this.indexNum = indexNum;
-	}
 
-	public String getTutVenue() {
-		return tutVenue;
-	}
-
-	public void updateTutVenue(String tutVenue) {
-		this.tutVenue = tutVenue;
-	}
-
-	
-	//return string
-	public void getTutDetails() {
-		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
-		String tutStart = formatter.format(tutStartTime);
-		String tutEnd =formatter.format(tutEndTime);
-		
-		String time = tutStart + " - " + tutEnd;
-		
-		String tutDetails = "Tut "+ "\t"+ tutGroup + "\t" + tutStartTime.getDayOfWeek() + "\t" + time + "\t" + tutVenue+ "\t"+ tutRemark;
-		
-		System.out.println(tutDetails);
-	}
-
-	
+///////////////////////                    SET tut details              ////////////////////////////
 	public void setTutDetails(int intDay, int startHours, int startMinutes,int endHours,
 			int endMinutes,String tutVenue, String tutRemarks, String tutGroup, int occurring) {
-		tutStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		tutEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		tutStartTime = LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes);
+		tutEndTime = LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes);
 		tutOccurring = occurring;
 		
 		updateTutVenue(tutVenue);
 		updateTutRemark(tutRemarks);
 		updateTutGroup(tutGroup);
 	}
-
-	public String getLabVenue() {
-		return labVenue;
-	}
-
-	public void updateLabVenue(String labVenue) {
-		this.labVenue = labVenue;
-	}
-
 	
-	//return string
-	public void getLabDetails() {
-		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
-		String labStart = formatter.format(labStartTime);
-		String labEnd =formatter.format(labEndTime);
-		
-		String time = labStart + " - " + labEnd;
-		String labDetails = "Lab \t" + labGroup+ "\t" +labStartTime.getDayOfWeek() + "\t" + time + "\t" + labVenue+ "\t" +labRemark;
-		
-		System.out.println(labDetails);
+/************************************************************************************************************/
+	
+///////////////////////                    edit tut Details (setters)            ////////////////////////////
+	
+	public void updateTutVenue(String tutVenue) {
+		this.tutVenue = tutVenue;
 	}
 
+	public void updateTutRemark(String tutRemark) {
+		this.tutRemark = tutRemark;
+	}
+	
+	public void updateTutGroup(String tutGroup) {
+		this.tutGroup = tutGroup;
+	}
+	
+/************************************************************************************************************/
+
+///////////////////////                    get tut Details (getters)            ////////////////////////////
+	
+	public String getTutDetails() {
+		if(tutStartTime == null || tutEndTime == null) return "";
+		
+		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
+		String tutStart = tutStartTime.format(formatter);
+		String tutEnd = tutEndTime.format(formatter);
+		
+		String time = tutStart + " - " + tutEnd;
+		
+		String tutDetails = "Tut "+ "\t"+ tutGroup + "\t" + tutStartTime.getDayOfWeek() + "\t" + time + "\t" + tutVenue+ "\t"+ tutRemark;
+		
+//		System.out.println(tutDetails);
+		return tutDetails;
+	}
+	
+	public String getTutVenue() {
+		return tutVenue;
+	}
+	
+	public String getTutRemark() {
+		return tutRemark;
+	}
+	
+	public String getTutGroup() {
+		return tutGroup;
+	}
+	
+	public int getTutOccurring() {
+		return tutOccurring;
+	}
+	
+	public LocalDateTime getTutStartTime() {
+		return tutStartTime;
+	}
+	
+	public LocalDateTime getTutEndTime() {
+		return tutEndTime;
+	}
+
+/************************************************************************************************************/
+
+///////////////////////                    SET lab details              ////////////////////////////
+	
 	public void setLabDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
 			String labVenue,String labRemarks, String labGroup, int occurring) {
 		
-		labStartTime = LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes);
-		labEndTime = LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes);
+		labStartTime = LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes);
+		labEndTime = LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes);
 		labOccurring = occurring;
 		
 		updateLabVenue(labVenue);
@@ -277,54 +326,50 @@ public class Index implements Serializable{
 		updateLabGroup(labGroup);
 	}
 
-	public String getTutRemark() {
-		return tutRemark;
+/************************************************************************************************************/
+	
+///////////////////////                    edit lab Details (setters)            ////////////////////////////
+	
+	public void updateLabVenue(String labVenue) {
+		this.labVenue = labVenue;
 	}
 
-
-	public void updateTutRemark(String tutRemark) {
-		this.tutRemark = tutRemark;
+	public void updateLabGroup(String labGroup) {
+		this.labGroup = labGroup;
 	}
-
-
-	public String getTutGroup() {
-		return tutGroup;
+	
+	public void updateLabRemark(String labRemark) {
+		this.labRemark = labRemark;
 	}
-
-
-	public void updateTutGroup(String tutGroup) {
-		this.tutGroup = tutGroup;
+	
+/************************************************************************************************************/
+	
+///////////////////////                    get lab Details (getters)            ////////////////////////////
+	
+	public String getLabDetails() {
+		if(labStartTime == null || labEndTime == null) return "";
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+		String labStart = labStartTime.format(formatter);
+		String labEnd = labEndTime.format(formatter);
+		
+		String time = labStart + " - " + labEnd;
+		String labDetails = "Lab \t" + labGroup+ "\t" +labStartTime.getDayOfWeek() + "\t" + time + "\t" + labVenue+ "\t" +labRemark;
+//		System.out.println(labDetails);
+		return labDetails;
+	}
+	
+	public String getLabVenue() {
+		return labVenue;
 	}
 	
 	
 	public String getLabGroup() {
 		return labGroup;
 	}
-
-
-	public void updateLabGroup(String labGroup) {
-		this.labGroup = labGroup;
-	}
-
-
+	
 	public String getLabRemark() {
 		return labRemark;
-	}
-
-
-	public void updateLabRemark(String labRemark) {
-		this.labRemark = labRemark;
-	}
-	
-	public ArrayList<String> getVacancyList()
-	{return seatVacancy;}
-
-	public LocalDateTime getTutStartTime() {
-		return tutStartTime;
-	}
-	
-	public LocalDateTime getTutEndTime() {
-		return tutEndTime;
 	}
 	
 	public LocalDateTime getLabStartTime() {
@@ -335,14 +380,14 @@ public class Index implements Serializable{
 		return labEndTime;
 	}
 	
-	public int getTutOccurring() {
-		return tutOccurring;
-	}
-	
 	public int getLabOccurring() {
 		return labOccurring;
 	}
 	
+	public int getWaitlistLength() {
+		return this.studentWaitlist.size();
+	}
 	
-
+/************************************************************************************************************/
+	
 }

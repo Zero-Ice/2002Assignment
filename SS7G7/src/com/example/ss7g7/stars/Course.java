@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,7 +25,7 @@ public class Course implements Serializable{
 	private ArrayList<Index> indexes; // array of indexes
 	private boolean courseAvailability;
 
-	
+	// Constructor for Course Class
 	public Course(String course_Code, String course_Name, String school_Name, int au) {
 		this.courseCode=course_Code;
 		this.courseName=course_Name;
@@ -38,27 +39,28 @@ public class Course implements Serializable{
 		
 	}
 	
-	///getter-- use  inputted index to get index object (to access everything in specified index)
+	// getter to get the inputted index by iterating through the ArrayList of indexes
+	// returns the index object if it was found otherwise it will return a null
 	public Index getIndex(int index) {
 		for(int i = 0; i < indexes.size(); i++) {
 			if(indexes.get(i).getIndexNum() == index) {
-				return indexes.get(i);
+				return indexes.get(i); 
 			}
 		}
 		return null;
 	}
 	
+	
+	// Method to print all of the indexes in the Course
 	public void printAllIndexes () {
-		
 		Iterator i = indexes.iterator();
-		
 		while(i.hasNext()) {
 			System.out.println(i.next()+"\n");
 		}
 		
 	}
-	
 
+	// A method that returns a boolean if the given index number is in ArrayList of indexes
 	public boolean containsIndexNo(int index) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
@@ -70,20 +72,19 @@ public class Course implements Serializable{
 	}
 	
 
-	
+	// To print the Students who are registered for each index of the Course
 	public void printStudentListByCourse() {
-		System.out.println(getCourseCode());
+		System.out.println(getCourseCode()); //Prints the course code
+		
+		// this loops iterates through each index to print the students registered in each index
 		for(int i = 0; i < indexes.size(); i++) {
 			System.out.println("Index "+indexes.get(i).getIndexNum());
 			indexes.get(i).printStudentListByIndex();
 		}
 	}
 	
-	//public void showfullCourseDetails() {
-		//String op = getCourseCode() +" "+getCourseName()+" "+getSchooName();
-		//System.out.println(op);	
-	//}
-	
+
+	// Method to show vacancies for each index
 	public void printNumVacanciesAllIndexes() {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
@@ -91,7 +92,7 @@ public class Course implements Serializable{
 		}
 	}
 	
-	// check if student has registered between indexes
+	// check if student has registered between indexes and return a boolean, whether there is a clash
 	public boolean checkIndexClash(String matricNo) {
 		int sizeOfIndex= indexes.size();
 		for(int i = 0; i<sizeOfIndex;i++) {
@@ -102,9 +103,7 @@ public class Course implements Serializable{
 		return false;
 	}
 	
-
-	
-//////////////////////////////////////////////////     STUDENT assign & unassign             ///////////////////////////////////////
+///////////		    STUDENT assign & unassign if student registers by course        /////////////////
 	public void assignStudent(int index, Student student) {
 		String matricNo = student.getMatricNo();
 		
@@ -129,24 +128,30 @@ public class Course implements Serializable{
 			System.out.println(matricNo + " has not registered before");
 		}
 	}
+/************************************************************************************************************/
 	
+///////////////////////                    Add/Edit/Delete index              ////////////////////////////
 	
-///////////////////////                    ADMIN indexes              ////////////////////////////
+	// Method to add index to Course
 	public Index addIndex(int index, int vacancy) {
 		
+		// if index does not exists previously index will be added
 		if(getIndex(index)==null) {
 			Index i = new Index(index, courseCode, vacancy);
 			indexes.add(i);
 			System.out.println("Index "+index+" was successfully added to "+ courseCode);
 			return i;
-		}else {
+		}else { 
+			// if index exists in the Course it will print the following and return a null
 			System.out.println("Index "+index+" already exists in "+ courseCode + "!");
 		}
 		return null;
 	}
 	
+	// Method to delete a index
 	public void removeIndex(int index) {
 		int sizeOfIndex= indexes.size();
+		
 		for(int i = 0; i<sizeOfIndex;i++) {
 			if(indexes.get(i).getIndexNum()==index) {
 				indexes.remove(i);
@@ -155,42 +160,19 @@ public class Course implements Serializable{
 			}
 		}
 		System.out.println("Index "+index+" does not exist");
-		
-		
 	}
 	
+	
+	// Method to update index number
 	public void updateIndex(int index, int newIndex) {
 		getIndex(index).setIndexNum(newIndex);
 		System.out.println("Index "+index+" updated to " + newIndex);
 		
 	}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-///////////////////////                    ADMIN lec/tut/lab venue              ////////////////////////////
-	
-	public void updateLecVenue(String lecVenue) {
-		this.lecVenue = lecVenue;
-	}
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-///////////////////////                    SET lec/tut/lab dateTime              ////////////////////////////	
-		
-	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
-			String lecVenue,String lecRemarks, String lecGroup) {
-		updateLecStartTime(LocalDateTime.of(2020, Month.JANUARY, intDay, startHours, startMinutes));
-		updateLecEndTime(LocalDateTime.of(2020, Month.JANUARY, intDay, endHours, endMinutes));
-		updateLecVenue(lecVenue);
-		updateLecGroup(lecGroup);
-		updateLecRemark(lecRemarks);
-	}
-	
+/************************************************************************************************************/
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	
-///////////////////////                    edit Course Details             ////////////////////////////
+///////////////////////                    edit Course Details (setters)            ////////////////////////////
 	public void updateCourseCode(String courseCode) {
 		this.courseCode = courseCode;
 	}
@@ -211,10 +193,9 @@ public class Course implements Serializable{
 		AU = au;
 	}
 	
+/************************************************************************************************************/
 	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
+///////////////////////                    get Course Details (getters)            ////////////////////////////	
 	public String getCourseCode() {
 		return courseCode;
 	}
@@ -227,64 +208,88 @@ public class Course implements Serializable{
 		return schooName;
 	}
 
-	
-	public String getLecVenue() {
-		return lecVenue;
+	public int getAU() {
+		return AU;
 	}
 	
 	public boolean getCourseAvailability() {
 		return courseAvailability;
 	}
 	
-	public void getLecDetails() {
-		String lecStart = getLecStartTime().toString();
-		String lecEnd =getLecEndTime().toString();
+/************************************************************************************************************/
+
+///////////////////////                    SET lec details              ////////////////////////////	
+	
+// Method to set  Lecture details such as the time,venue, group and remark
+	public void setLecDetails(int intDay, int startHours, int startMinutes,int endHours, int endMinutes,
+			String lecVenue,String lecRemarks, String lecGroup) {
+		updateLecStartTime(LocalDateTime.of(2020, Month.JUNE, intDay, startHours, startMinutes));
+		updateLecEndTime(LocalDateTime.of(2020, Month.JUNE, intDay, endHours, endMinutes));
+		updateLecVenue(lecVenue);
+		updateLecGroup(lecGroup);
+		updateLecRemark(lecRemarks);
+	}
+
+
+/************************************************************************************************************/
+
+///////////////////////                    edit Lec Details (setters)            ////////////////////////////
+	public void updateLecRemark(String lecRemark) {
+		this.lecRemark = lecRemark;
+	}
+	
+	public void updateLecGroup(String lecGroup) {
+		this.lecGroup = lecGroup;
+	}
+	
+	public void updateLecEndTime(LocalDateTime lecEndTime) {
+		this.lecEndTime = lecEndTime;
+	}
+	
+	public void updateLecStartTime(LocalDateTime lecStartTime) {
+		this.lecStartTime = lecStartTime;
+	}
+	
+	public void updateLecVenue(String lecVenue) {
+		this.lecVenue = lecVenue;
+	}
+	
+/************************************************************************************************************/
+	
+///////////////////////                    get Lec Details (getters)            ////////////////////////////
+	
+	// Method to get all the details at once
+	public String getLecDetails() {
+		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
+		
+		String lecStart = getLecStartTime().format(formatter);
+		String lecEnd =getLecEndTime().format(formatter);
 		
 		String time = lecStart + " - " + lecEnd;
 
-		String lecDetails = "Lec "+ "\t"+ lecGroup + "\t" + lecStartTime.getDayOfWeek() + "\t" + time + "\t" + lecVenue+ "\t"+ lecRemark;
-		
-		System.out.println(lecDetails);
+		String lecDetails = "Lec "+ "\t"+ lecGroup + "\t" + lecStartTime.getDayOfWeek() + "\t" + time + "\t" + lecVenue+ "\t"+ lecRemark;		
+//		System.out.println(lecDetails);
+		return lecDetails;
 	}
 
-	public int getAU() {
-		return AU;
+	public String getLecVenue() {
+		return lecVenue;
 	}
 
 	public String getLecRemark() {
 		return lecRemark;
 	}
 
-	public void updateLecRemark(String lecRemark) {
-		this.lecRemark = lecRemark;
-	}
-
 	public String getLecGroup() {
 		return lecGroup;
-	}
-
-	public void updateLecGroup(String lecGroup) {
-		this.lecGroup = lecGroup;
 	}
 
 	public LocalDateTime getLecStartTime() {
 		return lecStartTime;
 	}
 
-	public void updateLecStartTime(LocalDateTime lecStartTime) {
-		this.lecStartTime = lecStartTime;
-	}
-
 	public LocalDateTime getLecEndTime() {
 		return lecEndTime;
 	}
 
-	public void updateLecEndTime(LocalDateTime lecEndTime) {
-		this.lecEndTime = lecEndTime;
-	}
-
-
-	
-	
-	
 }
