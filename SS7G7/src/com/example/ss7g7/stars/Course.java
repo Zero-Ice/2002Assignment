@@ -346,7 +346,7 @@ public class Course implements Serializable{
 ///////////////////////                    edit Lec Details (setters)            ////////////////////////////
 	/**
 	 * Mutator method to change the remark for lecture
-	 * @param lecRemark- intended new remark for lecture
+	 * @param lecRemark - intended new remark for lecture
 	 */
 	public void updateLecRemark(String lecRemark) {
 		this.lecRemark = lecRemark;
