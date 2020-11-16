@@ -19,8 +19,20 @@ import java.util.Scanner;
  *
  */
 public class AdminUI {
-	
-	
+	/**
+	 * <h1>AdminUI</h1>
+	 * Provides a user interface for admin/staff who has logged in to StarsSystem.
+	 * 
+	 * 
+	 *<p>
+	 * Provides 3 options
+	 * 1)Go to AdminStudUI to edit students information of StarsSystem
+	 * 2)Go to AdminCourseUI to edit courses information of StarsSystem
+	 * 3)Go back to previous page(login page)
+	 * 
+	 * @author Ng Kah Hui
+	 * @since 2020-10-15
+	 */
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	/**
@@ -29,6 +41,10 @@ public class AdminUI {
 	 */
 	public static void printAdminUI()
 	{
+		/**
+		 * This method is entered when user entered as an admin/staff
+		 * Ask user which options they want to choose
+		 */
 		
 		int choice;
 		Logout:
