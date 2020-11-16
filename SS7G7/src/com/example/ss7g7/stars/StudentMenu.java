@@ -62,34 +62,40 @@ public class StudentMenu {
 			System.out.println("(5) Change Index No.");
 			System.out.println("(6) Swap Index Number with Another Student");
 			System.out.println("(7) to logout");
-			choice = Integer.valueOf(scanner.nextLine());
+			
+			try {
+				choice = Integer.valueOf(scanner.nextLine());
 
-			switch (choice) {
-			case 1:
-				addCourse();
-				break;
-			case 2:
-				dropCourse();
-				break;
-			case 3:
-				printCoursesRegistered();
-				break;
-			case 4:
-				checkVacanciesAvailable();
-				break;
-			case 5:
-				changeIndex();
-				break;
-			case 6:
-				swapIndex();
-				break;
-			case 7:
-				System.out.println("See you again");
-				run = false;
-				break;
-			default:
-				System.out.println("Invalid choice. Try again");
-				break;
+				switch (choice) {
+				case 1:
+					addCourse();
+					break;
+				case 2:
+					dropCourse();
+					break;
+				case 3:
+					printCoursesRegistered();
+					break;
+				case 4:
+					checkVacanciesAvailable();
+					break;
+				case 5:
+					changeIndex();
+					break;
+				case 6:
+					swapIndex();
+					break;
+				case 7:
+					System.out.println("See you again");
+					run = false;
+					break;
+				default:
+					System.out.println("Invalid choice. Try again");
+					break;
+				}
+			} catch(Exception e) {
+				System.out.println("Invalid input. Returning");
+				return;
 			}
 		}
 	}
