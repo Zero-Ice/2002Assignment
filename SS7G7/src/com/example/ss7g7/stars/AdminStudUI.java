@@ -86,11 +86,13 @@ public class AdminStudUI {
 		
 	}
 	/**
-	 * This method allows user to edit an existing student access time to database
+	 * This method allows user to edit an existing student access time to database.
+	 * 
 	 * 1.Method ask user to enter a student matriculation number and check if it exists in the database
 	 * 2.If such matriculation number exists in the database, method will ask user to input the student updated new start/end access time
 	 * 3.Method also check if user input in an specific format
-	 * @throws ParseException when user didnt input in an specific format for access tim.
+	 * 
+	 * @throws ParseException when user inputs the wrong format for access time.
 	 */
 	private static void editStudentAccess() throws ParseException { 
 		
