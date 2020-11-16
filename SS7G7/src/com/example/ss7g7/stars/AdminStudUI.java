@@ -41,8 +41,8 @@ import java.util.Calendar;
  */
 public class AdminStudUI {
 	
-	private static StarsDB database = StarsDB.getInstance(); 
-	private static Scanner sc = new Scanner(System.in); // take input from user
+	private StarsDB database; 
+	private Scanner sc;
 	
 	/**
 	 * This method is entered when admin/staff chose student option from AdminUI
@@ -53,7 +53,12 @@ public class AdminStudUI {
 	 * This method prints all the administrative
 	 * options available.
 	 */
-	public static void printAdminStudUI() {
+	public AdminStudUI() {
+		database = StarsDB.getInstance();
+		sc = new Scanner(System.in); // take input from user
+	}
+	
+	public void run() {
 
 		int choice;
 		GoBack:
@@ -107,7 +112,7 @@ public class AdminStudUI {
 	 * 3.Method also check if user input in an specific format
 	 * @throws ParseException when user didnt input in an specific format for access tim.
 	 */
-	private static void editStudentAccess() throws ParseException { 
+	private void editStudentAccess() throws ParseException { 
 		
 		database.printStudentList(); //show result from db 
 		
@@ -142,7 +147,7 @@ public class AdminStudUI {
 	 * 4.Method print out list of all students in database
 	 * @throws ParseException when user didnt input in an specific format for access time 
 	 */
-	private static void addStudent() throws ParseException {
+	private void addStudent() throws ParseException {
 		
 		String username = "";
 		String passWord = "";
@@ -219,7 +224,7 @@ public class AdminStudUI {
 	 * 2.Method ask user to input student matriculation number and check if it exists in the database
 	 * 3.If it exists in the database, method remove student from database
 	 */
-	private static void removeStudent() { 
+	private void removeStudent() { 
 		
     	Boolean check = false;
 		String matricNo = "";
@@ -251,7 +256,7 @@ public class AdminStudUI {
 	 * 2.If it does exists, method ask user to input the course code's index number and check if it exists in the database
 	 * 3.If it does exists, method print out student list
 	 */
-	private static void printStudListByIndex() { 
+	private void printStudListByIndex() { 
 
 		boolean check = false;
 		String courseCode  = "";
@@ -288,7 +293,7 @@ public class AdminStudUI {
 	 * 1.Method ask user to input course code and check if it exists in the database
 	 * 2/If it does exists, print out student list
 	 */
-	private static void printStudListByCourse() { 
+	private void printStudListByCourse() { 
 		
 		boolean check = false;
 		String courseCode  = "";

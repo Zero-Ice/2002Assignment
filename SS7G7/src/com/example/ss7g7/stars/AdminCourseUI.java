@@ -21,13 +21,17 @@ import java.util.Scanner;
  */
 public class AdminCourseUI {
 
-	private static Scanner sc = new Scanner(System.in); // take input from user
+	private Scanner sc;
 
+	public AdminCourseUI() {
+		sc = new Scanner(System.in); // take input from user
+	}
+	
 	/**
 	 * This method prints all the administrative
 	 * options available.
 	 */
-	public static void printAdminCourseUI() {
+	public void run() {
 
 		int choice;
 		GoBack: while (true) { // Print selection menu
@@ -88,7 +92,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to add a new course to database.
 	 */
-	private static void addNewCourse() {
+	private void addNewCourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -223,7 +227,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to remove a course from database.
 	 */
-	private static void removeACourse() {
+	private void removeACourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -252,7 +256,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to add a new index via course code to database.
 	 */
-	private static void updateCourseIndex() {
+	private void updateCourseIndex() {
 		int choice;
 
 		GoBack: while (true) { // Print selection menu
@@ -307,7 +311,7 @@ public class AdminCourseUI {
 	/**
 	 * 	This method is to update course details.
 	 */
-	private static void updateCourseDetail() {
+	private void updateCourseDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -372,7 +376,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to update index detail.
 	 */
-	private static void updateIndexDetail() {
+	private void updateIndexDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -415,7 +419,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to update lecture detail via course code.
 	 */
-	private static void updateLecDetail() {
+	private void updateLecDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -453,7 +457,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to update tutorial detail via course code and index number
 	 */
-	private static void updateTutDetail() {
+	private void updateTutDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -509,7 +513,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to update lab detail via course code and index number.
 	 */
-	private static void updateLabDetail() {
+	private void updateLabDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -565,7 +569,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to add new index via course code to database.
 	 */
-	private static void addNewIndex() {
+	private void addNewIndex() {
 
 		StarsDB database = StarsDB.getInstance();
 
@@ -790,7 +794,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to remove an index number from a course from database
 	 */
-	private static void removeAIndex() {
+	private void removeAIndex() {
 
 		StarsDB database = StarsDB.getInstance();
 
@@ -832,7 +836,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to print all existing course from database
 	 */
-	private static void viewCourse() {
+	private void viewCourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		database.printCourseList();
@@ -842,7 +846,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to view index number detail by course code.
 	 */
-	private static void viewIndexByCourse() {
+	private void viewIndexByCourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -881,7 +885,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to view index number number of vacancies(slots).
 	 */
-	private static void CheckIndexSlots() {
+	private void CheckIndexSlots() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;

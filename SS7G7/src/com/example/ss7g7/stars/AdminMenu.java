@@ -34,10 +34,14 @@ public class AdminMenu {
 	 * @since 2020-10-15
 	 */
 	
+	private AdminStudUI adminStudUI;
+	private AdminCourseUI adminCourseUI;
 	private Scanner sc; 
 	
 	public AdminMenu() {
 		sc = new Scanner(System.in); // take input from user
+		adminStudUI = new AdminStudUI();
+		adminCourseUI = new AdminCourseUI();
 	}
 	
 	/**
@@ -65,10 +69,10 @@ public class AdminMenu {
 			try{
 				switch (choice) {
 					case 1: // Go to Admin student UI class
-						AdminStudUI.printAdminStudUI();
+						adminStudUI.run();
 						break;
 					case 2: // Go to Admin Course UI class
-						AdminCourseUI.printAdminCourseUI();
+						adminCourseUI.run();
 						break;
 					case 3: // Log out
 						System.out.println("Logged out successfully");
