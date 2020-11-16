@@ -22,7 +22,10 @@ import java.util.Iterator;
  *  This class also provides getters and setters for the above mentioned.
  *  
  * @author Jabir Shah Halith
- * @since 2020-10-19
+ * created on 2020/10/19
+ * 
+ * @version %I%
+ * @since 1.0
  */
 
 public class Course implements Serializable{
@@ -30,7 +33,7 @@ public class Course implements Serializable{
 
 	private String courseCode;
 	private String courseName;
-	private String schooName;
+	private String schoolName;
 	private String lecVenue;
 	private String lecRemark;
 	private String lecGroup;
@@ -53,9 +56,9 @@ public class Course implements Serializable{
 		this.courseName=course_Name;
 		this.AU=au;
 		this.indexes = new ArrayList<Index>();
-		this.schooName = school_Name;
+		this.schoolName = school_Name;
 		this.lecVenue ="";
-		this.courseAvailability =true;
+		this.courseAvailability = true;
 		lecStartTime = null;
 		lecEndTime = null;
 		
@@ -254,7 +257,7 @@ public class Course implements Serializable{
 	 * @param schooName - intended new school name
 	 */
 	public void updateSchooName(String schooName) {
-		this.schooName = schooName;
+		this.schoolName = schooName;
 	}
 	
 	/**
@@ -297,7 +300,7 @@ public class Course implements Serializable{
 	 * @return the school name of the course
 	 */
 	public String getSchooName() {
-		return schooName;
+		return schoolName;
 	}
 
 	/**

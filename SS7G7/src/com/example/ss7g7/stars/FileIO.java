@@ -12,6 +12,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
 
+
+/**
+ * 
+ * The FileIO class handles all
+ * serialization operations to *.ser files
+ *
+ * @author Angelina
+ * created on 2020/10/15
+ * 
+ * @version %I%
+ * @since 1.0
+ * 
+ */
+
 public class FileIO {
 	
 	private ArrayList<Student> students = new ArrayList<Student>();
@@ -22,6 +36,12 @@ public class FileIO {
 	private String studentDataFilePath = "";
 	private String courseDataFilePath = "";
 	
+	/**
+	 * This method gets all user credentials that
+	 * are saved in the loginCred.ser file
+	 * 
+	 * @return ArrayList of <code>username</code> and <code>password</code>
+	 */
 	public List [] getLoginCredentials () {
 		
         String line = new String();
@@ -29,25 +49,7 @@ public class FileIO {
         String[] temp = {};
         List<String> username = new ArrayList<String>();
         List<String> pass = new ArrayList<String>();
-        
-        /*
-		 * For config of credentials please ignore
-		 */
-
-//        try (BufferedReader br = new BufferedReader(new FileReader("../SS7G7/lib/logincred.txt"))) {
-//        	
-//            while ((line = br.readLine()) != null) {
-//            	
-//                temp = line.split(splitBy);
-//                username.add(temp[0]);
-//                pass.add(temp[1]);
-//               
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        
+            
         
         FileInputStream fs = null;
 		ObjectInputStream os = null;
@@ -71,7 +73,6 @@ public class FileIO {
 		}
 		catch (EOFException e) {
 			read = false;
-			System.out.println("END OF FILE");
 		}
 		catch (IOException | ClassNotFoundException  e) {
 			//TODO Auto-generated catch block
@@ -96,15 +97,19 @@ public class FileIO {
 		return new List[] {username, pass};
 	}
 	
-	public void setLoginCredentials(String username, String cipherPass, String clearPass) {
+	/**
+	 * This method is used to store login credentials in
+	 * the loginCred.ser file
+	 * 
+	 * @param username
+	 * @param cipherPass must be stored in hash
+	 */
+	public void setLoginCredentials(String username, String cipherPass) {
 		
 		//To save credentials in loginCred.ser with pass in hash
 		FileOutputStream fs = null;
 		ObjectOutputStream os = null;
 		
-		//For our convenience to track login details in clear text in README.txt
-		FileOutputStream fs1 = null;
-		ObjectOutputStream os1 = null;
 		
 		try{
 			fs = new FileOutputStream(loginCredentialsFilePath, true);
@@ -112,15 +117,6 @@ public class FileIO {
 			
 			os.writeObject(username+","+cipherPass+"-student");
 			
-			
-			/*
-			 * To view updated login credentials, please close and reopen the README.txt
-			 * file
-			 */
-			fs1 = new FileOutputStream("../SS7G7/lib/README.txt", true);
-			os1 = new ObjectOutputStream(fs1);
-			
-			os1.writeObject("\n"+username+" //"+clearPass);
 			
 		}catch (IOException e){
 			e.printStackTrace();
@@ -140,18 +136,20 @@ public class FileIO {
 		
 	}
 	
-	public void removeLoginCredentials(String username, String cipherPass, String clearPass) {
+	/**
+	 * This method is to remove student credentials from
+	 * loginCred.ser when student is removed
+	 * 
+	 * @param username
+	 * @param cipherPass
+	 *
+	 */
+	public void removeLoginCredentials(String username, String cipherPass) {
 		
 		String line = new String();
         ArrayList<String> credentials = new ArrayList<String>();
         
-		/*
-		 * Please manually remove clear text translation from README.txt to avoid
-		 * confusion
-		 */
-        
-		//To save credentials in logincred.txt with pass in hash
-		FileInputStream fsIn = null;
+        FileInputStream fsIn = null;
 		ObjectInputStream osIn = null;
 		FileOutputStream fsOut = null;
 		ObjectOutputStream osOut = null;
@@ -174,7 +172,6 @@ public class FileIO {
 		}
 		catch (EOFException e) {
 			read = false;
-			System.out.println("END OF FILE");
 			
 			for (String user : credentials) {
 				System.out.println(user);
@@ -234,6 +231,12 @@ public class FileIO {
 	}
 	
 	
+	/**
+	 * This method is to store a Student object in
+	 * the studentInfo.ser file
+	 * 
+	 * @param s refers to a Student object
+	 */
 	public void setStudentRecord (Student s) {
 				
 		FileOutputStream fs = null;
@@ -268,6 +271,14 @@ public class FileIO {
 		    
 	}
 	
+	/**
+	 * This method is to store a Course object in
+	 * the courseInfo.ser file
+	 * 
+	 * @param c refers to a Course object
+	 * @return courses to update the current instance
+	 * of the ArrayList <code>courses</code>
+	 */
 	public ArrayList<Course> setCourseRecord (Course c) {
 		
 		FileOutputStream fs = null;
@@ -304,6 +315,13 @@ public class FileIO {
 	}
 	
 	
+	/**
+	 * This method gets all Student objects stored
+	 * in the studentInfo.ser file
+	 * 
+	 * @param path is the path to the file
+	 * @return ArrayList of <code>students</code>
+	 */
 	public ArrayList<Student> getStudentRecords (String path) {
 		
 		this.studentDataFilePath = path;
@@ -344,6 +362,13 @@ public class FileIO {
 			
 	}
 	
+	/**
+	 * This method gets all Course objects stored
+	 * in the courseInfo.ser file
+	 * 
+	 * @param path is the path to the file
+	 * @return ArrayList of <code>courses</code>
+	 */
 	public ArrayList<Course> getCourseRecords (String path) {
 		
 		this.courseDataFilePath = path;
@@ -385,6 +410,13 @@ public class FileIO {
 	
 
 	
+	/**
+	 * This method deletes or updates student records
+	 * according to the parameter <code>mode</code>.
+	 * 
+	 * @param currentStudent refers to the Student object to be removed/updated
+	 * @param mode can either be "remove" or "update"
+	 */
 	public void updateStudentRecords (Student currentStudent, String mode) {
 		
 		FileInputStream fsIn = null;
@@ -442,6 +474,13 @@ public class FileIO {
 		}		
 	}
 	
+	/**
+	 * This method deletes or updates course records
+	 * according to the parameter <code>mode</code>.
+	 * 
+	 * @param currentCourse refers to the Course object to be removed/updated
+	 * @param mode can either be "remove" or "update"
+	 */
 	public ArrayList<Course> updateCourseRecords (Course currentCourse, String mode) {
 		
 		FileInputStream fsIn = null;
@@ -463,6 +502,7 @@ public class FileIO {
 					if (mode.equals("update")) {
 						courses.remove(c);
 						courses.add(currentCourse);
+						
 					}else if (mode.equals("remove"))
 						courses.remove(c);
 					

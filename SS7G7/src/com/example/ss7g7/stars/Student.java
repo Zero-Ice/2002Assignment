@@ -15,13 +15,14 @@ import java.util.Calendar;
  * 
  *
  * @author Ong Rui Peng
- * @since 2020-10-15
+ * created on 2020/10/15
+ * 
+ * @version %I%
+ * @since 1.0
  */
 public class Student extends User {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 691574352314613452L;
 	private String name;
 	private String lastName;
