@@ -14,14 +14,14 @@ import java.util.Calendar;
  * overview of the administrative actions that
  * an admin user would be allowed to make on
  * students.
- * <p>
- * The options include:
- * <li>Editing an existing student access period to StarsSystem 
- * <li>Adding a new student to StarsSystem 
- * <li>Removing an existing student from StarsSystem 
- * <li>Printing a student list by entering an existing course code's index number 
- * <li>Printing a student list by entering an existing course code 
- * <li>Going  back to previous page (AdminUI) 
+ * 
+ * Provides 6 options
+ * 1)Editing an existing student access period to StarsSystem 
+ * 2)Adding a new student to StarsSystem 
+ * 3)Removing an existing student from StarsSystem 
+ * 4)Printing a student list by entering an existing course code's index number 
+ * 5)Printing a student list by entering an existing course code 
+ * 6)Going  back to previous page (AdminMenu) 
  *  
  * @author Ng Kah Hui 
  * @version %I%
@@ -36,7 +36,7 @@ public class AdminStudUI {
 	
 	/**
 	 * This method prints all the administrative
-	 * options available.
+	 * options available of students.
 	 */
 	public AdminStudUI() {
 		database = StarsDB.getInstance();
@@ -132,6 +132,7 @@ public class AdminStudUI {
 	 * 2.If it does not exist, method continue to ask user to input other necessary information
 	 * 3.Method add new student information to database
 	 * 4.Method print out list of all students in database
+	 * 
 	 * @throws ParseException when user didnt input in an specific format for access time 
 	 */
 	private void addStudent() throws ParseException {
@@ -209,7 +210,7 @@ public class AdminStudUI {
 	 * This method allows user to remove an existing student from database
 	 * 1.Method print out list of all students in database
 	 * 2.Method ask user to input student matriculation number and check if it exists in the database
-	 * 3.If it exists in the database, method remove student from database
+	 * 3.If it does exists, method remove student from database
 	 */
 	private void removeStudent() { 
 		
@@ -276,9 +277,9 @@ public class AdminStudUI {
 	}
 	
 	/**
-	 * This method allows user to print student list by a course code
+	 * This method allows user to print student list via course code
 	 * 1.Method ask user to input course code and check if it exists in the database
-	 * 2/If it does exists, print out student list
+	 * 2.If it does exists, print out student list
 	 */
 	private void printStudListByCourse() { 
 		
