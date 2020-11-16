@@ -11,6 +11,11 @@ import java.util.Scanner;
  * of the administrative actions that
  * an admin user would be allowed to make.
  * 
+ * Provides 3 options
+ * 1)Go to AdminStudUI to edit students information of StarsSystem
+ * 2)Go to AdminCourseUI to edit courses information of StarsSystem
+ * 3)Go back to previous page(login page)
+ * 
  * @author Kah Hui
  * created on 2020/10/15
  * 
@@ -19,20 +24,7 @@ import java.util.Scanner;
  *
  */
 public class AdminUI {
-	/**
-	 * <h1>AdminUI</h1>
-	 * Provides a user interface for admin/staff who has logged in to StarsSystem.
-	 * 
-	 * 
-	 *<p>
-	 * Provides 3 options
-	 * 1)Go to AdminStudUI to edit students information of StarsSystem
-	 * 2)Go to AdminCourseUI to edit courses information of StarsSystem
-	 * 3)Go back to previous page(login page)
-	 * 
-	 * @author Ng Kah Hui
-	 * @since 2020-10-15
-	 */
+
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	/**
