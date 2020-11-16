@@ -6,12 +6,32 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 
+/**
+ * <h1>Admin Student User Interface</h1>
+ * 
+ * <p>
+ * The AdminStudUI provides a streamlined 
+ * overview of the administrative actions that
+ * an admin user would be allowed to make on
+ * students.
+ * 
+ * @author Kah Hui
+ * created on 2020/10/15
+ * 
+ * @version %I%
+ * @since 1.0
+ * 
+ */
 public class AdminStudUI {
 	
 	private static StarsDB database = StarsDB.getInstance(); 
 	private static Scanner sc = new Scanner(System.in); // take input from user
 	
 	
+	/**
+	 * This method prints all the administrative
+	 * options available.
+	 */
 	public static void printAdminStudUI() {
 
 		int choice;
@@ -60,7 +80,12 @@ public class AdminStudUI {
 		
 	}
 
-	// Function to change a student access timing
+	/**
+	 * This method is to change a student access timing.
+	 * 
+	 * @throws ParseException 	when the user inputted start or end
+	 * 							access date is incorrectly formatted.
+	 */
 	private static void editStudentAccess() throws ParseException { 
 		
 		database.printStudentList(); //show result from db 
@@ -88,7 +113,12 @@ public class AdminStudUI {
 		
 	}
 
-	//Function to add a new student to database
+	/**
+	 * This method is to add a new student to database.
+	 * 
+	 * @throws ParseException when the user inputted start or end
+	 * 						  access date is incorrectly formatted.
+	 */
 	private static void addStudent() throws ParseException {
 		
 		String username = "";
@@ -150,15 +180,8 @@ public class AdminStudUI {
         Calendar accessStart = database.getValidDateTime("access start");
         Calendar accessEnd = database.getValidDateTime("access end");
         
-		/*
-		 * For config of credentials, please ignore
-		 */
-        //database.addAdmin(username, passWord);
-        
-        database.addStudent(username, passWord, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);
-        
         // after user input in username and password, it should store inside starsDB				
-       
+        database.addStudent(username, passWord, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);       
         
 	    System.out.println();
 		System.out.println("The student has been added.");
@@ -167,7 +190,9 @@ public class AdminStudUI {
 		
 	}
 	
-	//Function to remove a new student to database
+	/**
+	 * This method is to remove a new student to database.
+	 */
 	private static void removeStudent() { 
 		
     	Boolean check = false;
@@ -194,7 +219,9 @@ public class AdminStudUI {
 		System.out.println("Student with matriculation number of " + matricNo + " has been removed.");
 	}
 
-	//Function to show student list with course code and index number
+	/**
+	 * This method is to show student list with course code and index number
+	 */
 	private static void printStudListByIndex() { 
 
 		boolean check = false;
@@ -227,7 +254,9 @@ public class AdminStudUI {
 		tempCourse.getIndex(indexNum).printStudentListByIndex();
 	}
 	
-	//Function to show student list with course code
+	/**
+	 * This method is to show student list with course code
+	 */
 	private static void printStudListByCourse() { 
 		
 		boolean check = false;

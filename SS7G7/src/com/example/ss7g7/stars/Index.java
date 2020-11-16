@@ -197,9 +197,9 @@ public class Index implements Serializable{
 		String matricNo = student.getMatricNo();
 		
 		if(seatVacancy.contains(matricNo)) {
-			for(int i =0;i<numSeats;i++) {
-				if(seatVacancy.get(i).contains(matricNo)) {
-					seatVacancy.set(i, "vacant");
+			for(int seat =0;seat<numSeats;seat++) {
+				if(seatVacancy.get(seat).contains(matricNo)) {
+					seatVacancy.set(seat, "vacant");
 					student.dropCourse(this.indexNum);	
 					System.out.println(matricNo+ " unassigned from index " +indexNum);
 					if(indexFull==true) {
@@ -213,9 +213,9 @@ public class Index implements Serializable{
 			}
 		}else if(isStudentInWaitlist(student)==true) {
 			student.dropCourse(this.indexNum);
-			for(int i=0;i<studentWaitlist.size();i++) {
-				if(studentWaitlist.get(i).getMatricNo()==matricNo) {
-					studentWaitlist.remove(i);
+			for(int seat=0;seat<studentWaitlist.size();seat++) {
+				if(studentWaitlist.get(seat).getMatricNo()==matricNo) {
+					studentWaitlist.remove(seat);
 				}
 			}
 		}else  
@@ -224,6 +224,16 @@ public class Index implements Serializable{
 		return student;
 	}
 	
+	/**
+	 * This method removes student from index and automatically
+	 * updates index vacancy list with students in waitlist
+	 * 
+	 * @param student refers to the student to be removed from the index
+	 * 
+	 * @return Student <code>student</code>
+	 * @see {@link Index#unassignStudent(Student, boolean)}
+	 * 
+	 */
 	public Student unassignStudent(Student student) {
 		return unassignStudent(student, true);
 	}

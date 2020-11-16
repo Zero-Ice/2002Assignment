@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * <h1>Stars Database System</h1> The StarsDB is a singleton that acts as a
+ * <h1>Stars Database System</h1> 
+ * 
+ * <p>
+ * The StarsDB is a singleton that acts as a
  * 'database' Since we are not allowed to use any databases, this class helps us
  * manage the students and courses.
  * 
@@ -23,8 +26,13 @@ import java.util.Scanner;
  * data is loaded through file IO from text files.
  * 
  *
- * @author Ong Rui Peng, Angelina
- * @since 2020-10-15
+ * @author Ong Rui Peng
+ * @author Kah Hui
+ * @author Angelina
+ * 
+ * @version %I%
+ * @since 1.0
+ * 
  */
 public class StarsDB {
 	private static StarsDB db_instance = null;
@@ -50,11 +58,11 @@ public class StarsDB {
 	}
 
 	/**
-	 * This function provides a getter to the static StarsDB instance Creates a new
-	 * DB instance if none exists
+	 * This function provides a getter to the static StarsDB instance and creates a new
+	 * database instance if none exists.
 	 * 
-	 * @param Nothing
-	 * @return StarsDB
+	 * @param 	<code>null</code>
+	 * @return	StarsDB
 	 */
 	public static StarsDB getInstance() {
 		if (db_instance == null) {
@@ -66,13 +74,12 @@ public class StarsDB {
 	}
 
 	/**
-	 * Loads data from the files using the file paths given Creates dummy
+	 * Loads data from the files using the file paths given. Creates dummy
 	 * students/courses if none was loaded from the files.
 	 * 
-	 * @param studentDataFilePath This refers to the .ser data file of the students
-	 * @param courseDataFilePath  This refers to the .ser data file of the courses
-	 * @return boolean This returns the boolean value whether db was successfully
-	 *         initialized.
+	 * @param studentDataFilePath	refers to the .ser data file of the students
+	 * @param courseDataFilePath	refers to the .ser data file of the courses
+	 * @return <code>true</code>	returns upon initialization of the database
 	 * 
 	 */
 	public boolean init(String studentDataFilePath, String courseDataFilePath) {
@@ -114,9 +121,6 @@ public class StarsDB {
 			}
 		}
 
-//		System.out.println("Sending test email..");
-//		send.email("teststudent457@gmail.com", "Test", "Test");
-
 		return true;
 	}
 
@@ -128,24 +132,24 @@ public class StarsDB {
 	 */
 
 	/**
-	 * This method returns all students in the DB
+	 * This method returns all students in the database.
 	 * 
-	 * @param Nothing
-	 * @return ArrayList<Student> This is the students data.
+	 * @param <code>null</code>
+	 * @return students		which is an array list of Student objects
 	 */
 	public ArrayList<Student> getAllStudents() {
 		return students;
 	}
 
 	/**
-	 * This method retrieves a student based on a username
-	 * Searches through the students data in the DB linearly 
+	 * This method retrieves a student based on a username,
+	 * searches through the students data in the database linearly 
 	 * and returns the first result which corresponds to the student's
-	 * user name.
-	 * Returns null if the username was not found in the student data in the DB.
+	 * username. 
 	 * 
 	 * @param userName
-	 * @return Student
+	 * @return student	if student is found in database;
+	 * 					<code>null</code> if student is not found.
 	 */
 	public Student getStudent(String userName) {
 		for (int user = 0; user < students.size(); user++) {
@@ -157,31 +161,33 @@ public class StarsDB {
 	}
 
 	/**
-	 * Adds a student to the DB and updates the file.
+	 * Adds a student object to the database and updates the .ser file.
 	 * 
-	 * @param currentStudent
+	 * @param currentStudent refers to the student to be added
+	 * @see {@link FileIO#setStudentRecord(Student)}
+	 * @see {@link FileIO#setLoginCredentials(String, String)}
 	 */
 	public void addStudent(Student currentStudent) {
 		file.setStudentRecord(currentStudent);
-		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()),
-				currentStudent.getPass());
+		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
 	/**
-	 * Removes a student from the DB and updates the file.
+	 * Removes a student from the database and updates the student file.
 	 * 
-	 * @param currentStudent
+	 * @param currentStudent refers to the student to be removed
+	 * @see {@link FileIO#updateStudentRecords(Student, String)}
+	 * @see {@link FileIO#removeLoginCredentials(String, String)}
 	 */
 	public void removeStudent(Student currentStudent) {
 		file.updateStudentRecords(currentStudent, "remove");
-		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()),
-				currentStudent.getPass());
+		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
 	/**
-	 * Updates a student from the DB and updates the file
+	 * Updates a student from the database and updates the student file
 	 * 
-	 * @param currentStudent This refers to the updated student object
+	 * @param currentStudent refers to the updated student object
 	 */
 	public void updateStudentRecords(Student currentStudent) {
 		file.updateStudentRecords(currentStudent, "update");
@@ -200,26 +206,26 @@ public class StarsDB {
 		Student x = new Student("student1", "test1", "Mark", " Tan", "U1969420", "M", "Antartica", 96549119,
 				"marktan@hotmail.com", newDate1, newDate2);
 		file.setStudentRecord(x);
-		file.setLoginCredentials(x.getUsername(), hash(x.getPass()), x.getPass());
+		file.setLoginCredentials(x.getUsername(), hash(x.getPass()));
 
 		Student y = new Student("student2", "test2", "Laura", " Tan", "U1829091", "F", "Spain", 96533219,
 				"lautan@hotmail.com", newDate1, newDate2);
 		file.setStudentRecord(y);
-		file.setLoginCredentials(y.getUsername(), hash(y.getPass()), y.getPass());
+		file.setLoginCredentials(y.getUsername(), hash(y.getPass()));
 
 	}
 
 	/**
 	 * This method returns a student object with the 
 	 * corresponding matriculation number.
-	 * Searches through the student records in the DB
+	 * Searches through the student records in the database
 	 * linearly and returns the first student with
 	 * the corresponding matriculation number.
-	 * Returns null if no student with the matriculation
-	 * number exists in the DB.
+	 * 
 	 * 
 	 * @param matricNo
-	 * @return
+	 * @return s 	if student is found in the database;
+ * 					<code>null</code> if student is not found.
 	 */
 	public Student getStudentByMatric(String matricNo) {
 		for (Student s : students) {
@@ -231,7 +237,7 @@ public class StarsDB {
 	}
 
 	/**
-	 * Updates a student's access period
+	 * Updates a student's access period.
 	 * 
 	 * @param matricNo
 	 * @param newAccessStart
@@ -246,10 +252,10 @@ public class StarsDB {
 
 	/**
 	 * Checks if a username already belongs to an existing student.
-	 * Returns false if username has been used, true otherwise
 	 * 
 	 * @param username
-	 * @return Boolean
+	 * @return 	<code>true</code> if username exists;
+	 * 			<code>false</code> if username does not exist.
 	 */
 	public Boolean isExistingUsername(String username) {
 		for (Student s : students) {
@@ -262,10 +268,10 @@ public class StarsDB {
 	}
 
 	/**Checks if a matric number belongs to an existing student
-	 * Returns false if a student is found with the matric no, true otherwise
 	 * 
 	 * @param matricNo
-	 * @return Boolean
+	 * @return 	<code>true</code> if matric number exists;
+	 * 			<code>false</code> if it does not.
 	 */
 	public Boolean isExistingMatNum(String matricNo) {
 		for (Student s : students) {
@@ -277,7 +283,22 @@ public class StarsDB {
 		return true;
 	}
 
-	// Function to add new student to database
+	/**
+	 * This method adds a student object with all its defined parameters into the database.
+	 * 
+	 * @param username
+	 * @param password
+	 * @param name
+	 * @param lastName
+	 * @param matricNo
+	 * @param gender
+	 * @param nationality
+	 * @param mobileNo
+	 * @param email
+	 * @param accessStart
+	 * @param accessEnd
+	 */
+
 	public void addStudent(String username, String password, String name, String lastName, String matricNo,
 			String gender, String nationality, int mobileNo, String email, Calendar accessStart, Calendar accessEnd)
 
@@ -289,14 +310,23 @@ public class StarsDB {
 
 	}
 
-	// Function to remove a student in database
+	
+	/**
+	 * This is to remove a student object from the database.
+	 * 
+	 * @param matNum refers to the matric number of the student that is to be removed
+	 */
+	
 	public void removeStudent(String matNum) {
 		Student student = getStudentByMatric(matNum);
 		StarsDB.getInstance().removeStudent(student);
 
 	}
 
-	// Function to show all student exists in student db
+	 /**
+	 * This method prints the name and matric number of all students that exists in student database.
+	 */
+	
 	public void printStudentList() {
 		boolean flag = false;
 		System.out.println();
@@ -319,7 +349,15 @@ public class StarsDB {
 			System.out.println("\nNo record is found!");
 	}
 
-	// Function check if user input the right access start/end format
+	
+	/**
+	 * This method validates user input for the start and end access date.
+	 * 
+	 * @param mode can be the start or end of the access date
+	 * @return newDate is a user input date that is correctly formatted
+	 * @throws ParseException when the user inputted start or end
+	 * 						  access date is incorrectly formatted.
+	 */
 	public Calendar getValidDateTime(String mode) throws ParseException {
 
 		SimpleDateFormat testdate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -365,22 +403,22 @@ public class StarsDB {
 	 */
 
 	/**
-	 * This method returns all courses in the DB
+	 * This method returns all courses in the database.
 	 * 
-	 * @return ArrayList<Courses>
+	 * @return courses which is an array list of Course objects
 	 */
 	public ArrayList<Course> getAllCourse() {
 		return courses;
 	}
 
 	/**
-	 * This method returns the course that belongs to an index number
-	 * Searches the course data linearly and returns the first
+	 * This method returns the course that belongs to an index number,
+	 * searches the course data linearly and returns the first
 	 * course containing the index number. 
-	 * Returns null if no courses found with that index number. 
 	 * 
 	 * @param indexNo
-	 * @return Course
+	 * @return 	course if course with given index is found;
+	 * 			<code>null</code> if course is not found.
 	 */
 	public Course getCourseByIndex(int indexNo) {
 		for (int i = 0; i < courses.size(); i++) {
@@ -395,10 +433,10 @@ public class StarsDB {
 	 * This method returns the course belonging to a course code
 	 * Searches the course data linearly and returns the first
 	 * course with the course code.
-	 * Returns null if no courses found with that course code
 	 * 
 	 * @param courseCode
-	 * @return Course
+	 * @return c 	if course is found in the database;
+	 * 				<code>null</code> if course is not found.
 	 */
 	public Course getCourse(String courseCode) {
 		for (Course c : courses) {
@@ -409,9 +447,16 @@ public class StarsDB {
 		return null;
 	}
 
+	
+	/**
+	 * This method checks if the user inputted course code exists in the database.
+	 * 
+	 * @param courseCode refers to the user inputted course code
+	 * @return 	<code>true</code> if course exists;
+	 * 			<code>false</code> if course does not.
+	 */
 	public boolean isExistingCourseCode(String courseCode) {
 		for (Course c : courses) {
-			// System.out.println(c.getCourseCode()+courseCode+"COMPARE");
 			if (c.getCourseCode().equals(courseCode)) {
 				return true;
 			}
@@ -419,7 +464,10 @@ public class StarsDB {
 		return false;
 	}
 
-	public void printCourseList() { // print course detail
+	/**
+	 * This method prints the name of courses found in the database.
+	 */
+	public void printCourseList() { 
 		boolean flag = false;
 		System.out.println();
 		System.out.println("Course Code\tCourse Name\tAU");
@@ -442,8 +490,7 @@ public class StarsDB {
 	}
 
 	/**
-	 * This method adds a new course to the DB.
-	 * Also updates the file
+	 * This method adds a new course to the database.
 	 * 
 	 * @param courseCode
 	 * @param courseName
@@ -457,11 +504,10 @@ public class StarsDB {
 	}
 
 	/**
-	 * Removes a course from the DB with the corresponding course code
-	 * Does not remove if course does not exist in the DB.
-	 * Updates the file if successfully removed
+	 * Removes a course from the database with the corresponding course code,
+	 * does not remove if course does not exist in the DB.
 	 * 
-	 * @param courseCode
+	 * @param courseCode refers to the course to be removed
 	 */
 	public void removeCourse(String courseCode) { // remove coursecode from db
 
@@ -478,9 +524,9 @@ public class StarsDB {
 	}
 
 	/**
+	 * This method updates the course records stored in the .ser file
 	 * 
-	 * 
-	 * @param course
+	 * @param course refers to the course to be updated
 	 */
 	public void updateCourseRecords(Course course) {
 		courses = file.updateCourseRecords(course, "update");
@@ -513,11 +559,6 @@ public class StarsDB {
 		c3.setLecDetails(1, 12, 0, 14, 0, "ONLINE", "lmao", "dank420");
 		c3.addIndex(999999, 30);
 
-//		courses.add(c);
-//		courses.add(c1);
-//		courses.add(c2);
-//		courses.add(c3);
-
 		file.setCourseRecord(c);
 		file.setCourseRecord(c1);
 		file.setCourseRecord(c2);
@@ -533,6 +574,12 @@ public class StarsDB {
 	 * 
 	 */
 
+	/**
+	 * This method gets the existing credentials of users
+	 * for validation.
+	 * 
+	 * @return hmap which contains the key value pairs of users
+	 */
 	public HashMap<String, String> getDBLoginCred() {
 
 		List[] credentials = new List[2];
@@ -558,6 +605,13 @@ public class StarsDB {
 
 	}
 
+	/**
+	 * This method hashes the given password before
+	 * storing of user credentials
+	 * 
+	 * @param passClear refers to the clear text password to be hashed
+	 * @return hash in SHA-256
+	 */
 	String hash(String passClear) {
 
 		String hash = new String();
@@ -588,8 +642,17 @@ public class StarsDB {
 
 	}
 
+	/**
+	 * Creates a dummy admin account
+	 * 
+	 * @param username
+	 * @param password
+	 * @deprecated	This method was used to create the admin account.
+	 * 				It is not expected to be used otherwise. 
+	 * 				Use {@link StarsDB#addStudent(Student)} to add student accounts.
+	 */
 	public void addAdmin(String username, String password) {
-		file.setLoginCredentials(username, hash(password), password);
+		file.setLoginCredentials(username, hash(password));
 	}
 
 }

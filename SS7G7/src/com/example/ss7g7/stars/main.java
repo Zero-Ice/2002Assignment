@@ -12,15 +12,18 @@ package com.example.ss7g7.stars;
 * 
 *
 * @author  Ong Rui Peng
-* @since   2020-10-15 
+* created on 2020/10/15
+* 
+* @version %I%
+* @since 1.0
 */
 
 public class main {
 	
 	/**
-	 * This is the main method of main. 
-	 * @param args Unused
-	 * @return Nothing
+	 * This is the driver method that initializes
+	 * the StarsSystem
+	 * 
 	 */
 	public static void main(String[] args) {
 		StarsSystem stars = new StarsSystem();

@@ -5,13 +5,17 @@ import java.time.LocalDateTime;
 import java.time.Month;
 
 /**
-* <h1>Stars Utility(StarsUtil)</h1>
-* StarsUtil is a utility class that provides
-* utility functions that may be used anywhere
-* in the application to help develop features.
-* 
-* @author  Ong Rui Peng
-* @since   2020-11-10
+ * <h1>Stars Utility(StarsUtil)</h1>
+ * StarsUtil is a utility class that provides
+ * utility functions that may be used anywhere
+ * in the application to help develop features.
+ * 
+ * @author  Ong Rui Peng
+ * created on 2020/10/15
+ * 
+ * @version %I%
+ * @since 1.0
+ * 
 */
 public class StarsUtil {
 	// Use Date to check date of the week
@@ -20,6 +24,17 @@ public class StarsUtil {
 	// Month = 2, Even
 	// Month = 3, Every week
 	
+	/**
+	 * This method checks for clashes of timing between two courses.
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @param occuringWeek
+	 * @param otherStartTime
+	 * @param otherEndTime
+	 * @param otherOccurringWeek
+	 * @return
+	 */
 	public static boolean timingWillClash(LocalDateTime startTime, LocalDateTime endTime, int occuringWeek, LocalDateTime otherStartTime, LocalDateTime otherEndTime, int otherOccurringWeek)
 	{
 		if(startTime == null || endTime == null || otherStartTime == null || otherEndTime == null) {
@@ -46,6 +61,15 @@ public class StarsUtil {
 		return false;
 	}
 	
+	/**
+	 * This method checks the format of the date given
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @param otherStartTime
+	 * @param otherEndTime
+	 * @return
+	 */
 	public static boolean checkTimingFormat(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime otherStartTime, LocalDateTime otherEndTime)
 	{
 		if(startTime.getYear() == endTime.getYear() 
