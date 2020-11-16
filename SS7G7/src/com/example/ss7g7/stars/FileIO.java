@@ -29,25 +29,7 @@ public class FileIO {
         String[] temp = {};
         List<String> username = new ArrayList<String>();
         List<String> pass = new ArrayList<String>();
-        
-        /*
-		 * For config of credentials please ignore
-		 */
-
-//        try (BufferedReader br = new BufferedReader(new FileReader("../SS7G7/lib/logincred.txt"))) {
-//        	
-//            while ((line = br.readLine()) != null) {
-//            	
-//                temp = line.split(splitBy);
-//                username.add(temp[0]);
-//                pass.add(temp[1]);
-//               
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        
+            
         
         FileInputStream fs = null;
 		ObjectInputStream os = null;
@@ -71,7 +53,6 @@ public class FileIO {
 		}
 		catch (EOFException e) {
 			read = false;
-			System.out.println("END OF FILE");
 		}
 		catch (IOException | ClassNotFoundException  e) {
 			//TODO Auto-generated catch block
@@ -174,7 +155,6 @@ public class FileIO {
 		}
 		catch (EOFException e) {
 			read = false;
-			System.out.println("END OF FILE");
 			
 			for (String user : credentials) {
 				System.out.println(user);
@@ -463,6 +443,7 @@ public class FileIO {
 					if (mode.equals("update")) {
 						courses.remove(c);
 						courses.add(currentCourse);
+						
 					}else if (mode.equals("remove"))
 						courses.remove(c);
 					
