@@ -389,8 +389,8 @@ public class Course implements Serializable{
 ///////////////////////                    get Lec Details (getters)            ////////////////////////////
 	
 	/**
-	 * Method to get all the details at once
-	 * @return full details of the lecture such as Day, Time, Group, Venue and Remark
+	 * Method to get all the lecuture details such as Day, Time, Group, Venue and Remark  at once 
+	 * @return full details of the lecture 
 	 */
 	public String getLecDetails() {
 		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
