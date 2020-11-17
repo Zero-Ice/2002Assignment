@@ -50,7 +50,6 @@ public class Index implements Serializable{
 	private boolean indexFull;
 	private SendEmail send;
 	
-	//TODO: email body and subject
 	
 	/**
 	 * Constructor for Index Class
@@ -187,7 +186,7 @@ public class Index implements Serializable{
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
-		student.addWaitingCourse(this.courseCode, this.indexNum);
+		
 	}
 	
 	/**
@@ -252,13 +251,13 @@ public class Index implements Serializable{
 	public void addStudentToWaitlist(Student student) {
 
 		if(isStudentInWaitlist(student)==false) {
-			student.addCourse(this.courseCode, this.indexNum);
+			student.addWaitingCourse(this.courseCode, this.indexNum);
 			studentWaitlist.add(student);
-			System.out.println("Email to be sent to "+ student.getEmail());
-//			String subject = "Placement of waitlist for Index " + indexNum ;
-//			String bodyMessage = "You have been placed on waitlist for " + indexNum + ".";
-//			String body = "Dear " + student.getName() +" " + student.getLastName()+",\n"+bodyMessage;
-//			send.email(xxxxxxxx@gmail.com, Subject, Body);
+			System.out.println("Wailist email is being sent to "+ student.getEmail()+". Please wait...");
+			String subject = "Placement of waitlist for Index " + indexNum ;
+			String bodyMessage = "You have been placed on waitlist for " + indexNum + ".";
+			String body = "Dear " + student.getName() +" " + student.getLastName()+",\n\n"+bodyMessage;
+			send.email("myprogram2830@gmail.com", subject, body);
 			
 		}else {
 			System.out.println("Student already in waitlist");
@@ -275,6 +274,11 @@ public class Index implements Serializable{
 		}
 		else {
 			assignStudent(studentWaitlist.get(0));
+			System.out.println("Allocation email is being sent to "+ studentWaitlist.get(0).getEmail()+". Please wait...");
+			String subject = "Allocation of placement for Index " + this.indexNum ;
+			String bodyMessage = "You have been allocated " + this.indexNum + ".";
+			String body = "Dear " + studentWaitlist.get(0).getName() +" " + studentWaitlist.get(0).getLastName()+",\n\n"+bodyMessage;
+			send.email("myprogram2830@gmail.com", subject, body);
 			studentWaitlist.remove(0);
 		}
 	}
