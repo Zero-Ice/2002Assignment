@@ -383,7 +383,7 @@ public class AdminCourseUI {
 			tempCourse.updateCourseCode(NcourseCode.toUpperCase());
 			tempCourse.updateCourseName(courseName.toUpperCase());
 			tempCourse.updateAU(AU);
-			database.updateCourseRecords(tempCourse, false);
+			database.updateCourseRecords(tempCourse);
 		
 		//Else, remove existing course and add new course
 		} else {
@@ -441,7 +441,7 @@ public class AdminCourseUI {
 		System.out.println("");
 		tempCourse.updateIndex(indexNum, NindexNum);
 
-		database.updateCourseRecords(tempCourse, false);
+		database.updateCourseRecords(tempCourse);
 
 	}
 
@@ -482,7 +482,7 @@ public class AdminCourseUI {
 		System.out.println("");
 		System.out.print("Course code " + courseCode.toUpperCase() + "'s lecture venue and remark has been updated");
 
-		database.updateCourseRecords(tempCourse, false);
+		database.updateCourseRecords(tempCourse);
 
 	}
 
@@ -538,7 +538,7 @@ public class AdminCourseUI {
 		tempCourse.getIndex(indexNum).updateTutRemark(tutRemark);
 		tempCourse.getIndex(indexNum).updateTutVenue(tutVenue);
 
-		database.updateCourseRecords(tempCourse, false);
+		database.updateCourseRecords(tempCourse);
 
 		System.out.println("");
 		System.out.print("Index number " + indexNum + "'s tutorial venue, group number and remark has been updated");
@@ -598,7 +598,7 @@ public class AdminCourseUI {
 		tempCourse.getIndex(indexNum).updateLabRemark(labRemark);
 		tempCourse.getIndex(indexNum).updateLabVenue(labVenue);
 
-		database.updateCourseRecords(tempCourse, false);
+		database.updateCourseRecords(tempCourse);
 
 		System.out.println("");
 		System.out.print("Index Number " + indexNum + "'s lab venue, group number and remark has been updated");
@@ -829,7 +829,7 @@ public class AdminCourseUI {
 		tempCourse.getIndex(indexNum).setLabDetails(intDay, startHours, startMinutes, endHours, endMinutes, labVenue,
 				labRemarks, labGroup, labOccurring);
 
-		database.updateCourseRecords(tempCourse, false);
+		database.updateCourseRecords(tempCourse);
 
 		System.out.println("");
 		System.out.println("Index Number " + indexNum + "'s lab and tutorial details has been added.");
@@ -875,9 +875,9 @@ public class AdminCourseUI {
 		} while (check);
 
 		System.out.println("");
-		tempCourse.removeIndex(indexNum);
+		//tempCourse.removeIndex(indexNum);
 
-		database.updateCourseRecords(tempCourse, true);
+		database.updateCourseRecords(tempCourse, indexNum);
 
 	}
 
