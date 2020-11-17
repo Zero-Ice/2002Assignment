@@ -172,22 +172,27 @@ public class Index implements Serializable{
 		
 		if(seatVacancy.contains(matricNo)) {
 			System.out.println(matricNo+ " has registered before.");
+			
 			return;
+			
 		}else{
 			for(int seat=0; seat<numSeats; seat++) {
 				if(seatVacancy.get(seat).contains("vacant")) {
 					seatVacancy.set(seat, matricNo);
 					
 					student.addCourse(this.courseCode, this.indexNum);
-					
 					System.out.println(matricNo+ " assigned to index " +indexNum);
+					
 					return;
 				}
 			}
+			
 		}
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
+		
+		return;
 		
 	}
 	
@@ -195,9 +200,8 @@ public class Index implements Serializable{
 	 * Method to unassign a student from the index
 	 * @param student - the student object to be unassigned from the index
 	 * @param triggerWaitlistUpdate
-	 * @return the student object
 	 */
-	public Student unassignStudent(Student student, boolean triggerWaitlistUpdate) {
+	public void unassignStudent(Student student, boolean triggerWaitlistUpdate) {
 		String matricNo = student.getMatricNo();
 		
 		if(seatVacancy.contains(matricNo)) {
@@ -225,7 +229,7 @@ public class Index implements Serializable{
 		}else  
 			System.out.println(matricNo+ " was not found in index "+ indexNum);
 		
-		return student;
+		return;
 	}
 	
 	/**
@@ -234,12 +238,11 @@ public class Index implements Serializable{
 	 * 
 	 * @param student refers to the student to be removed from the index
 	 * 
-	 * @return Student <code>student</code>
 	 * @see {@link Index#unassignStudent(Student, boolean)}
 	 * 
 	 */
-	public Student unassignStudent(Student student) {
-		return unassignStudent(student, true);
+	public void unassignStudent(Student student) {
+		unassignStudent(student, true);
 	}
 
 /************************************************************************************************************/
