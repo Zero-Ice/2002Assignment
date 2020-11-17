@@ -52,7 +52,7 @@ public class RegisteredCourse implements Serializable{
 	/**
 	 * This method will return the course code
 	 * 
-	 * @return courseCode if not <code>null</code>;
+	 * @return String <code>courseCode</code> if not <code>null</code>;
 	 */
 	public String getCourseCode() {
 		return courseCode;
@@ -61,7 +61,7 @@ public class RegisteredCourse implements Serializable{
 	/**
 	 * This method will return the index code of the course
 	 * 
-	 * @return indexNo if not <code>null</code>;
+	 * @return Integer <code>indexNo</code> if not <code>null</code>;
 	 */
 	public int getIndexNo() {
 		return indexNo;
@@ -71,7 +71,7 @@ public class RegisteredCourse implements Serializable{
 	 * This method will return the registration 
 	 * status of the course
 	 * 
-	 * @return status if not <code>null</code>;
+	 * @return String <code>status</code> if not <code>null</code>;
 	 */
 	public String getStatus() {
 		return status;

@@ -78,6 +78,23 @@ public class Course implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * This method returns all the indexes
+	 * of the Course object
+	 * 
+	 * @return <code>courseIndexes</code> which is an ArrayList of Integers
+	 */
+	public ArrayList<Integer> getAllIndex() {
+		
+		ArrayList<Integer> courseIndexes = new ArrayList<Integer>();
+		
+		for(int i = 0; i < indexes.size(); i++) {
+			courseIndexes.add(indexes.get(i).getIndexNum());
+		}
+		
+		return courseIndexes;
+		
+	}
 
 	/**
 	 * Method to print all of the indexes in the Course
@@ -180,6 +197,12 @@ public class Course implements Serializable{
 		}
 	}
 	
+	/**
+	 * This method removes a student from all courses
+	 * 
+	 * @param student refers to the student to be removed
+	 * @see {@link StarsDB#removeCourse(String)}
+	 */
 	public void removeStudent(Student student) {
 		
 		ArrayList<Integer> registeredIndexes = new ArrayList<Integer>();
@@ -197,6 +220,8 @@ public class Course implements Serializable{
 			}
 		}
 	}
+	
+	
 /************************************************************************************************************/
 	
 ///////////////////////                    Add/Edit/Delete index              ////////////////////////////

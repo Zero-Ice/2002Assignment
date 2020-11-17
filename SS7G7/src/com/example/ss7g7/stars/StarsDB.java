@@ -522,8 +522,11 @@ public class StarsDB {
 	/**
 	 * Removes a course from the database with the corresponding course code,
 	 * does not remove if course does not exist in the DB.
+	 * Once course is removed, students that are registered to
+	 * the course will also be removed.
 	 * 
 	 * @param courseCode refers to the course to be removed
+	 * @see {@link Course#removeStudent(Student)}
 	 */
 	public void removeCourse(String courseCode) { // remove coursecode from db
 
@@ -533,6 +536,19 @@ public class StarsDB {
 
 			courses = file.updateCourseRecords(course, "remove");
 			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
+			
+			for (Student currentStudent: students) {
+				for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
+					if(currentStudent.getCourses().get(registeredCourse).getCourseCode().equals(course.getCourseCode())) {
+						System.out.println("DROP");
+						currentStudent.dropCourse(currentStudent.getCourses().get(registeredCourse).getIndexNo());
+						
+					}
+				}
+				
+			}
+			
+			
 		} else {
 			System.out.println("Course code is not found!\n");
 		}
@@ -540,12 +556,31 @@ public class StarsDB {
 	}
 
 	/**
-	 * This method updates the course records stored in the .ser file
+	 * This method updates the course records stored in the .ser file.
+	 * If index of course is deleted, students registered to the
+	 * index will also be removed.
 	 * 
 	 * @param course refers to the course to be updated
+	 * @param deleteIndex is a boolean that will trigger
+	 * 						the removal of students from the deleted index
 	 */
-	public void updateCourseRecords(Course course) {
+	
+	public void updateCourseRecords(Course course, boolean deleteIndex) {
 		courses = file.updateCourseRecords(course, "update");
+		
+		if (deleteIndex == true) {
+			for (Student currentStudent: students) {
+				for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
+					for (int index=0; index<course.getAllIndex().size(); index++) {
+						
+						if(currentStudent.getCourses().get(registeredCourse).getIndexNo() == course.getAllIndex().get(index)) {
+							currentStudent.dropCourse(currentStudent.getCourses().get(registeredCourse).getIndexNo());
+						}
+					}
+				}
+			}
+		}
+		
 	}
 
 	/**
