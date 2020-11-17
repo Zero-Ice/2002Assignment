@@ -237,7 +237,7 @@ public class FileIO {
 	 * 
 	 * @param s refers to a Student object
 	 */
-	public void setStudentRecord (Student s) {
+	public ArrayList<Student> setStudentRecord (Student s) {
 				
 		FileOutputStream fs = null;
 		ObjectOutputStream os = null;
@@ -267,8 +267,8 @@ public class FileIO {
 				e.printStackTrace();
 			}
 		}
-		
-		    
+				
+		return this.students;    
 	}
 	
 	/**
@@ -417,7 +417,7 @@ public class FileIO {
 	 * @param currentStudent refers to the Student object to be removed/updated
 	 * @param mode can either be "remove" or "update"
 	 */
-	public void updateStudentRecords (Student currentStudent, String mode) {
+	public ArrayList<Student> updateStudentRecords (Student currentStudent, String mode) {
 		
 		FileInputStream fsIn = null;
 		ObjectInputStream osIn = null;
@@ -471,7 +471,9 @@ public class FileIO {
 				System.out.println("File failed to close");
 				e.printStackTrace();
 			}
-		}		
+		}
+		
+		return this.students;
 	}
 	
 	/**
