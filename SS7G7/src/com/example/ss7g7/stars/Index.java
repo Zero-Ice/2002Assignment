@@ -48,8 +48,6 @@ public class Index implements Serializable{
 	private LocalDateTime labEndTime;
 	private int labOccurring;
 	private boolean indexFull;
-	private SendEmail send;
-	private StarsDB database; 
 	
 	
 	/**
@@ -59,14 +57,13 @@ public class Index implements Serializable{
 	 * @param num_Seat - the number of seats available for the index class
 	 */
 	public Index(int index_Num, String courseCode, int num_Seat) {
+		
 		this.indexNum=index_Num;
 		this.courseCode = courseCode;
 		this.numSeats=num_Seat;
 		this.indexFull = false;
 		this.seatVacancy = new ArrayList<String>();
 		this.studentWaitlist = new ArrayList<Student>();
-		this.send = new SendEmail();
-		this.database = StarsDB.getInstance();
 		tutOccurring = 0;
 		labOccurring = 0;
 		tutStartTime = null;
@@ -97,6 +94,8 @@ public class Index implements Serializable{
 	 *  Method to print students registered in the index
 	 */
 	public void printStudentListByIndex() {		
+		StarsDB database = StarsDB.getInstance();
+		
 		System.out.println("\nIndex "+this.getIndexNum());
 		for(int i =0;i<numSeats;i++) {
 			if(seatVacancy.get(i).contains("vacant")!=true) {
@@ -252,6 +251,8 @@ public class Index implements Serializable{
 	 * @param student - the student to be added to the waiting list
 	 */
 	public void addStudentToWaitlist(Student student) {
+		
+		SendEmail send = new SendEmail();
 
 		if(isStudentInWaitlist(student)==false) {
 			student.addWaitingCourse(this.courseCode, this.indexNum);
@@ -272,6 +273,9 @@ public class Index implements Serializable{
 	 * Method to add student from waitlist into index when there is an available slot
 	 */
 	public void addFromWaitlistToIndex() {
+		
+		SendEmail send = new SendEmail();
+
 		if(studentWaitlist.size()==0) {
 			System.out.println("no student in waitlist");
 		}

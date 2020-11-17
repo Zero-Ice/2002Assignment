@@ -2,7 +2,6 @@ package com.example.ss7g7.stars;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -17,9 +16,8 @@ import java.util.*;
  * @since 1.0
  */
 
-public class SendEmail implements Serializable{
+public class SendEmail {
 	
-	private static final long serialVersionUID = 1L;
 	private String senderEmailID;
 	private String senderPassword;
 	private String emailSMTPserver;

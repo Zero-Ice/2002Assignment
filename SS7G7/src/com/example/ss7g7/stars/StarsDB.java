@@ -168,7 +168,7 @@ public class StarsDB {
 	 * @see {@link FileIO#setLoginCredentials(String, String)}
 	 */
 	public void addStudent(Student currentStudent) {
-		file.setStudentRecord(currentStudent);
+		students = file.setStudentRecord(currentStudent);
 		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
@@ -180,7 +180,7 @@ public class StarsDB {
 	 * @see {@link FileIO#removeLoginCredentials(String, String)}
 	 */
 	public void removeStudent(Student currentStudent) {
-		file.updateStudentRecords(currentStudent, "remove");
+		students = file.updateStudentRecords(currentStudent, "remove");
 		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
@@ -190,7 +190,7 @@ public class StarsDB {
 	 * @param currentStudent refers to the updated student object
 	 */
 	public void updateStudentRecords(Student currentStudent) {
-		file.updateStudentRecords(currentStudent, "update");
+		students = file.updateStudentRecords(currentStudent, "update");
 	}
 
 	/**

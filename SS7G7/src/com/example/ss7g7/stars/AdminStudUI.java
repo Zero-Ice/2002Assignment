@@ -155,7 +155,7 @@ public class AdminStudUI {
 		do {
 			System.out.print("Enter the student's username: "); //check if such username exists 
 			username = sc.nextLine();
-			check = !(database.isExistingUsername(username));
+			check = !(database.isExistingUsername(username)) || username.contains("admin");
 		} while (check);
 		
 		System.out.print("Enter student's default password: ");
