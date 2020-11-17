@@ -395,6 +395,7 @@ public class Course implements Serializable{
 	 * @return full details of the lecture 
 	 */
 	public String getLecDetails() {
+		if(lecStartTime == null || lecEndTime == null) return "";
 		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
 		
 		String lecStart = getLecStartTime().format(formatter);
