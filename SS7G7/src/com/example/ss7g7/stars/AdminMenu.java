@@ -14,7 +14,7 @@ import java.util.Scanner;
  * The options include:
  * <li>Go to AdminStudUI to edit students information of StarsSystem
  * <li>Go to AdminCourseUI to edit courses information of StarsSystem
- * <li>Go back to previous page(login page)
+ * <li>Log out
  * 
  * @author Ng Kah Hui
  * created on 2020/10/15
@@ -57,7 +57,7 @@ public class AdminMenu {
 			System.out.println("");
 			System.out.println("1. Student");
 			System.out.println("2. Course");
-			System.out.println("3. Go back to previous page");
+			System.out.println("3. Log out");
 			System.out.println("");
 			System.out.print("Please select one of the options: ");
 			choice = sc.nextInt();

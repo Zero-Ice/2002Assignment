@@ -534,19 +534,20 @@ public class StarsDB {
 		if (isExistingCourseCode(courseCode)) {
 			Course course = getCourse(courseCode);
 
-			courses = file.updateCourseRecords(course, "remove");
-			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
-			
 			for (Student currentStudent: students) {
 				for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
-					if(currentStudent.getCourses().get(registeredCourse).getCourseCode().equals(course.getCourseCode())) {
+					if(currentStudent.getCourses().get(registeredCourse).getCourseCode().equals(courseCode)) {
 						System.out.println("DROP");
 						currentStudent.dropCourse(currentStudent.getCourses().get(registeredCourse).getIndexNo());
-						
+						file.updateStudentRecords(currentStudent, "update");
 					}
 				}
 				
 			}
+			
+			courses = file.updateCourseRecords(course, "remove");
+			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
+			
 			
 			
 		} else {
@@ -557,30 +558,41 @@ public class StarsDB {
 
 	/**
 	 * This method updates the course records stored in the .ser file.
-	 * If index of course is deleted, students registered to the
+	 * 
+	 * @param course refers to the course to be updated
+	 */
+	
+	public void updateCourseRecords(Course course) {
+		courses = file.updateCourseRecords(course, "update");			
+	}
+	
+	/**
+	 * This method updates the course records stored in the .ser file.
+	 * When index of course is deleted, students registered to the
 	 * index will also be removed.
 	 * 
 	 * @param course refers to the course to be updated
-	 * @param deleteIndex is a boolean that will trigger
-	 * 						the removal of students from the deleted index
+	 * @param indexToRemove
 	 */
 	
-	public void updateCourseRecords(Course course, boolean deleteIndex) {
-		courses = file.updateCourseRecords(course, "update");
+	public void updateCourseRecords(Course course, int indexToRemove) {
 		
-		if (deleteIndex == true) {
-			for (Student currentStudent: students) {
-				for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
-					for (int index=0; index<course.getAllIndex().size(); index++) {
-						
-						if(currentStudent.getCourses().get(registeredCourse).getIndexNo() == course.getAllIndex().get(index)) {
-							currentStudent.dropCourse(currentStudent.getCourses().get(registeredCourse).getIndexNo());
-						}
-					}
+		for (Student currentStudent: students) {
+			for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
+				if(currentStudent.getCourses().get(registeredCourse).getIndexNo() == indexToRemove) {
+					System.out.println("DROPINDEX");				
+					currentStudent.dropCourse(currentStudent.getCourses().get(registeredCourse).getIndexNo());
+					file.updateStudentRecords(currentStudent, "update");
 				}
 			}
 		}
 		
+		try {
+			course.removeIndex(indexToRemove);
+			courses = file.updateCourseRecords(course, "update");
+		}catch (Exception e) {
+			System.out.println("Error removing index: "+e);
+		}
 	}
 
 	/**

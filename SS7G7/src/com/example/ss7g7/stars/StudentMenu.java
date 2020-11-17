@@ -172,7 +172,7 @@ public class StudentMenu {
 					courseToAdd.assignStudent(indexToAdd, student);
 					
 					db.updateStudentRecords(student);
-					db.updateCourseRecords(courseToAdd, false);
+					db.updateCourseRecords(courseToAdd);
 
 					run = false;
 
@@ -236,7 +236,7 @@ public class StudentMenu {
 					student.dropCourse(index.getIndexNum());
 					c.unassignStudent(indexToDrop, student);
 
-					db.updateCourseRecords(c, false);
+					db.updateCourseRecords(c);
 					db.updateStudentRecords(student);
 
 					System.out.println("Successfully dropped index " + indexToDrop);
@@ -377,8 +377,8 @@ public class StudentMenu {
 					toIndex.assignStudent(student);
 
 					db.updateStudentRecords(student);
-					db.updateCourseRecords(fromCourse, false);
-					db.updateCourseRecords(toCourse, false);
+					db.updateCourseRecords(fromCourse);
+					db.updateCourseRecords(toCourse);
 
 					System.out.println("Successfully changed index");
 					run = false;
@@ -522,8 +522,8 @@ public class StudentMenu {
 					fromIndex.assignStudent(otherStudent);
 					toIndex.assignStudent(student);
 
-					db.updateCourseRecords(fromCourse, false);
-					db.updateCourseRecords(toCourse, false);
+					db.updateCourseRecords(fromCourse);
+					db.updateCourseRecords(toCourse);
 
 					db.updateStudentRecords(student);
 					db.updateStudentRecords(otherStudent);
