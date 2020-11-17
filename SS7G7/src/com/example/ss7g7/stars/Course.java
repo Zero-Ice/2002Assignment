@@ -179,6 +179,24 @@ public class Course implements Serializable{
 			System.out.println(matricNo + " has not registered before");
 		}
 	}
+	
+	public void removeStudent(Student student) {
+		
+		ArrayList<Integer> registeredIndexes = new ArrayList<Integer>();
+		
+		for (int course=0; course<student.getCourses().size(); course++)
+		{
+			registeredIndexes.add(student.getCourses().get(course).getIndexNo());
+		}
+		
+		for (Index courseIndex: indexes) {
+			for (int index = 0; index < registeredIndexes.size(); index++) {
+				if (registeredIndexes.get(index).equals(courseIndex.getIndexNum())) {
+					courseIndex.unassignStudent(student);
+				}
+			}
+		}
+	}
 /************************************************************************************************************/
 	
 ///////////////////////                    Add/Edit/Delete index              ////////////////////////////
