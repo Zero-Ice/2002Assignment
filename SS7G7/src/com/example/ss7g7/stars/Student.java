@@ -169,7 +169,7 @@ public class Student extends User {
 			s += "No courses registered";
 			return s;
 		}
-
+		
 		s += "Course, AU, Index Number, Status";
 		for (int i = 0; i < courses.size(); i++) {
 			s += courses.get(i).getCourseCode() + ", " + courses.get(i).getIndexNo() + ", "
@@ -180,7 +180,9 @@ public class Student extends User {
 			s += ", ";
 		}
 
-		s += "TOTAL AU REGISTERED " + Integer.toString(getAUs());
+		//s += "TOTAL AU REGISTERED " + Integer.toString(getAUs());
+	
+		System.out.println(s);
 
 		return s;
 	}

@@ -249,6 +249,7 @@ public class AdminStudUI {
         
         // after user input in username and password, it should store inside starsDB				
         database.addStudent(username, passWord, name, lastName, matricNo, gender, nationality, mobileNo, email, accessStart, accessEnd);       
+        database = StarsDB.getInstance(); 
         
 	    System.out.println();
 		System.out.println("The student has been added.");
@@ -286,6 +287,8 @@ public class AdminStudUI {
 		} while (check);
 		
 		database.removeStudent(matricNo); //remove student from db 
+		database = StarsDB.getInstance(); 
+		
 		System.out.println("Student with matriculation number of " + matricNo + " has been removed.");
 	}
 

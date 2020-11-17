@@ -181,6 +181,22 @@ public class StarsDB {
 	 */
 	public void removeStudent(Student currentStudent) {
 		students = file.updateStudentRecords(currentStudent, "remove");
+		
+		ArrayList<Course> registeredCourses = new ArrayList<Course>();
+		
+		for (Course existingCourse: courses) {
+			for (int course = 0; course < currentStudent.getCourses().size(); course++) {
+				if (existingCourse.getCourseCode().equals(currentStudent.getCourses().get(course).getCourseCode())) {
+					registeredCourses.add(existingCourse);
+				}
+			}
+		}
+		
+		for (Course course: registeredCourses) {
+			course.removeStudent(currentStudent);
+			file.updateCourseRecords(course, "update");
+		}
+		
 		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
@@ -435,7 +451,7 @@ public class StarsDB {
 	 * course with the course code.
 	 * 
 	 * @param courseCode
-	 * @return c 	if course is found in the database;
+	 * @return Course object if course is found in the database;
 	 * 				<code>null</code> if course is not found.
 	 */
 	public Course getCourse(String courseCode) {
