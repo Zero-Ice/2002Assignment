@@ -161,10 +161,30 @@ public class AdminStudUI {
 		System.out.print("Enter student's default password: ");
 		passWord = sc.nextLine();
 		
-		System.out.print("Enter student's first name: ");
-		name = sc.nextLine();
-		System.out.print("Enter student's last name: ");
-		lastName = sc.nextLine();
+		while(!check)
+        {
+			System.out.print("Enter student's first name: ");
+			name = sc.nextLine();
+			if(!name.matches("[a-zA-Z]+")){
+			    System.out.println("Please enter a valid first name!");
+			    check=false;
+			}else {
+				check=true;
+			}
+			
+        }
+		
+		while(!check)
+        {
+			System.out.print("Enter student's last name: ");
+			lastName = sc.nextLine();
+			if(!lastName.matches("[a-zA-Z]+")){
+			    System.out.println("Please enter a valid last name!");
+			    check=false;
+			}else {
+				check=true;
+			}
+        }
 		
 		do {
 			System.out.print("Enter student matriculation number: ");
@@ -200,8 +220,17 @@ public class AdminStudUI {
         	
         	}
         
-        System.out.print("Enter student's nationality: ");
-        nationality = sc.nextLine();
+        while(!check)
+        {
+        	System.out.print("Enter student's nationality: ");
+        	nationality = sc.nextLine();
+        	if(!nationality.matches("[a-zA-Z]+")){
+			    System.out.println("Please enter a valid input!");
+			    check=false;
+			}else {
+				check=true;
+			}
+        }
         
         while(true){ //check if user input the correct input format 
         	try{
