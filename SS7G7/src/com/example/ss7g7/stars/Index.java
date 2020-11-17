@@ -95,10 +95,13 @@ public class Index implements Serializable{
 	 *  Method to print students registered in the index
 	 */
 	public void printStudentListByIndex() {
-		System.out.println(indexNum);
+		StarsDB database = StarsDB.getInstance();
+		
+		System.out.println("\nIndex "+this.getIndexNum());
 		for(int i =0;i<numSeats;i++) {
 			if(seatVacancy.get(i).contains("vacant")!=true) {
-				System.out.println(seatVacancy.get(i));
+				Student student = database.getStudentByMatric(seatVacancy.get(i));
+				System.out.println(student.getName()+student.getLastName()+" "+student.getGender()+" "+student.getNationality());
 			}
 		}
 		System.out.println();
