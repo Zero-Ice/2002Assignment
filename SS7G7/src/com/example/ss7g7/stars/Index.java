@@ -49,6 +49,7 @@ public class Index implements Serializable{
 	private int labOccurring;
 	private boolean indexFull;
 	private SendEmail send;
+	private StarsDB database; 
 	
 	
 	/**
@@ -65,6 +66,7 @@ public class Index implements Serializable{
 		this.seatVacancy = new ArrayList<String>();
 		this.studentWaitlist = new ArrayList<Student>();
 		this.send = new SendEmail();
+		this.database = StarsDB.getInstance();
 		tutOccurring = 0;
 		labOccurring = 0;
 		tutStartTime = null;
@@ -94,9 +96,7 @@ public class Index implements Serializable{
 	/**
 	 *  Method to print students registered in the index
 	 */
-	public void printStudentListByIndex() {
-		StarsDB database = StarsDB.getInstance();
-		
+	public void printStudentListByIndex() {		
 		System.out.println("\nIndex "+this.getIndexNum());
 		for(int i =0;i<numSeats;i++) {
 			if(seatVacancy.get(i).contains("vacant")!=true) {
