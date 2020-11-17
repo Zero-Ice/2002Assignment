@@ -145,7 +145,7 @@ public class AdminStudUI {
 		String nationality ="";
 		String email = "";
 		int mobileNo = 0;
-		String gender;
+		String gender ="";
 		boolean check;
 		
 		
@@ -171,10 +171,35 @@ public class AdminStudUI {
 			matricNo = sc.nextLine();
 			check = !database.isExistingMatNum(matricNo);
 		} while (check);
-
-		System.out.print("Enter student's gender(M/F): ");
-		gender = sc.nextLine();
 		
+        while(!check)
+        {
+        	System.out.print("Enter student's gender(M/F): ");
+        	gender = sc.nextLine();
+        		switch(gender) 
+        		{
+        		case "M":
+        		gender = "M";
+        		check = true;
+        		break;
+        		case "m":
+        		gender = "M";
+        		check = true;
+        		break;  
+        		case "F":
+        		gender = "F";
+        		check = true;
+        		break;  
+        		case "f":
+        		gender = "F";
+        		check = true;
+        		break;  
+        		default:
+					System.out.println("Invalid input! Please enter only M or F");
+        		}
+        	
+        	}
+        
         System.out.print("Enter student's nationality: ");
         nationality = sc.nextLine();
         
