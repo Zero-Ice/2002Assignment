@@ -181,8 +181,6 @@ public class Student extends User {
 		}
 
 		//s += "TOTAL AU REGISTERED " + Integer.toString(getAUs());
-	
-		System.out.println(s);
 
 		return s;
 	}
