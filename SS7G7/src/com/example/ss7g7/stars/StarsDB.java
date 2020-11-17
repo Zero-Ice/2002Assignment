@@ -615,6 +615,7 @@ public class StarsDB {
 		c1.setLecDetails(1, 10, 30, 12, 30, "LT19", "OS", "CS3");
 
 		Course c2 = new Course("CZ2001", "ALGO", "SCSE", 3);
+		c2.setLecDetails(1, 10, 30, 12, 30, "LT19", "ALGO", "CS4");
 		Index i4 = c2.addIndex(200001, 30);
 		i4.setTutDetails(2, 10, 0, 12, 0, "A ROOM", "NO REMARKS", "SA1", 3);
 
