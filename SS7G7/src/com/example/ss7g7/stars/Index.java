@@ -97,13 +97,20 @@ public class Index implements Serializable{
 		StarsDB database = StarsDB.getInstance();
 		
 		System.out.println("\nIndex "+this.getIndexNum());
-		for(int i =0;i<numSeats;i++) {
-			if(seatVacancy.get(i).contains("vacant")!=true) {
-				Student student = database.getStudentByMatric(seatVacancy.get(i));
-				System.out.println(student.getName()+student.getLastName()+" "+student.getGender()+" "+student.getNationality());
-			}
+		
+		if(this.getNumOfVacancies()==this.numSeats) {
+			System.out.println("There are no students registered in this index.");
 		}
-		System.out.println();
+		else {
+			for(int i =0;i<numSeats;i++) {
+				if(seatVacancy.get(i).contains("vacant")!=true) {
+					Student student = database.getStudentByMatric(seatVacancy.get(i));
+					System.out.println(student.getName()+student.getLastName()+" "+student.getGender()+" "+student.getNationality());
+				}
+			}
+			System.out.println();
+		}
+		
 	}
 	
 	/**
