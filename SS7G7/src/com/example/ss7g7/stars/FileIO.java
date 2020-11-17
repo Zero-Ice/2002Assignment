@@ -174,7 +174,6 @@ public class FileIO {
 			read = false;
 			
 			for (String user : credentials) {
-				System.out.println(user);
 				
 				if (user.equals(username+","+cipherPass+"-student")) {
 					credentials.remove(user);
