@@ -26,6 +26,8 @@ public class StarsSystem {
 	private StarsDB db; 
 	private Login login;
 	private User currentUser;
+	private StudentMenu studentMenu;
+	private AdminMenu adminMenu;
 
 	/**
 	 * Constructor of StarsSystem.
@@ -38,7 +40,8 @@ public class StarsSystem {
 		
 		login = new Login(db);
 		currentUser = null;
-		
+		studentMenu = null;
+		adminMenu = null;
 	}
 
 	/**
@@ -133,18 +136,15 @@ public class StarsSystem {
 	 * returns to the main loop of StarsSystem.
 	 */
 	private void runStudentMenu() {
-		// TODO: Get Student Info based on currentUser
-		
-		Student student = db.getStudent(currentUser.getUser());
+		Student student = db.getStudent(currentUser.getUsername());
 		
 		if(student == null) {
-			// throw exception. User exists but student does not exist in db
 			System.out.println("User not found in database");
 			return;
 			
 		}
 		
-		StudentMenu studentMenu = new StudentMenu(db, student);
+		studentMenu = new StudentMenu(db, student);
 		
 		studentMenu.run();
 		
@@ -157,7 +157,10 @@ public class StarsSystem {
 	 * 
 	 */
 	private void runAdminMenu() {
-		AdminUI.printAdminUI();
+		adminMenu = new AdminMenu();
+		
+		adminMenu.run();
+		
 		logout();
 		// Notes: Once this function ends, it goes back to login. see run()
 	}

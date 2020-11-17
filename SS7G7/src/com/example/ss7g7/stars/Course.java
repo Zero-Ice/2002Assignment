@@ -114,7 +114,6 @@ public class Course implements Serializable{
 		
 		// this loops iterates through each index to print the students registered in each index
 		for(int i = 0; i < indexes.size(); i++) {
-			System.out.println("Index "+indexes.get(i).getIndexNum());
 			indexes.get(i).printStudentListByIndex();
 		}
 	}

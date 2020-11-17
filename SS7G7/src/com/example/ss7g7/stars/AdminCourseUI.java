@@ -21,9 +21,9 @@ import java.util.Scanner;
  * 6)View course detail 
  * 7)View a course code's index number detail 
  * 8)Check a course code's index number available slots left
- * 9)Go back to previous page(AdminUI)
+ * 9)Go back to previous page(AdminMenu)
  * 
- * @author Kah Hui
+ * @author Ng Kah Hui
  * created on 2020/10/15
  * 
  * @version %I%
@@ -32,13 +32,17 @@ import java.util.Scanner;
  */
 public class AdminCourseUI {
 
-	private static Scanner sc = new Scanner(System.in); // take input from user
+	private Scanner sc;
 
+	public AdminCourseUI() {
+		sc = new Scanner(System.in); // take input from user
+	}
+	
 	/**
 	 * This method prints all the administrative
-	 * options available.
+	 * options available of courses.
 	 */
-	public static void printAdminCourseUI() {
+	public void run() {
 
 		int choice;
 		GoBack: while (true) { // Print selection menu
@@ -104,7 +108,7 @@ public class AdminCourseUI {
 	 * 4.Method add course to database.
 	 * 5.Method print out list of all courses in database
 	 */
-	private static void addNewCourse() {
+	private void addNewCourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -151,8 +155,8 @@ public class AdminCourseUI {
 			}
 		}
 
-		while (true) { // Check if user input numerical values for below inputs
-			try { // try/catch if user input string input
+		while (true) { 
+			try { // try/catch if user input string input when program ask for integer 
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the lecture day(1 for monday, 2 for tuesday...):");
 					intDay = sc.nextInt();
@@ -242,7 +246,7 @@ public class AdminCourseUI {
 	 * 2.if it does exists, Method remove course from database
 	 * 3.Method print out list of all courses in database
 	 */
-	private static void removeACourse() {
+	private void removeACourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -273,7 +277,7 @@ public class AdminCourseUI {
 	 * Prints all the administrative update
 	 * options available.
 	 */
-	private static void updateCourseIndex() {
+	private void updateCourseIndex() {
 		int choice;
 
 		GoBack: while (true) { // Print selection menu
@@ -332,7 +336,7 @@ public class AdminCourseUI {
 	 * 3.Method check if new course detail = old course detail
 	 * 4.If yes, update it to database. if no, remove old course from database and add new course to database
 	 */
-	private static void updateCourseDetail() {
+	private void updateCourseDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -401,7 +405,7 @@ public class AdminCourseUI {
 	 * 3.if it does exists, method ask user to input updated index number
 	 * 4.Method update to database
 	 */
-	private static void updateIndexDetail() {
+	private void updateIndexDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		String courseCode = "";
@@ -447,7 +451,7 @@ public class AdminCourseUI {
 	 * 2.if it does exists, method ask user to input updated lecture detail
 	 * 3.Method update to database
 	 */
-	private static void updateLecDetail() {
+	private void updateLecDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -489,7 +493,7 @@ public class AdminCourseUI {
 	 * 3.if it does exists, method ask user to input updated tutorial detail
 	 * 4.Method update to database
 	 */
-	private static void updateTutDetail() {
+	private void updateTutDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -549,7 +553,7 @@ public class AdminCourseUI {
 	 * 3.if it does exists, method ask user to input updated lab detail
 	 * 4.Method update to database
 	 */
-	private static void updateLabDetail() {
+	private void updateLabDetail() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -610,7 +614,7 @@ public class AdminCourseUI {
 	 * 4.Method also check for input errors like string for integer and if user input unrealistic timing for etc
 	 * 5.Method add index number to database.
 	 */
-	private static void addNewIndex() {
+	private void addNewIndex() {
 
 		StarsDB database = StarsDB.getInstance();
 
@@ -668,8 +672,8 @@ public class AdminCourseUI {
 		System.out.print("");
 		// create new tutorial lesson
 
-		while (true) { // loop if user input string input instead of int
-			try { // try/catch if user input string input
+		while (true) { 
+			try { // try/catch if user input string input when program ask for integer 
 
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the tutorial day(1 for monday, 2 for tuesday...):");
@@ -748,8 +752,8 @@ public class AdminCourseUI {
 
 		System.out.print("");
 
-		while (true) { // loop if user input string input instead of int
-			try { // try/catch if user input string input
+		while (true) { 
+			try { // try/catch if user input string input when program ask for integer
 
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the lab day(1 for monday, 2 for tuesday...):");
@@ -838,7 +842,7 @@ public class AdminCourseUI {
 	 * 2.if it does exists, method ask user to input index number and check if it already exists
 	 * 3.if it does exists, Method remove index number from database
 	 */
-	private static void removeAIndex() {
+	private void removeAIndex() {
 
 		StarsDB database = StarsDB.getInstance();
 
@@ -880,7 +884,7 @@ public class AdminCourseUI {
 	/**
 	 * This method is to print all existing course from database
 	 */
-	private static void viewCourse() {
+	private void viewCourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		database.printCourseList();
@@ -891,9 +895,9 @@ public class AdminCourseUI {
 	 * This method allows user to view a index number detail via course code
 	 * 1.Method ask user to input a course code and check if it already exists
 	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, method print index number detail list (studentlist)
+	 * 3.if it does exists, method print index number detail list (student list)
 	 */
-	private static void viewIndexByCourse() {
+	private void viewIndexByCourse() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;
@@ -935,7 +939,7 @@ public class AdminCourseUI {
 	 * 2.if it does exists, method ask user to input index number and check if it already exists
 	 * 3.if it does exists, method print number available slots via index number 
 	 */
-	private static void CheckIndexSlots() {
+	private void CheckIndexSlots() {
 		StarsDB database = StarsDB.getInstance();
 
 		boolean check = false;

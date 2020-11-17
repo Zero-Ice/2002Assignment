@@ -14,14 +14,14 @@ import java.util.Calendar;
  * overview of the administrative actions that
  * an admin user would be allowed to make on
  * students.
- * <p>
- * The options include:
- * <li>Editing an existing student access period to StarsSystem 
- * <li>Adding a new student to StarsSystem 
- * <li>Removing an existing student from StarsSystem 
- * <li>Printing a student list by entering an existing course code's index number 
- * <li>Printing a student list by entering an existing course code 
- * <li>Going  back to previous page (AdminUI) 
+ * 
+ * Provides 6 options
+ * 1)Editing an existing student access period to StarsSystem 
+ * 2)Adding a new student to StarsSystem 
+ * 3)Removing an existing student from StarsSystem 
+ * 4)Printing a student list by entering an existing course code's index number 
+ * 5)Printing a student list by entering an existing course code 
+ * 6)Going  back to previous page (AdminMenu) 
  *  
  * @author Ng Kah Hui 
  * @version %I%
@@ -31,14 +31,19 @@ import java.util.Calendar;
  */
 public class AdminStudUI {
 	
-	private static StarsDB database = StarsDB.getInstance(); 
-	private static Scanner sc = new Scanner(System.in); // take input from user
+	private StarsDB database; 
+	private Scanner sc;
 	
 	/**
 	 * This method prints all the administrative
-	 * options available.
+	 * options available of students.
 	 */
-	public static void printAdminStudUI() {
+	public AdminStudUI() {
+		database = StarsDB.getInstance();
+		sc = new Scanner(System.in); // take input from user
+	}
+	
+	public void run() {
 
 		int choice;
 		GoBack:
@@ -94,7 +99,7 @@ public class AdminStudUI {
 	 * 
 	 * @throws ParseException when user inputs the wrong format for access time.
 	 */
-	private static void editStudentAccess() throws ParseException { 
+	private void editStudentAccess() throws ParseException { 
 		
 		database.printStudentList(); //show result from db 
 		
@@ -127,9 +132,10 @@ public class AdminStudUI {
 	 * 2.If it does not exist, method continue to ask user to input other necessary information
 	 * 3.Method add new student information to database
 	 * 4.Method print out list of all students in database
+	 * 
 	 * @throws ParseException when user didnt input in an specific format for access time 
 	 */
-	private static void addStudent() throws ParseException {
+	private void addStudent() throws ParseException {
 		
 		String username = "";
 		String passWord = "";
@@ -139,7 +145,7 @@ public class AdminStudUI {
 		String nationality ="";
 		String email = "";
 		int mobileNo = 0;
-		String gender;
+		String gender ="";
 		boolean check;
 		
 		
@@ -155,22 +161,73 @@ public class AdminStudUI {
 		System.out.print("Enter student's default password: ");
 		passWord = sc.nextLine();
 		
-		System.out.print("Enter student's first name: ");
-		name = sc.nextLine();
-		System.out.print("Enter student's last name: ");
-		lastName = sc.nextLine();
+		while(true)
+        {
+			System.out.print("Enter student's first name: ");
+			name = sc.nextLine();
+			if(name.matches("[a-zA-Z]+")){
+			    break;
+			}else {
+				System.out.println("Invalid input! Please enter again.");
+			}
+			
+        }
+		
+		while(true)
+        {
+			System.out.print("Enter student's last name: ");
+			lastName = sc.nextLine();
+			if(lastName.matches("[a-zA-Z]+")){
+			    break;
+			}else {
+				System.out.println("Invalid input! Please enter again.");
+			}
+        }
 		
 		do {
 			System.out.print("Enter student matriculation number: ");
 			matricNo = sc.nextLine();
 			check = !database.isExistingMatNum(matricNo);
 		} while (check);
-
-		System.out.print("Enter student's gender(M/F): ");
-		gender = sc.nextLine();
 		
-        System.out.print("Enter student's nationality: ");
-        nationality = sc.nextLine();
+        while(!check)
+        {
+        	System.out.print("Enter student's gender(M/F): ");
+        	gender = sc.nextLine();
+        		switch(gender) 
+        		{
+        		case "M":
+        		gender = "M";
+        		check = true;
+        		break;
+        		case "m":
+        		gender = "M";
+        		check = true;
+        		break;  
+        		case "F":
+        		gender = "F";
+        		check = true;
+        		break;  
+        		case "f":
+        		gender = "F";
+        		check = true;
+        		break;  
+        		default:
+					System.out.println("Invalid input! Please enter only M or F");
+        		}
+        	
+        	}
+        
+        while(true)
+        {
+        	System.out.print("Enter student's nationality: ");
+        	nationality = sc.nextLine();
+        	if(nationality.matches("[a-zA-Z]+")){
+			    break;
+			}else {
+				System.out.println("Invalid input! Please enter again.");
+			}
+        }
         
         while(true){ //check if user input the correct input format 
         	try{
@@ -204,9 +261,9 @@ public class AdminStudUI {
 	 * This method allows user to remove an existing student from database
 	 * 1.Method print out list of all students in database
 	 * 2.Method ask user to input student matriculation number and check if it exists in the database
-	 * 3.If it exists in the database, method remove student from database
+	 * 3.If it does exists, method remove student from database
 	 */
-	private static void removeStudent() { 
+	private void removeStudent() { 
 		
     	Boolean check = false;
 		String matricNo = "";
@@ -238,7 +295,7 @@ public class AdminStudUI {
 	 * 2.If it does exists, method ask user to input the course code's index number and check if it exists in the database
 	 * 3.If it does exists, method print out student list
 	 */
-	private static void printStudListByIndex() { 
+	private void printStudListByIndex() { 
 
 		boolean check = false;
 		String courseCode  = "";
@@ -271,11 +328,11 @@ public class AdminStudUI {
 	}
 	
 	/**
-	 * This method allows user to print student list by a course code
+	 * This method allows user to print student list via course code
 	 * 1.Method ask user to input course code and check if it exists in the database
-	 * 2/If it does exists, print out student list
+	 * 2.If it does exists, print out student list
 	 */
-	private static void printStudListByCourse() { 
+	private void printStudListByCourse() { 
 		
 		boolean check = false;
 		String courseCode  = "";
