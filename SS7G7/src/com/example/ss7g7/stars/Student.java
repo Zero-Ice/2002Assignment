@@ -115,6 +115,29 @@ public class Student extends User {
 
 		return true;
 	}
+	
+	/**
+	 * This method updates the student's registered 
+	 * course code once there is a change in the course code.
+	 * 
+	 * 
+	 * @param newCourse
+	 * @param oldIndex
+	 * @return
+	 */
+	public boolean updateCourse(String newCourse, int oldIndex) {
+		
+		for (int i = 0; i < courses.size(); i++) {
+			if (courses.get(i).getIndexNo() == oldIndex) {
+				courses.remove(i);
+			}
+		}
+		courses.add(new RegisteredCourse(newCourse, oldIndex));
+
+		return true;
+	}
+
+
 
 	public boolean addWaitingCourse(String courseCode, int indexNo) {
 		if (containsCourse(courseCode))
@@ -124,6 +147,8 @@ public class Student extends User {
 
 		return true;
 	}
+	
+	
 
 	/**
 	 * This method drops the course registered to the student Returns true if the
@@ -197,7 +222,7 @@ public class Student extends User {
 			if (i == courses.size() - 1)
 				break;
 
-			s += ", ";
+//			s += ", ";
 		}
 
 		//s += "TOTAL AU REGISTERED " + Integer.toString(getAUs());
