@@ -129,8 +129,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course's code: "); // check if user input existing course code
+			System.out.print("Enter the course's code(enter -1 to exit): "); // check if user input existing course code
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = database.isExistingCourseCode(courseCode.toUpperCase());
 			if (check) {
 				System.out.println("Course name already found in database, please enter another code");
@@ -258,8 +260,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code you want to remove: "); // check if such course code exists
+			System.out.print("Enter the course code you want to remove(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -289,7 +293,7 @@ public class AdminCourseUI {
 			System.out.println("3. Update Lecture Details");
 			System.out.println("4. Update Tutorial Details");
 			System.out.println("5. Update Lab Details");
-			System.out.println("6. Exit");
+			System.out.println("6. Go back to previous page");
 			System.out.println("");
 			System.out.print("Please select one of the options: ");
 			choice = sc.nextInt();
@@ -349,8 +353,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code you want to update: "); // check if such course code exists
+			System.out.print("Enter the course code you want to update(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -418,8 +424,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course name exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course name exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -466,8 +474,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -510,8 +520,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -570,8 +582,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -643,8 +657,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -857,8 +873,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -911,8 +929,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");
@@ -953,8 +973,10 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit: "); // check if such course code exists
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check = !(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if (check) {
 				System.out.println("Course code is not found in database.");

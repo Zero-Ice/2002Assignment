@@ -110,8 +110,10 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter student's matriculation number: "); //check if such matNum exists
+			System.out.print("Enter student's matriculation number(enter -1 to exit): "); //check if such matNum exists
 			matNum = sc.nextLine();
+			if(matNum.equals("-1"))
+			{return;};
 			check = database.isExistingMatNum(matNum);
 			if(check){
 				System.out.println("Matriculation number is not found in database.");
@@ -153,8 +155,10 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the student's username: "); //check if such username exists 
+			System.out.print("Enter the student's username(enter -1 to exit): "); //check if such username exists 
 			username = sc.nextLine();
+			if(username.equals("-1"))
+			{return;};
 			check = !(database.isExistingUsername(username)) || username.contains("admin");
 		} while (check);
 		
@@ -278,8 +282,10 @@ public class AdminStudUI {
 		sc.nextLine();
 		
 		do {
-			System.out.print("Enter student's matriculation number: "); //check if such matNum exists
+			System.out.print("Enter student's matriculation number(enter -1 to exit): "); //check if such matNum exists
 			matricNo = sc.nextLine();
+			if(matricNo.equals("-1"))
+			{return;};
 			check = database.isExistingMatNum(matricNo);
 			if (check){
 				System.out.println("Matriculation number is not found in database.");
@@ -309,8 +315,10 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such course code exists 
+			System.out.print("Enter the course code(enter -1 to exit): "); //check if such course code exists 
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code not found in database.");}
@@ -344,8 +352,10 @@ public class AdminStudUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code: "); //check if such course code exists 
+			System.out.print("Enter the course code(enter -1 to exit): "); //check if such course code exists 
 			courseCode = sc.nextLine();
+			if(courseCode.equals("-1"))
+			{return;};
 			check =!(database.isExistingCourseCode(courseCode.toUpperCase()));
 			if(check)
 			{System.out.println("Course code not found in database.");}

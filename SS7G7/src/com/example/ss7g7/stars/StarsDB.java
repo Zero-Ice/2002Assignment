@@ -228,6 +228,16 @@ public class StarsDB {
 				"lautan@hotmail.com", newDate1, newDate2);
 		file.setStudentRecord(y);
 		file.setLoginCredentials(y.getUsername(), hash(y.getPass()));
+		
+		Student z = new Student("BRoss", "password1", "Bob", " Ross", "U1942069B", "M", "American", 12345678,
+				"bobross@gmail.com", newDate1, newDate2);
+		file.setStudentRecord(z);
+		file.setLoginCredentials(z.getUsername(), hash(z.getPass()));
+
+		Student a = new Student("JShar69", "password2", "Jabob", " Shar", "U1234567J", "M", "Singaporean", 44556677,
+				" jshar@ntu.edu.sg", newDate1, newDate2);
+		file.setStudentRecord(a);
+		file.setLoginCredentials(a.getUsername(), hash(a.getPass()));
 
 	}
 
@@ -656,18 +666,16 @@ public class StarsDB {
 	public void createDebugCourses() {
 		Course c = new Course("CZ2002", "OODP", "SCSE", 3);
 		c.setLecDetails(1, 12, 30, 14, 30, "LT19", "OODP", "CS2");
-
 		Index i1 = c.addIndex(120014, 30);
 		i1.setTutDetails(2, 12, 0, 14, 0, "A ROOM", "NO REMARKS", "SS1", 3);
-
 		Index i2 = c.addIndex(100012, 30);
 		i2.setTutDetails(2, 10, 0, 12, 0, "A ROOM", "NO REMARKS", "SS2", 3);
 
 		Course c1 = new Course("CZ2005", "OS", "SCSE", 3);
+		c1.setLecDetails(1, 10, 30, 12, 30, "LT19", "OS", "CS3");
 		Index i3 = c1.addIndex(200005, 30);
 		i3.setTutDetails(2, 11, 0, 13, 0, "C ROOM", "NO REMARKS", "SP1", 3);
-		c1.setLecDetails(1, 10, 30, 12, 30, "LT19", "OS", "CS3");
-
+		
 		Course c2 = new Course("CZ2001", "ALGO", "SCSE", 3);
 		c2.setLecDetails(1, 10, 30, 12, 30, "LT19", "ALGO", "CS4");
 		Index i4 = c2.addIndex(200001, 30);
@@ -676,11 +684,41 @@ public class StarsDB {
 		Course c3 = new Course("EE8084", "Cyber Sec", "EE", 3);
 		c3.setLecDetails(1, 12, 0, 14, 0, "ONLINE", "lmao", "dank420");
 		c3.addIndex(999999, 30);
+		
+		Course c4 = new Course("CZ1011", "Engineering Mathematics I", "SCSE", 3);
+		c4.setLecDetails(1, 12, 0, 14, 0, "ONLINE", "lmao", "dank420");
+		Index i5 = c4.addIndex(123456, 30);
+		i5.setTutDetails(2, 12, 0, 14, 0, "A ROOM", "NO REMARKS", "SS1", 3);
+		Index i6 = c4.addIndex(654321, 30);
+		i6.setTutDetails(2, 10, 0, 12, 0, "A ROOM", "NO REMARKS", "SS2", 3);
+
+
+		Course c5= new Course("CZ1012", "Engineering Mathematics II", "SCSE", 3);
+		c5.setLecDetails(1, 13, 0, 14, 0, "ONLINE", "Math is hard", "150");
+		Index i7 = c5.addIndex(10100, 30);
+		i7.setTutDetails(2, 12, 0, 14, 0, "A ROOM", "NO REMARKS", "SS1", 3);
+		i7.setLabDetails(3, 12, 0, 14, 0, "Lab A", "NO REMARKS", "SSP1", 3);
+		Index i8 = c5.addIndex(10101, 30);
+		i8.setTutDetails(2, 8, 30, 9, 30, "A ROOM", "NO REMARKS", "SS2", 3);
+		i8.setLabDetails(3, 16, 30, 18, 30, "Lab B", "NO REMARKS", "SS1", 3);
+		
+		Course c6= new Course("CZ2009", "Only One Course", "SCSE", 1);
+		Index i9 = c6.addIndex(10300, 1);
+		i9 .setTutDetails(1, 8, 30, 9, 30, "LONE ROOM", "Used For Email", "SS1", 3);
+
+		Course c7= new Course("CZ9999", "Super final project", "SCSE", 16);
+		Index iA = c7.addIndex(10400, 1);
+		iA .setLabDetails(1, 16, 30, 18, 30, "Super FYP", "Used For AU", "SSG1", 3);
+
 
 		file.setCourseRecord(c);
 		file.setCourseRecord(c1);
 		file.setCourseRecord(c2);
 		file.setCourseRecord(c3);
+		file.setCourseRecord(c4);
+		file.setCourseRecord(c5);
+		file.setCourseRecord(c6);
+		file.setCourseRecord(c7);
 
 	}
 

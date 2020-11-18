@@ -1,5 +1,9 @@
 package com.example.ss7g7.stars;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.TimeZone;
+
 import com.example.ss7g7.stars.Login.LOGIN_RESULT;
 
 /**
@@ -143,6 +147,18 @@ public class StarsSystem {
 			System.out.println("User not found in database");
 			return;
 			
+		}
+		
+		// Check student access period
+		LocalDateTime ldt = LocalDateTime.now();
+		TimeZone tz = student.getAccessStart().getTimeZone();
+		ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
+		LocalDateTime accessStartLDT = LocalDateTime.ofInstant(student.getAccessStart().toInstant(), zid);
+		LocalDateTime accessEndLDT = LocalDateTime.ofInstant(student.getAccessEnd().toInstant(), zid);
+		if(ldt.isBefore(accessStartLDT) || ldt.isAfter(accessEndLDT)) {
+			System.out.println("Invalid access period");
+			System.out.println("Student's access period is " + accessStartLDT + " - " + accessEndLDT);
+			return;
 		}
 		
 		studentMenu = new StudentMenu(db, student);
