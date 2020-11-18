@@ -168,7 +168,7 @@ public class StarsDB {
 	 * @see {@link FileIO#setLoginCredentials(String, String)}
 	 */
 	public void addStudent(Student currentStudent) {
-		file.setStudentRecord(currentStudent);
+		students = file.setStudentRecord(currentStudent);
 		file.setLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
@@ -180,7 +180,23 @@ public class StarsDB {
 	 * @see {@link FileIO#removeLoginCredentials(String, String)}
 	 */
 	public void removeStudent(Student currentStudent) {
-		file.updateStudentRecords(currentStudent, "remove");
+		students = file.updateStudentRecords(currentStudent, "remove");
+		
+		ArrayList<Course> registeredCourses = new ArrayList<Course>();
+		
+		for (Course existingCourse: courses) {
+			for (int course = 0; course < currentStudent.getCourses().size(); course++) {
+				if (existingCourse.getCourseCode().equals(currentStudent.getCourses().get(course).getCourseCode())) {
+					registeredCourses.add(existingCourse);
+				}
+			}
+		}
+		
+		for (Course course: registeredCourses) {
+			course.removeStudent(currentStudent);
+			file.updateCourseRecords(course, "update");
+		}
+		
 		file.removeLoginCredentials(currentStudent.getUsername(), hash(currentStudent.getPass()));
 	}
 
@@ -190,7 +206,7 @@ public class StarsDB {
 	 * @param currentStudent refers to the updated student object
 	 */
 	public void updateStudentRecords(Student currentStudent) {
-		file.updateStudentRecords(currentStudent, "update");
+		students = file.updateStudentRecords(currentStudent, "update");
 	}
 
 	/**
@@ -435,7 +451,7 @@ public class StarsDB {
 	 * course with the course code.
 	 * 
 	 * @param courseCode
-	 * @return c 	if course is found in the database;
+	 * @return Course object if course is found in the database;
 	 * 				<code>null</code> if course is not found.
 	 */
 	public Course getCourse(String courseCode) {
@@ -506,8 +522,11 @@ public class StarsDB {
 	/**
 	 * Removes a course from the database with the corresponding course code,
 	 * does not remove if course does not exist in the DB.
+	 * Once course is removed, students that are registered to
+	 * the course will also be removed.
 	 * 
 	 * @param courseCode refers to the course to be removed
+	 * @see {@link Course#removeStudent(Student)}
 	 */
 	public void removeCourse(String courseCode) { // remove coursecode from db
 
@@ -515,8 +534,22 @@ public class StarsDB {
 		if (isExistingCourseCode(courseCode)) {
 			Course course = getCourse(courseCode);
 
+			for (Student currentStudent: students) {
+				for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
+					if(currentStudent.getCourses().get(registeredCourse).getCourseCode().equals(courseCode)) {
+						System.out.println("DROP");
+						currentStudent.dropCourse(currentStudent.getCourses().get(registeredCourse).getIndexNo());
+						file.updateStudentRecords(currentStudent, "update");
+					}
+				}
+				
+			}
+			
 			courses = file.updateCourseRecords(course, "remove");
 			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
+			
+			
+			
 		} else {
 			System.out.println("Course code is not found!\n");
 		}
@@ -524,12 +557,42 @@ public class StarsDB {
 	}
 
 	/**
-	 * This method updates the course records stored in the .ser file
+	 * This method updates the course records stored in the .ser file.
 	 * 
 	 * @param course refers to the course to be updated
 	 */
+	
 	public void updateCourseRecords(Course course) {
-		courses = file.updateCourseRecords(course, "update");
+		courses = file.updateCourseRecords(course, "update");			
+	}
+	
+	/**
+	 * This method updates the course records stored in the .ser file.
+	 * When index of course is deleted, students registered to the
+	 * index will also be removed.
+	 * 
+	 * @param course refers to the course to be updated
+	 * @param indexToRemove
+	 */
+	
+	public void updateCourseRecords(Course course, int indexToRemove) {
+		
+		for (Student currentStudent: students) {
+			for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
+				if(currentStudent.getCourses().get(registeredCourse).getIndexNo() == indexToRemove) {
+					System.out.println("DROPINDEX");				
+					currentStudent.dropCourse(currentStudent.getCourses().get(registeredCourse).getIndexNo());
+					file.updateStudentRecords(currentStudent, "update");
+				}
+			}
+		}
+		
+		try {
+			course.removeIndex(indexToRemove);
+			courses = file.updateCourseRecords(course, "update");
+		}catch (Exception e) {
+			System.out.println("Error removing index: "+e);
+		}
 	}
 
 	/**
@@ -552,6 +615,7 @@ public class StarsDB {
 		c1.setLecDetails(1, 10, 30, 12, 30, "LT19", "OS", "CS3");
 
 		Course c2 = new Course("CZ2001", "ALGO", "SCSE", 3);
+		c2.setLecDetails(1, 10, 30, 12, 30, "LT19", "ALGO", "CS4");
 		Index i4 = c2.addIndex(200001, 30);
 		i4.setTutDetails(2, 10, 0, 12, 0, "A ROOM", "NO REMARKS", "SA1", 3);
 

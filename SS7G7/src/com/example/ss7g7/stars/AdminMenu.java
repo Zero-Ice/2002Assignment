@@ -7,11 +7,16 @@ import java.util.Scanner;
  * <h1>Admin User Interface</h1>
  * 
  * <p>
- * The AdminUI provides an overview 
+ * The AdminMenu provides an overview 
  * of the administrative actions that
  * an admin user would be allowed to make.
  * 
- * @author Kah Hui
+ * The options include:
+ * <li>Go to AdminStudUI to edit students information of StarsSystem
+ * <li>Go to AdminCourseUI to edit courses information of StarsSystem
+ * <li>Log out
+ * 
+ * @author Ng Kah Hui
  * created on 2020/10/15
  * 
  * @version %I%
@@ -19,19 +24,9 @@ import java.util.Scanner;
  *
  */
 public class AdminMenu {
+	
 	/**
-	 * <h1>AdminUI</h1>
 	 * Provides a user interface for admin/staff who has logged in to StarsSystem.
-	 * 
-	 * 
-	 *<p>
-	 * Provides 3 options
-	 * 1)Go to AdminStudUI to edit students information of StarsSystem
-	 * 2)Go to AdminCourseUI to edit courses information of StarsSystem
-	 * 3)Go back to previous page(login page)
-	 * 
-	 * @author Ng Kah Hui
-	 * @since 2020-10-15
 	 */
 	
 	private AdminStudUI adminStudUI;
@@ -62,13 +57,13 @@ public class AdminMenu {
 			System.out.println("");
 			System.out.println("1. Student");
 			System.out.println("2. Course");
-			System.out.println("3. Go back to previous page");
+			System.out.println("3. Log out");
 			System.out.println("");
 			System.out.print("Please select one of the options: ");
 			choice = sc.nextInt();
 			try{
 				switch (choice) {
-					case 1: // Go to Admin student UI class
+					case 1: // Go to Admin Student UI class
 						adminStudUI.run();
 						break;
 					case 2: // Go to Admin Course UI class

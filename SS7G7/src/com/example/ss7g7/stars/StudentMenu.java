@@ -152,9 +152,12 @@ public class StudentMenu {
 			// Class Type, Group, Day, Time, Venue, Remark
 
 			System.out.println("Index Number " + indexToAdd + " Course " + courseToAdd.getCourseCode());
-			System.out.println(courseToAdd.getLecDetails());
-			System.out.println(index.getTutDetails());
-			System.out.println(index.getLabDetails());
+			if (courseToAdd.getLecDetails()!=null)
+				System.out.println(courseToAdd.getLecDetails());
+			if (index.getTutDetails()!=null)
+				System.out.println(index.getTutDetails());
+			if (index.getLabDetails()!=null)
+				System.out.println(index.getLabDetails());
 
 
 			boolean run = true;
@@ -164,8 +167,10 @@ public class StudentMenu {
 				int choice = Integer.valueOf(scanner.nextLine());
 
 				if (choice == 1) {
-					index.assignStudent(student);
-
+					
+					student.addCourse(courseToAdd.getCourseCode(), indexToAdd);
+					courseToAdd.assignStudent(indexToAdd, student);
+					
 					db.updateStudentRecords(student);
 					db.updateCourseRecords(courseToAdd);
 
@@ -181,6 +186,7 @@ public class StudentMenu {
 				}
 			}
 		} catch(Exception e) {
+			System.out.println(e);
 			System.out.println("Invalid input. Returning");
 			return;
 		}
@@ -226,10 +232,12 @@ public class StudentMenu {
 				if (choice == 1) {
 
 					Index index = c.getIndex(indexToDrop);
+					
 					student.dropCourse(index.getIndexNum());
+					c.unassignStudent(indexToDrop, student);
 
 					db.updateCourseRecords(c);
-					db.updateStudentRecords(index.unassignStudent(student));
+					db.updateStudentRecords(student);
 
 					System.out.println("Successfully dropped index " + indexToDrop);
 					run = false;

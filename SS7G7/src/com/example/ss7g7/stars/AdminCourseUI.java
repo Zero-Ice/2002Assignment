@@ -21,9 +21,9 @@ import java.util.Scanner;
  * 6)View course detail 
  * 7)View a course code's index number detail 
  * 8)Check a course code's index number available slots left
- * 9)Go back to previous page(AdminUI)
+ * 9)Go back to previous page(AdminMenu)
  * 
- * @author Kah Hui
+ * @author Ng Kah Hui
  * created on 2020/10/15
  * 
  * @version %I%
@@ -40,7 +40,7 @@ public class AdminCourseUI {
 	
 	/**
 	 * This method prints all the administrative
-	 * options available.
+	 * options available of courses.
 	 */
 	public void run() {
 
@@ -155,8 +155,8 @@ public class AdminCourseUI {
 			}
 		}
 
-		while (true) { // Check if user input numerical values for below inputs
-			try { // try/catch if user input string input
+		while (true) { 
+			try { // try/catch if user input string input when program ask for integer 
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the lecture day(1 for monday, 2 for tuesday...):");
 					intDay = sc.nextInt();
@@ -672,8 +672,8 @@ public class AdminCourseUI {
 		System.out.print("");
 		// create new tutorial lesson
 
-		while (true) { // loop if user input string input instead of int
-			try { // try/catch if user input string input
+		while (true) { 
+			try { // try/catch if user input string input when program ask for integer 
 
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the tutorial day(1 for monday, 2 for tuesday...):");
@@ -752,8 +752,8 @@ public class AdminCourseUI {
 
 		System.out.print("");
 
-		while (true) { // loop if user input string input instead of int
-			try { // try/catch if user input string input
+		while (true) { 
+			try { // try/catch if user input string input when program ask for integer
 
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the lab day(1 for monday, 2 for tuesday...):");
@@ -875,9 +875,9 @@ public class AdminCourseUI {
 		} while (check);
 
 		System.out.println("");
-		tempCourse.removeIndex(indexNum);
+		//tempCourse.removeIndex(indexNum);
 
-		database.updateCourseRecords(tempCourse);
+		database.updateCourseRecords(tempCourse, indexNum);
 
 	}
 
@@ -895,7 +895,7 @@ public class AdminCourseUI {
 	 * This method allows user to view a index number detail via course code
 	 * 1.Method ask user to input a course code and check if it already exists
 	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, method print index number detail list (studentlist)
+	 * 3.if it does exists, method print index number detail list (student list)
 	 */
 	private void viewIndexByCourse() {
 		StarsDB database = StarsDB.getInstance();

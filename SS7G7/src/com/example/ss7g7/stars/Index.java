@@ -48,9 +48,7 @@ public class Index implements Serializable{
 	private LocalDateTime labEndTime;
 	private int labOccurring;
 	private boolean indexFull;
-	private SendEmail send;
 	
-	//TODO: email body and subject
 	
 	/**
 	 * Constructor for Index Class
@@ -59,13 +57,13 @@ public class Index implements Serializable{
 	 * @param num_Seat - the number of seats available for the index class
 	 */
 	public Index(int index_Num, String courseCode, int num_Seat) {
+		
 		this.indexNum=index_Num;
 		this.courseCode = courseCode;
 		this.numSeats=num_Seat;
 		this.indexFull = false;
 		this.seatVacancy = new ArrayList<String>();
 		this.studentWaitlist = new ArrayList<Student>();
-		this.send = new SendEmail();
 		tutOccurring = 0;
 		labOccurring = 0;
 		tutStartTime = null;
@@ -95,14 +93,24 @@ public class Index implements Serializable{
 	/**
 	 *  Method to print students registered in the index
 	 */
-	public void printStudentListByIndex() {
-		System.out.println(indexNum);
-		for(int i =0;i<numSeats;i++) {
-			if(seatVacancy.get(i).contains("vacant")!=true) {
-				System.out.println(seatVacancy.get(i));
-			}
+	public void printStudentListByIndex() {		
+		StarsDB database = StarsDB.getInstance();
+		
+		System.out.println("\nIndex "+this.getIndexNum());
+		
+		if(this.getNumOfVacancies()==this.numSeats) {
+			System.out.println("There are no students registered in this index.");
 		}
-		System.out.println();
+		else {
+			for(int i =0;i<numSeats;i++) {
+				if(seatVacancy.get(i).contains("vacant")!=true) {
+					Student student = database.getStudentByMatric(seatVacancy.get(i));
+					System.out.println(student.getName()+student.getLastName()+" "+student.getGender()+" "+student.getNationality());
+				}
+			}
+			System.out.println();
+		}
+		
 	}
 	
 	/**
@@ -171,32 +179,36 @@ public class Index implements Serializable{
 		
 		if(seatVacancy.contains(matricNo)) {
 			System.out.println(matricNo+ " has registered before.");
+			
 			return;
+			
 		}else{
 			for(int seat=0; seat<numSeats; seat++) {
 				if(seatVacancy.get(seat).contains("vacant")) {
 					seatVacancy.set(seat, matricNo);
 					
 					student.addCourse(this.courseCode, this.indexNum);
-					
 					System.out.println(matricNo+ " assigned to index " +indexNum);
+					
 					return;
 				}
 			}
+			
 		}
 		indexFull=true;
 		System.out.println("Index Full!");
 		addStudentToWaitlist(student);
-		student.addWaitingCourse(this.courseCode, this.indexNum);
+		
+		return;
+		
 	}
 	
 	/**
 	 * Method to unassign a student from the index
 	 * @param student - the student object to be unassigned from the index
 	 * @param triggerWaitlistUpdate
-	 * @return the student object
 	 */
-	public Student unassignStudent(Student student, boolean triggerWaitlistUpdate) {
+	public void unassignStudent(Student student, boolean triggerWaitlistUpdate) {
 		String matricNo = student.getMatricNo();
 		
 		if(seatVacancy.contains(matricNo)) {
@@ -224,7 +236,7 @@ public class Index implements Serializable{
 		}else  
 			System.out.println(matricNo+ " was not found in index "+ indexNum);
 		
-		return student;
+		return;
 	}
 	
 	/**
@@ -233,12 +245,11 @@ public class Index implements Serializable{
 	 * 
 	 * @param student refers to the student to be removed from the index
 	 * 
-	 * @return Student <code>student</code>
 	 * @see {@link Index#unassignStudent(Student, boolean)}
 	 * 
 	 */
-	public Student unassignStudent(Student student) {
-		return unassignStudent(student, true);
+	public void unassignStudent(Student student) {
+		unassignStudent(student, true);
 	}
 
 /************************************************************************************************************/
@@ -250,15 +261,17 @@ public class Index implements Serializable{
 	 * @param student - the student to be added to the waiting list
 	 */
 	public void addStudentToWaitlist(Student student) {
+		
+		SendEmail send = new SendEmail();
 
 		if(isStudentInWaitlist(student)==false) {
-			student.addCourse(this.courseCode, this.indexNum);
+			student.addWaitingCourse(this.courseCode, this.indexNum);
 			studentWaitlist.add(student);
-			System.out.println("Email to be sent to "+ student.getEmail());
-//			String subject = "Placement of waitlist for Index " + indexNum ;
-//			String bodyMessage = "You have been placed on waitlist for " + indexNum + ".";
-//			String body = "Dear " + student.getName() +" " + student.getLastName()+",\n"+bodyMessage;
-//			send.email(xxxxxxxx@gmail.com, Subject, Body);
+			System.out.println("Wailist email is being sent to "+ student.getEmail()+". Please wait...");
+			String subject = "Placement of waitlist for Index " + indexNum ;
+			String bodyMessage = "You have been placed on waitlist for " + indexNum + ".";
+			String body = "Dear " + student.getName() +" " + student.getLastName()+",\n\n"+bodyMessage;
+			send.email("myprogram2830@gmail.com", subject, body);
 			
 		}else {
 			System.out.println("Student already in waitlist");
@@ -270,11 +283,19 @@ public class Index implements Serializable{
 	 * Method to add student from waitlist into index when there is an available slot
 	 */
 	public void addFromWaitlistToIndex() {
+		
+		SendEmail send = new SendEmail();
+
 		if(studentWaitlist.size()==0) {
 			System.out.println("no student in waitlist");
 		}
 		else {
 			assignStudent(studentWaitlist.get(0));
+			System.out.println("Allocation email is being sent to "+ studentWaitlist.get(0).getEmail()+". Please wait...");
+			String subject = "Allocation of placement for Index " + this.indexNum ;
+			String bodyMessage = "You have been allocated " + this.indexNum + ".";
+			String body = "Dear " + studentWaitlist.get(0).getName() +" " + studentWaitlist.get(0).getLastName()+",\n\n"+bodyMessage;
+			send.email("myprogram2830@gmail.com", subject, body);
 			studentWaitlist.remove(0);
 		}
 	}

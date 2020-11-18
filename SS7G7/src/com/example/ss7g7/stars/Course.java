@@ -78,6 +78,23 @@ public class Course implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * This method returns all the indexes
+	 * of the Course object
+	 * 
+	 * @return <code>courseIndexes</code> which is an ArrayList of Integers
+	 */
+	public ArrayList<Integer> getAllIndex() {
+		
+		ArrayList<Integer> courseIndexes = new ArrayList<Integer>();
+		
+		for(int i = 0; i < indexes.size(); i++) {
+			courseIndexes.add(indexes.get(i).getIndexNum());
+		}
+		
+		return courseIndexes;
+		
+	}
 
 	/**
 	 * Method to print all of the indexes in the Course
@@ -114,7 +131,6 @@ public class Course implements Serializable{
 		
 		// this loops iterates through each index to print the students registered in each index
 		for(int i = 0; i < indexes.size(); i++) {
-			System.out.println("Index "+indexes.get(i).getIndexNum());
 			indexes.get(i).printStudentListByIndex();
 		}
 	}
@@ -180,6 +196,32 @@ public class Course implements Serializable{
 			System.out.println(matricNo + " has not registered before");
 		}
 	}
+	
+	/**
+	 * This method removes a student from all courses
+	 * 
+	 * @param student refers to the student to be removed
+	 * @see {@link StarsDB#removeCourse(String)}
+	 */
+	public void removeStudent(Student student) {
+		
+		ArrayList<Integer> registeredIndexes = new ArrayList<Integer>();
+		
+		for (int course=0; course<student.getCourses().size(); course++)
+		{
+			registeredIndexes.add(student.getCourses().get(course).getIndexNo());
+		}
+		
+		for (Index courseIndex: indexes) {
+			for (int index = 0; index < registeredIndexes.size(); index++) {
+				if (registeredIndexes.get(index).equals(courseIndex.getIndexNum())) {
+					courseIndex.unassignStudent(student);
+				}
+			}
+		}
+	}
+	
+	
 /************************************************************************************************************/
 	
 ///////////////////////                    Add/Edit/Delete index              ////////////////////////////
@@ -396,6 +438,7 @@ public class Course implements Serializable{
 	 * @return full details of the lecture 
 	 */
 	public String getLecDetails() {
+		if(lecStartTime == null || lecEndTime == null) return "";
 		DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("hh:mm");
 		
 		String lecStart = getLecStartTime().format(formatter);
