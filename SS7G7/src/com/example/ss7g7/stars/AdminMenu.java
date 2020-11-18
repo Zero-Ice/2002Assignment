@@ -49,7 +49,7 @@ public class AdminMenu {
 		 * This method is entered when user entered as an admin/staff
 		 * Ask user which options they want to choose
 		 */
-		
+		try {
 		int choice;
 		Logout:
 		while(true){ //Print selection menu
@@ -76,10 +76,14 @@ public class AdminMenu {
 					default:
 						System.out.println("Incorrect Input, please try again"); //when user input incorrect value
 				}}
-			catch (Exception e) {
-				System.out.println("Incorrect Input, please try again"); //when user input incorrect value
-			}
+			catch (Exception e) {}
 			System.out.println();
 		}
+	}
+	catch(Exception e)
+	{
+		System.out.println("String input is not valid, Please try again!");
+		sc.next();
+	}
 	}
 }

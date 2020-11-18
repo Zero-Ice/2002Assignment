@@ -43,7 +43,7 @@ public class AdminCourseUI {
 	 * options available of courses.
 	 */
 	public void run() {
-
+		try {
 		int choice;
 		GoBack: while (true) { // Print selection menu
 			System.out.println("Welcome to Admin Course Page");
@@ -92,10 +92,13 @@ public class AdminCourseUI {
 				default:
 					System.out.println("Incorrect Input, please try again"); // when user input incorrect value
 				}
-			} catch (Exception e) {
-				System.out.println("Incorrect Input, please try again"); // when user input incorrect value
-			}
+			} catch (Exception e) {}
 			System.out.println();
+		}
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
 		}
 
 	}
@@ -284,6 +287,7 @@ public class AdminCourseUI {
 	private void updateCourseIndex() {
 		int choice;
 
+		try {
 		GoBack: while (true) { // Print selection menu
 			System.out.println("");
 			System.out.println("Welcome to Admin Update Page");
@@ -325,10 +329,13 @@ public class AdminCourseUI {
 				default:
 					System.out.println("Incorrect Input, please try again"); // when user input incorrect value
 				}
-			} catch (Exception e) {
-				System.out.println("Incorrect Input, please try again"); // when user input incorrect value
-			}
+			} catch (Exception e) {}
 			System.out.println();
+			}
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
 		}
 
 	}
@@ -419,6 +426,7 @@ public class AdminCourseUI {
 		String courseCode = "";
 		boolean check = false;
 		int indexNum = 0;
+		int NindexNum =0;
 
 		System.out.println("Press any key to continue");
 		sc.nextLine();
@@ -435,6 +443,7 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 
+		try {
 		do {
 			System.out.print("Enter the index number: "); // check if such index number exists
 			indexNum = sc.nextInt();
@@ -445,9 +454,22 @@ public class AdminCourseUI {
 				}
 			}
 		} while (check);
-
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;
+		}
+		
+		try {
 		System.out.print("Enter the new index number:");
-		int NindexNum = sc.nextInt();
+		NindexNum = sc.nextInt();
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;	
+		}
 		System.out.println("");
 		
 		tempCourse.updateIndex(indexNum, NindexNum);
@@ -531,6 +553,7 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 
+		try {
 		do {
 			System.out.print("Enter the index number: "); // check if such index number exists
 			indexNum = sc.nextInt();
@@ -541,6 +564,12 @@ public class AdminCourseUI {
 				}
 			}
 		} while (check);
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;	
+		}
 		sc.nextLine();
 		System.out.print("Enter the updated tutorial venue: ");
 		tutVenue = sc.nextLine();
@@ -593,6 +622,7 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 
+		try {
 		do {
 			System.out.print("Enter the index number: "); // check if such index number exists
 			indexNum = sc.nextInt();
@@ -603,6 +633,12 @@ public class AdminCourseUI {
 				}
 			}
 		} while (check);
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;	
+		}
 		sc.nextLine();
 		System.out.print("Enter the updated lab venue: ");
 		labVenue = sc.nextLine();
@@ -668,6 +704,7 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 
+		try {
 		while (true) {
 			System.out.print("Enter the course's index number:"); // check if such index number exists
 			indexNum = sc.nextInt();
@@ -680,6 +717,12 @@ public class AdminCourseUI {
 			} else {
 				break;
 			}
+		}
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;	
 		}
 
 		System.out.print("Enter the course's maximum vacancy slots:");
@@ -884,6 +927,7 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 
+		try {
 		do {
 			System.out.print("Enter the course's index number:"); // check if such index number exists
 			indexNum = sc.nextInt();
@@ -894,6 +938,12 @@ public class AdminCourseUI {
 				}
 			}
 		} while (check);
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;	
+		}
 
 		System.out.println("");
 		//tempCourse.removeIndex(indexNum);
@@ -940,8 +990,9 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 
+		try {
 		do {
-			System.out.print("Enter the course's index number:"); // check if such index number exists
+			System.out.print("Enter the course's index number: "); // check if such index number exists
 			indexNum = sc.nextInt();
 			check = !(tempCourse.containsIndexNo(indexNum));
 			if (check) {
@@ -950,6 +1001,12 @@ public class AdminCourseUI {
 				}
 			}
 		} while (check);
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;	
+		}
 
 		System.out.println("");
 		tempCourse.getIndex(indexNum).printStudentListByIndex();
@@ -973,7 +1030,7 @@ public class AdminCourseUI {
 		sc.nextLine();
 		sc.nextLine();
 		do {
-			System.out.print("Enter the course code(enter -1 to exit: "); // check if such course code exists
+			System.out.print("Enter the course code(enter -1 to exit): "); // check if such course code exists
 			courseCode = sc.nextLine();
 			if(courseCode.equals("-1"))
 			{return;};
@@ -984,6 +1041,7 @@ public class AdminCourseUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 
+		try {
 		do {
 			System.out.print("Enter the course's index number:"); // check if such index number exists
 			indexNum = sc.nextInt();
@@ -994,6 +1052,12 @@ public class AdminCourseUI {
 				}
 			}
 		} while (check);
+		}catch(Exception e)
+		{			
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+			return;	
+		}
 
 		System.out.println("");
 		tempCourse.getIndex(indexNum).getNumOfVacancies();
