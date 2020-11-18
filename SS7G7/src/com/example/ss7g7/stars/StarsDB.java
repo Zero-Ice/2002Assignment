@@ -263,6 +263,8 @@ public class StarsDB {
 		Student student = getStudentByMatric(matricNo);
 		student.setAccessStart(newAccessStart);
 		student.setAccessEnd(newAccessEnd);
+		
+		file.updateStudentRecords(student, "update");
 
 	}
 
