@@ -594,6 +594,32 @@ public class StarsDB {
 			System.out.println("Error removing index: "+e);
 		}
 	}
+	
+	/**
+	 * This method updates the course records stored in the .ser file.
+	 * When index of course is updated, students registered to the
+	 * index will also update.
+	 * 
+	 * @param course
+	 * @param oldIndex
+	 * @param newIndex
+	 */
+	public void updateCourseRecords(Course course, int oldIndex, int newIndex) {
+		
+		courses = file.updateCourseRecords(course, "update");
+		
+		for (Student currentStudent: students) {
+			for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
+				if(currentStudent.getCourses().get(registeredCourse).getIndexNo() == oldIndex) {
+					System.out.println("UPDATEINDEX");			
+					//currentStudent.dropCourse(oldIndex);
+					currentStudent.updateCourse(currentStudent.getCourses().get(registeredCourse).getCourseCode(), oldIndex, newIndex);
+					file.updateStudentRecords(currentStudent, "update");
+				}
+			}
+		}
+		
+	}
 
 	/**
 	 * This method creates hardcoded dummy course data

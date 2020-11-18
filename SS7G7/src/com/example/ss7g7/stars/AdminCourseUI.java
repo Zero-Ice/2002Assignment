@@ -160,7 +160,7 @@ public class AdminCourseUI {
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the lecture day(1 for monday, 2 for tuesday...):");
 					intDay = sc.nextInt();
-					if (intDay > 5 || intDay == 0) {
+					if (intDay > 5 || intDay < 1) {
 						System.out.println("input value cant be 0 or higher than 5, please try again");
 					} else {
 						break;
@@ -439,9 +439,10 @@ public class AdminCourseUI {
 		System.out.print("Enter the new index number:");
 		int NindexNum = sc.nextInt();
 		System.out.println("");
+		
 		tempCourse.updateIndex(indexNum, NindexNum);
-
-		database.updateCourseRecords(tempCourse);
+		database.updateCourseRecords(tempCourse, indexNum, NindexNum);
+		
 
 	}
 
@@ -678,7 +679,7 @@ public class AdminCourseUI {
 				while (true) { // loop if user input out of range value
 					System.out.print("Enter the tutorial day(1 for monday, 2 for tuesday...):");
 					intDay = sc.nextInt();
-					if (intDay > 5 || intDay == 0) {
+					if (intDay > 5 || intDay < 1) {
 						System.out.println("input value cant be 0 or higher than 5, please try again");
 					} else {
 						break;
