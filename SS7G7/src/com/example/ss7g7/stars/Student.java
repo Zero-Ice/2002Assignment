@@ -95,6 +95,26 @@ public class Student extends User {
 
 		return true;
 	}
+	
+	/**
+	 * This method updates the student's registered 
+	 * course index once there is a change in index
+	 *  
+	 * @param courseCode
+	 * @param indexNo
+	 * @return
+	 */
+	public boolean updateCourse(String courseCode, int oldIndex, int newIndex) {
+		
+		for (int i = 0; i < courses.size(); i++) {
+			if (courses.get(i).getIndexNo() == oldIndex) {
+				courses.remove(i);
+			}
+		}
+		courses.add(new RegisteredCourse(courseCode, newIndex));
+
+		return true;
+	}
 
 	public boolean addWaitingCourse(String courseCode, int indexNo) {
 		if (containsCourse(courseCode))
