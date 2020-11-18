@@ -160,6 +160,9 @@ public class AdminStudUI {
 			if(username.equals("-1"))
 			{return;};
 			check = !(database.isExistingUsername(username)) || username.contains("admin");
+			
+			if (username.contains("admin"))
+				System.out.println("Username cannot contain 'admin'");
 		} while (check);
 		
 		System.out.print("Enter student's default password: ");
