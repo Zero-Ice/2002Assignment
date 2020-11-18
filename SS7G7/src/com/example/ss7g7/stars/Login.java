@@ -108,7 +108,7 @@ public class Login {
 	void getLoginCred () {
 		
 		String username;
-		//char [] pass;
+		//char [] pass = {};
 		
 		Scanner sc = new Scanner(System.in);
 		//-----------FOR MASKING OF PASSWORD DO NOT DELETE
@@ -128,6 +128,8 @@ public class Login {
 		
 		
 		passCipher = db.hash(pass);
+		
+		//passCipher = db.hash(String.valueOf(pass));
 		user = new User(username, passCipher);
 //		this.user.setUser(username);
 //		this.user.setPass(passCipher);
