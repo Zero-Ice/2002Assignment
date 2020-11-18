@@ -44,7 +44,8 @@ public class AdminStudUI {
 	}
 	
 	public void run() {
-
+		
+		try {
 		int choice;
 		GoBack:
 		while(true){ //Print selection menu
@@ -54,7 +55,7 @@ public class AdminStudUI {
 			System.out.println("2. Add a student");
 			System.out.println("3. Remove a student");
 			System.out.println("4. Print student list by index number");
-			System.out.println("5. Print student list by course name");
+			System.out.println("5. Print student list by course code");
 			System.out.println("6. Go back to previous page");
 			System.out.println("");
 			System.out.print("Please select one of the options: ");
@@ -83,10 +84,13 @@ public class AdminStudUI {
 						System.out.println("Incorrect Input, please try again"); //when user input incorrect value
 				}
 			}
-			catch (Exception e) {
-				//System.out.println("Incorrect Input, please try again"); //when user input incorrect value
-			}
+			catch (Exception e) {}
 			System.out.println();
+		}
+		}catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
 		}
 		
 	}
@@ -328,6 +332,7 @@ public class AdminStudUI {
 		} while (check);
 		Course tempCourse = database.getCourse(courseCode.toUpperCase());
 		
+		try {
 		do {
 			System.out.print("Enter the index number: ");  //check if such index number exists 
 			indexNum = sc.nextInt();
@@ -337,6 +342,12 @@ public class AdminStudUI {
 				{System.out.println("Index number not found in database.");}
 			}
 		}while(check);
+		}
+		catch(Exception e)
+		{
+			System.out.println("String input is not valid, Please try again!");
+			sc.next();
+		}
 
 		tempCourse.getIndex(indexNum).printStudentListByIndex();
 	}
