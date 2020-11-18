@@ -228,6 +228,16 @@ public class StarsDB {
 				"lautan@hotmail.com", newDate1, newDate2);
 		file.setStudentRecord(y);
 		file.setLoginCredentials(y.getUsername(), hash(y.getPass()));
+		
+		Student z = new Student("BRoss", "password1", "Bob", " Ross", "U1942069B", "M", "American", 12345678,
+				"bobross@gmail.com", newDate1, newDate2);
+		file.setStudentRecord(z);
+		file.setLoginCredentials(z.getUsername(), hash(z.getPass()));
+
+		Student a = new Student("JShar69", "password2", "Jabob", " Shar", "U1234567J", "M", "Singaporean", 44556677,
+				" jshar@ntu.edu.sg", newDate1, newDate2);
+		file.setStudentRecord(a);
+		file.setLoginCredentials(a.getUsername(), hash(a.getPass()));
 
 	}
 
