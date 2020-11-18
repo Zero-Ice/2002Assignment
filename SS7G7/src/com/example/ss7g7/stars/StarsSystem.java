@@ -52,6 +52,7 @@ public class StarsSystem {
 	 * 
 	 */
 	public boolean init() {
+		//D:/Git/Assignment
 		boolean successful = db.init("../SS7G7/lib/studentInfo.ser", "../SS7G7/lib/courseInfo.ser");
 		
 		return successful;

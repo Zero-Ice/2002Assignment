@@ -391,7 +391,8 @@ public class AdminCourseUI {
 //			database.addCourse(NcourseCode, courseName.toUpperCase(), tempCourse.getSchooName(), AU);
 			database.updateCourse(courseCode,NcourseCode); 
 		}
-
+		
+		database = StarsDB.getInstance();
 		System.out.println("");
 		System.out.print("Course code " + courseCode.toUpperCase() + " has been changed to " + NcourseCode.toUpperCase()
 				+ " , course name changed to " + courseName.toUpperCase() + " and AU value changed to " + AU);
@@ -443,7 +444,7 @@ public class AdminCourseUI {
 		
 		tempCourse.updateIndex(indexNum, NindexNum);
 		database.updateCourseRecords(tempCourse, indexNum, NindexNum);
-		
+		database = StarsDB.getInstance();
 
 	}
 

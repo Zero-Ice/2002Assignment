@@ -32,6 +32,7 @@ public class FileIO {
 	private ArrayList<Course> courses = new ArrayList<Course>();
 	private ArrayList<Index> indexes = new ArrayList<Index>();
 	
+	//"D:/Git/Assignment"
 	private String loginCredentialsFilePath = "../SS7G7/lib/loginCred.ser";
 	private String studentDataFilePath = "";
 	private String courseDataFilePath = "";
