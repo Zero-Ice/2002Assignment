@@ -543,6 +543,69 @@ public class FileIO {
 		return this.courses;
 	}
 	
+	/** 
+	 * This updates the change of course name and 
+	 * retains the old course indexes 
+	 *  
+	 * @param currentCourse refers to the Course object to be removed/updated 
+	 * @param mode can either be "remove" or "update" 
+	 */ 
+	public ArrayList<Course> updateCourseName (Course currentCourse, String oldCourse) { 
+		 
+		FileInputStream fsIn = null; 
+		ObjectInputStream osIn = null; 
+		FileOutputStream fsOut = null; 
+		ObjectOutputStream osOut = null; 
+				 
+		try { 
+			fsIn = new FileInputStream(courseDataFilePath); 
+			osIn = new ObjectInputStream(fsIn); 
+			 
+			this.courses = ((ArrayList<Course>) osIn.readObject()); 
+			 
+			 
+			//Removes outdated info and update ser file 
+			for(Course c: courses) { 
+				if (c.getCourseCode().equals(oldCourse)) { 
+						courses.remove(c); 
+						courses.add(currentCourse); 
+					 
+					break; 
+				} 
+			} 
+			 
+		 
+			fsOut = new FileOutputStream(courseDataFilePath); 
+			osOut = new ObjectOutputStream(fsOut); 
+			 
+			osOut.writeObject(courses); 
+			 
+			 
+		}catch (IOException | ClassNotFoundException e) { 
+			//TODO Auto-generated catch block 
+			System.out.println("Failed to update file"); 
+			e.printStackTrace(); 
+			 
+		}finally { 
+			 
+			try { 
+  				if (fsIn != null && osIn !=null && fsOut != null && osOut !=null) { 
+  					fsIn.close(); 
+  					osIn.close(); 
+  					fsOut.close(); 
+  					osOut.close(); 
+  				} 
+				 
+			} catch (IOException e) { 
+				// TODO Auto-generated catch block 
+				System.out.println("File failed to close"); 
+				e.printStackTrace(); 
+			} 
+		}	 
+		 
+		return this.courses; 
+	} 
+	
 	
 
 	

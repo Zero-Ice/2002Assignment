@@ -548,7 +548,33 @@ public class StarsDB {
 			courses = file.updateCourseRecords(course, "remove");
 			System.out.println("Course " + course.getCourseName() + " (" + courseCode + ") has been removed!");
 			
+		} else {
+			System.out.println("Course code is not found!\n");
+		}
+
+	}
+	
+	public void updateCourse(String oldCourse, String newCourse) { // remove coursecode from db
+
+		if (isExistingCourseCode(oldCourse)) {
+			Course course = getCourse(oldCourse);
+			course.updateCourseCode(newCourse);
 			
+			System.out.println("PRINTUPDATECOURSE "+course.getCourseCode());
+			courses = file.updateCourseName(course, oldCourse);
+
+			for (Student currentStudent: students) {
+				for (int registeredCourse=0; registeredCourse<currentStudent.getCourses().size(); registeredCourse++) {
+					if(currentStudent.getCourses().get(registeredCourse).getCourseCode().equals(oldCourse)) {
+						System.out.println("UPDATE");
+						currentStudent.updateCourse(newCourse, currentStudent.getCourses().get(registeredCourse).getIndexNo());
+						file.updateStudentRecords(currentStudent, "update");
+					}
+				}
+				
+			}
+			
+			System.out.println("Course " + course.getCourseName() + " (" + newCourse + ") has been updated!");
 			
 		} else {
 			System.out.println("Course code is not found!\n");

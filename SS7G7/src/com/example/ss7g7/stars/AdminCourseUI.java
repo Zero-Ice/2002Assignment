@@ -387,8 +387,9 @@ public class AdminCourseUI {
 		
 		//Else, remove existing course and add new course
 		} else {
-			database.removeCourse(courseCode);
-			database.addCourse(NcourseCode, courseName.toUpperCase(), tempCourse.getSchooName(), AU);
+//			database.removeCourse(courseCode);
+//			database.addCourse(NcourseCode, courseName.toUpperCase(), tempCourse.getSchooName(), AU);
+			database.updateCourse(courseCode,NcourseCode); 
 		}
 
 		System.out.println("");
