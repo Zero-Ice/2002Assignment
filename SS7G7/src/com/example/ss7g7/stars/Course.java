@@ -170,15 +170,10 @@ public class Course implements Serializable{
 	public void assignStudent(int index, Student student) {
 		String matricNo = student.getMatricNo();
 		
-		if(containsIndexNo(index)==true)
-		{
-			if(checkIndexClash(matricNo)==true) {
-				System.out.println(matricNo + " has registered before in "+courseCode);
-			}else {
-				getIndex(index).assignStudent(student);
-			}
+		if(containsIndexNo(index)==true) {
+			getIndex(index).assignStudent(student);
 		}else {
-			System.out.println("index has not been registered before");
+			System.out.println(index + "has not been registered before");
 		}
 	}
 	
@@ -189,11 +184,11 @@ public class Course implements Serializable{
 	 */
 	public void unassignStudent(int index, Student student) {
 		String matricNo = student.getMatricNo();
-		
-		if(checkIndexClash(matricNo)==true) {
+				
+		if(containsIndexNo(index)==true) {
 			getIndex(index).unassignStudent(student);
 		}else {
-			System.out.println(matricNo + " has not registered before");
+			System.out.println(index + "has not been registered before");
 		}
 	}
 	
