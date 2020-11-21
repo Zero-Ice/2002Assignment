@@ -230,7 +230,7 @@ public class Index implements Serializable{
 		}else if(isStudentInWaitlist(student)==true) {
 			student.dropCourse(this.indexNum);
 			for(int seat=0;seat<studentWaitlist.size();seat++) {
-				if(studentWaitlist.get(seat).getMatricNo()==matricNo) {
+				if(studentWaitlist.get(seat).getMatricNo().equals(matricNo)) {
 					studentWaitlist.remove(seat);
 				}
 			}
@@ -272,9 +272,8 @@ public class Index implements Serializable{
 			String subject = "Placement of waitlist for Index " + indexNum ;
 			String bodyMessage = "You have been placed on waitlist for " + indexNum + ".";
 			String body = "Dear " + student.getName() +" " + student.getLastName()+",\n\n"+bodyMessage;
-			// To replace oodptest69420@gmail.com with your personal email to recieve the notification to your email
-//			send.email("oodptest69420@gmail.com", subject, body);
-			System.out.println("Sent...");
+//			 To replace oodptest69420@gmail.com with your personal email to recieve the notification to your email
+			send.email("oodptest69420@gmail.com", subject, body);
 			
 		}else {
 			System.out.println("Student already in waitlist");
@@ -302,8 +301,7 @@ public class Index implements Serializable{
 			String bodyMessage = "You have been allocated " + this.indexNum + ".";
 			String body = "Dear " + studentFromWaitlist.getName() +" " + studentFromWaitlist.getLastName()+",\n\n"+bodyMessage;
 			// To replace oodptest69420@gmail.com with your personal email to recieve the notification to your email
-//			send.email("oodptest69420@gmail.com", subject, body);
-			System.out.println("Sent...");
+			send.email("oodptest69420@gmail.com", subject, body);
 			studentWaitlist.remove(0);
 		}
 	}
@@ -329,10 +327,7 @@ public class Index implements Serializable{
 	public boolean isStudentInWaitlist(Student student) {
 		String matricNo = student.getMatricNo();
 		for(int i =0;i<studentWaitlist.size();i++) {
-			System.out.println(studentWaitlist.get(i).getMatricNo());
-			System.out.println(matricNo);
-			
-			if(studentWaitlist.get(i).getMatricNo()==student.getMatricNo()) {
+			if(studentWaitlist.get(i).getMatricNo().equals(student.getMatricNo())) {
 				return true;
 			}
 		}
