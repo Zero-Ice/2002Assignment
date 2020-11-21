@@ -271,7 +271,8 @@ public class Index implements Serializable{
 			String subject = "Placement of waitlist for Index " + indexNum ;
 			String bodyMessage = "You have been placed on waitlist for " + indexNum + ".";
 			String body = "Dear " + student.getName() +" " + student.getLastName()+",\n\n"+bodyMessage;
-			send.email("myprogram2830@gmail.com", subject, body);
+			// To replace oodptest69420@gmail.com with your personal email to recieve the notification to your email
+			send.email("oodptest69420@gmail.com", subject, body);
 			
 		}else {
 			System.out.println("Student already in waitlist");
@@ -295,7 +296,8 @@ public class Index implements Serializable{
 			String subject = "Allocation of placement for Index " + this.indexNum ;
 			String bodyMessage = "You have been allocated " + this.indexNum + ".";
 			String body = "Dear " + studentWaitlist.get(0).getName() +" " + studentWaitlist.get(0).getLastName()+",\n\n"+bodyMessage;
-			send.email("myprogram2830@gmail.com", subject, body);
+			// To replace oodptest69420@gmail.com with your personal email to recieve the notification to your email
+			send.email("oodptest69420@gmail.com", subject, body);
 			studentWaitlist.remove(0);
 		}
 	}
