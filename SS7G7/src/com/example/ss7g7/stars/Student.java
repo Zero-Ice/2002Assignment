@@ -215,7 +215,7 @@ public class Student extends User {
 			return s;
 		}
 		
-		s += "Course, AU, Index Number, Status";
+		s += "Course, AU, Index Number, Status\n";
 		for (int i = 0; i < courses.size(); i++) {
 			s += courses.get(i).getCourseCode() + ", " + courses.get(i).getIndexNo() + ", "
 					+ (courses.get(i).getStatus().equals("Registered") ? "REGISTERED" : "WAITLIST") + "\n";

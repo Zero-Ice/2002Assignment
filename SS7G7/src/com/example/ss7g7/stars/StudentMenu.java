@@ -168,7 +168,6 @@ public class StudentMenu {
 
 				if (choice == 1) {
 					
-					student.addCourse(courseToAdd.getCourseCode(), indexToAdd);
 					courseToAdd.assignStudent(indexToAdd, student);
 					
 					db.updateStudentRecords(student);
@@ -233,7 +232,6 @@ public class StudentMenu {
 
 					Index index = c.getIndex(indexToDrop);
 					
-					student.dropCourse(index.getIndexNum());
 					c.unassignStudent(indexToDrop, student);
 
 					db.updateCourseRecords(c);
