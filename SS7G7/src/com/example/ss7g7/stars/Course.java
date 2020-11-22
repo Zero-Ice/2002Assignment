@@ -14,18 +14,17 @@ import java.util.Iterator;
  * of a certain course.
  * 
  * <p>
- *  This class is used to determine the course details. <br/>
+ *  This class is used to determine the course details. 
  *  The course details are as follows:
- *  Course Code, Course Name, School Name, AU, Course Availability,Lecture details. <br/>
+ *  Course Code, Course Name, School Name, AU, Course Availability,Lecture details. 
  *  The Lecture details are as follows:
- *  Venue, Remark, Group, Timing <br/>
+ *  Venue, Remark, Group, Timing
  *  This class also provides getters and setters for the above mentioned.
  *  
  * @author Jabir Shah Halith
- * created on 2020/10/19
  * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  */
 
 public class Course implements Serializable{

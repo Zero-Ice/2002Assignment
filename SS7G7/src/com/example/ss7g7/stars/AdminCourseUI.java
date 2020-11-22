@@ -23,11 +23,9 @@ import java.util.Scanner;
  * 8)Check a course code's index number available slots left
  * 9)Go back to previous page(AdminMenu)
  * 
- * @author Ng Kah Hui
- * created on 2020/10/15
- * 
- * @version %I%
- * @since 1.0
+ * @author Ng Kah Hui 
+ * @version 1.0
+ * @since 2020/10/15
  *
  */
 public class AdminCourseUI {

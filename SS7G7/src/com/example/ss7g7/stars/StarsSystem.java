@@ -19,10 +19,8 @@ import com.example.ss7g7.stars.Login.LOGIN_RESULT;
 *
 * @author Ong Rui Peng
 * @author Angelina
-* created on 2020/10/15
-* 
-* @version %I%
-* @since 1.0
+* @version 1.0
+* @since 2020/10/15
 * 
 */
 

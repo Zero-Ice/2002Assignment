@@ -7,10 +7,8 @@ import javax.mail.PasswordAuthentication;
  * authenticate the dummy gmail account 
  * 
  * @author Angelina
- * created on 2020/10/15
- * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  */
 
 public class SMTPAuthenticator extends javax.mail.Authenticator

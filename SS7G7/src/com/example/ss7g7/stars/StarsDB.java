@@ -30,9 +30,8 @@ import java.util.Scanner;
  * @author Ong Rui Peng
  * @author Kah Hui
  * @author Angelina
- * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  * 
  */
 public class StarsDB {
