@@ -24,8 +24,8 @@ import java.util.Calendar;
  * 6)Going  back to previous page (AdminMenu) 
  *  
  * @author Ng Kah Hui 
- * @version %I%
- * @since 2020-10-15 
+ * @version 1.0
+ * @since 2020/10/15
  * 
  * 
  */
@@ -95,11 +95,11 @@ public class AdminStudUI {
 		
 	}
 	/**
-	 * This method allows user to edit an existing student access time to database.
+	 * This method allows user to edit an existing student access time to database by:
 	 * 
-	 * 1.Method ask user to enter a student matriculation number and check if it exists in the database
-	 * 2.If such matriculation number exists in the database, method will ask user to input the student updated new start/end access time
-	 * 3.Method also check if user input in an specific format
+	 * <li>asking user to enter a student matriculation number and check if it exists in the database
+	 * <li>if such matriculation number exists in the database, method will ask user to input the student updated new start/end access time
+	 * <li>checking if user input in an specific format
 	 * 
 	 * @throws ParseException when user inputs the wrong format for access time.
 	 */
@@ -133,11 +133,11 @@ public class AdminStudUI {
 	}
 
 	/**
-	 * This method allows user to add a new student to database
-	 * 1.Method ask user to input the new student matriculation number and check if it already exists in the database
-	 * 2.If it does not exist, method continue to ask user to input other necessary information
-	 * 3.Method add new student information to database
-	 * 4.Method print out list of all students in database
+	 * This method allows user to add a new student to database by:
+	 * <li>asking user to input the new student matriculation number and check if it already exists in the database
+	 * <li>If it does not exist, method continue to ask user to input other necessary information
+	 * <li>adding new student information to database
+	 * <li>printing out list of all students in database
 	 * 
 	 * @throws ParseException when user didnt input in an specific format for access time 
 	 */
@@ -270,10 +270,10 @@ public class AdminStudUI {
 	}
 	
 	/**
-	 * This method allows user to remove an existing student from database
-	 * 1.Method print out list of all students in database
-	 * 2.Method ask user to input student matriculation number and check if it exists in the database
-	 * 3.If it does exists, method remove student from database
+	 * This method allows user to remove an existing student from database by:
+	 * <li>printing out list of all students in database
+	 * <li>asking user to input student matriculation number and check if it exists in the database
+	 * <li>if it does exists, method remove student from database
 	 */
 	private void removeStudent() { 
 		
@@ -306,10 +306,10 @@ public class AdminStudUI {
 	}
 
 	/**
-	 * Method allows user to print student list via a course code's index number
-	 * 1.Method ask user to input course code and check if it exists in the database
-	 * 2.If it does exists, method ask user to input the course code's index number and check if it exists in the database
-	 * 3.If it does exists, method print out student list
+	 * Method allows user to print student list via a course code's index number by:
+	 * <li>asking user to input course code and check if it exists in the database
+	 * <li>if it does exists, method ask user to input the course code's index number and check if it exists in the database
+	 * <li>if it does exists, method print out student list
 	 */
 	private void printStudListByIndex() { 
 
@@ -353,9 +353,9 @@ public class AdminStudUI {
 	}
 	
 	/**
-	 * This method allows user to print student list via course code
-	 * 1.Method ask user to input course code and check if it exists in the database
-	 * 2.If it does exists, print out student list
+	 * This method allows user to print student list via course code by:
+	 * <li>asking user to input course code and check if it exists in the database
+	 * <li>if it does exists, print out student list
 	 */
 	private void printStudListByCourse() { 
 		

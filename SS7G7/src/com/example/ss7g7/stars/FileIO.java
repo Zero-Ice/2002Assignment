@@ -19,10 +19,9 @@ import java.util.*;
  * serialization operations to *.ser files
  *
  * @author Angelina
- * created on 2020/10/15
  * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  * 
  */
 
@@ -544,13 +543,15 @@ public class FileIO {
 		return this.courses;
 	}
 	
-	/** 
+
+	/**
 	 * This updates the change of course name and 
 	 * retains the old course indexes 
-	 *  
-	 * @param currentCourse refers to the Course object to be removed/updated 
-	 * @param mode can either be "remove" or "update" 
-	 */ 
+	 * 
+	 * @param currentCourse
+	 * @param oldCourse
+	 * @return ArrayList <code>courses</code>
+	 */
 	public ArrayList<Course> updateCourseName (Course currentCourse, String oldCourse) { 
 		 
 		FileInputStream fsIn = null; 

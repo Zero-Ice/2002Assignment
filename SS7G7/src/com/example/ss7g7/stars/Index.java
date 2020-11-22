@@ -11,7 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
- * <h1>Index Class</h1> The Index class is a subclass of Course class. It stores the
+ * <h1>Index Class</h1> 
+ * The Index class is a subclass of Course class. It stores the
  * details of a the index for the course.
  * 
  * <p>
@@ -20,10 +21,9 @@ import java.util.ArrayList;
  * 
  *
  * @author Jabir Shah Halith
- * created on 2020/10/19
  * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  */
 
 
@@ -80,7 +80,7 @@ public class Index implements Serializable{
 	/**
 	 * Method return boolean on whether student has registered to current index
 	 * @param matricNo - the matric number of the student
-	 * @return True - if student has been registered in the course before <br/> False - if student has not been registered in the course before
+	 * @return True - if student has been registered in the course before. False - if student has not been registered in the course before
 	 */
 	public boolean isStudentRegistered(String matricNo) {
 		if(seatVacancy.contains(matricNo)) {
@@ -322,7 +322,7 @@ public class Index implements Serializable{
 	/**
 	 * Method that checks if student has already been placed on waitlist
 	 * @param student
-	 * @return True - if student is in waitlist <br/> False - if student is not in the waitlist
+	 * @return True - if student is in waitlist. False - if student is not in the waitlist
 	 */
 	public boolean isStudentInWaitlist(Student student) {
 		String matricNo = student.getMatricNo();
@@ -447,8 +447,8 @@ public class Index implements Serializable{
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Accessor method to the get tutorial occurrence
+	 * @return tutOccurring
 	 */
 	public int getTutOccurring() {
 		return tutOccurring;
@@ -587,8 +587,10 @@ public class Index implements Serializable{
 	}
 	
 	/**
+	 * Accessor method to the get the frequency of lab
+	 * occurrence 
 	 * 
-	 * @return
+	 * @return labOccurring
 	 */
 	public int getLabOccurring() {
 		return labOccurring;

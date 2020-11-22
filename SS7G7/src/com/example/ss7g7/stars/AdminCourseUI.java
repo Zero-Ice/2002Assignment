@@ -23,11 +23,9 @@ import java.util.Scanner;
  * 8)Check a course code's index number available slots left
  * 9)Go back to previous page(AdminMenu)
  * 
- * @author Ng Kah Hui
- * created on 2020/10/15
- * 
- * @version %I%
- * @since 1.0
+ * @author Ng Kah Hui 
+ * @version 1.0
+ * @since 2020/10/15
  *
  */
 public class AdminCourseUI {
@@ -104,12 +102,12 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to add a new course to database
-	 * 1.Method will ask user to input a course code and check if it already exists
-	 * 2.if it does not exists, Method will ask for other necessary information
-	 * 3.Method also check for input errors like string for integer and if user input unrealistic timing for etc
-	 * 4.Method add course to database.
-	 * 5.Method print out list of all courses in database
+	 * This method allows user to add a new course to database by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does not exists, Method will ask for other necessary information
+	 * <li>checking for input errors like string for integer and if user input unrealistic timing for etc
+	 * <li>adding course to database.
+	 * <li>printing out list of all courses in database
 	 */
 	private void addNewCourse() {
 		StarsDB database = StarsDB.getInstance();
@@ -246,10 +244,10 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to remove an existing course from database
-	 * 1.Method will ask user to input a course code and check if it already exists
-	 * 2.if it does exists, Method remove course from database
-	 * 3.Method print out list of all courses in database
+	 * This method allows user to remove an existing course from database by:
+	 * <li>asking the user to input a course code and check if it already exists
+	 * <li>if it does exists, Method remove course from database
+	 * <li>printing out list of all courses in database
 	 */
 	private void removeACourse() {
 		StarsDB database = StarsDB.getInstance();
@@ -280,7 +278,7 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method is entered when user chose option 3 from main UI method
+	 * This method is entered when user chose option 3 from main UI method.
 	 * Prints all the administrative update
 	 * options available.
 	 */
@@ -341,11 +339,11 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to update an existing course detail from database
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input new course detail
-	 * 3.Method check if new course detail = old course detail
-	 * 4.If yes, update it to database. if no, remove old course from database and add new course to database
+	 * This method allows user to update an existing course detail from database by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input new course detail
+	 * <li>checking if new course detail = old course detail
+	 * <li>if yes, update it to database. if no, remove old course from database and add new course to database
 	 */
 	private void updateCourseDetail() {
 		StarsDB database = StarsDB.getInstance();
@@ -414,11 +412,10 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to update an existing index detail via course code
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, method ask user to input updated index number
-	 * 4.Method update to database
+	 * This method allows user to update an existing index detail via course code by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input index number and check if it already exists
+	 * <li>if it does exists, method ask user to input updated index number
 	 */
 	private void updateIndexDetail() {
 		StarsDB database = StarsDB.getInstance();
@@ -479,10 +476,9 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to update an existing lecture detail via course code
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input updated lecture detail
-	 * 3.Method update to database
+	 * This method allows user to update an existing lecture detail via course code by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input updated lecture detail
 	 */
 	private void updateLecDetail() {
 		StarsDB database = StarsDB.getInstance();
@@ -522,11 +518,10 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to update an existing tutorial detail via course code/index number
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, method ask user to input updated tutorial detail
-	 * 4.Method update to database
+	 * This method allows user to update an existing tutorial detail via course code/index number by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input index number and check if it already exists
+	 * <li>if it does exists, method ask user to input updated tutorial detail
 	 */
 	private void updateTutDetail() {
 		StarsDB database = StarsDB.getInstance();
@@ -591,11 +586,10 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to update an existing lab detail via course code/index number
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, method ask user to input updated lab detail
-	 * 4.Method update to database
+	 * This method allows user to update an existing lab detail via course code/index number by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input index number and check if it already exists
+	 * <li>if it does exists, method ask user to input updated lab detail
 	 */
 	private void updateLabDetail() {
 		StarsDB database = StarsDB.getInstance();
@@ -660,12 +654,11 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to add a new index number via course code/index number
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does not exists, method ask for other necessary information
-	 * 4.Method also check for input errors like string for integer and if user input unrealistic timing for etc
-	 * 5.Method add index number to database.
+	 * This method allows user to add a new index number via course code/index number by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input index number and check if it already exists
+	 * <li>if it does not exists, method ask for other necessary information
+	 * <li>checking for input errors like string for integer and if user input unrealistic timing for etc
 	 */
 	private void addNewIndex() {
 
@@ -899,10 +892,10 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to remove an existing index number via course code
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, Method remove index number from database
+	 * This method allows user to remove an existing index number via course code by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input index number and check if it already exists
+	 * <li>if it does exists, method remove index number from database
 	 */
 	private void removeAIndex() {
 
@@ -963,10 +956,10 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to view a index number detail via course code
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, method print index number detail list (student list)
+	 * This method allows user to view a index number detail via course code by:
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input index number and check if it already exists
+	 * <li>if it does exists, method print index number detail list (student list)
 	 */
 	private void viewIndexByCourse() {
 		StarsDB database = StarsDB.getInstance();
@@ -1014,10 +1007,10 @@ public class AdminCourseUI {
 	}
 
 	/**
-	 * This method allows user to view a index number slot via course code
-	 * 1.Method ask user to input a course code and check if it already exists
-	 * 2.if it does exists, method ask user to input index number and check if it already exists
-	 * 3.if it does exists, method print number available slots via index number 
+	 * This method allows user to view a index number slot via course code by
+	 * <li>asking user to input a course code and check if it already exists
+	 * <li>if it does exists, method ask user to input index number and check if it already exists
+	 * <li>if it does exists, method print number available slots via index number 
 	 */
 	private void CheckIndexSlots() {
 		StarsDB database = StarsDB.getInstance();

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * <h1>Student Class</h1> The Student class is a subclass of User It stores the
+ * <h1>Student Class</h1> 
+ * The Student class is a subclass of User It stores the
  * details of a student.
  * 
  * <p>
@@ -15,10 +16,8 @@ import java.util.Calendar;
  * 
  *
  * @author Ong Rui Peng
- * created on 2020/10/15
- * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  */
 public class Student extends User {
 
