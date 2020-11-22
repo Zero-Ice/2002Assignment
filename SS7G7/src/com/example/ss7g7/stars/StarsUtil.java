@@ -11,10 +11,8 @@ import java.time.Month;
  * in the application to help develop features.
  * 
  * @author  Ong Rui Peng
- * created on 2020/10/15
- * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  * 
 */
 public class StarsUtil {

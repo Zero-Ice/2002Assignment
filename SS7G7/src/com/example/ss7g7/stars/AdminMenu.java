@@ -17,10 +17,9 @@ import java.util.Scanner;
  * <li>Log out
  * 
  * @author Ng Kah Hui
- * created on 2020/10/15
  * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  *
  */
 public class AdminMenu {

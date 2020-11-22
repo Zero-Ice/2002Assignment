@@ -24,8 +24,8 @@ import java.util.Calendar;
  * 6)Going  back to previous page (AdminMenu) 
  *  
  * @author Ng Kah Hui 
- * @version %I%
- * @since 2020-10-15 
+ * @version 1.0
+ * @since 2020/10/15
  * 
  * 
  */

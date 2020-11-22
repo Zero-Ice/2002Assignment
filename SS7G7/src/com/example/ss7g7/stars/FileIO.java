@@ -19,10 +19,9 @@ import java.util.*;
  * serialization operations to *.ser files
  *
  * @author Angelina
- * created on 2020/10/15
  * 
- * @version %I%
- * @since 1.0
+ * @version 1.0
+ * @since 2020/10/15
  * 
  */
 
