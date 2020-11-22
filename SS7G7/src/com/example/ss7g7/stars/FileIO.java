@@ -544,13 +544,15 @@ public class FileIO {
 		return this.courses;
 	}
 	
-	/** 
+
+	/**
 	 * This updates the change of course name and 
 	 * retains the old course indexes 
-	 *  
-	 * @param currentCourse refers to the Course object to be removed/updated 
-	 * @param mode can either be "remove" or "update" 
-	 */ 
+	 * 
+	 * @param currentCourse
+	 * @param oldCourse
+	 * @return ArrayList <code>courses</code>
+	 */
 	public ArrayList<Course> updateCourseName (Course currentCourse, String oldCourse) { 
 		 
 		FileInputStream fsIn = null; 

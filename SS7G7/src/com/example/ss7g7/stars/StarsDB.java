@@ -1,5 +1,6 @@
 package com.example.ss7g7.stars;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -566,6 +567,14 @@ public class StarsDB {
 
 	}
 	
+	/**
+	 * Updates course code to new course code
+	 * and retains old indexes 
+	 * 
+	 * @param oldCourse
+	 * @param newCourse
+	 * @see FileIO#updateCourseName(Course, String)
+	 */
 	public void updateCourse(String oldCourse, String newCourse) { // remove coursecode from db
 
 		if (isExistingCourseCode(oldCourse)) {

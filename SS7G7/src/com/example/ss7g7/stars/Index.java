@@ -587,8 +587,10 @@ public class Index implements Serializable{
 	}
 	
 	/**
+	 * Accessor method to the get the frequency of lab
+	 * occurrence 
 	 * 
-	 * @return
+	 * @return labOccurring
 	 */
 	public int getLabOccurring() {
 		return labOccurring;
